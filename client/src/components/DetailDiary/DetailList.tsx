@@ -171,6 +171,7 @@ const DeleteModalView = styled.div`
 const AlbumCoverArea = styled.div`
   display: flex;
   margin: 30px 0 30px 0;
+  padding: 0 10px 0 10px;
 
   > .coverImg {
     width: 190px;
@@ -224,6 +225,11 @@ const PlayListArea = styled.div`
     font-weight: 500;
     margin-bottom: 20px;
     color: ${(props) => props.theme.mainText};
+
+    > .playCount {
+      color: ${(props) => props.theme.subText};
+      font-size: 16px;
+    }
   }
 `;
 
@@ -239,10 +245,15 @@ const CommentInputArea = styled.div`
     color: ${(props) => props.theme.mainText};
     margin-bottom: 20px;
 
-    > .commentCount {
+    > .commentText {
       font-size: 19px;
       margin-left: 5px;
       font-weight: 500;
+
+      > .commentCount {
+        color: ${(props) => props.theme.subText};
+        font-size: 16px;
+      }
     }
 
     > .commentRule {
@@ -521,14 +532,18 @@ function DetailList({ list, getDetailData }: DiaryDataProps) {
           ></div>
         </AlbumInfoArea>
         <PlayListArea>
-          <div className='playTitle'>다이어리 수록곡</div>
+          <div className='playTitle'>
+            다이어리 수록곡 <span className='playCount'>({playlistData.length})</span>
+          </div>
           {playlistData?.map((value, index) => {
             return <DetailPlayList list={value} key={index} />;
           })}
         </PlayListArea>
         <CommentInputArea>
           <div className='commentTitle'>
-            <span className='commentCount'>댓글 ({commentData.length})</span>
+            <div className='commentText'>
+              댓글 <span className='commentCount'>({commentData.length})</span>
+            </div>
             <div className='commentRule' onClick={openRuleModalHandler}>
               <RiErrorWarningLine className='ruleIcon' size={16} />
               댓글 운영 원칙

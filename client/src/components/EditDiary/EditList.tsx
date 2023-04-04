@@ -120,7 +120,9 @@ function EditList({ list }: DiaryDataProps) {
           />
         </NewMain.AlbumInfoArea>
         <NewMain.PlayListArea>
-          <div className='playTitle'>다이어리 수록곡</div>
+          <div className='playTitle'>
+            다이어리 수록곡 <span className='playCount'>({editPlayList.length})</span>
+          </div>
           <NewMain.UrlInput>
             <input
               value={editUrl}

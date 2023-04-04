@@ -67,6 +67,7 @@ export const SubmitButton = styled.button`
 export const AlbumCoverArea = styled.div`
   display: flex;
   margin: 30px 0 30px 0;
+  padding: 0 10px 0 10px;
 
   > .coverImg {
     width: 190px;
@@ -141,6 +142,11 @@ export const PlayListArea = styled.div`
     font-weight: 500;
     margin-bottom: 20px;
     color: ${(props) => props.theme.mainText};
+
+    > .playCount {
+      color: ${(props) => props.theme.subText};
+      font-size: 16px;
+    }
   }
 `;
 
@@ -263,6 +269,8 @@ function NewMain() {
       });
   };
 
+  // console.log(newPlayList[0]?.thumbnail);
+
   return (
     <MainContainer>
       <MainWrapper>
@@ -297,7 +305,9 @@ function NewMain() {
           />
         </AlbumInfoArea>
         <PlayListArea>
-          <div className='playTitle'>다이어리 수록곡</div>
+          <div className='playTitle'>
+            다이어리 수록곡 <span className='playCount'>({newPlayList.length})</span>
+          </div>
           <UrlInput>
             <input
               value={newUrl}

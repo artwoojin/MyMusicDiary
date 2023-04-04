@@ -31,7 +31,6 @@ const GlobalStyle = createGlobalStyle`
 const Test = styled(ToastContainer)`
   .Toastify__toast {
     font-size: 15px;
-    margin-top: 60px;
     color: ${(props) => props.theme.mainText};
     background-color: ${(props) => props.theme.disabledTagBackground};
   }
@@ -68,7 +67,7 @@ function App() {
             <Route path='/DetailDiary/:diaryId' element={<DetailDiary />} />
             <Route path='/EditDiary/:diaryId' element={<EditDiary />} />
           </Routes>
-          <Test hideProgressBar={false} autoClose={2000} pauseOnFocusLoss={true} />
+          <Test hideProgressBar={false} autoClose={2000} pauseOnFocusLoss={true} limit={1} />
         </div>
       </ThemeProvider>
     </myContext.Provider>
