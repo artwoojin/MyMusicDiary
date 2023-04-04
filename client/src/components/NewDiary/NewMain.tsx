@@ -202,7 +202,7 @@ function NewMain() {
     } else if (newTitle.length === 0 && newTitle.length === 0) {
       toast.error("제목을 입력해 주세요!");
     } else {
-      toast.warning("플레이리스트를 등록해 주세요!");
+      toast.error("플레이리스트를 등록해 주세요!");
     }
   };
 
