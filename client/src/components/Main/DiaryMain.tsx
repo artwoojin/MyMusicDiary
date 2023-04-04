@@ -102,8 +102,6 @@ function DiaryMain() {
     setCurrentTab(index);
   };
 
-  console.log(diaryData);
-
   return (
     <main>
       <ListTab>

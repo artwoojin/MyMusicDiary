@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useState, useRef } from "react";
 import { UserData } from "../../util/Type";
 import { TOKEN_API } from "../../util/API";
+import defaultProfile from "../../util/img/defaultProfile.png";
 
 const MyInfoContainer = styled.div`
   display: flex;
@@ -23,6 +24,7 @@ const ProfileImg = styled.img`
   border-radius: 100%;
   margin: 0 20px 20px 20px;
   cursor: pointer;
+
   &:hover {
     outline: 5px solid ${(props) => props.theme.mainColor};
   }
@@ -35,15 +37,32 @@ const ImgInput = styled.input`
 const ImgSubmitBtn = styled.button`
   width: 140px;
   height: 35px;
-  border-radius: 5px;
+  border-radius: 4px;
   background-color: ${(props) => props.theme.mainColor};
   color: ${(props) => props.theme.TagColor};
   font-weight: 700;
   border: none;
-  margin: 0 25px 0 25px;
+  margin: 0 25px 5px 25px;
   cursor: pointer;
+
   &:hover {
     background-color: ${(props) => props.theme.buttonHover};
+  }
+`;
+
+const ImgDeleteBtn = styled.button`
+  width: 140px;
+  height: 35px;
+  background-color: transparent;
+  color: ${(props) => props.theme.mainText};
+  font-weight: 700;
+  border: none;
+  margin: 0 25px 0 25px;
+  cursor: pointer;
+
+  &:hover {
+    border-radius: 4px;
+    background-color: ${(props) => props.theme.playListHover};
   }
 `;
 
@@ -64,6 +83,7 @@ const NickNameWrapper = styled.div`
     border: 0.5px solid ${(props) => props.theme.editBorder};
     border-radius: 4px;
     padding: 10px 8px 10px 8px;
+
     &:focus {
       outline: none;
     }
@@ -116,6 +136,7 @@ const PasswordWrapper = styled.div`
     border-radius: 4px;
     padding: 10px 8px 10px 8px;
     border: 0.5px solid ${(props) => props.theme.editBorder};
+
     &:focus {
       outline: none;
     }
@@ -165,6 +186,7 @@ const MyWithdrawalWrapper = styled.div`
     font-weight: 700;
     color: white;
     cursor: pointer;
+
     &:hover {
       background-color: #ec1d36;
     }
@@ -226,6 +248,7 @@ const WithdrawalModalView = styled.div`
     border: none;
     text-decoration: none;
     cursor: pointer;
+
     &:hover {
       text-decoration: none;
     }
@@ -238,6 +261,7 @@ const WithdrawalModalView = styled.div`
     border-top: 1px solid ${(props) => props.theme.detailLine};
     border-right: 0.5px solid ${(props) => props.theme.detailLine};
     border-bottom-left-radius: 5px;
+
     &:hover {
       background-color: ${(props) => props.theme.likeHover};
     }
@@ -250,6 +274,7 @@ const WithdrawalModalView = styled.div`
     border-top: 1px solid ${(props) => props.theme.detailLine};
     border-left: 0.5px solid ${(props) => props.theme.detailLine};
     border-bottom-right-radius: 5px;
+
     &:hover {
       background-color: ${(props) => props.theme.likeHover};
     }
@@ -289,8 +314,18 @@ function MyInfo({ list, getUserData }: UserDataProps) {
       nickname: list.nickname,
       password: list.password,
     };
-    const res = await TOKEN_API.patch(`/users/${list.userId}`, newImg);
-    setImage(res.data);
+    await TOKEN_API.patch(`/users/${list.userId}`, newImg);
+    window.location.reload();
+  };
+
+  // 기본 이미지로 patch 요청
+  const deleteImage = async () => {
+    const newImg = {
+      imageUrl: defaultProfile,
+      nickname: list.nickname,
+      password: list.password,
+    };
+    await TOKEN_API.patch(`/users/${list.userId}`, newImg);
     window.location.reload();
   };
 
@@ -356,9 +391,14 @@ function MyInfo({ list, getUserData }: UserDataProps) {
     <>
       <MyInfoContainer>
         <ProfileImgWrapper>
-          <ProfileImg src={image} alt='프로필 이미지' onClick={clickProfile} />
+          <ProfileImg
+            src={image ? image : defaultProfile}
+            alt='프로필 이미지'
+            onClick={clickProfile}
+          />
           <ImgInput type='file' accept='image/*' onChange={saveImage} ref={fileInput} />
           <ImgSubmitBtn onClick={changeImage}>프로필 이미지 저장</ImgSubmitBtn>
+          <ImgDeleteBtn onClick={deleteImage}>프로필 이미지 제거</ImgDeleteBtn>
         </ProfileImgWrapper>
         <NickNameWrapper>
           {editNickname ? (

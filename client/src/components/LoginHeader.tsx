@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import mainIcon from "../util/img/mainIcon.png";
 import { Link, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { BASE_API } from "../util/API";
@@ -7,6 +6,8 @@ import { GoTriangleDown } from "react-icons/go";
 import { BsFillSunFill, BsFillMoonStarsFill } from "react-icons/bs";
 import { useContext } from "react";
 import { myContext } from "../theme";
+import mainIcon from "../util/img/mainIcon.png";
+import defaultProfile from "../util/img/defaultProfile.png";
 
 const HeaderContainer = styled.header`
   display: flex;
@@ -192,7 +193,10 @@ function LoginHeader() {
             <SubmitButton onClick={closeDropdown}>새 다이어리 등록</SubmitButton>
           </Link>
           <ProfileButton onClick={openDropdown}>
-            <Profile src={imageData.data && imageData.data.imageUrl} alt='헤더 프로필 이미지' />
+            <Profile
+              src={imageData.data?.imageUrl ? imageData.data?.imageUrl : defaultProfile}
+              alt='헤더 프로필 이미지'
+            />
             <GoTriangleDown className='triangleDown' size={14} />
           </ProfileButton>
           {isOpen ? (

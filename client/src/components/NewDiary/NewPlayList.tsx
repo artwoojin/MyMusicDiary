@@ -53,6 +53,8 @@ function NewPlayList({ list, newPlayList, setNewPlayList }: PlaylistDataProps) {
     setNewPlayList(newPlayList.filter((value: any) => value.channelId !== deleteId));
   };
 
+  console.log(list);
+
   return (
     <PlayListContainer>
       <PlayListWrapper>
