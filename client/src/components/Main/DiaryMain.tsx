@@ -18,30 +18,32 @@ const ListTab = styled.ul`
     justify-content: center;
     align-items: center;
     font-size: 14px;
-    font-weight: 500;
     width: 100px;
     height: 40px;
-    border: 1px solid #d1d1d1;
     border-radius: 50px;
     text-align: center;
     padding: 7px 7px;
+    border: 1px solid ${(props) => props.theme.disabledTagBorder};
+    background-color: ${(props) => props.theme.disabledTagBackground};
+    transition: 0.2s ease-in-out;
+    cursor: pointer;
+
     &:hover {
-      transform: scale(1.05);
-      transition: 0.2s;
+      transform: scale(1.03);
     }
 
     > .el {
-      color: gray;
+      color: ${(props) => props.theme.disabledTagColor};
     }
   }
 
   .focused {
-    border: 3px solid #ffefd5;
-    background-color: #ffefd5;
+    border: 1px solid ${(props) => props.theme.mainColor};
+    background-color: ${(props) => props.theme.mainColor};
 
     > .el {
-      color: #1c1a16;
-      font-weight: 700;
+      color: ${(props) => props.theme.TagColor};
+      font-weight: 600;
     }
   }
 `;
@@ -99,6 +101,8 @@ function DiaryMain() {
   const selectTagHandler = (index: number) => {
     setCurrentTab(index);
   };
+
+  console.log(diaryData);
 
   return (
     <main>

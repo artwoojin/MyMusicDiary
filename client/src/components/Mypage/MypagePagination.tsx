@@ -1,37 +1,6 @@
-import styled from "styled-components";
+import * as Pagination from "../Main/Pagination";
 import { useState } from "react";
 import { BiArrowToLeft, BiArrowToRight, BiLeftArrowAlt, BiRightArrowAlt } from "react-icons/bi";
-
-const PageNum = styled.div`
-  margin: 50px 0 40px 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 5px;
-  user-select: none;
-
-  > .pageTab,
-  .leftHandle,
-  .rightHandle {
-    width: 20px;
-    height: 20px;
-    background-color: transparent;
-    border: none;
-    font-size: 15px;
-    margin: 0 5px 0 5px;
-  }
-
-  > .pageFocused {
-    width: 30px;
-    height: 30px;
-    border-radius: 3px;
-    background-color: #ffefd5;
-    border: none;
-    border-radius: 50px;
-    color: #1c1a16;
-    font-weight: 600;
-  }
-`;
 
 interface PaginationProps {
   myPageLength: number;
@@ -54,7 +23,7 @@ function MypagePagination({
 }: PaginationProps) {
   const [blockNum, setBlockNum] = useState<number>(0); // 페이지 당 표시할 페이지네이션 수
 
-  const PAGE_COUNT: number = 20; // 페이지 당 표시할 페이지네이션 수 (기본값 : 10개의 페이지네이션 노출)
+  const PAGE_COUNT: number = 1; // 페이지 당 표시할 페이지네이션 수 (기본값 : 10개의 페이지네이션 노출)
   const blockArea: number = blockNum * PAGE_COUNT; // 각 페이지에서 첫 페이지네이션의 위치 계산
 
   const numMyPages: number = Math.ceil(myPageLength / LIMIT_COUNT); // 나의 다이어리 페이지 개수
@@ -69,7 +38,7 @@ function MypagePagination({
     }
     return iArr;
   };
-  const allArr: number[] = createArr(numMyPages);
+  const myArr: number[] = createArr(numMyPages);
   const likeArr: number[] = createArr(numMyLikePages);
   const commentArr: number[] = createArr(numCommentPages);
 
@@ -112,14 +81,14 @@ function MypagePagination({
   return (
     <>
       {currentTab === 1 ? (
-        <PageNum>
+        <Pagination.PageNum>
           <button className='leftHandle' onClick={firstPageHandler} disabled={page === 1}>
             <BiArrowToLeft size={20} />
           </button>
           <button className='leftHandle' onClick={prevPageHandler} disabled={page === 1}>
             <BiLeftArrowAlt size={19} />
           </button>
-          {allArr.slice(blockArea, PAGE_COUNT + blockArea).map((n) => (
+          {myArr.slice(blockArea, PAGE_COUNT + blockArea).map((n) => (
             <button
               className={page === n ? "pageTab pageFocused" : "pageTab"}
               key={n}
@@ -137,9 +106,9 @@ function MypagePagination({
           <button className='rightHandle' onClick={lastPageHandler} disabled={page === numMyPages}>
             <BiArrowToRight size={20} />
           </button>
-        </PageNum>
+        </Pagination.PageNum>
       ) : currentTab === 2 ? (
-        <PageNum>
+        <Pagination.PageNum>
           <button className='leftHandle' onClick={firstPageHandler} disabled={page === 1}>
             <BiArrowToLeft size={20} />
           </button>
@@ -164,9 +133,9 @@ function MypagePagination({
           <button className='rightHandle' onClick={lastPageHandler} disabled={page === numMyPages}>
             <BiArrowToRight size={20} />
           </button>
-        </PageNum>
+        </Pagination.PageNum>
       ) : currentTab === 3 ? (
-        <PageNum>
+        <Pagination.PageNum>
           <button className='leftHandle' onClick={firstPageHandler} disabled={page === 1}>
             <BiArrowToLeft size={20} />
           </button>
@@ -191,7 +160,7 @@ function MypagePagination({
           <button className='rightHandle' onClick={lastPageHandler} disabled={page === numMyPages}>
             <BiArrowToRight size={20} />
           </button>
-        </PageNum>
+        </Pagination.PageNum>
       ) : null}
     </>
   );

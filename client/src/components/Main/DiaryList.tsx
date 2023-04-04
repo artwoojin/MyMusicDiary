@@ -4,19 +4,22 @@ import { DiaryDataProps } from "../../util/Type";
 import { AiFillHeart } from "react-icons/ai";
 import { FaRegCommentDots } from "react-icons/fa";
 
-const DiaryListContainer = styled.li`
+export const DiaryListContainer = styled.li`
   box-shadow: rgba(0, 0, 0, 0.04) 0px 4px 16px 0px;
   width: 310px;
   height: 339px;
   list-style: none;
   border-radius: 4px;
+  background-color: ${(props) => props.theme.disabledTagBackground};
+  transition: 0.2s ease-in-out;
+  cursor: pointer;
+
   &:hover {
-    transform: scale(1.02);
-    transition: 0.2s;
+    transform: scale(1.01);
   }
 `;
 
-const Thumbnail = styled.div`
+export const Thumbnail = styled.img`
   width: 310px;
   height: 184px;
   background-color: lightgray;
@@ -24,10 +27,11 @@ const Thumbnail = styled.div`
   border-top-right-radius: 4px;
 `;
 
-const InfoArea = styled.div`
+export const InfoArea = styled.div`
   padding: 15px;
 
   > .infoTitle {
+    color: ${(props) => props.theme.mainText};
     font-weight: 500;
     margin-bottom: 10px;
     white-space: nowrap;
@@ -37,13 +41,13 @@ const InfoArea = styled.div`
 
   > .infoDate {
     font-size: 12px;
-    font-weight: 500;
-    color: #848180;
+    font-weight: 400;
+    color: ${(props) => props.theme.diaryDate};
     margin-bottom: 15px;
   }
 `;
 
-// const Tag = styled.ul`
+// export const Tag = styled.ul`
 //   display: flex;
 //   font-size: 12px;
 //   font-weight: 500;
@@ -58,15 +62,33 @@ const InfoArea = styled.div`
 //   }
 // `;
 
-const UserArea = styled.div`
+export const UserArea = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 8px 15px 8px 15px;
-  border-top: 1px solid #d1d1d1;
+  border-top: 0.5px solid ${(props) => props.theme.diaryInfoLine};
+  /* 태그 미구현으로 인한 임시로 위치 내림 */
+  margin-top: 20px;
 `;
 
-const Profile = styled.div`
+export const ByUsername = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  font-size: 13px;
+  font-weight: 500;
+  color: ${(props) => props.theme.mainText};
+
+  > .by {
+    font-size: 12px;
+    font-weight: 400;
+    color: ${(props) => props.theme.diaryDate};
+    margin: 0 5px 2px 0;
+  }
+`;
+
+export const Profile = styled.div`
   width: 25px;
   height: 25px;
   margin-right: 8px;
@@ -74,25 +96,11 @@ const Profile = styled.div`
   background-color: lightgray;
 `;
 
-const ByUsername = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  font-size: 13px;
-  font-weight: 500;
-  color: #21252b;
-
-  > .by {
-    font-size: 12px;
-    color: gray;
-    margin-right: 5px;
-  }
-`;
-
-const LikeAndComment = styled.div`
+export const LikeAndComment = styled.div`
   display: flex;
   align-items: center;
   font-size: 13px;
+  color: ${(props) => props.theme.mainText};
 
   > .likeIcon {
     color: red;
@@ -100,6 +108,7 @@ const LikeAndComment = styled.div`
   }
 
   > .commentIcon {
+    color: ${(props) => props.theme.mainText};
     margin: 0 5px 0 10px;
   }
 `;
@@ -107,14 +116,14 @@ const LikeAndComment = styled.div`
 function DiaryList({ list }: DiaryDataProps) {
   const navigate = useNavigate();
 
-  const clickHandler = () => {
+  // 디테일 페이지로 이동
+  const moveDetailDiary = () => {
     navigate(`/DetailDiary/${list.diaryId}`);
-    // navigate(`/DetailDiary/${list.nickname}`)
   };
 
   return (
-    <DiaryListContainer onClick={clickHandler}>
-      <Thumbnail>썸네일 이미지</Thumbnail>
+    <DiaryListContainer onClick={moveDetailDiary}>
+      <Thumbnail src={list.playlists[0]?.thumbnail} alt='첫번째 앨범 커버' />
       <InfoArea>
         <div className='infoTitle'>{list.title}</div>
         <div className='infoDate'>{list.createdAt.substring(0, 10)}</div>

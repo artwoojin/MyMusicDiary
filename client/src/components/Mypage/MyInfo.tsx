@@ -1,7 +1,8 @@
 import styled from "styled-components";
+import { useNavigate } from "react-router-dom";
 import { useState, useRef } from "react";
 import { UserData } from "../../util/Type";
-import { BASE_API } from "../../util/API";
+import { TOKEN_API } from "../../util/API";
 
 const MyInfoContainer = styled.div`
   display: flex;
@@ -13,7 +14,7 @@ const MyInfoContainer = styled.div`
 const ProfileImgWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  border-right: 1px solid #eeeeee;
+  border-right: 1px solid ${(props) => props.theme.diaryInfoLine};
 `;
 
 const ProfileImg = styled.img`
@@ -21,9 +22,9 @@ const ProfileImg = styled.img`
   height: 150px;
   border-radius: 100%;
   margin: 0 20px 20px 20px;
-
+  cursor: pointer;
   &:hover {
-    outline: 5px solid #ffefd5;
+    outline: 5px solid ${(props) => props.theme.mainColor};
   }
 `;
 
@@ -35,14 +36,14 @@ const ImgSubmitBtn = styled.button`
   width: 140px;
   height: 35px;
   border-radius: 5px;
-  background-color: #ffefd5;
-  color: #1c1a16;
+  background-color: ${(props) => props.theme.mainColor};
+  color: ${(props) => props.theme.TagColor};
   font-weight: 700;
   border: none;
   margin: 0 25px 0 25px;
-
+  cursor: pointer;
   &:hover {
-    background-color: #ffdeb7;
+    background-color: ${(props) => props.theme.buttonHover};
   }
 `;
 
@@ -57,14 +58,19 @@ const NickNameWrapper = styled.div`
   > .editNicknameArea {
     width: 100%;
     font-size: 25px;
-    color: #21252b;
+    color: ${(props) => props.theme.mainText};
+    background-color: ${(props) => props.theme.background};
     font-weight: 600;
-    border: 1px solid gray;
+    border: 0.5px solid ${(props) => props.theme.editBorder};
     border-radius: 4px;
-    padding: 5px;
+    padding: 10px 8px 10px 8px;
+    &:focus {
+      outline: none;
+    }
   }
 
   > .nicknameArea {
+    color: ${(props) => props.theme.mainText};
     width: 100%;
     font-size: 30px;
     font-weight: 700;
@@ -72,7 +78,7 @@ const NickNameWrapper = styled.div`
 `;
 
 const EditNicknameBtn = styled.button`
-  color: #21252b;
+  color: ${(props) => props.theme.mainText};
   width: 40px;
   margin-top: 10px;
   border: none;
@@ -81,6 +87,7 @@ const EditNicknameBtn = styled.button`
   text-decoration: underline;
   font-size: 15px;
   font-weight: 600;
+  cursor: pointer;
 `;
 
 const MySettingContainer = styled.div`
@@ -96,6 +103,7 @@ const PasswordWrapper = styled.div`
   height: 50px;
 
   > .passwordTitle {
+    color: ${(props) => props.theme.mainText};
     width: 100px;
     margin: 0 75px 0 30px;
     font-weight: 700;
@@ -103,25 +111,31 @@ const PasswordWrapper = styled.div`
 
   > .editPasswordArea {
     width: 560px;
-    color: #21252b;
-    border: 1px solid gray;
+    color: ${(props) => props.theme.mainText};
+    background-color: ${(props) => props.theme.background};
     border-radius: 4px;
-    padding: 5px;
+    padding: 10px 8px 10px 8px;
+    border: 0.5px solid ${(props) => props.theme.editBorder};
+    &:focus {
+      outline: none;
+    }
   }
 
   > .passwordArea {
+    color: ${(props) => props.theme.mainText};
     width: 560px;
   }
 `;
 
 const EditPasswordBtn = styled.button`
-  color: #21252b;
+  color: ${(props) => props.theme.mainText};
   width: 100px;
   border: none;
   background-color: transparent;
   text-decoration: underline;
   font-size: 15px;
   font-weight: 600;
+  cursor: pointer;
 `;
 
 const MyWithdrawalContainer = styled.div`
@@ -136,6 +150,7 @@ const MyWithdrawalWrapper = styled.div`
   height: 50px;
 
   > .withdrawalTitle {
+    color: ${(props) => props.theme.mainText};
     width: 100px;
     margin: 0 75px 0 30px;
     font-weight: 700;
@@ -149,7 +164,7 @@ const MyWithdrawalWrapper = styled.div`
     background-color: #ff6b6c;
     font-weight: 700;
     color: white;
-
+    cursor: pointer;
     &:hover {
       background-color: #ec1d36;
     }
@@ -158,12 +173,12 @@ const MyWithdrawalWrapper = styled.div`
 
 const WarningText = styled.div`
   font-size: 13px;
-  color: gray;
+  color: ${(props) => props.theme.diaryDate};
   padding-bottom: 10px;
   margin: 0 70px -5px 30px;
 
-  > .pwWarningTexy {
-    border-bottom: 1px solid #eeeeee;
+  > .waringText {
+    border-bottom: 1px solid ${(props) => props.theme.diaryInfoLine};
     padding-bottom: 15px;
   }
 `;
@@ -183,12 +198,13 @@ const WithdrawalModalBack = styled.div`
 const WithdrawalModalView = styled.div`
   text-align: center;
   border-radius: 5px;
-  background-color: white;
+  background-color: ${(props) => props.theme.background};
   width: 430px;
   height: 220px;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.19), 0 10px 10px rgba(0, 0, 0, 0.1);
 
   > .deleteModalTitle {
+    color: ${(props) => props.theme.mainText};
     font-size: 20px;
     font-weight: 700;
     text-align: center;
@@ -196,6 +212,7 @@ const WithdrawalModalView = styled.div`
   }
 
   > .warningText {
+    color: ${(props) => props.theme.subText};
     font-size: 15px;
     font-weight: 500;
     margin-bottom: 41.5px;
@@ -208,20 +225,21 @@ const WithdrawalModalView = styled.div`
     color: white;
     border: none;
     text-decoration: none;
+    cursor: pointer;
     &:hover {
       text-decoration: none;
     }
   }
 
   > .deleteCancelButton {
-    color: #21252b;
+    color: ${(props) => props.theme.subText};
     font-weight: 600;
     background-color: transparent;
-    border-top: 1px solid #eeeeee;
-    border-right: 0.5px solid #eeeeee;
+    border-top: 1px solid ${(props) => props.theme.detailLine};
+    border-right: 0.5px solid ${(props) => props.theme.detailLine};
     border-bottom-left-radius: 5px;
     &:hover {
-      background-color: #eeeeee;
+      background-color: ${(props) => props.theme.likeHover};
     }
   }
 
@@ -229,11 +247,11 @@ const WithdrawalModalView = styled.div`
     color: #ec1d36;
     font-weight: 600;
     background-color: transparent;
-    border-top: 1px solid #eeeeee;
-    border-left: 0.5px solid #eeeeee;
+    border-top: 1px solid ${(props) => props.theme.detailLine};
+    border-left: 0.5px solid ${(props) => props.theme.detailLine};
     border-bottom-right-radius: 5px;
     &:hover {
-      background-color: #eeeeee;
+      background-color: ${(props) => props.theme.likeHover};
     }
   }
 `;
@@ -252,7 +270,7 @@ function MyInfo({ list, getUserData }: UserDataProps) {
   const [withDrawalModalOpen, setWithdrawalModalOpen] = useState<boolean>(false);
 
   const fileInput = useRef<HTMLInputElement>(null);
-  const token = `eyJhbGciOiJIUzUxMiJ9.eyJyb2xlcyI6WyJVU0VSIl0sInVzZXJuYW1lIjoiZ2dAZ21haWwuY29tIiwic3ViIjoiZ2dAZ21haWwuY29tIiwiaWF0IjoxNjc5NzI2NTU2LCJleHAiOjE2ODAzMjY1NTZ9.y2-PjQUPjcGsD5YQtU8ezxrh_bPEPGXe3YzJiXo-P_sNzDsS6w5IfVLaVjWyWw7ekubLVLchJIv6623bheoybQ`;
+  const navigate = useNavigate();
 
   // 프로필 이미지 클릭 시 input으로 연결되는 이벤트
   const clickProfile = () => {
@@ -271,9 +289,7 @@ function MyInfo({ list, getUserData }: UserDataProps) {
       nickname: list.nickname,
       password: list.password,
     };
-    const res = await BASE_API.patch(`/users/${list.userId}`, newImg, {
-      headers: { Authorization: `Bearer ${token}` },
-    });
+    const res = await TOKEN_API.patch(`/users/${list.userId}`, newImg);
     setImage(res.data);
     window.location.reload();
   };
@@ -285,9 +301,7 @@ function MyInfo({ list, getUserData }: UserDataProps) {
       nickname: nickname,
       password: list.password,
     };
-    const res = await BASE_API.patch(`/users/${list.userId}`, newNickname, {
-      headers: { Authorization: `Bearer ${token}` },
-    });
+    const res = await TOKEN_API.patch(`/users/${list.userId}`, newNickname);
     getUserData(res.data);
     setEditNickname(false);
   };
@@ -299,9 +313,7 @@ function MyInfo({ list, getUserData }: UserDataProps) {
       nickname: list.nickname,
       password: password,
     };
-    const res = await BASE_API.patch(`/users/${list.userId}`, newPassword, {
-      headers: { Authorization: `Bearer ${token}` },
-    });
+    const res = await TOKEN_API.patch(`/users/${list.userId}`, newPassword);
     getUserData(res.data);
     setEditPassword(false);
   };
@@ -329,6 +341,15 @@ function MyInfo({ list, getUserData }: UserDataProps) {
   // 회원 탈퇴 모달 오픈 이벤트 핸들러
   const openModalHandler = () => {
     setWithdrawalModalOpen(!withDrawalModalOpen);
+  };
+
+  // 회원 탈퇴 delete 요청
+  const withDrawal = async () => {
+    await TOKEN_API.delete(`/users/${list.userId}`);
+    localStorage.removeItem("accessToken");
+    localStorage.removeItem("CURRENT_USER");
+    navigate("/");
+    window.location.reload();
   };
 
   return (
@@ -377,7 +398,7 @@ function MyInfo({ list, getUserData }: UserDataProps) {
           )}
         </PasswordWrapper>
         <WarningText>
-          <div className='pwWarningTexy'>로그인 시 사용되는 비밀번호입니다.</div>
+          <div className='waringText'>로그인 시 사용되는 비밀번호입니다.</div>
         </WarningText>
       </MySettingContainer>
       <MyWithdrawalContainer>
@@ -398,7 +419,9 @@ function MyInfo({ list, getUserData }: UserDataProps) {
                 <button className='deleteCancelButton' onClick={openModalHandler}>
                   취소
                 </button>
-                <button className='deleteButton'>탈퇴</button>
+                <button className='deleteButton' onClick={withDrawal}>
+                  탈퇴
+                </button>
               </WithdrawalModalView>
             </WithdrawalModalBack>
           ) : null}

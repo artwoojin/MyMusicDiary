@@ -1,259 +1,150 @@
-import { useState } from 'react'
-import styled from 'styled-components'
-import { useNavigate, useParams } from 'react-router-dom';
-import { DiaryDataProps } from '../../util/Type';
-import { BASE_API } from "../../util/API";
-import PlayList from '../DetailDiary/PlayList';
+import * as NewMain from "../NewDiary/NewMain";
+import { useState } from "react";
+import { useParams, useNavigate } from "react-router-dom";
+import { DiaryDataProps } from "../../util/Type";
+import { TOKEN_API } from "../../util/API";
+import ReactQuill from "react-quill";
+import "react-quill/dist/quill.snow.css";
+import axios from "axios";
+import EditPlayList from "./EditPlayList";
+import { PlaylistData } from "../../util/Type";
 
+function EditList({ list }: DiaryDataProps) {
+  const [editTitle, setEditTitle] = useState<string>(list.title);
+  const [editBody, setEditBody] = useState<string>(list.body);
+  const [editPlayList, setEditPlayList] = useState<PlaylistData[]>(list.playlists);
+  const [editUrl, setEditUrl] = useState<string>("");
 
-const DetailMainContainer = styled.div`
-  display: flex;
-  justify-content: center;
-`;
-
-const DetailMainWrapper = styled.div`
-  width: 100vw;
-  max-width: 900px;
-  min-width: 300px;
-  padding: 10px 20px 10px 20px;
-`;
-const TitleArea = styled.div`
-  height: 90px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  border-bottom: 1px solid #d9d9d9;
-  padding: 0 10px 0 10px;
-
-  > .DetailTitle {
-    font-size: 19px;
-    color: #21252b;
-    font-weight: 600;
-    width:100%;
-    padding:1rem;
-  }
-`;
-const ButtonArea = styled.div`
-  display: flex;
-
-  > button {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 13px;
-    padding: 5px;
-    background-color: transparent;
-  }
-
-  > .edit {
-    width: 40px;
-    color: #21252b;
-    border: none;
-    text-decoration: underline;
-    font-weight: 600;
-  }
-
-  > .delete {
-    width: 40px;
-    color: #21252b;
-    border: none;
-    text-decoration: underline;
-    font-weight: 600;
-  }
-
-  > .like {
-    color: #21252b;
-    margin-left: 25px;
-    width: 140px;
-    height: 35px;
-    border: 1px solid #d1d1d1;
-    border-radius: 4px;
-
-    > .likeIcon {
-      color: red;
-      margin-right: 5px;
-    }
-
-    > .likeCount {
-      margin-left: 5px;
-    }
-
-    &:hover {
-      background-color: #eeeeee;
-    }
-  }
-`;
-
-
-
-
-
-
-
-const AlbumCoverArea = styled.div`
-  display: flex;
-  margin: 30px 0 30px 0;
-
-  > .coverImg {
-    width: 190px;
-    height: 180px;
-    margin-right: 30px;
-    border-radius: 4px;
-    background-color: lightgray;
-  }
-`;
-
-const InfoArea = styled.div`
-  width: 400px;
-  margin-top: 5px;
-`;
-
-const UserInfo = styled.div`
-  margin-bottom: 15px;
-  font-size: 14px;
-
-  > .text {
-    font-size: 13px;
-    margin-right: 50px;
-  }
-`;
-
-const AlbumInfoArea = styled.div`
-  padding: 30px 10px 30px 10px;
-  border-top: 1px solid #d9d9d9;
-  border-bottom: 1px solid #d9d9d9;
-
-  > .playTitle {
-    font-size: 19px;
-    font-weight: 500;
-    margin-bottom: 20px;
-    display:inline-block;
-    width:80%;
-  }
-
-  > .playContent {
-    font-size: 18px;
-    width:100%;
-    resize:none;
-    height:7rem;
-    padding:1rem;
-  }
-  
-
-  
-  > .editDiary {
-    color: #21252b;
-    margin-left: 25px;
-    width: 140px;
-    height: 35px;
-    border: 1px solid #d1d1d1;
-    border-radius: 4px;
-    background-color:transparent;
-  }
-`;
-
-export default function EditList({ list }: DiaryDataProps) {
-  const [newTitle, setNewTitle] = useState<string>(list.title)
-  const [newBody, setNewBody] = useState<string>(list.body)
+  const navigate = useNavigate();
   const { diaryId } = useParams();
-  const navigate = useNavigate()
 
-
-
-
-
-  const token = 'eyJhbGciOiJIUzUxMiJ9.eyJyb2xlcyI6WyJVU0VSIl0sInVzZXJuYW1lIjoiZGRhZHpAbmF2ZXIuY29tIiwic3ViIjoiZGRhZHpAbmF2ZXIuY29tIiwiaWF0IjoxNjc5OTE3ODI3LCJleHAiOjE2ODA1MTc4Mjd9.InKMqa_ozFhKP-TNbUceA2nk3f9uPY5umYFxadKn-4uGgf4tW3nfbBDrK3nVXYLhu00ie1BExiJpeDCrFgX2RQ'
-
-  const editTitleBody = async () => {
-    
-    const newDiary = {
-      title: newTitle,
-      body: newBody
+  // 다이어리 patch 요청
+  const submitHandler = async () => {
+    const editDiary = {
+      title: editTitle,
+      body: editBody,
+      playlists: editPlayList,
     };
-
-    await BASE_API.patch(`/diary/${diaryId}`, newDiary, {
-      headers: {
-        Authorization: `Bearer ${token}`
-      },
-    })
-    navigate(`/DetailDiary/${diaryId}`)
-
+    await TOKEN_API.patch(`/diary/${diaryId}`, editDiary);
+    navigate(`/DetailDiary/${diaryId}`);
   };
 
+  // 제목 수정 체인지 이벤트
+  const changeEditTitle = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setEditTitle(e.target.value);
+  };
 
-  const bodyChangeHandler = (e: any) => {
-    setNewBody(e.target.value)
-  }
+  // 플레이리스트 수정 체인지 이벤트
+  const changeEditUrl = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setEditUrl(e.target.value);
+  };
 
-  const titleCHangeHandler = (e: any) => {
-    setNewTitle(e.target.value)
-  }
+  // 전체 url을 입력받은 후 id만 필터링
+  const getVideoId = (url: string) => {
+    if (url.indexOf("/watch") > -1) {
+      const arr = url.replaceAll(/=|&/g, "?").split("?");
+      return arr[arr.indexOf("v") + 1];
+    } else if (url.indexOf("/youtu.be") > -1) {
+      const arr = url.replaceAll(/=|&|\//g, "?").split("?");
+      return arr[arr.indexOf("youtu.be") + 1];
+    } else {
+      return "none";
+    }
+  };
 
+  // input에 등록한 Url 정보 불러옴
+  const getYoutubeData = async (id: any) => {
+    try {
+      const res =
+        await axios.get(`https://www.googleapis.com/youtube/v3/videos?id=${id}&key=${process.env.REACT_APP_YOUTUBE_API_KEY}
+      &part=snippet`);
+      return res.data.items[0].snippet;
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  // 추가 버튼 클릭 시 플레이리스트 담는 이벤트 핸들러
+  const addPlayList = () => {
+    const musicInfo: PlaylistData = {};
+    const urlId = getVideoId(editUrl);
+
+    getYoutubeData(urlId)
+      .then((res) => {
+        musicInfo.channelId = res.channelId;
+        musicInfo.thumbnail = res.thumbnails.default.url;
+        musicInfo.title = res.title;
+        musicInfo.url = editUrl;
+      })
+      .then(() => {
+        setEditPlayList((value) => [...value, musicInfo]);
+        setEditUrl("");
+      });
+  };
 
   return (
-    <DetailMainContainer>
-      {
-        list
-        &&
-        
-        <DetailMainWrapper>
-          <TitleArea>
+    <NewMain.MainContainer>
+      <NewMain.MainWrapper>
+        <NewMain.TitleArea>
+          <input
+            className='inputTitle'
+            type='text'
+            value={editTitle}
+            placeholder='제목을 입력하세요'
+            onChange={changeEditTitle}
+          />
+          <NewMain.SubmitButton onClick={submitHandler} disabled={editTitle.length === 0}>
+            수정하기
+          </NewMain.SubmitButton>
+        </NewMain.TitleArea>
+        <NewMain.AlbumCoverArea>
+          <div className='coverImg'></div>
+          <NewMain.InfoArea>
+            <NewMain.UserInfo>
+              <span className='text'>등록자</span>
+              {list.userNickname}
+            </NewMain.UserInfo>
+            <NewMain.UserInfo>
+              <span className='text'>등록일</span>
+              {list.createdAt.substring(0, 10)}
+            </NewMain.UserInfo>
+          </NewMain.InfoArea>
+        </NewMain.AlbumCoverArea>
+        <NewMain.AlbumInfoArea>
+          <div className='playTitle'>다이어리 소개</div>
+          <ReactQuill
+            className='playContent'
+            value={editBody}
+            placeholder='나만의 다이어리를 작성해 보세요'
+            onChange={(e) => setEditBody(e)}
+          />
+        </NewMain.AlbumInfoArea>
+        <NewMain.PlayListArea>
+          <div className='playTitle'>다이어리 수록곡</div>
+          <NewMain.UrlInput>
             <input
-              className='DetailTitle'
-              value={newTitle}
-              onChange={titleCHangeHandler}
+              value={editUrl}
+              placeholder='유튜브 URL을 입력해 주세요'
+              onChange={changeEditUrl}
             />
-            <ButtonArea>
-              <button className='like' onClick={editTitleBody}>
-                수정 하기
-              </button>
-            </ButtonArea>
-          </TitleArea>
-
-
-          <AlbumCoverArea>
-            <div className='coverImg'></div>
-            <InfoArea>
-              <UserInfo>
-                <span className='text'>등록자</span>
-                {list.userNickname}
-              </UserInfo>
-              <UserInfo>
-                <span className='text'>등록일</span>
-                {list.createdAt.substring(0, 10)}
-              </UserInfo>
-            </InfoArea>
-          </AlbumCoverArea>
-
-          <AlbumInfoArea>
-            <div className='playTitle'>다이어리 소개</div>
-            <textarea
-              className='playContent'
-              value={newBody}
-              onChange={bodyChangeHandler}
-            />
-          </AlbumInfoArea>
-          <PlayList />
-        </DetailMainWrapper>
-      }
-    </DetailMainContainer>
-  )
+            <button className='sumbit' onClick={addPlayList} disabled={editUrl.length === 0}>
+              추가
+            </button>
+          </NewMain.UrlInput>
+          {editPlayList?.map((value, index) => {
+            return (
+              <EditPlayList
+                list={value}
+                key={index}
+                editPlayList={editPlayList}
+                setEditPlayList={setEditPlayList}
+              />
+            );
+          })}
+        </NewMain.PlayListArea>
+      </NewMain.MainWrapper>
+    </NewMain.MainContainer>
+  );
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+export default EditList;

@@ -1,7 +1,9 @@
 import styled from "styled-components";
 import { useState } from "react";
 import { CommentData } from "../../util/Type";
-import { BASE_API } from "../../util/API";
+import { TOKEN_API } from "../../util/API";
+import { useContext } from "react";
+import { myContext } from "../../theme";
 
 const CommentListContainer = styled.li`
   display: flex;
@@ -10,14 +12,15 @@ const CommentListContainer = styled.li`
 
 const CommentListWrapper = styled.div`
   width: 100vw;
-  max-width: 1440px;
+  max-width: 900px;
   min-width: 300px;
   border: none;
-  border-bottom: 1px solid lightgray;
+  border-bottom: 1px solid ${(props) => props.theme.detailLine};
+  color: ${(props) => props.theme.mainText};
 
   > .content {
     font-size: 13px;
-    color: #323232;
+    color: ${(props) => props.theme.mainText};
     font-weight: 500;
   }
 
@@ -25,11 +28,6 @@ const CommentListWrapper = styled.div`
     font-size: 12px;
     color: #848180;
     margin: 10px 0 15px 0;
-  }
-
-  > .editCommentArea {
-    width: 100%;
-    padding: 5px;
   }
 `;
 
@@ -42,6 +40,20 @@ const NameArea = styled.div`
     font-size: 14px;
     font-weight: 500;
     margin: 15px 0 15px 0;
+  }
+`;
+
+const EditCommentArea = styled.input`
+  color: ${(props) => props.theme.mainText};
+  width: 100%;
+  padding: 10px 8px 10px 8px;
+  border: none;
+  border-radius: 4px;
+  border: 1px solid ${(props) => props.theme.disabledTagBorder};
+  background-color: ${(props) => props.theme.disabledTagBackground};
+
+  &:focus {
+    outline: none;
   }
 `;
 
@@ -59,7 +71,7 @@ const ButtonArea = styled.div`
 
   > .edit {
     width: 40px;
-    color: #21252b;
+    color: ${(props) => props.theme.mainText};
     border: none;
     text-decoration: underline;
     font-weight: 600;
@@ -67,7 +79,7 @@ const ButtonArea = styled.div`
 
   > .delete {
     width: 40px;
-    color: #21252b;
+    color: ${(props) => props.theme.mainText};
     border: none;
     text-decoration: underline;
     font-weight: 600;
@@ -114,6 +126,7 @@ const DeleteModalView = styled.div`
     color: white;
     border: none;
     text-decoration: none;
+
     &:hover {
       text-decoration: none;
     }
@@ -126,6 +139,7 @@ const DeleteModalView = styled.div`
     border-top: 1px solid #eeeeee;
     border-right: 0.5px solid #eeeeee;
     border-bottom-left-radius: 5px;
+
     &:hover {
       background-color: #eeeeee;
     }
@@ -138,6 +152,7 @@ const DeleteModalView = styled.div`
     border-top: 1px solid #eeeeee;
     border-left: 0.5px solid #eeeeee;
     border-bottom-right-radius: 5px;
+
     &:hover {
       background-color: #eeeeee;
     }
@@ -154,7 +169,8 @@ function CommentList({ list, getDetailData }: CommentDataProps) {
   const [click, setClick] = useState<boolean>(false);
   const [deleteCommentModal, setDeleteCommentModal] = useState<boolean>(false);
 
-  const token = `eyJhbGciOiJIUzUxMiJ9.eyJyb2xlcyI6WyJVU0VSIl0sInVzZXJuYW1lIjoiZ2dAZ21haWwuY29tIiwic3ViIjoiZ2dAZ21haWwuY29tIiwiaWF0IjoxNjc5NzI2NTU2LCJleHAiOjE2ODAzMjY1NTZ9.y2-PjQUPjcGsD5YQtU8ezxrh_bPEPGXe3YzJiXo-P_sNzDsS6w5IfVLaVjWyWw7ekubLVLchJIv6623bheoybQ`;
+  const { currentUser }: any = useContext(myContext);
+  const myComment: boolean = list.userNickname === currentUser?.nickname;
 
   // 댓글 patch 요청
   const changeComment = async () => {
@@ -163,20 +179,15 @@ function CommentList({ list, getDetailData }: CommentDataProps) {
       commentId: list.commentId,
       body: commentContent,
     };
-    const res = await BASE_API.patch(`/comment/${list.commentId}`, newComment, {
-      headers: { Authorization: `Bearer ${token}` },
-    });
+    const res = await TOKEN_API.patch(`/comment/${list.commentId}`, newComment);
     getDetailData(res.data);
     setClick(false);
   };
 
-  // 댓글  delete 요청
+  // 댓글 delete 요청
   const commentDelete = async () => {
-    const res = await BASE_API.delete(`/diary/${list.commentId}`, {
-      headers: { Authorization: `Bearer ${token}` },
-    });
+    const res = await TOKEN_API.delete(`/comment/${list.commentId}`);
     getDetailData(res.data);
-    console.log(list.commentId);
   };
 
   // 댓글 변경 클릭 이벤트
@@ -213,18 +224,22 @@ function CommentList({ list, getDetailData }: CommentDataProps) {
         <NameArea>
           <div className='name'>{list.userNickname}</div>
           <ButtonArea>
-            {click ? (
-              <button className='edit' onClick={changeComment}>
-                저장
-              </button>
-            ) : (
-              <button className='edit' onClick={clickHandler}>
-                수정
-              </button>
-            )}
-            <button className='delete' onClick={openDeleteCommentModalHandler}>
-              삭제
-            </button>
+            {myComment === true ? (
+              <>
+                {click ? (
+                  <button className='edit' onClick={changeComment}>
+                    저장
+                  </button>
+                ) : (
+                  <button className='edit' onClick={clickHandler}>
+                    수정
+                  </button>
+                )}
+                <button className='delete' onClick={openDeleteCommentModalHandler}>
+                  삭제
+                </button>
+              </>
+            ) : null}
             {deleteCommentModal ? (
               <DeleteModalBack>
                 <DeleteModalView>
@@ -248,12 +263,7 @@ function CommentList({ list, getDetailData }: CommentDataProps) {
           </ButtonArea>
         </NameArea>
         {click ? (
-          <input
-            className='editCommentArea'
-            type='text'
-            value={commentContent}
-            onChange={onChangeEditInput}
-          ></input>
+          <EditCommentArea type='text' value={commentContent} onChange={onChangeEditInput} />
         ) : (
           <div className='content'>{list.body}</div>
         )}

@@ -1,177 +1,196 @@
-import SpotifyLogo from "../../img/spotifylogo.png";
 import styled from "styled-components";
+import { useNavigate, Link } from "react-router-dom";
+import { SubmitHandler, useForm } from "react-hook-form";
+import { useState } from "react";
+import { BASE_API } from "../../util/API";
 
-const Buttons = styled.div`
+const LoginContainer = styled.div`
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+`;
+
+const Logo = styled.div`
+  font-weight: 700;
+  font-size: 27px;
+  margin-bottom: 30px;
+
+  a {
+    color: ${(props) => props.theme.logo};
+    text-decoration: none;
+  }
+`;
+
+const FormContainer = styled.form`
   display: flex;
   flex-direction: column;
+  justify-content: center;
   align-items: center;
-  width: 288.45px;
-  position: relative;
-`;
-
-const SpotifyButton = styled.button`
-  width: 450px;
-  height: 48px;
-  border-radius: 50px;
-  background: black;
-  color: white;
-  border: solid 1px #cbcbcbe6;
-  position: relative;
-  cursor: pointer;
-`;
-
-const SignupButton = styled.button`
-  width: 450px;
-  height: 48px;
-  border-radius: 50px;
-  background: white;
-  font-size: 20px;
-  color: black;
-  border: solid 1px #cbcbcbe6;
-  position: relative;
-  cursor: pointer;
-`;
-
-const BorderLine = styled.hr`
-  width: 450px;
-  margin: 30px;
-  border: 1px solid gray;
-`
-
-const Form = styled.form`
-  width: 450px;
-  height: 300px;
-  background: #ffffff;
-  border-radius: 10px;
-  box-shadow: 5px 5px 5px 5px #c2c2c2;
-  position: relative;
-`;
-
-const ImgSrc = styled.img`
-  width: 20px;
-  height: 20px;
-  margin-right: 5px;
-  margin-bottom: -4px;
-`;
-
-const EmailText = styled.span`
-  width: 100px;
-  height: 32.59px;
-  font-weight: 600;
-  font-size: 15px;
-  position: absolute;
-  top: 12%;
-  left: 8%;
-`;
-const PassText = styled.span`
-  width: 100px;
-  height: 32.59px;
-  font-weight: 600;
-  font-size: 15px;
-  position: absolute;
-  top: 43%;
-  left: 8%;
+  width: 410px;
+  height: 250px;
+  border-radius: 4px;
+  border: none;
+  border: 1px solid ${(props) => props.theme.disabledTagBorder};
+  background-color: ${(props) => props.theme.disabledTagBackground};
 `;
 
 const EmailInput = styled.input`
-  width: 380px;
-  height: 48px;
-  border: solid 1px #c2c2c2;
-  border-radius: 5px;
-  position: absolute;
-  top: 21%;
-  left: 8%;
+  width: 350px;
+  height: 50px;
+  border-radius: 4px;
+  padding: 10px 8px 10px 8px;
+  margin-bottom: 10px;
+  color: ${(props) => props.theme.mainText};
+  border: none;
+  border: 1px solid ${(props) => props.theme.disabledTagBorder};
+  background-color: ${(props) => props.theme.background};
+
+  &:focus {
+    outline: none;
+  }
 `;
 
-const PassInput = styled.input`
-  width: 380px;
-  height: 48px;
-  border: solid 1px #c2c2c2;
-  border-radius: 5px;
-  position: absolute;
-  top: 53%;
-  left: 8%;
+const PasswordInput = styled.input`
+  width: 350px;
+  height: 50px;
+  border-radius: 4px;
+  padding: 10px 8px 10px 8px;
+  margin-bottom: 30px;
+  color: ${(props) => props.theme.mainText};
+  border: none;
+  border: 1px solid ${(props) => props.theme.disabledTagBorder};
+  background-color: ${(props) => props.theme.background};
+
+  &:focus {
+    outline: none;
+  }
 `;
 
 const LoginButton = styled.button`
-  width: 240.45px;
-  height: 37.8px;
-  border-radius: 5px;
-  box-shadow: 1px 1px 2px #ffffffb1 inset;
-  background: gray;
-  color: white;
-  position: absolute;
-  top: 80%;
-  left: 22%;
+  width: 350px;
+  height: 45px;
+  border: none;
+  border-radius: 4px;
+  color: #1c1a16;
+  font-size: 15px;
+  font-weight: 700;
+  background-color: ${(props) => props.theme.mainColor};
+  cursor: pointer;
+
+  &:hover {
+    background-color: #ffdeb7;
+  }
+`;
+
+const PasswordFind = styled.div`
+  margin-top: 23px;
+  color: ${(props) => props.theme.mainText};
+  font-size: 13px;
   cursor: pointer;
 `;
 
-const UnderText = styled.span`
-  width: fit-content;
-  height: 32.59px;
-  color: #0f79ce;
-  font-size: 12.5px;
-  position: absolute;
-  top: 44%;
-  left: 75%;
+const MoveSignup = styled.button`
+  font-size: 14px;
+  margin-top: 20px;
+  width: 410px;
+  height: 60px;
+  border-radius: 4px;
+  border: none;
+  color: ${(props) => props.theme.mainText};
+  border: 1px solid ${(props) => props.theme.disabledTagBorder};
+  background-color: ${(props) => props.theme.disabledTagBackground};
+  cursor: pointer;
+
+  > .bold {
+    font-weight: 500;
+  }
 `;
 
-const LoginWrapper = styled.div`
-  width: fit-content;
-  height: fit-content;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  position: absolute;
-  top: 25%;
-`
+const Errormsg = styled.p`
+  color: #d0393e;
+  margin: 2px 0px;
+  padding: 2px;
+  font-size: 12px;
+`;
 
-const LoginContainer = styled.div`
-  width: 100%;
-  min-height: 100vh;
-  margin: 0px;
-  padding: 0px;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  box-sizing: border-box;
-`
+interface FormValue {
+  email: string;
+  password: any;
+}
 
+function Login() {
+  const [loginError, setLoginError] = useState(false);
 
-const Login = () => {
+  const navigate = useNavigate();
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<FormValue>();
+
+  const onSubmit: SubmitHandler<FormValue> = (data) => {
+    BASE_API.post(`/auth/login`, {
+      email: data.email,
+      password: data.password,
+    })
+      .then((res) => {
+        if (res.headers.authorization) {
+          localStorage.setItem("accessToken", res.headers.authorization);
+          localStorage.setItem("CURRENT_USER", JSON.stringify(res.data));
+        }
+        setLoginError(false);
+      })
+      .then(() => {
+        navigate("/");
+        window.location.reload();
+      })
+      .catch(() => {
+        setLoginError(true);
+      });
+  };
+
   return (
     <LoginContainer>
-      <LoginWrapper>
-        <Buttons>
-          <SpotifyButton>
-            <ImgSrc src={SpotifyLogo} />
-            Spotify로 계속하기
-          </SpotifyButton>
-        </Buttons>
-
-        <BorderLine/>
-
-        <Form>
-          <EmailText>이메일 주소</EmailText>
-          <EmailInput/>
-          <PassText>비밀번호</PassText>
-          <UnderText>
-            비밀번호 찾기
-          </UnderText>
-          <PassInput/>
-          <LoginButton type="button">
-            로그인
-          </LoginButton>
-        </Form>
-
-        <BorderLine/>
-        <div>아직 계정이 없으신가요?</div>
-        <SignupButton>
-            나만의 작은 음악 다이어리 가입하기
-        </SignupButton>
-      </LoginWrapper>
+      <Logo>
+        <Link to='/'>나만의 작은 음악 다이어리</Link>
+      </Logo>
+      <FormContainer>
+        {errors.email && errors.email.type === "required" && (
+          <Errormsg>Email cannot be empty.</Errormsg>
+        )}
+        {errors.password && errors.password.type === "required" && (
+          <Errormsg>Password cannot be empty.</Errormsg>
+        )}
+        {loginError ? <Errormsg>The email or password is incorrect.</Errormsg> : null}
+        <EmailInput
+          type='email'
+          placeholder='이메일'
+          {...register("email", {
+            required: true,
+          })}
+        />
+        <PasswordInput
+          type='password'
+          placeholder='비밀번호'
+          {...register("password", {
+            required: true,
+          })}
+        />
+        <LoginButton type='button' onClick={handleSubmit(onSubmit)}>
+          로그인
+        </LoginButton>
+      </FormContainer>
+      <PasswordFind>비밀번호를 잊으셨나요?</PasswordFind>
+      <Link to='/Signup'>
+        <MoveSignup>
+          계정이 없으신가요? <span className='bold'>가입하기</span>
+        </MoveSignup>
+      </Link>
     </LoginContainer>
   );
-};
+}
 
 export default Login;

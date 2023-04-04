@@ -1,9 +1,18 @@
-import React from 'react'
-import EditMain from '../components/EditDiary/EditMain'
-export default function EditDiary() {
+import EditMain from "../components/EditDiary/EditMain";
+import LoginHeader from "../components/LoginHeader";
+import LogoutHeader from "../components/LogoutHeader";
+import { useContext } from "react";
+import { myContext } from "../theme";
+
+function EditDiary() {
+  const { isLogin }: any = useContext(myContext);
+
   return (
-    <div>
+    <>
+      {isLogin ? <LoginHeader /> : <LogoutHeader />}
       <EditMain />
-    </div>
-  )
+    </>
+  );
 }
+
+export default EditDiary;

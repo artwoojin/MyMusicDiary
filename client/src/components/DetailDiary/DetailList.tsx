@@ -1,13 +1,16 @@
 import styled from "styled-components";
 import CommentList from "./CommentList";
-import PlayList from "./PlayList";
+import DetailPlayList from "./DetailPlayList";
 import { useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { DiaryData } from "../../util/Type";
-import { BASE_API } from "../../util/API";
+import { TOKEN_API } from "../../util/API";
 import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
 import { RiErrorWarningLine } from "react-icons/ri";
-import { Link } from 'react-router-dom';
+import DOMPurify from "dompurify";
+import { useContext } from "react";
+import { myContext } from "../../theme";
+
 const DetailMainContainer = styled.div`
   display: flex;
   justify-content: center;
@@ -25,13 +28,14 @@ const TitleArea = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-bottom: 1px solid #d9d9d9;
+  border-bottom: 1px solid ${(props) => props.theme.detailLine};
   padding: 0 10px 0 10px;
 
   > .DetailTitle {
+    width: 580px;
     font-size: 24px;
-    color: #21252b;
     font-weight: 600;
+    color: ${(props) => props.theme.mainText};
   }
 `;
 
@@ -45,11 +49,14 @@ const ButtonArea = styled.div`
     font-size: 13px;
     padding: 5px;
     background-color: transparent;
+    cursor: pointer;
   }
 
   > .edit {
+    /* 다이어리 수정 오류 때문에 임시로 수정 버튼 숨김처리  */
+    display: none;
     width: 40px;
-    color: #21252b;
+    color: ${(props) => props.theme.mainText};
     border: none;
     text-decoration: underline;
     font-weight: 600;
@@ -57,22 +64,22 @@ const ButtonArea = styled.div`
 
   > .delete {
     width: 40px;
-    color: #21252b;
+    color: ${(props) => props.theme.mainText};
     border: none;
     text-decoration: underline;
     font-weight: 600;
   }
 
   > .like {
-    color: #21252b;
+    color: ${(props) => props.theme.mainText};
     margin-left: 25px;
     width: 140px;
     height: 35px;
-    border: 1px solid #d1d1d1;
+    border: 1px solid ${(props) => props.theme.detailLine};
     border-radius: 4px;
 
     > .likeIcon {
-      color: red;
+      color: #ec1d36;
       margin-right: 5px;
     }
 
@@ -81,7 +88,7 @@ const ButtonArea = styled.div`
     }
 
     &:hover {
-      background-color: #eeeeee;
+      background-color: ${(props) => props.theme.likeHover};
     }
   }
 `;
@@ -101,12 +108,13 @@ const DeleteModalBack = styled.div`
 const DeleteModalView = styled.div`
   text-align: center;
   border-radius: 5px;
-  background-color: white;
+  background-color: ${(props) => props.theme.background};
   width: 430px;
   height: 220px;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.19), 0 10px 10px rgba(0, 0, 0, 0.1);
 
   > .deleteModalTitle {
+    color: ${(props) => props.theme.mainText};
     font-size: 20px;
     font-weight: 700;
     text-align: center;
@@ -114,6 +122,7 @@ const DeleteModalView = styled.div`
   }
 
   > .warningText {
+    color: ${(props) => props.theme.subText};
     font-size: 15px;
     font-weight: 500;
     margin-bottom: 50.5px;
@@ -123,23 +132,25 @@ const DeleteModalView = styled.div`
     font-weight: 500;
     width: 215px;
     height: 50px;
-    color: white;
     border: none;
     text-decoration: none;
+    cursor: pointer;
+
     &:hover {
       text-decoration: none;
     }
   }
 
   > .deleteCancelButton {
-    color: #21252b;
+    color: ${(props) => props.theme.subText};
     font-weight: 600;
     background-color: transparent;
-    border-top: 1px solid #eeeeee;
-    border-right: 0.5px solid #eeeeee;
+    border-top: 1px solid ${(props) => props.theme.detailLine};
+    border-right: 0.5px solid ${(props) => props.theme.detailLine};
     border-bottom-left-radius: 5px;
+
     &:hover {
-      background-color: #eeeeee;
+      background-color: ${(props) => props.theme.likeHover};
     }
   }
 
@@ -147,11 +158,139 @@ const DeleteModalView = styled.div`
     color: #ec1d36;
     font-weight: 600;
     background-color: transparent;
-    border-top: 1px solid #eeeeee;
-    border-left: 0.5px solid #eeeeee;
+    border-top: 1px solid ${(props) => props.theme.detailLine};
+    border-left: 0.5px solid ${(props) => props.theme.detailLine};
     border-bottom-right-radius: 5px;
+
     &:hover {
-      background-color: #eeeeee;
+      background-color: ${(props) => props.theme.likeHover};
+    }
+  }
+`;
+
+const AlbumCoverArea = styled.div`
+  display: flex;
+  margin: 30px 0 30px 0;
+
+  > .coverImg {
+    width: 190px;
+    height: 180px;
+    margin-right: 30px;
+    border-radius: 4px;
+    background-color: lightgray;
+    object-fit: cover;
+  }
+`;
+
+const InfoArea = styled.div`
+  width: 400px;
+  margin-top: 5px;
+`;
+
+const UserInfo = styled.div`
+  margin-bottom: 15px;
+  font-size: 14px;
+  color: ${(props) => props.theme.mainText};
+
+  > .text {
+    font-size: 13px;
+    margin-right: 50px;
+  }
+`;
+
+const AlbumInfoArea = styled.div`
+  padding: 30px 10px 30px 10px;
+  border-top: 1px solid ${(props) => props.theme.detailLine};
+
+  > .playTitle {
+    font-size: 19px;
+    font-weight: 500;
+    margin-bottom: 20px;
+    color: ${(props) => props.theme.mainText};
+  }
+
+  > .playContent {
+    font-size: 14px;
+    color: ${(props) => props.theme.mainText};
+  }
+`;
+
+const PlayListArea = styled.div`
+  padding: 30px 10px 30px 10px;
+  border-top: 1px solid ${(props) => props.theme.detailLine};
+
+  > .playTitle {
+    font-size: 19px;
+    font-weight: 500;
+    margin-bottom: 20px;
+    color: ${(props) => props.theme.mainText};
+  }
+`;
+
+const CommentInputArea = styled.div`
+  margin-bottom: 20px;
+  border-top: 1px solid ${(props) => props.theme.detailLine};
+  padding: 30px 10px 30px 10px;
+
+  > .commentTitle {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    color: ${(props) => props.theme.mainText};
+    margin-bottom: 20px;
+
+    > .commentCount {
+      font-size: 19px;
+      margin-left: 5px;
+      font-weight: 500;
+    }
+
+    > .commentRule {
+      display: flex;
+      align-items: center;
+      font-size: 14px;
+      margin-right: 5px;
+      cursor: pointer;
+
+      > .ruleIcon {
+        margin-right: 5px;
+      }
+    }
+  }
+`;
+
+const TextArea = styled.div`
+  display: flex;
+
+  > textArea {
+    color: ${(props) => props.theme.mainText};
+    width: 1300px;
+    height: 70px;
+    resize: none;
+    margin: 0 10px 30px 0;
+    border-radius: 4px;
+    padding: 10px 8px 10px 8px;
+    border: none;
+    border: 1px solid ${(props) => props.theme.disabledTagBorder};
+    background-color: ${(props) => props.theme.disabledTagBackground};
+
+    &:focus {
+      outline: none;
+    }
+  }
+
+  > .sumbit {
+    width: 90px;
+    min-width: 90px;
+    height: 70px;
+    border: none;
+    color: #21252b;
+    border-radius: 4px;
+    background-color: ${(props) => props.theme.mainColor};
+    cursor: pointer;
+
+    &:hover {
+      background-color: ${(props) => props.theme.buttonHover};
     }
   }
 `;
@@ -159,12 +298,13 @@ const DeleteModalView = styled.div`
 const RuleModalView = styled.div`
   text-align: center;
   border-radius: 5px;
-  background-color: white;
+  background-color: ${(props) => props.theme.background};
   width: 550px;
   height: 420px;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.19), 0 10px 10px rgba(0, 0, 0, 0.1);
 
   > .ruleModalTitle {
+    color: ${(props) => props.theme.mainText};
     font-size: 20px;
     font-weight: 700;
     text-align: center;
@@ -172,6 +312,7 @@ const RuleModalView = styled.div`
   }
 
   > .warningText {
+    color: ${(props) => props.theme.subText};
     line-height: 30px;
     text-align: left;
     font-size: 15px;
@@ -187,127 +328,23 @@ const RuleModalView = styled.div`
     color: white;
     border: none;
     text-decoration: none;
+    cursor: pointer;
+
     &:hover {
       text-decoration: none;
     }
   }
 
   > .confirmButton {
-    color: #21252b;
+    color: ${(props) => props.theme.subText};
     font-weight: 600;
     background-color: transparent;
-    border-top: 1px solid #eeeeee;
+    border-top: 1px solid ${(props) => props.theme.detailLine};
     border-bottom-right-radius: 5px;
     border-bottom-left-radius: 5px;
-    &:hover {
-      background-color: #eeeeee;
-    }
-  }
-`;
-
-const AlbumCoverArea = styled.div`
-  display: flex;
-  margin: 30px 0 30px 0;
-
-  > .coverImg {
-    width: 190px;
-    height: 180px;
-    margin-right: 30px;
-    border-radius: 4px;
-    background-color: lightgray;
-  }
-`;
-
-const InfoArea = styled.div`
-  width: 400px;
-  margin-top: 5px;
-`;
-
-const UserInfo = styled.div`
-  margin-bottom: 15px;
-  font-size: 14px;
-
-  > .text {
-    font-size: 13px;
-    margin-right: 50px;
-  }
-`;
-
-const AlbumInfoArea = styled.div`
-  padding: 30px 10px 30px 10px;
-  border-top: 1px solid #d9d9d9;
-  border-bottom: 1px solid #d9d9d9;
-
-  > .playTitle {
-    font-size: 19px;
-    font-weight: 500;
-    margin-bottom: 20px;
-  }
-
-  > .playContent {
-    font-size: 14px;
-  }
-`;
-
-const CommentInputArea = styled.div`
-  margin-bottom: 20px;
-  border-top: 1px solid #d9d9d9;
-  padding: 30px 10px 30px 10px;
-
-  > .commentTitle {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 20px;
-
-    > .commentCount {
-      font-size: 19px;
-      margin-left: 5px;
-      font-weight: 500;
-    }
-
-    > .commentRule {
-      display: flex;
-      align-items: center;
-      font-size: 14px;
-      margin-right: 5px;
-
-      > .ruleIcon {
-        margin-right: 5px;
-      }
-    }
-  }
-`;
-
-const TextArea = styled.div`
-  display: flex;
-
-  > .textArea {
-    width: 1300px;
-    height: 70px;
-    resize: none;
-    margin: 0 10px 30px 0;
-    border: 1px solid #d1d1d1;
-    border-radius: 4px;
-    padding: 10px 8px 10px 8px;
-
-    &:focus {
-      outline: 0.5px solid gray;
-      padding: 10px 8px 10px 8px;
-    }
-  }
-
-  > .sumbit {
-    width: 90px;
-    min-width: 90px;
-    height: 70px;
-    border: none;
-    color: #21252b;
-    border-radius: 4px;
-    background-color: #ffefd5;
 
     &:hover {
-      background-color: #ffdeb7;
+      background-color: ${(props) => props.theme.likeHover};
     }
   }
 `;
@@ -319,14 +356,17 @@ interface DiaryDataProps {
 
 function DetailList({ list, getDetailData }: DiaryDataProps) {
   const [checkLike, setCheckLike] = useState<boolean>(false);
-  const [text, setText] = useState<string>("");
+  const [commentBody, setCommentBody] = useState<string>("");
   const [withDrawalModalOpen, setWithdrawalModalOpen] = useState<boolean>(false);
   const [ruleModal, setRuleModal] = useState<boolean>(false);
 
   const commentData = list.comments; // 선택한 다이어리의 코멘트 정보
+  const playlistData = list.playlists; // 선택한 플레이리스트의 정보
+
   const { diaryId } = useParams();
   const navigate = useNavigate();
-  const token = `eyJhbGciOiJIUzUxMiJ9.eyJyb2xlcyI6WyJVU0VSIl0sInVzZXJuYW1lIjoiZGRhZHpAbmF2ZXIuY29tIiwic3ViIjoiZGRhZHpAbmF2ZXIuY29tIiwiaWF0IjoxNjc5OTE3ODI3LCJleHAiOjE2ODA1MTc4Mjd9.InKMqa_ozFhKP-TNbUceA2nk3f9uPY5umYFxadKn-4uGgf4tW3nfbBDrK3nVXYLhu00ie1BExiJpeDCrFgX2RQ`;
+  const { currentUser }: any = useContext(myContext);
+  const myDiary: boolean = list.userNickname === currentUser?.nickname;
 
   // 좋아요 버튼
   const plusLikeCount = async () => {
@@ -334,14 +374,14 @@ function DetailList({ list, getDetailData }: DiaryDataProps) {
       const like = {
         likeCount: list.likeCount + 1,
       };
-      const res = await BASE_API.patch(`/diary/${diaryId}`, like);
+      const res = await TOKEN_API.patch(`/diary/${diaryId}`, like);
       getDetailData(res.data);
       setCheckLike(true);
     } else {
       const like = {
         likeCount: list.likeCount - 1,
       };
-      const res = await BASE_API.patch(`/diary/${diaryId}`, like);
+      const res = await TOKEN_API.patch(`/diary/${diaryId}`, like);
       getDetailData(res.data);
       setCheckLike(false);
     }
@@ -367,10 +407,7 @@ function DetailList({ list, getDetailData }: DiaryDataProps) {
 
   // 선택한 다이어리 delete 요청
   const postDelete = async () => {
-    const res = await BASE_API.delete(`/diary/${diaryId}`, {
-      headers: { Authorization: `Bearer ${token}` },
-    });
-    getDetailData(res.data);
+    await TOKEN_API.delete(`/diary/${diaryId}`);
     const scrollY = document.body.style.top;
     document.body.style.cssText = "";
     window.scrollTo(0, parseInt(scrollY || "0", 10) * -1);
@@ -381,17 +418,16 @@ function DetailList({ list, getDetailData }: DiaryDataProps) {
   const submitHandler = async () => {
     const newComment = {
       diaryId: diaryId,
-      body: text,
+      body: commentBody,
     };
-    const res = await BASE_API.post(`/comment`, newComment, {
-      headers: { Authorization: `Bearer ${token}` },
-    });
+    const res = await TOKEN_API.post(`/comment`, newComment);
     getDetailData(res.data);
+    setCommentBody("");
   };
 
   // 댓글 작성 체인지 이벤트
-  const changeHandler = (e: any) => {
-    setText(e.target.value);
+  const changeHandler = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setCommentBody(e.target.value);
   };
 
   // 댓글 운영 원칙 오픈 모달 오픈 이벤트 핸들러
@@ -412,9 +448,9 @@ function DetailList({ list, getDetailData }: DiaryDataProps) {
     window.scrollTo(0, parseInt(scrollY || "0", 10) * -1);
   };
 
-  const clickHandler = () => {
+  // 수정 페이지로 이동
+  const moveEditDiary = () => {
     navigate(`/EditDiary/${list.diaryId}`);
-    // navigate(`/DetailDiary/${list.nickname}`)
   };
 
   return (
@@ -423,12 +459,16 @@ function DetailList({ list, getDetailData }: DiaryDataProps) {
         <TitleArea>
           <div className='DetailTitle'>{list.title}</div>
           <ButtonArea>
-            
-            <button className='edit' onClick={clickHandler}>수정</button>
-            
-            <button className='delete' onClick={openModalHandler}>
-              삭제
-            </button>
+            {myDiary === true ? (
+              <>
+                <button className='edit' onClick={moveEditDiary}>
+                  수정
+                </button>
+                <button className='delete' onClick={openModalHandler}>
+                  삭제
+                </button>
+              </>
+            ) : null}
             {withDrawalModalOpen ? (
               <DeleteModalBack>
                 <DeleteModalView>
@@ -461,7 +501,7 @@ function DetailList({ list, getDetailData }: DiaryDataProps) {
           </ButtonArea>
         </TitleArea>
         <AlbumCoverArea>
-          <div className='coverImg'></div>
+          <img className='coverImg' src={list.playlists[0]?.thumbnail} alt='첫번째 앨범 커버' />
           <InfoArea>
             <UserInfo>
               <span className='text'>등록자</span>
@@ -475,9 +515,17 @@ function DetailList({ list, getDetailData }: DiaryDataProps) {
         </AlbumCoverArea>
         <AlbumInfoArea>
           <div className='playTitle'>다이어리 소개</div>
-          <div className='playContent'>{list.body}</div>
+          <div
+            className='playContent'
+            dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(list.body) }}
+          ></div>
         </AlbumInfoArea>
-        <PlayList />
+        <PlayListArea>
+          <div className='playTitle'>다이어리 수록곡</div>
+          {playlistData?.map((value, index) => {
+            return <DetailPlayList list={value} key={index} />;
+          })}
+        </PlayListArea>
         <CommentInputArea>
           <div className='commentTitle'>
             <span className='commentCount'>댓글 ({commentData.length})</span>
@@ -510,11 +558,11 @@ function DetailList({ list, getDetailData }: DiaryDataProps) {
           </div>
           <TextArea>
             <textarea
-              className='textArea'
+              value={commentBody}
               placeholder='댓글을 작성하세요'
               onChange={changeHandler}
             />
-            <button className='sumbit' onClick={submitHandler}>
+            <button className='sumbit' onClick={submitHandler} disabled={commentBody.length === 0}>
               등록
             </button>
           </TextArea>
@@ -528,4 +576,3 @@ function DetailList({ list, getDetailData }: DiaryDataProps) {
 }
 
 export default DetailList;
-
