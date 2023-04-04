@@ -6,7 +6,6 @@ import com.seb42.main30.seb42_main_030.comment.entity.Comment;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
-
 import java.util.List;
 
 @Mapper (componentModel = "spring")

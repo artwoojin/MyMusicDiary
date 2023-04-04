@@ -19,7 +19,7 @@ import java.util.Map;
 @Component
 public class JwtTokenizer {
     @Getter
-    @Value("${jwt.key.secret}")
+    @Value("${jwt.key}")
     private String secretKey;
 
     @Getter
@@ -70,7 +70,6 @@ public class JwtTokenizer {
         return claims;
     }
 
-    //JWT검증
     public void verifySignature(String jws, String base64EncodedSecretKey) {
         Key key = getKeyFromBase64EncodedKey(base64EncodedSecretKey);
 

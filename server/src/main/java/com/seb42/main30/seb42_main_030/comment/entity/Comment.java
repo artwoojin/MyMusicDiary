@@ -8,7 +8,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
@@ -38,11 +37,11 @@ public class Comment extends Auditable {
 
 
 
-    //    유저랑 다이어리 연결
+//    유저랑 다이어리 연결
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
-    //
+//
     @ManyToOne
     @JoinColumn(name = "diary_id")
     private Diary diary;

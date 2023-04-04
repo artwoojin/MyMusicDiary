@@ -9,10 +9,10 @@ import java.util.stream.Collectors;
 
 @Component
 public class CustomAuthorityUtils {
-    private final List<String> USER_ROLES_STRING = List.of("USER");
+    private final List<String> USERS_ROLES_STRING = List.of("USER");
 
     public List<String> createRoles() {
-        return USER_ROLES_STRING;
+        return USERS_ROLES_STRING;
     }
 
     public List<GrantedAuthority> createAuthorities(List<String> roles) {

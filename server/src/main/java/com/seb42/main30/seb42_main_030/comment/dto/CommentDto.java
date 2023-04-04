@@ -1,9 +1,6 @@
 package com.seb42.main30.seb42_main_030.comment.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.validation.constraints.NotBlank;
 import java.time.LocalDateTime;
@@ -37,7 +34,7 @@ public class CommentDto {
 
 
     }
-
+    @Builder
     @Setter
     @Getter
     @AllArgsConstructor
