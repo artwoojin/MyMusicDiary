@@ -8,6 +8,7 @@ import axios from "axios";
 import NewPlayList from "./NewPlayList";
 import { myContext } from "../../theme";
 import { PlaylistData } from "../../util/Type";
+import { toast } from "react-toastify";
 
 export const MainContainer = styled.div`
   display: flex;
@@ -124,7 +125,7 @@ export const AlbumInfoArea = styled.div`
       background-color: ${(props) => props.theme.disabledTagBackground};
 
       > .ql-editor::before {
-        color: gray;
+        color: ${(props) => props.theme.disabledTagColor};
         font-style: normal;
       }
     }
@@ -190,13 +191,19 @@ function NewMain() {
 
   // 다이어리 post 요청
   const submitHandler = async () => {
-    const newDiary = {
-      title: newTitle,
-      body: newBody,
-      playlists: newPlayList,
-    };
-    await TOKEN_API.post(`/diary`, newDiary);
-    navigate(`/`);
+    if (newTitle.length !== 0 && newPlayList.length !== 0) {
+      const newDiary = {
+        title: newTitle,
+        body: newBody,
+        playlists: newPlayList,
+      };
+      await TOKEN_API.post(`/diary`, newDiary);
+      navigate(`/`);
+    } else if (newTitle.length === 0 && newTitle.length === 0) {
+      toast.error("제목을 입력해 주세요!");
+    } else {
+      toast.warning("플레이리스트를 등록해 주세요!");
+    }
   };
 
   // 제목 수정 체인지 이벤트
@@ -266,9 +273,7 @@ function NewMain() {
             placeholder='제목을 입력하세요'
             onChange={changeNewTitle}
           />
-          <SubmitButton onClick={submitHandler} disabled={newTitle.length === 0}>
-            등록하기
-          </SubmitButton>
+          <SubmitButton onClick={submitHandler}>등록하기</SubmitButton>
         </TitleArea>
         <AlbumCoverArea>
           <div className='coverImg'></div>

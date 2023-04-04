@@ -5,10 +5,13 @@ import Login from "./pages/Login";
 import DetailDiary from "./pages/DetailDiary";
 import Signup from "./pages/Signup";
 import EditDiary from "./pages/EditDiary";
+import styled from "styled-components";
 import { useState } from "react";
 import { Routes, Route } from "react-router-dom";
 import { createGlobalStyle, ThemeProvider } from "styled-components";
 import { myContext, lightMode, darkMode } from "./theme";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.min.css";
 
 const GlobalStyle = createGlobalStyle`
   * {
@@ -22,6 +25,19 @@ const GlobalStyle = createGlobalStyle`
 
   body {
     background-color: ${(props) => props.theme.background};
+  }
+`;
+
+const Test = styled(ToastContainer)`
+  .Toastify__toast {
+    font-size: 15px;
+    margin-top: 60px;
+    color: ${(props) => props.theme.mainText};
+    background-color: ${(props) => props.theme.disabledTagBackground};
+  }
+
+  .Toastify__close-button {
+    color: ${(props) => props.theme.mainText};
   }
 `;
 
@@ -52,6 +68,7 @@ function App() {
             <Route path='/DetailDiary/:diaryId' element={<DetailDiary />} />
             <Route path='/EditDiary/:diaryId' element={<EditDiary />} />
           </Routes>
+          <Test hideProgressBar={false} autoClose={2000} pauseOnFocusLoss={true} />
         </div>
       </ThemeProvider>
     </myContext.Provider>
