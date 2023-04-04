@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import mainIcon from "../util/img/mainIcon.png";
 import { Link, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { BASE_API } from "../util/API";
@@ -6,7 +7,6 @@ import { GoTriangleDown } from "react-icons/go";
 import { BsFillSunFill, BsFillMoonStarsFill } from "react-icons/bs";
 import { useContext } from "react";
 import { myContext } from "../theme";
-import mainIcon from "../util/img/mainIcon.png";
 
 const HeaderContainer = styled.header`
   display: flex;
