@@ -66,11 +66,11 @@ const DiaryMainWrapper = styled.ul`
 function DiaryMain() {
   const [diaryData, setDiaryData] = useState<DiaryData[]>([]); // 전체 diary 데이터
   const [currentTab, setCurrentTab] = useState<number>(0); // 탭 이동 상태
-  // const [page, setPage] = useState<number>(1); // 현재 페이지 번호 (기본값: 1페이지부터 노출)
   const [page, setPage] = useState(
-    () => JSON.parse(window.localStorage.getItem("currentPage")!) || 1
+    () => JSON.parse(window.localStorage.getItem("currentPage")!) || 1 // 현재 페이지 번호 (기본값: 1페이지부터 노출)
   );
 
+  // 로컬스토리지에 현재 페이지 번호 저장
   useEffect(() => {
     window.localStorage.setItem("currentPage", JSON.stringify(page));
   }, [page]);

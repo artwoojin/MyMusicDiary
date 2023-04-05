@@ -77,7 +77,13 @@ function MypageMain() {
   const [myLikeDiaryData, setLikeDiaryData] = useState<DiaryData[]>([]);
   const [myCommentData, setMyCommentData] = useState<CommentData[]>([]);
   const [currentTab, setCurrentTab] = useState<number>(0);
-  const [page, setPage] = useState<number>(1);
+  const [page, setPage] = useState<number>(
+    () => JSON.parse(window.localStorage.getItem("myCurrentPage")!) || 1
+  );
+
+  useEffect(() => {
+    window.localStorage.setItem("myCurrentPage", JSON.stringify(page));
+  }, [page]);
 
   const LIMIT_COUNT: number = 20;
   const offset: number = (page - 1) * LIMIT_COUNT;
