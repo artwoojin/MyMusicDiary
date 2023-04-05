@@ -13,29 +13,46 @@ export const PageNum = styled.div`
   > .pageTab,
   .leftHandle,
   .rightHandle {
-    width: 20px;
-    height: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 30px;
+    height: 30px;
     background-color: transparent;
     border: none;
     font-size: 15px;
-    margin: 0 5px 0 5px;
     color: ${(props) => props.theme.mainText};
+    transition: 0.2s ease-in-out;
     cursor: pointer;
+
+    &:hover {
+      width: 30px;
+      height: 30px;
+      border-radius: 50px;
+      background-color: ${(props) => props.theme.playListHover};
+    }
 
     &:disabled {
       color: ${(props) => props.theme.disabled};
+      background-color: transparent;
     }
   }
 
   > .pageFocused {
     width: 30px;
     height: 30px;
-    border-radius: 3px;
     background-color: ${(props) => props.theme.mainColor};
     border: none;
     border-radius: 50px;
     color: ${(props) => props.theme.TagColor};
     font-weight: 600;
+
+    &:hover {
+      width: 30px;
+      height: 30px;
+      border-radius: 50px;
+      background-color: ${(props) => props.theme.mainColor};
+    }
   }
 `;
 

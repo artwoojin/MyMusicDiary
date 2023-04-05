@@ -4,12 +4,11 @@ import MyLikeDiary from "./MyLikeDiary";
 import MyComment from "./MyComment";
 import MyInfo from "./MyInfo";
 import styled from "styled-components";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { DiaryData } from "../../util/Type";
 import { CommentData } from "../../util/Type";
 import { UserData } from "../../util/Type";
 import { BASE_API } from "../../util/API";
-import { useContext } from "react";
 import { myContext } from "../../theme";
 
 const ListTab = styled.ul`
@@ -105,7 +104,7 @@ function MypageMain() {
   // Tab 2(MyDiary) : 나의 다이어리 데이터 get 요청
   const getMyDiaryData = async () => {
     try {
-      const res = await BASE_API.get(`/diary`);
+      const res = await BASE_API.get(`/diary?userNickname=동구222`);
       setMyDiaryData(res.data);
     } catch (err) {
       console.error(err);
@@ -114,6 +113,8 @@ function MypageMain() {
   useEffect(() => {
     getMyDiaryData();
   }, []);
+
+  console.log(myDiaryData);
 
   // Tab 3(MyLikeDiary) : 내가 좋아요 한 다이어리 데이터 get 요청
   // const getLikeData = async () => {
