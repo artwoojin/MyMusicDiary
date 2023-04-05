@@ -1,8 +1,7 @@
 import styled from "styled-components";
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { CommentData } from "../../util/Type";
 import { TOKEN_API } from "../../util/API";
-import { useContext } from "react";
 import { myContext } from "../../theme";
 
 const CommentListContainer = styled.li`
@@ -15,6 +14,7 @@ const CommentListWrapper = styled.div`
   max-width: 900px;
   min-width: 300px;
   border: none;
+  padding: 0 10px 0 10px;
   border-bottom: 1px solid ${(props) => props.theme.detailLine};
   color: ${(props) => props.theme.mainText};
 

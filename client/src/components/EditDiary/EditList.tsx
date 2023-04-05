@@ -126,7 +126,7 @@ function EditList({ list }: DiaryDataProps) {
           <NewMain.UrlInput>
             <input
               value={editUrl}
-              placeholder='유튜브 URL을 입력해 주세요'
+              placeholder='유튜브 url을 입력해 주세요'
               onChange={changeEditUrl}
             />
             <button className='sumbit' onClick={addPlayList} disabled={editUrl.length === 0}>

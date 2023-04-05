@@ -1,14 +1,13 @@
 import styled from "styled-components";
 import CommentList from "./CommentList";
 import DetailPlayList from "./DetailPlayList";
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { DiaryData } from "../../util/Type";
 import { TOKEN_API } from "../../util/API";
 import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
 import { RiErrorWarningLine } from "react-icons/ri";
 import DOMPurify from "dompurify";
-import { useContext } from "react";
 import { myContext } from "../../theme";
 
 const DetailMainContainer = styled.div`

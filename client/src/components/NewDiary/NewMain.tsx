@@ -338,7 +338,7 @@ function NewMain() {
           <UrlInput>
             <input
               value={newUrl}
-              placeholder='유튜브 URL을 입력해 주세요'
+              placeholder='유튜브 url을 입력해 주세요'
               onChange={changeNewUrl}
             />
             <button className='sumbit' onClick={addPlayList} disabled={newUrl.length === 0}>
