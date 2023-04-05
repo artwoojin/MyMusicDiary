@@ -50,7 +50,7 @@ export const TitleArea = styled.div`
 
 export const SubmitButton = styled.button`
   font-size: 13px;
-  color: #1c1a16;
+  color: ${(props) => props.theme.TagColor};
   font-weight: 700;
   background-color: ${(props) => props.theme.mainColor};
   border: none;
@@ -177,7 +177,8 @@ export const UrlInput = styled.div`
     width: 90px;
     min-width: 90px;
     border: none;
-    color: #21252b;
+    font-weight: 700;
+    color: ${(props) => props.theme.TagColor};
     border-radius: 4px;
     background-color: ${(props) => props.theme.mainColor};
     cursor: pointer;

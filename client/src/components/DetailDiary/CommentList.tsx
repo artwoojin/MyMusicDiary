@@ -4,30 +4,36 @@ import { CommentData } from "../../util/Type";
 import { TOKEN_API } from "../../util/API";
 import { myContext } from "../../theme";
 
-const CommentListContainer = styled.li`
+export const CommentListContainer = styled.li`
   display: flex;
   justify-content: center;
 `;
 
-const CommentListWrapper = styled.div`
+export const CommentListWrapper = styled.div`
   width: 100vw;
   max-width: 900px;
   min-width: 300px;
   border: none;
   padding: 0 10px 0 10px;
   border-bottom: 1px solid ${(props) => props.theme.detailLine};
-  color: ${(props) => props.theme.mainText};
 
-  > .content {
-    font-size: 13px;
-    color: ${(props) => props.theme.mainText};
+  .name {
+    font-size: 14px;
     font-weight: 500;
+    margin: 15px 0 15px 0;
+    color: ${(props) => props.theme.mainText};
   }
 
-  > .date {
+  .content {
+    font-size: 14px;
+    font-weight: 500;
+    color: ${(props) => props.theme.mainText};
+  }
+
+  .date {
     font-size: 12px;
-    color: #848180;
     margin: 10px 0 15px 0;
+    color: ${(props) => props.theme.disabledTagColor};
   }
 `;
 
@@ -35,12 +41,6 @@ const NameArea = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-
-  > .name {
-    font-size: 14px;
-    font-weight: 500;
-    margin: 15px 0 15px 0;
-  }
 `;
 
 const EditCommentArea = styled.input`
@@ -100,13 +100,14 @@ const DeleteModalBack = styled.div`
 
 const DeleteModalView = styled.div`
   text-align: center;
-  border-radius: 5px;
-  background-color: white;
+  border-radius: 4px;
+  background-color: ${(props) => props.theme.background};
   width: 430px;
   height: 220px;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.19), 0 10px 10px rgba(0, 0, 0, 0.1);
 
   > .deleteModalTitle {
+    color: ${(props) => props.theme.mainText};
     font-size: 20px;
     font-weight: 700;
     text-align: center;
@@ -114,6 +115,7 @@ const DeleteModalView = styled.div`
   }
 
   > .warningText {
+    color: ${(props) => props.theme.subText};
     font-size: 15px;
     font-weight: 500;
     margin-bottom: 50.5px;
@@ -123,9 +125,9 @@ const DeleteModalView = styled.div`
     font-weight: 500;
     width: 215px;
     height: 50px;
-    color: white;
     border: none;
     text-decoration: none;
+    cursor: pointer;
 
     &:hover {
       text-decoration: none;
@@ -133,15 +135,15 @@ const DeleteModalView = styled.div`
   }
 
   > .deleteCancelButton {
-    color: #21252b;
+    color: ${(props) => props.theme.subText};
     font-weight: 600;
     background-color: transparent;
-    border-top: 1px solid #eeeeee;
-    border-right: 0.5px solid #eeeeee;
-    border-bottom-left-radius: 5px;
+    border-top: 1px solid ${(props) => props.theme.detailLine};
+    border-right: 0.5px solid ${(props) => props.theme.detailLine};
+    border-bottom-left-radius: 4px;
 
     &:hover {
-      background-color: #eeeeee;
+      background-color: ${(props) => props.theme.likeHover};
     }
   }
 
@@ -149,12 +151,12 @@ const DeleteModalView = styled.div`
     color: #ec1d36;
     font-weight: 600;
     background-color: transparent;
-    border-top: 1px solid #eeeeee;
-    border-left: 0.5px solid #eeeeee;
-    border-bottom-right-radius: 5px;
+    border-top: 1px solid ${(props) => props.theme.detailLine};
+    border-left: 0.5px solid ${(props) => props.theme.detailLine};
+    border-bottom-right-radius: 4px;
 
     &:hover {
-      background-color: #eeeeee;
+      background-color: ${(props) => props.theme.likeHover};
     }
   }
 `;

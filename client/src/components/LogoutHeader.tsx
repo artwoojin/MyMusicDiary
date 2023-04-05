@@ -52,7 +52,7 @@ const ModeButton = styled.button`
   width: 40px;
   border: none;
   background-color: transparent;
-  margin-right: 10px;
+  margin-right: 20px;
   cursor: pointer;
 
   > .lightIcon {
@@ -64,13 +64,13 @@ const ModeButton = styled.button`
   }
 `;
 
-const SubmitButton = styled.button`
+const NewDiaryPostButton = styled.button`
   width: 120px;
   height: 35px;
   border: none;
   background-color: transparent;
   font-weight: 700;
-  font-size: 15px;
+  font-size: 16px;
   color: ${(props) => props.theme.mainText};
   cursor: pointer;
 `;
@@ -84,7 +84,7 @@ const LoginButton = styled.button`
   border-radius: 50px;
   color: ${(props) => props.theme.mainText};
   border: 1.5px solid ${(props) => props.theme.mainText};
-  margin: 0 10px 0 20px;
+  margin: 0 10px 0 25px;
   cursor: pointer;
 `;
 
@@ -111,7 +111,7 @@ function LogoutHeader() {
           </ModeButton>
           <div className='buttonArea'>
             <Link to='/Login'>
-              <SubmitButton>새 다이어리 등록</SubmitButton>
+              <NewDiaryPostButton>새 다이어리 등록</NewDiaryPostButton>
             </Link>
             <Link to='/Login'>
               <LoginButton>로그인</LoginButton>

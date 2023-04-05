@@ -92,7 +92,7 @@ const ModeButton = styled.button`
   width: 40px;
   border: none;
   background-color: transparent;
-  margin-right: 10px;
+  margin-right: 20px;
   cursor: pointer;
 
   > .lightIcon {
@@ -104,13 +104,13 @@ const ModeButton = styled.button`
   }
 `;
 
-const SubmitButton = styled.button`
+const NewDiaryPostButton = styled.button`
   width: 120px;
   height: 35px;
   border: none;
   background-color: transparent;
   font-weight: 700;
-  font-size: 15px;
+  font-size: 16px;
   color: ${(props) => props.theme.mainText};
   cursor: pointer;
 `;
@@ -118,7 +118,7 @@ const SubmitButton = styled.button`
 const ProfileButton = styled.div`
   display: flex;
   align-items: center;
-  margin-left: 10px;
+  margin-left: 20px;
 
   > .triangleDown {
     color: #787f84;
@@ -168,6 +168,8 @@ function LoginHeader() {
   const logOut = () => {
     localStorage.removeItem("accessToken");
     localStorage.removeItem("CURRENT_USER");
+    localStorage.removeItem("currentPage");
+    localStorage.removeItem("myCurrentPage");
     navigate("/");
     window.location.reload();
   };
@@ -190,7 +192,7 @@ function LoginHeader() {
             )}
           </ModeButton>
           <Link to='/NewDiary'>
-            <SubmitButton onClick={closeDropdown}>새 다이어리 등록</SubmitButton>
+            <NewDiaryPostButton onClick={closeDropdown}>새 다이어리 등록</NewDiaryPostButton>
           </Link>
           <ProfileButton onClick={openDropdown}>
             <Profile

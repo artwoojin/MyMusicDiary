@@ -114,8 +114,6 @@ function MypageMain() {
     getMyDiaryData();
   }, []);
 
-  console.log(myDiaryData);
-
   // Tab 3(MyLikeDiary) : 내가 좋아요 한 다이어리 데이터 get 요청
   // const getLikeData = async () => {
   //   try {

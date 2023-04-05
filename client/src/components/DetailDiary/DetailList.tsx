@@ -106,7 +106,7 @@ const DeleteModalBack = styled.div`
 
 const DeleteModalView = styled.div`
   text-align: center;
-  border-radius: 5px;
+  border-radius: 4px;
   background-color: ${(props) => props.theme.background};
   width: 430px;
   height: 220px;
@@ -146,7 +146,7 @@ const DeleteModalView = styled.div`
     background-color: transparent;
     border-top: 1px solid ${(props) => props.theme.detailLine};
     border-right: 0.5px solid ${(props) => props.theme.detailLine};
-    border-bottom-left-radius: 5px;
+    border-bottom-left-radius: 4px;
 
     &:hover {
       background-color: ${(props) => props.theme.likeHover};
@@ -159,7 +159,7 @@ const DeleteModalView = styled.div`
     background-color: transparent;
     border-top: 1px solid ${(props) => props.theme.detailLine};
     border-left: 0.5px solid ${(props) => props.theme.detailLine};
-    border-bottom-right-radius: 5px;
+    border-bottom-right-radius: 4px;
 
     &:hover {
       background-color: ${(props) => props.theme.likeHover};
@@ -300,7 +300,8 @@ const TextArea = styled.div`
     min-width: 90px;
     height: 70px;
     border: none;
-    color: #21252b;
+    font-weight: 700;
+    color: ${(props) => props.theme.TagColor};
     border-radius: 4px;
     background-color: ${(props) => props.theme.mainColor};
     cursor: pointer;
@@ -313,7 +314,7 @@ const TextArea = styled.div`
 
 const RuleModalView = styled.div`
   text-align: center;
-  border-radius: 5px;
+  border-radius: 4px;
   background-color: ${(props) => props.theme.background};
   width: 550px;
   height: 420px;
@@ -341,7 +342,6 @@ const RuleModalView = styled.div`
     font-weight: 500;
     width: 550px;
     height: 50px;
-    color: white;
     border: none;
     text-decoration: none;
     cursor: pointer;
@@ -356,8 +356,8 @@ const RuleModalView = styled.div`
     font-weight: 600;
     background-color: transparent;
     border-top: 1px solid ${(props) => props.theme.detailLine};
-    border-bottom-right-radius: 5px;
-    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 4px;
+    border-bottom-left-radius: 4px;
 
     &:hover {
       background-color: ${(props) => props.theme.likeHover};
