@@ -28,7 +28,7 @@ const GlobalStyle = createGlobalStyle`
   }
 `;
 
-const Test = styled(ToastContainer)`
+const Alert = styled(ToastContainer)`
   .Toastify__toast {
     font-size: 15px;
     color: ${(props) => props.theme.mainText};
@@ -67,7 +67,7 @@ function App() {
             <Route path='/DetailDiary/:diaryId' element={<DetailDiary />} />
             <Route path='/EditDiary/:diaryId' element={<EditDiary />} />
           </Routes>
-          <Test hideProgressBar={false} autoClose={2000} pauseOnFocusLoss={true} limit={1} />
+          <Alert hideProgressBar={false} autoClose={2000} pauseOnFocusLoss={true} />
         </div>
       </ThemeProvider>
     </myContext.Provider>

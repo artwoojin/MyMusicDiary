@@ -221,14 +221,17 @@ const PlayListArea = styled.div`
   border-top: 1px solid ${(props) => props.theme.detailLine};
 
   > .playTitle {
+    display: flex;
+    align-items: center;
     font-size: 19px;
     font-weight: 500;
     margin-bottom: 20px;
     color: ${(props) => props.theme.mainText};
 
     > .playCount {
+      font-size: 15px;
+      margin: 0 0 3px 5px;
       color: ${(props) => props.theme.subText};
-      font-size: 16px;
     }
   }
 `;
@@ -246,13 +249,16 @@ const CommentInputArea = styled.div`
     margin-bottom: 20px;
 
     > .commentText {
+      display: flex;
+      align-items: center;
       font-size: 19px;
       margin-left: 5px;
       font-weight: 500;
 
       > .commentCount {
+        font-size: 15px;
+        margin: 0 0 3px 5px;
         color: ${(props) => props.theme.subText};
-        font-size: 16px;
       }
     }
 

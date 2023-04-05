@@ -50,11 +50,11 @@ interface PlaylistDataProps {
 }
 
 function NewPlayList({ list, newPlayList, setNewPlayList }: PlaylistDataProps) {
-  const deleteList = (deleteId: any) => {
-    setNewPlayList(newPlayList.filter((value: any) => value.channelId !== deleteId));
+  const deleteList = (deleteUrl: string | undefined) => {
+    setNewPlayList(newPlayList.filter((value: any) => value.url !== deleteUrl));
   };
 
-  console.log(list);
+  // console.log(list);
 
   return (
     <PlayListContainer>
@@ -62,7 +62,7 @@ function NewPlayList({ list, newPlayList, setNewPlayList }: PlaylistDataProps) {
         <ContentArea>
           <img className='thumbnail' src={list.thumbnail} alt='썸네일' />
           <div className='listTitle'>{list.title}</div>
-          <button className='delete' onClick={() => deleteList(list.channelId)}>
+          <button className='delete' onClick={() => deleteList(list.url)}>
             삭제
           </button>
         </ContentArea>

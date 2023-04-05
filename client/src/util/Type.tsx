@@ -47,3 +47,9 @@ export interface UserData {
   password: string;
   imageUrl?: string;
 }
+
+export interface FormValue {
+  nickname: string;
+  email: string;
+  password: string;
+}

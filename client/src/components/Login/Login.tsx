@@ -1,8 +1,9 @@
 import styled from "styled-components";
 import { useNavigate, Link } from "react-router-dom";
 import { SubmitHandler, useForm } from "react-hook-form";
-import { useState } from "react";
 import { BASE_API } from "../../util/API";
+import { toast } from "react-toastify";
+import { FormValue } from "../../util/Type";
 
 const LoginContainer = styled.div`
   height: 100vh;
@@ -41,7 +42,6 @@ const EmailInput = styled.input`
   height: 50px;
   border-radius: 4px;
   padding: 10px 8px 10px 8px;
-  margin-bottom: 10px;
   color: ${(props) => props.theme.mainText};
   border: none;
   border: 1px solid ${(props) => props.theme.disabledTagBorder};
@@ -57,7 +57,7 @@ const PasswordInput = styled.input`
   height: 50px;
   border-radius: 4px;
   padding: 10px 8px 10px 8px;
-  margin-bottom: 30px;
+  margin-top: 10px;
   color: ${(props) => props.theme.mainText};
   border: none;
   border: 1px solid ${(props) => props.theme.disabledTagBorder};
@@ -76,11 +76,12 @@ const LoginButton = styled.button`
   color: #1c1a16;
   font-size: 15px;
   font-weight: 700;
+  margin-top: 30px;
   background-color: ${(props) => props.theme.mainColor};
   cursor: pointer;
 
   &:hover {
-    background-color: #ffdeb7;
+    background-color: ${(props) => props.theme.buttonHover};
   }
 `;
 
@@ -108,28 +109,20 @@ const MoveSignup = styled.button`
   }
 `;
 
-const Errormsg = styled.p`
+const Errormsg = styled.div`
+  margin-top: 5px;
   color: #d0393e;
-  margin: 2px 0px;
-  padding: 2px;
   font-size: 12px;
 `;
 
-interface FormValue {
-  email: string;
-  password: any;
-}
-
 function Login() {
-  const [loginError, setLoginError] = useState(false);
-
-  const navigate = useNavigate();
-
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<FormValue>();
+
+  const navigate = useNavigate();
 
   const onSubmit: SubmitHandler<FormValue> = (data) => {
     BASE_API.post(`/auth/login`, {
@@ -141,14 +134,14 @@ function Login() {
           localStorage.setItem("accessToken", res.headers.authorization);
           localStorage.setItem("CURRENT_USER", JSON.stringify(res.data));
         }
-        setLoginError(false);
       })
       .then(() => {
         navigate("/");
         window.location.reload();
       })
-      .catch(() => {
-        setLoginError(true);
+      .catch((err) => {
+        // 401 = 이메일 or 비밀번호를 잘못 입력했을 때
+        if (err.response.status === 401) toast.error("입력하신 내용을 다시 확인해주세요.");
       });
   };
 
@@ -158,27 +151,30 @@ function Login() {
         <Link to='/'>나만의 작은 음악 다이어리</Link>
       </Logo>
       <FormContainer>
-        {errors.email && errors.email.type === "required" && (
-          <Errormsg>Email cannot be empty.</Errormsg>
-        )}
-        {errors.password && errors.password.type === "required" && (
-          <Errormsg>Password cannot be empty.</Errormsg>
-        )}
-        {loginError ? <Errormsg>The email or password is incorrect.</Errormsg> : null}
         <EmailInput
           type='email'
           placeholder='이메일'
           {...register("email", {
-            required: true,
+            required: "이메일을 입력해 주세요.",
+            pattern: {
+              value: /\S+@\S+\.\S+/,
+              message: "이메일 형식에 맞지 않습니다.",
+            },
           })}
         />
+        {errors.email && <Errormsg>{errors.email.message}</Errormsg>}
         <PasswordInput
           type='password'
           placeholder='비밀번호'
           {...register("password", {
-            required: true,
+            required: "비밀번호를 입력해 주세요.",
+            minLength: {
+              value: 4,
+              message: "8자리 이상 입력해 주세요.",
+            },
           })}
         />
+        {errors.password && <Errormsg>{errors.password.message}</Errormsg>}
         <LoginButton type='button' onClick={handleSubmit(onSubmit)}>
           로그인
         </LoginButton>

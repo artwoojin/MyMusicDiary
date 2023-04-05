@@ -8,8 +8,8 @@ interface PlaylistDataProps {
 }
 
 function EditPlayList({ list, editPlayList, setEditPlayList }: PlaylistDataProps) {
-  const deleteList = (deleteId: any) => {
-    setEditPlayList(editPlayList.filter((value: any) => value.channelId !== deleteId));
+  const deleteList = (deleteId: string | undefined) => {
+    setEditPlayList(editPlayList.filter((value: any) => value.url !== deleteId));
   };
 
   return (
@@ -18,7 +18,7 @@ function EditPlayList({ list, editPlayList, setEditPlayList }: PlaylistDataProps
         <NewPlayList.ContentArea>
           <img className='thumbnail' src={list.thumbnail} alt='썸네일' />
           <div className='listTitle'>{list.title}</div>
-          <button className='delete' onClick={() => deleteList(list.channelId)}>
+          <button className='delete' onClick={() => deleteList(list.url)}>
             삭제
           </button>
         </NewPlayList.ContentArea>
