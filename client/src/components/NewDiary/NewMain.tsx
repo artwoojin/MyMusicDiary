@@ -209,9 +209,9 @@ function NewMain() {
       await TOKEN_API.post(`/diary`, newDiary);
       navigate(`/`);
     } else if (newTitle.length === 0 && newTitle.length === 0) {
-      toast.error("제목을 입력해 주세요!");
+      toast.error("제목을 입력해 주세요.");
     } else {
-      toast.error("플레이리스트를 등록해 주세요!");
+      toast.error("플레이리스트를 등록해 주세요.");
     }
   };
 
@@ -226,15 +226,15 @@ function NewMain() {
   };
 
   // 전체 url을 입력받은 후 id만 필터링
-  const getVideoId = (url: string) => {
-    if (url.indexOf("/watch") > -1) {
-      const arr = url.replaceAll(/=|&/g, "?").split("?");
+  const filteredUrlId = (allUrl: string) => {
+    if (allUrl.indexOf("/watch") > -1) {
+      const arr = allUrl.replaceAll(/=|&/g, "?").split("?");
       return arr[arr.indexOf("v") + 1];
-    } else if (url.indexOf("/youtu.be") > -1) {
-      const arr = url.replaceAll(/=|&|\//g, "?").split("?");
+    } else if (allUrl.indexOf("/youtu.be") > -1) {
+      const arr = allUrl.replaceAll(/=|&|\//g, "?").split("?");
       return arr[arr.indexOf("youtu.be") + 1];
     } else {
-      return "none";
+      return;
     }
   };
 
@@ -252,30 +252,51 @@ function NewMain() {
 
   // 추가 버튼 클릭 시 플레이리스트 담는 이벤트 핸들러
   const addPlayList = () => {
-    // 리스트가 20개 이상일 경우 alert 발생
+    // 플레이리스트 등록 개수 제한(리스트가 20개 이상일 경우 alert 발생)
     if (newPlayList.length >= 20) {
       return toast.error("플레이리스트는 최대 20개까지만 등록 가능합니다.");
     }
 
     const musicInfo: PlaylistData = {};
-    const urlId = getVideoId(newUrl);
+    let urlId = filteredUrlId(newUrl);
 
+    // 새로 추가할 리스트의 url과 newPlayList에 담겨있는 리스트들의 url 중 동일한 url이 있을 경우
+    // urlId를 "sameUrl"로 바꾸고 플레이리스트 추가 제한
+    newPlayList.map((value) => {
+      if (value.url === newUrl) {
+        urlId = "sameUrl";
+      }
+    });
+    if (urlId === "sameUrl") {
+      return toast.error("이미 추가한 플레이리스트 입니다.");
+    }
+
+    let check = false;
     getYoutubeData(urlId)
       .then((res) => {
-        musicInfo.channelId = res.channelId;
-        if (res.thumbnails.maxres) {
-          musicInfo.thumbnail = res.thumbnails.maxres.url;
+        if (res) {
+          check = true;
+          musicInfo.channelId = res.channelId;
+          if (res.thumbnails.maxres) {
+            musicInfo.thumbnail = res.thumbnails.maxres.url;
+          } else {
+            musicInfo.thumbnail = res.thumbnails.medium.url;
+          }
+          musicInfo.title = res.title;
+          musicInfo.url = newUrl;
         } else {
-          musicInfo.thumbnail = res.thumbnails.medium.url;
+          return toast.error("url을 다시 확인해 주세요.");
         }
-        musicInfo.title = res.title;
-        musicInfo.url = newUrl;
       })
       .then(() => {
-        setNewPlayList((value) => [...value, musicInfo]);
-        setNewUrl("");
+        if (check) {
+          setNewPlayList((value) => [...value, musicInfo]);
+          setNewUrl("");
+        }
       });
   };
+
+  // console.log(newPlayList);
 
   return (
     <MainContainer>
