@@ -252,6 +252,11 @@ function NewMain() {
 
   // 추가 버튼 클릭 시 플레이리스트 담는 이벤트 핸들러
   const addPlayList = () => {
+    // 리스트가 20개 이상일 경우 alert 발생
+    if (newPlayList.length >= 20) {
+      return toast.error("플레이리스트는 최대 20개까지만 등록 가능합니다.");
+    }
+
     const musicInfo: PlaylistData = {};
     const urlId = getVideoId(newUrl);
 
@@ -271,8 +276,6 @@ function NewMain() {
         setNewUrl("");
       });
   };
-
-  // console.log(newPlayList[0]?.thumbnail);
 
   return (
     <MainContainer>
