@@ -48,12 +48,12 @@ const ListTab = styled.ul`
   }
 `;
 
-const DiaryMainContainer = styled.div`
+export const DiaryMainContainer = styled.div`
   display: flex;
   justify-content: center;
 `;
 
-const DiaryMainWrapper = styled.ul`
+export const DiaryMainWrapper = styled.ul`
   width: 100vw;
   max-width: 1440px;
   min-width: 300px;
@@ -62,7 +62,11 @@ const DiaryMainWrapper = styled.ul`
   padding: 0 15px 0 15px;
   gap: 55px;
 
-  @media screen and (max-width: 1454px) {
+  @media screen and (max-width: 1449px) {
+    max-width: 1070px;
+  }
+
+  @media screen and (max-width: 1084px) {
     max-width: 705px;
   }
 

@@ -9,7 +9,6 @@ const MyInfoContainer = styled.div`
   display: flex;
   width: 100vw;
   max-width: 900px;
-  font-size: 15px;
 `;
 
 const ProfileImgWrapper = styled.div`
@@ -75,7 +74,7 @@ const NickNameWrapper = styled.div`
   margin: 0 20px 0 20px;
 
   > .editNicknameArea {
-    width: 100%;
+    width: 90%;
     font-size: 25px;
     color: ${(props) => props.theme.mainText};
     font-weight: 600;
@@ -121,6 +120,7 @@ const PasswordWrapper = styled.div`
   align-items: center;
   height: 50px;
   padding: 0 10px 0 10px;
+  font-size: 15px;
 
   > .passwordTitle {
     display: flex;
@@ -177,6 +177,7 @@ const MyWithdrawalWrapper = styled.div`
   align-items: center;
   height: 50px;
   padding: 0 10px 0 10px;
+  font-size: 15px;
 
   > .withdrawalTitle {
     display: flex;

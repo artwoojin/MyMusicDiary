@@ -1,9 +1,10 @@
+import styled from "styled-components";
+import * as DiaryMain from "../Main/DiaryMain";
 import MyDiary from "./MyDiary";
 import MypagePagination from "./MypagePagination";
 import MyLikeDiary from "./MyLikeDiary";
 import MyComment from "./MyComment";
 import MyInfo from "./MyInfo";
-import styled from "styled-components";
 import { useState, useEffect, useContext } from "react";
 import { DiaryData } from "../../util/Type";
 import { CommentData } from "../../util/Type";
@@ -14,10 +15,8 @@ import { myContext } from "../../theme";
 const ListTab = styled.ul`
   display: flex;
   justify-content: center;
-  position: relative;
   margin: 50px 0 50px 0;
   gap: 10px;
-  cursor: pointer;
 
   .tab {
     display: flex;
@@ -28,6 +27,7 @@ const ListTab = styled.ul`
     width: 200px;
     height: 40px;
     text-align: center;
+    cursor: pointer;
 
     > .el {
       color: ${(props) => props.theme.subText};
@@ -43,29 +43,7 @@ const ListTab = styled.ul`
   }
 `;
 
-const MypageContainer = styled.div`
-  display: flex;
-  justify-content: center;
-`;
-
-const InfoContainer = styled.div`
-  width: 100vw;
-  max-width: 850px;
-  min-width: 300px;
-  font-size: 15px;
-`;
-
-const DiaryContainer = styled.ul`
-  width: 100vw;
-  max-width: 1440px;
-  min-width: 300px;
-  display: flex;
-  flex-wrap: wrap;
-  padding: 0 15px 0 15px;
-  gap: 56.6px;
-`;
-
-const CommentContainer = styled.ul`
+const MypageWrapper = styled.div`
   width: 100vw;
   max-width: 850px;
   min-width: 300px;
@@ -169,33 +147,33 @@ function MypageMain() {
           );
         })}
       </ListTab>
-      <MypageContainer>
+      <DiaryMain.DiaryMainContainer>
         {currentTab === 0 ? (
-          <InfoContainer>
+          <MypageWrapper>
             {Object.values(userData).map((value: any) => {
               return <MyInfo list={value} key={value.userId} getUserData={getUserData} />;
             })}
-          </InfoContainer>
+          </MypageWrapper>
         ) : currentTab === 1 ? (
-          <DiaryContainer>
+          <DiaryMain.DiaryMainWrapper>
             {myDiaryData.slice(offset, offset + LIMIT_COUNT).map((value) => {
               return <MyDiary list={value} key={value.diaryId} />;
             })}
-          </DiaryContainer>
+          </DiaryMain.DiaryMainWrapper>
         ) : currentTab === 2 ? (
-          <DiaryContainer>
+          <DiaryMain.DiaryMainWrapper>
             {myLikeDiaryData.slice(offset, offset + LIMIT_COUNT).map((value) => {
               return <MyLikeDiary list={value} key={value.diaryId} />;
             })}
-          </DiaryContainer>
+          </DiaryMain.DiaryMainWrapper>
         ) : (
-          <CommentContainer>
+          <MypageWrapper>
             {myCommentData.slice(offset, offset + LIMIT_COUNT).map((value) => {
               return <MyComment list={value} key={value.commentId} />;
             })}
-          </CommentContainer>
+          </MypageWrapper>
         )}
-      </MypageContainer>
+      </DiaryMain.DiaryMainContainer>
       <MypagePagination
         myPageLength={myDiaryData.length}
         myLikePageLength={myLikeDiaryData.length}
