@@ -34,6 +34,7 @@ const ListTab = styled.ul`
 
     > .el {
       color: ${(props) => props.theme.diaryDate};
+      font-weight: 500;
     }
   }
 
@@ -43,7 +44,7 @@ const ListTab = styled.ul`
 
     > .el {
       color: ${(props) => props.theme.TagColor};
-      font-weight: 600;
+      font-weight: 700;
     }
   }
 `;

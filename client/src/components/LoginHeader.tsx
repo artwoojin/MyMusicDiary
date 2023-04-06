@@ -34,7 +34,7 @@ const HeaderWrapper = styled.div`
     > .dropdown {
       color: ${(props) => props.theme.mainText};
       font-size: 14.5px;
-      font-weight: 400;
+      font-weight: 500;
       width: 150px;
       box-shadow: 0 0 20px rgba(0, 0, 0, 0.19), 0 10px 10px rgba(0, 0, 0, 0.1);
       background-color: ${(props) => props.theme.disabledTagBackground};
@@ -51,6 +51,7 @@ const HeaderWrapper = styled.div`
         text-decoration: none;
         color: ${(props) => props.theme.mainText};
         padding: 12px 10px 10px 12px;
+
         &:hover {
           font-weight: 600;
           background-color: ${(props) => props.theme.playListHover};
@@ -59,6 +60,7 @@ const HeaderWrapper = styled.div`
 
       > li {
         padding: 10px 10px 12px 12px;
+
         &:hover {
           font-weight: 600;
           background-color: ${(props) => props.theme.playListHover};
