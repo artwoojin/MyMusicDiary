@@ -4,49 +4,65 @@ import { DefaultTheme } from "styled-components";
 export const myContext: any = createContext(null);
 
 export const lightMode: DefaultTheme = {
-  logo: `#22262c`,
-  background: `white`,
-  mainText: `#22262c`,
-  subText: `#495057`,
-  mainColor: `#ffefd5`,
-  buttonHover: `#ffdeb7`,
+  color: {
+    logo: `#22262c`,
+    background: `white`,
+    mainText: `#22262c`,
+    subText: `#495057`,
+    mainColor: `#ffefd5`,
+    buttonHover: `#ffdeb7`,
 
-  // main
-  diaryDate: `#9aa1a8`,
-  diaryInfoLine: `#f1f3f5`,
+    // main
+    diaryDate: `#9aa1a8`,
+    diaryInfoLine: `#f1f3f5`,
 
-  TagColor: `#22262c`,
-  disabledTagBorder: `#d1d1d1`,
-  disabledTagBackground: `white`,
-  disabled: `lightgray`,
+    TagColor: `#22262c`,
+    disabledTagBorder: `#d1d1d1`,
+    disabledTagBackground: `white`,
+    disabled: `lightgray`,
 
-  // detail
-  detailLine: `#d9d9d9`,
-  likeHover: `#f1f3f5`,
-  commentInputBackground: `white`,
-  playListHover: `#f1f3f5`,
+    // detail
+    detailLine: `#d9d9d9`,
+    likeHover: `#f1f3f5`,
+    commentInputBackground: `white`,
+    playListHover: `#f1f3f5`,
+  },
+
+  font: {
+    logoWeight: 700,
+    titleWeight: 600,
+    contentWeight: 500,
+  },
 };
 
 export const darkMode: DefaultTheme = {
-  logo: `#ececec`,
-  background: `#1f2125`,
-  mainText: `#ececec`,
-  subText: `#a6a6a6`,
-  mainColor: `#ffefd5`,
-  buttonHover: `#ffdeb7`,
+  color: {
+    logo: `#ececec`,
+    background: `#1f2125`,
+    mainText: `#ececec`,
+    subText: `#a6a6a6`,
+    mainColor: `#ffefd5`,
+    buttonHover: `#ffdeb7`,
 
-  // main
-  diaryDate: `#9aa1a8`,
-  diaryInfoLine: `#3C4048`,
+    // main
+    diaryDate: `#9aa1a8`,
+    diaryInfoLine: `#3C4048`,
 
-  TagColor: `#22262c`,
-  disabledTagBorder: `#2f3135`,
-  disabledTagBackground: `#2f3135`,
-  disabled: `gray`,
+    TagColor: `#22262c`,
+    disabledTagBorder: `#2f3135`,
+    disabledTagBackground: `#2f3135`,
+    disabled: `gray`,
 
-  // detail
-  detailLine: `#3C4048`,
-  likeHover: `#2f3135`,
-  commentInputBackground: `#3C4048`,
-  playListHover: `#3C4048`,
+    // detail
+    detailLine: `#3C4048`,
+    likeHover: `#2f3135`,
+    commentInputBackground: `#3C4048`,
+    playListHover: `#3C4048`,
+  },
+
+  font: {
+    logoWeight: 700,
+    titleWeight: 600,
+    contentWeight: 500,
+  },
 };

@@ -14,7 +14,7 @@ const MyInfoContainer = styled.div`
 const ProfileImgWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  border-right: 1px solid ${(props) => props.theme.diaryInfoLine};
+  border-right: 1px solid ${(props) => props.theme.color.diaryInfoLine};
 `;
 
 const ProfileImg = styled.img`
@@ -25,7 +25,7 @@ const ProfileImg = styled.img`
   cursor: pointer;
 
   &:hover {
-    outline: 5px solid ${(props) => props.theme.mainColor};
+    outline: 5px solid ${(props) => props.theme.color.mainColor};
   }
 `;
 
@@ -37,15 +37,15 @@ const ImgSubmitBtn = styled.button`
   width: 140px;
   height: 35px;
   border-radius: 4px;
-  background-color: ${(props) => props.theme.mainColor};
-  color: ${(props) => props.theme.TagColor};
-  font-weight: 700;
+  background-color: ${(props) => props.theme.color.mainColor};
+  color: ${(props) => props.theme.color.TagColor};
+  font-weight: ${(props) => props.theme.font.titleWeight};
   border: none;
   margin: 0 25px 5px 0;
   cursor: pointer;
 
   &:hover {
-    background-color: ${(props) => props.theme.buttonHover};
+    background-color: ${(props) => props.theme.color.buttonHover};
   }
 `;
 
@@ -53,15 +53,15 @@ const ImgDeleteBtn = styled.button`
   width: 140px;
   height: 35px;
   background-color: transparent;
-  color: ${(props) => props.theme.mainText};
-  font-weight: 700;
+  color: ${(props) => props.theme.color.mainText};
+  font-weight: ${(props) => props.theme.font.titleWeight};
   border: none;
   margin: 0 25px 0 0;
   cursor: pointer;
 
   &:hover {
     border-radius: 4px;
-    background-color: ${(props) => props.theme.playListHover};
+    background-color: ${(props) => props.theme.color.playListHover};
   }
 `;
 
@@ -76,11 +76,11 @@ const NickNameWrapper = styled.div`
   > .editNicknameArea {
     width: 90%;
     font-size: 25px;
-    color: ${(props) => props.theme.mainText};
-    font-weight: 600;
+    color: ${(props) => props.theme.color.mainText};
+    font-weight: ${(props) => props.theme.font.titleWeight};
     border: none;
-    border: 1px solid ${(props) => props.theme.disabledTagBorder};
-    background-color: ${(props) => props.theme.disabledTagBackground};
+    border: 1px solid ${(props) => props.theme.color.disabledTagBorder};
+    background-color: ${(props) => props.theme.color.disabledTagBackground};
     border-radius: 4px;
     padding: 10px 8px 10px 8px;
 
@@ -90,15 +90,15 @@ const NickNameWrapper = styled.div`
   }
 
   > .nicknameArea {
-    color: ${(props) => props.theme.mainText};
+    color: ${(props) => props.theme.color.mainText};
     width: 100%;
     font-size: 30px;
-    font-weight: 700;
+    font-weight: ${(props) => props.theme.font.titleWeight};
   }
 `;
 
 const EditNicknameBtn = styled.button`
-  color: ${(props) => props.theme.mainText};
+  color: ${(props) => props.theme.color.mainText};
   width: 40px;
   margin-top: 10px;
   border: none;
@@ -106,13 +106,13 @@ const EditNicknameBtn = styled.button`
   background-color: transparent;
   text-decoration: underline;
   font-size: 15px;
-  font-weight: 600;
+  font-weight: ${(props) => props.theme.font.titleWeight};
   cursor: pointer;
 `;
 
 const MySettingContainer = styled.div`
   margin-top: 30px;
-  border-bottom: 1px solid ${(props) => props.theme.diaryInfoLine};
+  border-bottom: 1px solid ${(props) => props.theme.color.diaryInfoLine};
 `;
 
 const PasswordWrapper = styled.div`
@@ -126,20 +126,20 @@ const PasswordWrapper = styled.div`
     display: flex;
     align-items: center;
     height: 30px;
-    color: ${(props) => props.theme.mainText};
+    color: ${(props) => props.theme.color.mainText};
     width: 140px;
     margin-right: 85px;
-    font-weight: 700;
+    font-weight: ${(props) => props.theme.font.titleWeight};
   }
 
   > .editPasswordArea {
     width: 100%;
-    color: ${(props) => props.theme.mainText};
+    color: ${(props) => props.theme.color.mainText};
     border-radius: 4px;
     padding: 10px 8px 10px 8px;
     border: none;
-    border: 1px solid ${(props) => props.theme.disabledTagBorder};
-    background-color: ${(props) => props.theme.disabledTagBackground};
+    border: 1px solid ${(props) => props.theme.color.disabledTagBorder};
+    background-color: ${(props) => props.theme.color.disabledTagBackground};
 
     &:focus {
       outline: none;
@@ -151,12 +151,12 @@ const PasswordWrapper = styled.div`
     align-items: center;
     width: 100%;
     height: 30px;
-    color: ${(props) => props.theme.mainText};
+    color: ${(props) => props.theme.color.mainText};
   }
 `;
 
 const EditPasswordBtn = styled.button`
-  color: ${(props) => props.theme.mainText};
+  color: ${(props) => props.theme.color.mainText};
   width: 100px;
   height: 30px;
   margin-left: 10px;
@@ -164,12 +164,12 @@ const EditPasswordBtn = styled.button`
   background-color: transparent;
   text-decoration: underline;
   font-size: 15px;
-  font-weight: 600;
+  font-weight: ${(props) => props.theme.font.titleWeight};
   cursor: pointer;
 `;
 
 const MyWithdrawalContainer = styled.div`
-  /* border-bottom: 1px solid ${(props) => props.theme.diaryInfoLine}; */
+  /* border-bottom: 1px solid ${(props) => props.theme.color.diaryInfoLine}; */
 `;
 
 const MyWithdrawalWrapper = styled.div`
@@ -182,11 +182,11 @@ const MyWithdrawalWrapper = styled.div`
   > .withdrawalTitle {
     display: flex;
     align-items: center;
-    color: ${(props) => props.theme.mainText};
+    color: ${(props) => props.theme.color.mainText};
     width: 98px;
     height: 30px;
     margin-right: 85px;
-    font-weight: 700;
+    font-weight: ${(props) => props.theme.font.titleWeight};
   }
 
   > .withdrawalBtn {
@@ -195,7 +195,7 @@ const MyWithdrawalWrapper = styled.div`
     border: none;
     border-radius: 4px;
     background-color: #ff6b6c;
-    font-weight: 700;
+    font-weight: ${(props) => props.theme.font.titleWeight};
     color: white;
     cursor: pointer;
 
@@ -220,28 +220,28 @@ const WithdrawalModalBack = styled.div`
 const WithdrawalModalView = styled.div`
   text-align: center;
   border-radius: 5px;
-  background-color: ${(props) => props.theme.background};
+  background-color: ${(props) => props.theme.color.background};
   width: 430px;
   height: 220px;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.19), 0 10px 10px rgba(0, 0, 0, 0.1);
 
   > .deleteModalTitle {
-    color: ${(props) => props.theme.mainText};
+    color: ${(props) => props.theme.color.mainText};
     font-size: 20px;
-    font-weight: 700;
+    font-weight: ${(props) => props.theme.font.titleWeight};
     text-align: center;
     margin: 30px 0 35px 0;
   }
 
   > .warningText {
-    color: ${(props) => props.theme.subText};
+    color: ${(props) => props.theme.color.subText};
+    font-weight: ${(props) => props.theme.font.contentWeight};
     font-size: 15px;
-    font-weight: 500;
     margin-bottom: 41.5px;
   }
 
   > button {
-    font-weight: 500;
+    font-weight: ${(props) => props.theme.font.titleWeight};
     width: 215px;
     height: 50px;
     color: white;
@@ -255,35 +255,33 @@ const WithdrawalModalView = styled.div`
   }
 
   > .deleteCancelButton {
-    color: ${(props) => props.theme.subText};
-    font-weight: 600;
+    color: ${(props) => props.theme.color.subText};
     background-color: transparent;
-    border-top: 1px solid ${(props) => props.theme.detailLine};
-    border-right: 0.5px solid ${(props) => props.theme.detailLine};
+    border-top: 1px solid ${(props) => props.theme.color.detailLine};
+    border-right: 0.5px solid ${(props) => props.theme.color.detailLine};
     border-bottom-left-radius: 5px;
 
     &:hover {
-      background-color: ${(props) => props.theme.likeHover};
+      background-color: ${(props) => props.theme.color.likeHover};
     }
   }
 
   > .deleteButton {
     color: #ec1d36;
-    font-weight: 600;
     background-color: transparent;
-    border-top: 1px solid ${(props) => props.theme.detailLine};
-    border-left: 0.5px solid ${(props) => props.theme.detailLine};
+    border-top: 1px solid ${(props) => props.theme.color.detailLine};
+    border-left: 0.5px solid ${(props) => props.theme.color.detailLine};
     border-bottom-right-radius: 5px;
 
     &:hover {
-      background-color: ${(props) => props.theme.likeHover};
+      background-color: ${(props) => props.theme.color.likeHover};
     }
   }
 `;
 
 const WarningText = styled.div`
   font-size: 13px;
-  color: ${(props) => props.theme.diaryDate};
+  color: ${(props) => props.theme.color.diaryDate};
   margin: 0 0 15px 10px;
 `;
 

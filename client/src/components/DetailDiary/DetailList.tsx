@@ -27,14 +27,14 @@ const TitleArea = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-bottom: 1px solid ${(props) => props.theme.detailLine};
+  border-bottom: 1px solid ${(props) => props.theme.color.detailLine};
   padding: 0 10px 0 10px;
 
   > .DetailTitle {
     width: 580px;
     font-size: 24px;
-    font-weight: 700;
-    color: ${(props) => props.theme.mainText};
+    font-weight: ${(props) => props.theme.font.titleWeight};
+    color: ${(props) => props.theme.color.mainText};
   }
 `;
 
@@ -55,26 +55,27 @@ const ButtonArea = styled.div`
     /* 다이어리 수정 오류 때문에 임시로 수정 버튼 숨김처리  */
     display: none;
     width: 40px;
-    color: ${(props) => props.theme.mainText};
+    color: ${(props) => props.theme.color.mainText};
     border: none;
     text-decoration: underline;
-    font-weight: 600;
+    font-weight: ${(props) => props.theme.font.titleWeight};
   }
 
   > .delete {
     width: 40px;
-    color: ${(props) => props.theme.mainText};
+    color: ${(props) => props.theme.color.mainText};
     border: none;
     text-decoration: underline;
-    font-weight: 600;
+    font-weight: ${(props) => props.theme.font.titleWeight};
   }
 
   > .like {
-    color: ${(props) => props.theme.mainText};
+    color: ${(props) => props.theme.color.mainText};
     margin-left: 25px;
     width: 140px;
     height: 35px;
-    border: 1px solid ${(props) => props.theme.detailLine};
+    font-weight: ${(props) => props.theme.font.contentWeight};
+    border: 1px solid ${(props) => props.theme.color.detailLine};
     border-radius: 4px;
 
     > .likeIcon {
@@ -87,7 +88,7 @@ const ButtonArea = styled.div`
     }
 
     &:hover {
-      background-color: ${(props) => props.theme.likeHover};
+      background-color: ${(props) => props.theme.color.likeHover};
     }
   }
 `;
@@ -107,28 +108,28 @@ const DeleteModalBack = styled.div`
 const DeleteModalView = styled.div`
   text-align: center;
   border-radius: 4px;
-  background-color: ${(props) => props.theme.background};
+  background-color: ${(props) => props.theme.color.background};
   width: 430px;
   height: 220px;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.19), 0 10px 10px rgba(0, 0, 0, 0.1);
 
   > .deleteModalTitle {
-    color: ${(props) => props.theme.mainText};
+    color: ${(props) => props.theme.color.mainText};
     font-size: 20px;
-    font-weight: 700;
+    font-weight: ${(props) => props.theme.font.titleWeight};
     text-align: center;
     margin: 30px 0 45px 0;
   }
 
   > .warningText {
-    color: ${(props) => props.theme.subText};
+    color: ${(props) => props.theme.color.subText};
+    font-weight: ${(props) => props.theme.font.contentWeight};
     font-size: 15px;
-    font-weight: 500;
     margin-bottom: 50.5px;
   }
 
   > button {
-    font-weight: 500;
+    font-weight: ${(props) => props.theme.font.titleWeight};
     width: 215px;
     height: 50px;
     border: none;
@@ -141,28 +142,26 @@ const DeleteModalView = styled.div`
   }
 
   > .deleteCancelButton {
-    color: ${(props) => props.theme.subText};
-    font-weight: 600;
+    color: ${(props) => props.theme.color.subText};
     background-color: transparent;
-    border-top: 1px solid ${(props) => props.theme.detailLine};
-    border-right: 0.5px solid ${(props) => props.theme.detailLine};
+    border-top: 1px solid ${(props) => props.theme.color.detailLine};
+    border-right: 0.5px solid ${(props) => props.theme.color.detailLine};
     border-bottom-left-radius: 4px;
 
     &:hover {
-      background-color: ${(props) => props.theme.likeHover};
+      background-color: ${(props) => props.theme.color.likeHover};
     }
   }
 
   > .deleteButton {
     color: #ec1d36;
-    font-weight: 600;
     background-color: transparent;
-    border-top: 1px solid ${(props) => props.theme.detailLine};
-    border-left: 0.5px solid ${(props) => props.theme.detailLine};
+    border-top: 1px solid ${(props) => props.theme.color.detailLine};
+    border-left: 0.5px solid ${(props) => props.theme.color.detailLine};
     border-bottom-right-radius: 4px;
 
     &:hover {
-      background-color: ${(props) => props.theme.likeHover};
+      background-color: ${(props) => props.theme.color.likeHover};
     }
   }
 `;
@@ -190,64 +189,61 @@ const InfoArea = styled.div`
 const UserInfo = styled.div`
   margin-bottom: 15px;
   font-size: 14px;
-  font-weight: 500;
-  color: ${(props) => props.theme.mainText};
+  color: ${(props) => props.theme.color.mainText};
 
   > .text {
     font-size: 13px;
     margin-right: 50px;
-    color: ${(props) => props.theme.subText};
   }
 `;
 
 const AlbumInfoArea = styled.div`
   padding: 30px 10px 30px 10px;
-  border-top: 1px solid ${(props) => props.theme.detailLine};
+  border-top: 1px solid ${(props) => props.theme.color.detailLine};
 
   > .playTitle {
     font-size: 19px;
-    font-weight: 600;
+    font-weight: ${(props) => props.theme.font.titleWeight};
     margin-bottom: 20px;
-    color: ${(props) => props.theme.mainText};
+    color: ${(props) => props.theme.color.mainText};
   }
 
   > .playContent {
     font-size: 15px;
-    font-weight: 500;
-    color: ${(props) => props.theme.mainText};
+    color: ${(props) => props.theme.color.mainText};
   }
 `;
 
 const PlayListArea = styled.div`
   padding: 30px 10px 30px 10px;
-  border-top: 1px solid ${(props) => props.theme.detailLine};
+  border-top: 1px solid ${(props) => props.theme.color.detailLine};
 
   > .playTitle {
     display: flex;
     align-items: center;
     font-size: 19px;
-    font-weight: 600;
+    font-weight: ${(props) => props.theme.font.titleWeight};
     margin-bottom: 20px;
-    color: ${(props) => props.theme.mainText};
+    color: ${(props) => props.theme.color.mainText};
 
     > .playCount {
       font-size: 15px;
       margin: 0 0 3px 5px;
-      color: ${(props) => props.theme.subText};
+      color: ${(props) => props.theme.color.subText};
     }
   }
 `;
 
 const CommentInputArea = styled.div`
   margin-bottom: 20px;
-  border-top: 1px solid ${(props) => props.theme.detailLine};
+  border-top: 1px solid ${(props) => props.theme.color.detailLine};
   padding: 30px 10px 30px 10px;
 
   > .commentTitle {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    color: ${(props) => props.theme.mainText};
+    color: ${(props) => props.theme.color.mainText};
     margin-bottom: 20px;
 
     > .commentText {
@@ -255,12 +251,12 @@ const CommentInputArea = styled.div`
       align-items: center;
       font-size: 19px;
       margin-left: 5px;
-      font-weight: 600;
+      font-weight: ${(props) => props.theme.font.titleWeight};
 
       > .commentCount {
         font-size: 15px;
         margin: 0 0 3px 5px;
-        color: ${(props) => props.theme.subText};
+        color: ${(props) => props.theme.color.subText};
       }
     }
 
@@ -268,7 +264,7 @@ const CommentInputArea = styled.div`
       display: flex;
       align-items: center;
       font-size: 14px;
-      font-weight: 500;
+      font-weight: ${(props) => props.theme.font.titleWeight};
       margin-right: 5px;
       cursor: pointer;
 
@@ -283,18 +279,17 @@ const TextArea = styled.div`
   display: flex;
 
   > textArea {
-    color: ${(props) => props.theme.mainText};
+    color: ${(props) => props.theme.color.mainText};
     width: 1300px;
     height: 70px;
     resize: none;
     font-size: 14px;
-    font-weight: 500;
     margin: 0 10px 30px 0;
     border-radius: 4px;
     padding: 10px 8px 10px 8px;
     border: none;
-    border: 1px solid ${(props) => props.theme.disabledTagBorder};
-    background-color: ${(props) => props.theme.disabledTagBackground};
+    border: 1px solid ${(props) => props.theme.color.disabledTagBorder};
+    background-color: ${(props) => props.theme.color.disabledTagBackground};
 
     &:focus {
       outline: none;
@@ -307,14 +302,14 @@ const TextArea = styled.div`
     height: 70px;
     border: none;
     font-size: 14px;
-    font-weight: 700;
-    color: ${(props) => props.theme.TagColor};
+    font-weight: ${(props) => props.theme.font.titleWeight};
+    color: ${(props) => props.theme.color.TagColor};
     border-radius: 4px;
-    background-color: ${(props) => props.theme.mainColor};
+    background-color: ${(props) => props.theme.color.mainColor};
     cursor: pointer;
 
     &:hover {
-      background-color: ${(props) => props.theme.buttonHover};
+      background-color: ${(props) => props.theme.color.buttonHover};
     }
   }
 `;
@@ -322,31 +317,31 @@ const TextArea = styled.div`
 const RuleModalView = styled.div`
   text-align: center;
   border-radius: 4px;
-  background-color: ${(props) => props.theme.background};
+  background-color: ${(props) => props.theme.color.background};
   width: 550px;
   height: 420px;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.19), 0 10px 10px rgba(0, 0, 0, 0.1);
 
   > .ruleModalTitle {
-    color: ${(props) => props.theme.mainText};
+    color: ${(props) => props.theme.color.mainText};
     font-size: 20px;
-    font-weight: 700;
+    font-weight: ${(props) => props.theme.font.titleWeight};
     text-align: center;
     margin: 30px 0 45px 0;
   }
 
   > .warningText {
-    color: ${(props) => props.theme.subText};
+    color: ${(props) => props.theme.color.subText};
+    font-weight: ${(props) => props.theme.font.contentWeight};
     line-height: 30px;
     text-align: left;
     font-size: 15px;
-    font-weight: 500;
     padding: 0 25px 0 25px;
     margin-bottom: 59px;
   }
 
   > button {
-    font-weight: 500;
+    font-weight: ${(props) => props.theme.font.titleWeight};
     width: 550px;
     height: 50px;
     border: none;
@@ -359,15 +354,14 @@ const RuleModalView = styled.div`
   }
 
   > .confirmButton {
-    color: ${(props) => props.theme.subText};
-    font-weight: 600;
+    color: ${(props) => props.theme.color.subText};
     background-color: transparent;
-    border-top: 1px solid ${(props) => props.theme.detailLine};
+    border-top: 1px solid ${(props) => props.theme.color.detailLine};
     border-bottom-right-radius: 4px;
     border-bottom-left-radius: 4px;
 
     &:hover {
-      background-color: ${(props) => props.theme.likeHover};
+      background-color: ${(props) => props.theme.color.likeHover};
     }
   }
 `;

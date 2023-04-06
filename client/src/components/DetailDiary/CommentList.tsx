@@ -7,7 +7,7 @@ import { myContext } from "../../theme";
 export const CommentListContainer = styled.li`
   display: flex;
   justify-content: center;
-  border-bottom: 1px solid ${(props) => props.theme.detailLine};
+  border-bottom: 1px solid ${(props) => props.theme.color.detailLine};
 
   :last-child {
     border-bottom: none;
@@ -23,22 +23,20 @@ export const CommentListWrapper = styled.div`
 
   .name {
     font-size: 14px;
-    font-weight: 600;
+    font-weight: ${(props) => props.theme.font.titleWeight};
     margin: 15px 0 15px 0;
-    color: ${(props) => props.theme.mainText};
+    color: ${(props) => props.theme.color.mainText};
   }
 
   .content {
     font-size: 15px;
-    font-weight: 500;
-    color: ${(props) => props.theme.mainText};
+    color: ${(props) => props.theme.color.mainText};
   }
 
   .date {
     font-size: 12px;
-    font-weight: 500;
     margin: 10px 0 15px 0;
-    color: ${(props) => props.theme.diaryDate};
+    color: ${(props) => props.theme.color.diaryDate};
   }
 `;
 
@@ -49,13 +47,13 @@ const NameArea = styled.div`
 `;
 
 const EditCommentArea = styled.input`
-  color: ${(props) => props.theme.mainText};
+  color: ${(props) => props.theme.color.mainText};
   width: 100%;
   padding: 10px 8px 10px 8px;
   border: none;
   border-radius: 4px;
-  border: 1px solid ${(props) => props.theme.disabledTagBorder};
-  background-color: ${(props) => props.theme.disabledTagBackground};
+  border: 1px solid ${(props) => props.theme.color.disabledTagBorder};
+  background-color: ${(props) => props.theme.color.disabledTagBackground};
 
   &:focus {
     outline: none;
@@ -76,18 +74,18 @@ const ButtonArea = styled.div`
 
   > .edit {
     width: 40px;
-    color: ${(props) => props.theme.mainText};
+    color: ${(props) => props.theme.color.mainText};
     border: none;
     text-decoration: underline;
-    font-weight: 600;
+    font-weight: ${(props) => props.theme.font.titleWeight};
   }
 
   > .delete {
     width: 40px;
-    color: ${(props) => props.theme.mainText};
+    color: ${(props) => props.theme.color.mainText};
     border: none;
     text-decoration: underline;
-    font-weight: 600;
+    font-weight: ${(props) => props.theme.font.titleWeight};
   }
 `;
 
@@ -106,28 +104,28 @@ const DeleteModalBack = styled.div`
 const DeleteModalView = styled.div`
   text-align: center;
   border-radius: 4px;
-  background-color: ${(props) => props.theme.background};
+  background-color: ${(props) => props.theme.color.background};
   width: 430px;
   height: 220px;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.19), 0 10px 10px rgba(0, 0, 0, 0.1);
 
   > .deleteModalTitle {
-    color: ${(props) => props.theme.mainText};
+    color: ${(props) => props.theme.color.mainText};
     font-size: 20px;
-    font-weight: 700;
+    font-weight: ${(props) => props.theme.font.titleWeight};
     text-align: center;
     margin: 30px 0 45px 0;
   }
 
   > .warningText {
-    color: ${(props) => props.theme.subText};
+    color: ${(props) => props.theme.color.subText};
+    font-weight: ${(props) => props.theme.font.contentWeight};
     font-size: 15px;
-    font-weight: 500;
     margin-bottom: 50.5px;
   }
 
   > button {
-    font-weight: 500;
+    font-weight: ${(props) => props.theme.font.titleWeight};
     width: 215px;
     height: 50px;
     border: none;
@@ -140,28 +138,26 @@ const DeleteModalView = styled.div`
   }
 
   > .deleteCancelButton {
-    color: ${(props) => props.theme.subText};
-    font-weight: 600;
+    color: ${(props) => props.theme.color.subText};
     background-color: transparent;
-    border-top: 1px solid ${(props) => props.theme.detailLine};
-    border-right: 0.5px solid ${(props) => props.theme.detailLine};
+    border-top: 1px solid ${(props) => props.theme.color.detailLine};
+    border-right: 0.5px solid ${(props) => props.theme.color.detailLine};
     border-bottom-left-radius: 4px;
 
     &:hover {
-      background-color: ${(props) => props.theme.likeHover};
+      background-color: ${(props) => props.theme.color.likeHover};
     }
   }
 
   > .deleteButton {
     color: #ec1d36;
-    font-weight: 600;
     background-color: transparent;
-    border-top: 1px solid ${(props) => props.theme.detailLine};
-    border-left: 0.5px solid ${(props) => props.theme.detailLine};
+    border-top: 1px solid ${(props) => props.theme.color.detailLine};
+    border-left: 0.5px solid ${(props) => props.theme.color.detailLine};
     border-bottom-right-radius: 4px;
 
     &:hover {
-      background-color: ${(props) => props.theme.likeHover};
+      background-color: ${(props) => props.theme.color.likeHover};
     }
   }
 `;

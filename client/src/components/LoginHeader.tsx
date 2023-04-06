@@ -12,7 +12,7 @@ import defaultProfile from "../util/img/defaultProfile.png";
 const HeaderContainer = styled.header`
   display: flex;
   justify-content: center;
-  background-color: ${(props) => props.theme.background};
+  background-color: ${(props) => props.theme.color.background};
   transition: 0.2s ease-in-out;
 `;
 
@@ -32,12 +32,12 @@ const HeaderWrapper = styled.div`
     position: relative;
 
     > .dropdown {
-      color: ${(props) => props.theme.mainText};
+      color: ${(props) => props.theme.color.mainText};
       font-size: 14.5px;
-      font-weight: 500;
       width: 150px;
+      font-weight: ${(props) => props.theme.font.contentWeight};
       box-shadow: 0 0 20px rgba(0, 0, 0, 0.19), 0 10px 10px rgba(0, 0, 0, 0.1);
-      background-color: ${(props) => props.theme.disabledTagBackground};
+      background-color: ${(props) => props.theme.color.disabledTagBackground};
       display: flex;
       flex-direction: column;
       position: absolute;
@@ -49,12 +49,12 @@ const HeaderWrapper = styled.div`
 
       > a {
         text-decoration: none;
-        color: ${(props) => props.theme.mainText};
+        color: ${(props) => props.theme.color.mainText};
         padding: 12px 10px 10px 12px;
 
         &:hover {
-          font-weight: 600;
-          background-color: ${(props) => props.theme.playListHover};
+          font-weight: ${(props) => props.theme.font.titleWeight};
+          background-color: ${(props) => props.theme.color.playListHover};
         }
       }
 
@@ -62,8 +62,8 @@ const HeaderWrapper = styled.div`
         padding: 10px 10px 12px 12px;
 
         &:hover {
-          font-weight: 600;
-          background-color: ${(props) => props.theme.playListHover};
+          font-weight: ${(props) => props.theme.font.titleWeight};
+          background-color: ${(props) => props.theme.color.playListHover};
         }
       }
     }
@@ -71,13 +71,13 @@ const HeaderWrapper = styled.div`
 `;
 
 const Logo = styled.div`
-  font-weight: 700;
+  font-weight: ${(props) => props.theme.font.logoWeight};
   font-size: 20px;
 
   a {
     display: flex;
     align-items: center;
-    color: ${(props) => props.theme.logo};
+    color: ${(props) => props.theme.color.logo};
     text-decoration: none;
 
     > img {
@@ -98,11 +98,11 @@ const ModeButton = styled.button`
   cursor: pointer;
 
   > .lightIcon {
-    color: ${(props) => props.theme.mainText};
+    color: ${(props) => props.theme.color.mainText};
   }
 
   > .darkIcon {
-    color: ${(props) => props.theme.mainText};
+    color: ${(props) => props.theme.color.mainText};
   }
 `;
 
@@ -111,9 +111,9 @@ const NewDiaryPostButton = styled.button`
   height: 35px;
   border: none;
   background-color: transparent;
-  font-weight: 700;
+  font-weight: ${(props) => props.theme.font.logoWeight};
   font-size: 16px;
-  color: ${(props) => props.theme.mainText};
+  color: ${(props) => props.theme.color.mainText};
   cursor: pointer;
 `;
 

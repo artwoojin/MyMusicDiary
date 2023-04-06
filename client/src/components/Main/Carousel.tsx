@@ -36,7 +36,7 @@ const ContentArea = styled.div`
       display: flex;
       align-items: center;
       font-size: 22px;
-      font-weight: 500;
+      font-weight: ${(props) => props.theme.font.titleWeight};
       padding-left: 200px;
 
       > .musicIcon {

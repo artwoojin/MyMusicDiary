@@ -25,19 +25,19 @@ const GlobalStyle = createGlobalStyle`
   }
 
   body {
-    background-color: ${(props) => props.theme.background};
+    background-color: ${(props) => props.theme.color.background};
 }
 `;
 
 const ToastAlert = styled(ToastContainer)`
   .Toastify__toast {
     font-size: 15px;
-    color: ${(props) => props.theme.mainText};
-    background-color: ${(props) => props.theme.disabledTagBackground};
+    color: ${(props) => props.theme.color.mainText};
+    background-color: ${(props) => props.theme.color.disabledTagBackground};
   }
 
   .Toastify__close-button {
-    color: ${(props) => props.theme.mainText};
+    color: ${(props) => props.theme.color.mainText};
   }
 `;
 

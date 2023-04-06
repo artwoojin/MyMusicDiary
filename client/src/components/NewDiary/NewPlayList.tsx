@@ -12,7 +12,7 @@ export const PlayListWrapper = styled.div`
   max-width: 1440px;
   min-width: 300px;
   border: none;
-  color: ${(props) => props.theme.mainText};
+  color: ${(props) => props.theme.color.mainText};
 `;
 
 export const ContentArea = styled.div`
@@ -28,16 +28,16 @@ export const ContentArea = styled.div`
 
   > .listTitle {
     font-size: 15px;
-    font-weight: 500;
+    font-weight: ${(props) => props.theme.font.contentWeight};
     width: 100%;
   }
 
   > .delete {
     width: 50px;
-    color: ${(props) => props.theme.mainText};
+    color: ${(props) => props.theme.color.mainText};
     border: none;
     text-decoration: underline;
-    font-weight: 600;
+    font-weight: ${(props) => props.theme.font.titleWeight};
     font-size: 13px;
     margin: 5px;
     background-color: transparent;

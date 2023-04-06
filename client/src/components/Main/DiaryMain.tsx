@@ -23,28 +23,27 @@ const ListTab = styled.ul`
     border-radius: 50px;
     text-align: center;
     padding: 7px 7px;
-    border: 1px solid ${(props) => props.theme.disabledTagBorder};
-    background-color: ${(props) => props.theme.disabledTagBackground};
+    border: 1px solid ${(props) => props.theme.color.disabledTagBorder};
+    background-color: ${(props) => props.theme.color.disabledTagBackground};
     transition: 0.2s ease-in-out;
     cursor: pointer;
+
+    > .el {
+      color: ${(props) => props.theme.color.diaryDate};
+    }
 
     &:hover {
       transform: scale(1.03);
     }
-
-    > .el {
-      color: ${(props) => props.theme.diaryDate};
-      font-weight: 500;
-    }
   }
 
   .focused {
-    border: 1px solid ${(props) => props.theme.mainColor};
-    background-color: ${(props) => props.theme.mainColor};
+    border: 1px solid ${(props) => props.theme.color.mainColor};
+    background-color: ${(props) => props.theme.color.mainColor};
 
     > .el {
-      color: ${(props) => props.theme.TagColor};
-      font-weight: 700;
+      color: ${(props) => props.theme.color.TagColor};
+      font-weight: ${(props) => props.theme.font.titleWeight};
     }
   }
 `;

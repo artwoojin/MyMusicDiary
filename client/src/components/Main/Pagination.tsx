@@ -21,7 +21,7 @@ export const PageNum = styled.div`
     background-color: transparent;
     border: none;
     font-size: 15px;
-    color: ${(props) => props.theme.mainText};
+    color: ${(props) => props.theme.color.mainText};
     transition: 0.2s ease-in-out;
     cursor: pointer;
 
@@ -29,11 +29,11 @@ export const PageNum = styled.div`
       width: 30px;
       height: 30px;
       border-radius: 50px;
-      background-color: ${(props) => props.theme.playListHover};
+      background-color: ${(props) => props.theme.color.playListHover};
     }
 
     &:disabled {
-      color: ${(props) => props.theme.disabled};
+      color: ${(props) => props.theme.color.disabled};
       background-color: transparent;
     }
   }
@@ -41,17 +41,17 @@ export const PageNum = styled.div`
   > .pageFocused {
     width: 30px;
     height: 30px;
-    background-color: ${(props) => props.theme.mainColor};
+    background-color: ${(props) => props.theme.color.mainColor};
     border: none;
     border-radius: 50px;
-    color: ${(props) => props.theme.TagColor};
-    font-weight: 600;
+    color: ${(props) => props.theme.color.TagColor};
+    font-weight: ${(props) => props.theme.font.titleWeight};
 
     &:hover {
       width: 30px;
       height: 30px;
       border-radius: 50px;
-      background-color: ${(props) => props.theme.mainColor};
+      background-color: ${(props) => props.theme.color.mainColor};
     }
   }
 `;

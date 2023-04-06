@@ -13,7 +13,7 @@ const PlayListWrapper = styled.div`
   max-width: 1440px;
   min-width: 300px;
   border: none;
-  color: ${(props) => props.theme.mainText};
+  color: ${(props) => props.theme.color.mainText};
 
   > a {
     text-decoration: none;
@@ -33,14 +33,14 @@ const ContentArea = styled.div`
 
   > .listTitle {
     font-size: 15px;
-    font-weight: 500;
+    font-weight: ${(props) => props.theme.font.contentWeight};
     width: 100%;
-    color: ${(props) => props.theme.mainText};
+    color: ${(props) => props.theme.color.mainText};
   }
 
   &:hover {
     border-radius: 4px;
-    background-color: ${(props) => props.theme.playListHover};
+    background-color: ${(props) => props.theme.color.playListHover};
   }
 `;
 

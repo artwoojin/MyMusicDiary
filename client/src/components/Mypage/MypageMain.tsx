@@ -23,22 +23,22 @@ const ListTab = styled.ul`
     justify-content: center;
     align-items: center;
     font-size: 15px;
-    font-weight: 700;
     width: 200px;
     height: 40px;
     text-align: center;
     cursor: pointer;
+    font-weight: ${(props) => props.theme.font.titleWeight};
 
     > .el {
-      color: ${(props) => props.theme.subText};
+      color: ${(props) => props.theme.color.subText};
     }
   }
 
   .focused {
-    border-bottom: 2px solid ${(props) => props.theme.mainText};
+    border-bottom: 2px solid ${(props) => props.theme.color.mainText};
 
     > .el {
-      color: ${(props) => props.theme.mainText};
+      color: ${(props) => props.theme.color.mainText};
     }
   }
 `;

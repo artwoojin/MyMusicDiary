@@ -19,7 +19,7 @@ const Logo = styled.div`
   margin-bottom: 30px;
 
   a {
-    color: ${(props) => props.theme.logo};
+    color: ${(props) => props.theme.color.logo};
     text-decoration: none;
   }
 `;
@@ -33,8 +33,8 @@ const FormContainer = styled.form`
   height: 250px;
   border-radius: 4px;
   border: none;
-  border: 1px solid ${(props) => props.theme.disabledTagBorder};
-  background-color: ${(props) => props.theme.disabledTagBackground};
+  border: 1px solid ${(props) => props.theme.color.disabledTagBorder};
+  background-color: ${(props) => props.theme.color.disabledTagBackground};
 `;
 
 const EmailInput = styled.input`
@@ -42,10 +42,10 @@ const EmailInput = styled.input`
   height: 50px;
   border-radius: 4px;
   padding: 10px 8px 10px 8px;
-  color: ${(props) => props.theme.mainText};
+  color: ${(props) => props.theme.color.mainText};
   border: none;
-  border: 1px solid ${(props) => props.theme.disabledTagBorder};
-  background-color: ${(props) => props.theme.background};
+  border: 1px solid ${(props) => props.theme.color.disabledTagBorder};
+  background-color: ${(props) => props.theme.color.background};
 
   &:focus {
     outline: none;
@@ -58,10 +58,10 @@ const PasswordInput = styled.input`
   border-radius: 4px;
   padding: 10px 8px 10px 8px;
   margin-top: 10px;
-  color: ${(props) => props.theme.mainText};
+  color: ${(props) => props.theme.color.mainText};
   border: none;
-  border: 1px solid ${(props) => props.theme.disabledTagBorder};
-  background-color: ${(props) => props.theme.background};
+  border: 1px solid ${(props) => props.theme.color.disabledTagBorder};
+  background-color: ${(props) => props.theme.color.background};
 
   &:focus {
     outline: none;
@@ -75,19 +75,19 @@ const LoginButton = styled.button`
   border-radius: 4px;
   color: #1c1a16;
   font-size: 15px;
-  font-weight: 700;
+  font-weight: ${(props) => props.theme.font.titleWeight};
   margin-top: 30px;
-  background-color: ${(props) => props.theme.mainColor};
+  background-color: ${(props) => props.theme.color.mainColor};
   cursor: pointer;
 
   &:hover {
-    background-color: ${(props) => props.theme.buttonHover};
+    background-color: ${(props) => props.theme.color.buttonHover};
   }
 `;
 
 const PasswordFind = styled.div`
   margin-top: 23px;
-  color: ${(props) => props.theme.mainText};
+  color: ${(props) => props.theme.color.mainText};
   font-size: 13px;
   cursor: pointer;
 `;
@@ -99,13 +99,13 @@ const MoveSignup = styled.button`
   height: 60px;
   border-radius: 4px;
   border: none;
-  color: ${(props) => props.theme.mainText};
-  border: 1px solid ${(props) => props.theme.disabledTagBorder};
-  background-color: ${(props) => props.theme.disabledTagBackground};
+  color: ${(props) => props.theme.color.mainText};
+  border: 1px solid ${(props) => props.theme.color.disabledTagBorder};
+  background-color: ${(props) => props.theme.color.disabledTagBackground};
   cursor: pointer;
 
   > .bold {
-    font-weight: 500;
+    font-weight: ${(props) => props.theme.font.titleWeight};
   }
 `;
 

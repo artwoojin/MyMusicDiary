@@ -10,7 +10,7 @@ export const DiaryListContainer = styled.li`
   height: 339px;
   list-style: none;
   border-radius: 4px;
-  background-color: ${(props) => props.theme.disabledTagBackground};
+  background-color: ${(props) => props.theme.color.disabledTagBackground};
   transition: 0.2s ease-in-out;
   cursor: pointer;
 
@@ -31,8 +31,8 @@ export const InfoArea = styled.div`
   padding: 15px;
 
   > .infoTitle {
-    color: ${(props) => props.theme.mainText};
-    font-weight: 700;
+    color: ${(props) => props.theme.color.mainText};
+    font-weight: ${(props) => props.theme.font.titleWeight};
     margin-bottom: 10px;
     white-space: nowrap;
     overflow: hidden;
@@ -41,8 +41,7 @@ export const InfoArea = styled.div`
 
   > .infoDate {
     font-size: 12px;
-    font-weight: 500;
-    color: ${(props) => props.theme.diaryDate};
+    color: ${(props) => props.theme.color.diaryDate};
     margin-bottom: 15px;
   }
 `;
@@ -50,7 +49,6 @@ export const InfoArea = styled.div`
 // export const Tag = styled.ul`
 //   display: flex;
 //   font-size: 12px;
-//   font-weight: 500;
 //   color: #757170;
 //   list-style: none;
 
@@ -67,7 +65,7 @@ export const UserArea = styled.div`
   align-items: center;
   justify-content: space-between;
   padding: 8px 15px 8px 15px;
-  border-top: 0.5px solid ${(props) => props.theme.diaryInfoLine};
+  border-top: 0.5px solid ${(props) => props.theme.color.diaryInfoLine};
   /* 태그 미구현으로 인한 임시로 위치 내림 */
   margin-top: 20px;
 `;
@@ -77,12 +75,13 @@ export const ByUsername = styled.div`
   align-items: center;
   justify-content: flex-end;
   font-size: 13px;
-  font-weight: 500;
-  color: ${(props) => props.theme.mainText};
+  font-weight: ${(props) => props.theme.font.titleWeight};
+  color: ${(props) => props.theme.color.mainText};
 
   > .by {
     font-size: 12px;
-    color: ${(props) => props.theme.diaryDate};
+    font-weight: 400;
+    color: ${(props) => props.theme.color.diaryDate};
     margin: 0 5px 2px 0;
   }
 `;
@@ -99,7 +98,7 @@ export const LikeAndComment = styled.div`
   display: flex;
   align-items: center;
   font-size: 13px;
-  color: ${(props) => props.theme.mainText};
+  color: ${(props) => props.theme.color.mainText};
 
   > .likeIcon {
     color: red;
@@ -107,7 +106,7 @@ export const LikeAndComment = styled.div`
   }
 
   > .commentIcon {
-    color: ${(props) => props.theme.mainText};
+    color: ${(props) => props.theme.color.mainText};
     margin: 0 5px 0 12px;
   }
 `;

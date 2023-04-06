@@ -28,19 +28,19 @@ export const TitleArea = styled.div`
   white-space: normal;
   justify-content: space-between;
   align-items: center;
-  border-bottom: 1px solid ${(props) => props.theme.detailLine};
+  border-bottom: 1px solid ${(props) => props.theme.color.detailLine};
   padding: 0 10px 0 10px;
 
   > .inputTitle {
     width: 580px;
     font-size: 24px;
-    font-weight: 700;
+    font-weight: ${(props) => props.theme.font.titleWeight};
     padding: 10px 8px 10px 8px;
     border-radius: 4px;
-    color: ${(props) => props.theme.mainText};
+    color: ${(props) => props.theme.color.mainText};
     border: none;
-    border: 1px solid ${(props) => props.theme.disabledTagBorder};
-    background-color: ${(props) => props.theme.disabledTagBackground};
+    border: 1px solid ${(props) => props.theme.color.disabledTagBorder};
+    background-color: ${(props) => props.theme.color.disabledTagBackground};
 
     &:focus {
       outline: none;
@@ -50,9 +50,9 @@ export const TitleArea = styled.div`
 
 export const SubmitButton = styled.button`
   font-size: 14px;
-  color: ${(props) => props.theme.TagColor};
-  font-weight: 700;
-  background-color: ${(props) => props.theme.mainColor};
+  color: ${(props) => props.theme.color.TagColor};
+  font-weight: ${(props) => props.theme.font.titleWeight};
+  background-color: ${(props) => props.theme.color.mainColor};
   border: none;
   width: 140px;
   height: 35px;
@@ -60,7 +60,7 @@ export const SubmitButton = styled.button`
   cursor: pointer;
 
   &:hover {
-    background-color: ${(props) => props.theme.buttonHover};
+    background-color: ${(props) => props.theme.color.buttonHover};
   }
 `;
 
@@ -86,47 +86,45 @@ export const InfoArea = styled.div`
 export const UserInfo = styled.div`
   margin-bottom: 15px;
   font-size: 14px;
-  font-weight: 500;
-  color: ${(props) => props.theme.mainText};
+  color: ${(props) => props.theme.color.mainText};
 
   > .text {
     font-size: 13px;
     margin-right: 50px;
-    color: ${(props) => props.theme.subText};
+    color: ${(props) => props.theme.color.subText};
   }
 `;
 
 export const AlbumInfoArea = styled.div`
   padding: 30px 10px 80px 10px;
-  border-top: 1px solid ${(props) => props.theme.detailLine};
+  border-top: 1px solid ${(props) => props.theme.color.detailLine};
 
   > .playTitle {
     font-size: 19px;
-    font-weight: 600;
+    font-weight: ${(props) => props.theme.font.titleWeight};
     margin-bottom: 20px;
-    color: ${(props) => props.theme.mainText};
+    color: ${(props) => props.theme.color.mainText};
   }
 
   > .playContent {
-    color: ${(props) => props.theme.mainText};
+    color: ${(props) => props.theme.color.mainText};
     width: 100%;
     height: 200px;
-    font-weight: 500;
 
     > .ql-toolbar {
       border-top-left-radius: 4px;
       border-top-right-radius: 4px;
       border: none;
-      border: 1px solid ${(props) => props.theme.disabledTagBorder};
-      background-color: ${(props) => props.theme.disabledTagBackground};
+      border: 1px solid ${(props) => props.theme.color.disabledTagBorder};
+      background-color: ${(props) => props.theme.color.disabledTagBackground};
     }
 
     > .ql-container {
       border-bottom-left-radius: 4px;
       border-bottom-right-radius: 4px;
       border: none;
-      border: 1px solid ${(props) => props.theme.disabledTagBorder};
-      background-color: ${(props) => props.theme.disabledTagBackground};
+      border: 1px solid ${(props) => props.theme.color.disabledTagBorder};
+      background-color: ${(props) => props.theme.color.disabledTagBackground};
 
       > .ql-editor::before {
         color: gray;
@@ -138,20 +136,20 @@ export const AlbumInfoArea = styled.div`
 
 export const PlayListArea = styled.div`
   padding: 30px 10px 80px 10px;
-  border-top: 1px solid ${(props) => props.theme.detailLine};
+  border-top: 1px solid ${(props) => props.theme.color.detailLine};
 
   > .playTitle {
     display: flex;
     align-items: center;
     font-size: 19px;
-    font-weight: 600;
+    font-weight: ${(props) => props.theme.font.titleWeight};
     margin-bottom: 20px;
-    color: ${(props) => props.theme.mainText};
+    color: ${(props) => props.theme.color.mainText};
 
     > .playCount {
       font-size: 15px;
       margin: 0 0 3px 5px;
-      color: ${(props) => props.theme.subText};
+      color: ${(props) => props.theme.color.subText};
     }
   }
 `;
@@ -161,15 +159,15 @@ export const UrlInput = styled.div`
   margin-bottom: 20px;
 
   > input {
-    color: ${(props) => props.theme.mainText};
+    color: ${(props) => props.theme.color.mainText};
     width: 1300px;
     resize: none;
     margin-right: 10px;
     border-radius: 4px;
     padding: 10px 8px 10px 8px;
     border: none;
-    border: 1px solid ${(props) => props.theme.disabledTagBorder};
-    background-color: ${(props) => props.theme.disabledTagBackground};
+    border: 1px solid ${(props) => props.theme.color.disabledTagBorder};
+    background-color: ${(props) => props.theme.color.disabledTagBackground};
 
     &:focus {
       outline: none;
@@ -180,14 +178,14 @@ export const UrlInput = styled.div`
     width: 90px;
     min-width: 90px;
     border: none;
-    font-weight: 700;
-    color: ${(props) => props.theme.TagColor};
+    font-weight: ${(props) => props.theme.font.titleWeight};
+    color: ${(props) => props.theme.color.TagColor};
     border-radius: 4px;
-    background-color: ${(props) => props.theme.mainColor};
+    background-color: ${(props) => props.theme.color.mainColor};
     cursor: pointer;
 
     &:hover {
-      background-color: ${(props) => props.theme.buttonHover};
+      background-color: ${(props) => props.theme.color.buttonHover};
     }
   }
 `;

@@ -8,7 +8,7 @@ import mainIcon from "../util/img/mainIcon.png";
 const HeaderContainer = styled.header`
   display: flex;
   justify-content: center;
-  background-color: ${(props) => props.theme.background};
+  background-color: ${(props) => props.theme.color.background};
   transition: 0.2s ease-in-out;
 `;
 
@@ -29,13 +29,13 @@ const HeaderWrapper = styled.div`
 `;
 
 const Logo = styled.div`
-  font-weight: 700;
+  font-weight: ${(props) => props.theme.font.logoWeight};
   font-size: 20px;
 
   a {
     display: flex;
     align-items: center;
-    color: ${(props) => props.theme.logo};
+    color: ${(props) => props.theme.color.logo};
     text-decoration: none;
 
     > img {
@@ -56,11 +56,11 @@ const ModeButton = styled.button`
   cursor: pointer;
 
   > .lightIcon {
-    color: ${(props) => props.theme.mainText};
+    color: ${(props) => props.theme.color.mainText};
   }
 
   > .darkIcon {
-    color: ${(props) => props.theme.mainText};
+    color: ${(props) => props.theme.color.mainText};
   }
 `;
 
@@ -69,21 +69,20 @@ const NewDiaryPostButton = styled.button`
   height: 35px;
   border: none;
   background-color: transparent;
-  font-weight: 700;
   font-size: 16px;
-  color: ${(props) => props.theme.mainText};
+  font-weight: ${(props) => props.theme.font.logoWeight};
   cursor: pointer;
 `;
 
 const LoginButton = styled.button`
   width: 80px;
   height: 35px;
-  font-weight: 700;
+  font-weight: ${(props) => props.theme.font.logoWeight};
   font-size: 15px;
   background-color: transparent;
   border-radius: 50px;
-  color: ${(props) => props.theme.mainText};
-  border: 1.5px solid ${(props) => props.theme.mainText};
+  color: ${(props) => props.theme.color.mainText};
+  border: 1.5px solid ${(props) => props.theme.color.mainText};
   margin: 0 10px 0 15px;
   cursor: pointer;
 `;
