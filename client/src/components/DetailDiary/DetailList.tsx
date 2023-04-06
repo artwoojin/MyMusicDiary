@@ -195,6 +195,7 @@ const UserInfo = styled.div`
   > .text {
     font-size: 13px;
     margin-right: 50px;
+    color: ${(props) => props.theme.subText};
   }
 `;
 

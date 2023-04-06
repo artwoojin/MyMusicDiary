@@ -33,7 +33,7 @@ const ListTab = styled.ul`
     }
 
     > .el {
-      color: ${(props) => props.theme.disabledTagColor};
+      color: ${(props) => props.theme.diaryDate};
     }
   }
 

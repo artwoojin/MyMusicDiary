@@ -16,7 +16,6 @@ export const lightMode: DefaultTheme = {
   diaryInfoLine: `#f1f3f5`,
 
   TagColor: `#22262c`,
-  disabledTagColor: `gray`,
   disabledTagBorder: `#d1d1d1`,
   disabledTagBackground: `white`,
   disabled: `lightgray`,
@@ -26,7 +25,6 @@ export const lightMode: DefaultTheme = {
   likeHover: `#f1f3f5`,
   commentInputBackground: `white`,
   playListHover: `#f1f3f5`,
-  editBorder: `gray`,
 };
 
 export const darkMode: DefaultTheme = {
@@ -42,7 +40,6 @@ export const darkMode: DefaultTheme = {
   diaryInfoLine: `#3C4048`,
 
   TagColor: `#22262c`,
-  disabledTagColor: `gray`,
   disabledTagBorder: `#2f3135`,
   disabledTagBackground: `#2f3135`,
   disabled: `gray`,
@@ -52,5 +49,4 @@ export const darkMode: DefaultTheme = {
   likeHover: `#2f3135`,
   commentInputBackground: `#3C4048`,
   playListHover: `#3C4048`,
-  editBorder: `gray`,
 };

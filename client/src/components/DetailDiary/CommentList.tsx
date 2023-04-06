@@ -7,6 +7,11 @@ import { myContext } from "../../theme";
 export const CommentListContainer = styled.li`
   display: flex;
   justify-content: center;
+  border-bottom: 1px solid ${(props) => props.theme.detailLine};
+
+  :last-child {
+    border-bottom: none;
+  }
 `;
 
 export const CommentListWrapper = styled.div`
@@ -15,7 +20,6 @@ export const CommentListWrapper = styled.div`
   min-width: 300px;
   border: none;
   padding: 0 10px 0 10px;
-  border-bottom: 1px solid ${(props) => props.theme.detailLine};
 
   .name {
     font-size: 14px;
@@ -33,7 +37,7 @@ export const CommentListWrapper = styled.div`
   .date {
     font-size: 12px;
     margin: 10px 0 15px 0;
-    color: ${(props) => props.theme.disabledTagColor};
+    color: ${(props) => props.theme.diaryDate};
   }
 `;
 

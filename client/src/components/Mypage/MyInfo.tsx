@@ -22,7 +22,7 @@ const ProfileImg = styled.img`
   width: 150px;
   height: 150px;
   border-radius: 100%;
-  margin: 0 20px 20px 20px;
+  margin: 0 20px 20px 0;
   cursor: pointer;
 
   &:hover {
@@ -42,7 +42,7 @@ const ImgSubmitBtn = styled.button`
   color: ${(props) => props.theme.TagColor};
   font-weight: 700;
   border: none;
-  margin: 0 25px 5px 25px;
+  margin: 0 25px 5px 0;
   cursor: pointer;
 
   &:hover {
@@ -57,7 +57,7 @@ const ImgDeleteBtn = styled.button`
   color: ${(props) => props.theme.mainText};
   font-weight: 700;
   border: none;
-  margin: 0 25px 0 25px;
+  margin: 0 25px 0 0;
   cursor: pointer;
 
   &:hover {
@@ -78,9 +78,10 @@ const NickNameWrapper = styled.div`
     width: 100%;
     font-size: 25px;
     color: ${(props) => props.theme.mainText};
-    background-color: ${(props) => props.theme.background};
     font-weight: 600;
-    border: 0.5px solid ${(props) => props.theme.editBorder};
+    border: none;
+    border: 1px solid ${(props) => props.theme.disabledTagBorder};
+    background-color: ${(props) => props.theme.disabledTagBackground};
     border-radius: 4px;
     padding: 10px 8px 10px 8px;
 
@@ -111,31 +112,34 @@ const EditNicknameBtn = styled.button`
 `;
 
 const MySettingContainer = styled.div`
-  width: 100vw;
-  max-width: 900px;
-  font-size: 15px;
   margin-top: 30px;
+  border-bottom: 1px solid ${(props) => props.theme.diaryInfoLine};
 `;
 
 const PasswordWrapper = styled.div`
   display: flex;
   align-items: center;
   height: 50px;
+  padding: 0 10px 0 10px;
 
   > .passwordTitle {
+    display: flex;
+    align-items: center;
+    height: 30px;
     color: ${(props) => props.theme.mainText};
-    width: 100px;
-    margin: 0 75px 0 30px;
+    width: 140px;
+    margin-right: 85px;
     font-weight: 700;
   }
 
   > .editPasswordArea {
-    width: 560px;
+    width: 100%;
     color: ${(props) => props.theme.mainText};
-    background-color: ${(props) => props.theme.background};
     border-radius: 4px;
     padding: 10px 8px 10px 8px;
-    border: 0.5px solid ${(props) => props.theme.editBorder};
+    border: none;
+    border: 1px solid ${(props) => props.theme.disabledTagBorder};
+    background-color: ${(props) => props.theme.disabledTagBackground};
 
     &:focus {
       outline: none;
@@ -143,14 +147,19 @@ const PasswordWrapper = styled.div`
   }
 
   > .passwordArea {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: 30px;
     color: ${(props) => props.theme.mainText};
-    width: 560px;
   }
 `;
 
 const EditPasswordBtn = styled.button`
   color: ${(props) => props.theme.mainText};
   width: 100px;
+  height: 30px;
+  margin-left: 10px;
   border: none;
   background-color: transparent;
   text-decoration: underline;
@@ -160,26 +169,28 @@ const EditPasswordBtn = styled.button`
 `;
 
 const MyWithdrawalContainer = styled.div`
-  width: 100vw;
-  max-width: 900px;
-  font-size: 15px;
+  /* border-bottom: 1px solid ${(props) => props.theme.diaryInfoLine}; */
 `;
 
 const MyWithdrawalWrapper = styled.div`
   display: flex;
   align-items: center;
   height: 50px;
+  padding: 0 10px 0 10px;
 
   > .withdrawalTitle {
+    display: flex;
+    align-items: center;
     color: ${(props) => props.theme.mainText};
-    width: 100px;
-    margin: 0 75px 0 30px;
+    width: 98px;
+    height: 30px;
+    margin-right: 85px;
     font-weight: 700;
   }
 
   > .withdrawalBtn {
     width: 100px;
-    height: 33px;
+    height: 30px;
     border: none;
     border-radius: 4px;
     background-color: #ff6b6c;
@@ -190,18 +201,6 @@ const MyWithdrawalWrapper = styled.div`
     &:hover {
       background-color: #ec1d36;
     }
-  }
-`;
-
-const WarningText = styled.div`
-  font-size: 13px;
-  color: ${(props) => props.theme.diaryDate};
-  padding-bottom: 10px;
-  margin: 0 70px -5px 30px;
-
-  > .waringText {
-    border-bottom: 1px solid ${(props) => props.theme.diaryInfoLine};
-    padding-bottom: 15px;
   }
 `;
 
@@ -279,6 +278,12 @@ const WithdrawalModalView = styled.div`
       background-color: ${(props) => props.theme.likeHover};
     }
   }
+`;
+
+const WarningText = styled.div`
+  font-size: 13px;
+  color: ${(props) => props.theme.diaryDate};
+  margin: 0 0 15px 10px;
 `;
 
 export interface UserDataProps {
@@ -437,9 +442,7 @@ function MyInfo({ list, getUserData }: UserDataProps) {
             <EditPasswordBtn onClick={onClickPasswordButton}>수정</EditPasswordBtn>
           )}
         </PasswordWrapper>
-        <WarningText>
-          <div className='waringText'>로그인 시 사용되는 비밀번호입니다.</div>
-        </WarningText>
+        <WarningText>로그인 시 사용되는 비밀번호입니다.</WarningText>
       </MySettingContainer>
       <MyWithdrawalContainer>
         <MyWithdrawalWrapper>

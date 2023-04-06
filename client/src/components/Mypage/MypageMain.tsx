@@ -50,7 +50,8 @@ const MypageContainer = styled.div`
 
 const InfoContainer = styled.div`
   width: 100vw;
-  max-width: 900px;
+  max-width: 850px;
+  min-width: 300px;
   font-size: 15px;
 `;
 
@@ -66,7 +67,7 @@ const DiaryContainer = styled.ul`
 
 const CommentContainer = styled.ul`
   width: 100vw;
-  max-width: 1440px;
+  max-width: 850px;
   min-width: 300px;
 `;
 

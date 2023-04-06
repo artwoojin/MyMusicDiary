@@ -14,7 +14,6 @@ declare module "styled-components" {
     diaryInfoLine: string;
 
     TagColor: string;
-    disabledTagColor: string;
     disabledTagBorder: string;
     disabledTagBackground: string;
     disabled: string;
@@ -24,6 +23,5 @@ declare module "styled-components" {
     likeHover: string;
     commentInputBackground: string;
     playListHover: string;
-    editBorder: string;
   }
 }

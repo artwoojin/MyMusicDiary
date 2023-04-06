@@ -126,7 +126,7 @@ export const AlbumInfoArea = styled.div`
       background-color: ${(props) => props.theme.disabledTagBackground};
 
       > .ql-editor::before {
-        color: ${(props) => props.theme.disabledTagColor};
+        color: gray;
         font-style: normal;
       }
     }

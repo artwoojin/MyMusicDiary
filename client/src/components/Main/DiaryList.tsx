@@ -109,7 +109,7 @@ export const LikeAndComment = styled.div`
 
   > .commentIcon {
     color: ${(props) => props.theme.mainText};
-    margin: 0 5px 0 10px;
+    margin: 0 5px 0 12px;
   }
 `;
 
