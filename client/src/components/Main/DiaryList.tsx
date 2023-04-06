@@ -10,7 +10,6 @@ export const DiaryListContainer = styled.li`
   height: 339px;
   list-style: none;
   border-radius: 4px;
-  background-color: ${(props) => props.theme.color.disabledTagBackground};
   transition: 0.2s ease-in-out;
   cursor: pointer;
 
@@ -40,7 +39,7 @@ export const InfoArea = styled.div`
   }
 
   > .infoDate {
-    font-size: 12px;
+    font-size: 13px;
     color: ${(props) => props.theme.color.diaryDate};
     margin-bottom: 15px;
   }
@@ -65,9 +64,9 @@ export const UserArea = styled.div`
   align-items: center;
   justify-content: space-between;
   padding: 8px 15px 8px 15px;
-  border-top: 0.5px solid ${(props) => props.theme.color.diaryInfoLine};
+  border-top: 1px solid ${(props) => props.theme.color.diaryInfoLine};
   /* 태그 미구현으로 인한 임시로 위치 내림 */
-  margin-top: 20px;
+  margin-top: 19px;
 `;
 
 export const ByUsername = styled.div`
@@ -83,6 +82,10 @@ export const ByUsername = styled.div`
     font-weight: 400;
     color: ${(props) => props.theme.color.diaryDate};
     margin: 0 5px 2px 0;
+  }
+
+  > .userNickname {
+    padding-bottom: 2px;
   }
 `;
 
@@ -135,7 +138,7 @@ function DiaryList({ list }: DiaryDataProps) {
         <ByUsername>
           <Profile />
           <div className='by'>by</div>
-          {list.userNickname}
+          <div className='userNickname'>{list.userNickname}</div>
         </ByUsername>
         <LikeAndComment>
           <AiFillHeart className='likeIcon' size={16} />

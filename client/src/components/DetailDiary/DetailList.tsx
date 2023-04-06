@@ -27,7 +27,7 @@ const TitleArea = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-bottom: 1px solid ${(props) => props.theme.color.detailLine};
+  border-bottom: 1px solid ${(props) => props.theme.color.diaryInfoLine};
   padding: 0 10px 0 10px;
 
   > .DetailTitle {
@@ -75,7 +75,7 @@ const ButtonArea = styled.div`
     width: 140px;
     height: 35px;
     font-weight: ${(props) => props.theme.font.contentWeight};
-    border: 1px solid ${(props) => props.theme.color.detailLine};
+    border: 1px solid ${(props) => props.theme.color.diaryInfoLine};
     border-radius: 4px;
 
     > .likeIcon {
@@ -144,8 +144,8 @@ const DeleteModalView = styled.div`
   > .deleteCancelButton {
     color: ${(props) => props.theme.color.subText};
     background-color: transparent;
-    border-top: 1px solid ${(props) => props.theme.color.detailLine};
-    border-right: 0.5px solid ${(props) => props.theme.color.detailLine};
+    border-top: 1px solid ${(props) => props.theme.color.diaryInfoLine};
+    border-right: 0.5px solid ${(props) => props.theme.color.diaryInfoLine};
     border-bottom-left-radius: 4px;
 
     &:hover {
@@ -156,8 +156,8 @@ const DeleteModalView = styled.div`
   > .deleteButton {
     color: #ec1d36;
     background-color: transparent;
-    border-top: 1px solid ${(props) => props.theme.color.detailLine};
-    border-left: 0.5px solid ${(props) => props.theme.color.detailLine};
+    border-top: 1px solid ${(props) => props.theme.color.diaryInfoLine};
+    border-left: 0.5px solid ${(props) => props.theme.color.diaryInfoLine};
     border-bottom-right-radius: 4px;
 
     &:hover {
@@ -188,18 +188,18 @@ const InfoArea = styled.div`
 
 const UserInfo = styled.div`
   margin-bottom: 15px;
-  font-size: 14px;
+  font-size: 15px;
   color: ${(props) => props.theme.color.mainText};
 
   > .text {
-    font-size: 13px;
+    font-size: 14px;
     margin-right: 50px;
   }
 `;
 
 const AlbumInfoArea = styled.div`
   padding: 30px 10px 30px 10px;
-  border-top: 1px solid ${(props) => props.theme.color.detailLine};
+  border-top: 1px solid ${(props) => props.theme.color.diaryInfoLine};
 
   > .playTitle {
     font-size: 19px;
@@ -216,7 +216,7 @@ const AlbumInfoArea = styled.div`
 
 const PlayListArea = styled.div`
   padding: 30px 10px 30px 10px;
-  border-top: 1px solid ${(props) => props.theme.color.detailLine};
+  border-top: 1px solid ${(props) => props.theme.color.diaryInfoLine};
 
   > .playTitle {
     display: flex;
@@ -235,8 +235,7 @@ const PlayListArea = styled.div`
 `;
 
 const CommentInputArea = styled.div`
-  margin-bottom: 20px;
-  border-top: 1px solid ${(props) => props.theme.color.detailLine};
+  border-top: 1px solid ${(props) => props.theme.color.diaryInfoLine};
   padding: 30px 10px 30px 10px;
 
   > .commentTitle {
@@ -356,7 +355,7 @@ const RuleModalView = styled.div`
   > .confirmButton {
     color: ${(props) => props.theme.color.subText};
     background-color: transparent;
-    border-top: 1px solid ${(props) => props.theme.color.detailLine};
+    border-top: 1px solid ${(props) => props.theme.color.diaryInfoLine};
     border-bottom-right-radius: 4px;
     border-bottom-left-radius: 4px;
 

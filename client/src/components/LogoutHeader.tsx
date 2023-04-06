@@ -8,8 +8,6 @@ import mainIcon from "../util/img/mainIcon.png";
 const HeaderContainer = styled.header`
   display: flex;
   justify-content: center;
-  background-color: ${(props) => props.theme.color.background};
-  transition: 0.2s ease-in-out;
 `;
 
 const HeaderWrapper = styled.div`
@@ -70,6 +68,7 @@ const NewDiaryPostButton = styled.button`
   border: none;
   background-color: transparent;
   font-size: 16px;
+  color: ${(props) => props.theme.color.mainText};
   font-weight: ${(props) => props.theme.font.logoWeight};
   cursor: pointer;
 `;

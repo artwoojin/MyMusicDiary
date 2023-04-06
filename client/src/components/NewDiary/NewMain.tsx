@@ -28,7 +28,7 @@ export const TitleArea = styled.div`
   white-space: normal;
   justify-content: space-between;
   align-items: center;
-  border-bottom: 1px solid ${(props) => props.theme.color.detailLine};
+  border-bottom: 1px solid ${(props) => props.theme.color.diaryInfoLine};
   padding: 0 10px 0 10px;
 
   > .inputTitle {
@@ -97,7 +97,7 @@ export const UserInfo = styled.div`
 
 export const AlbumInfoArea = styled.div`
   padding: 30px 10px 80px 10px;
-  border-top: 1px solid ${(props) => props.theme.color.detailLine};
+  border-top: 1px solid ${(props) => props.theme.color.diaryInfoLine};
 
   > .playTitle {
     font-size: 19px;
@@ -135,8 +135,8 @@ export const AlbumInfoArea = styled.div`
 `;
 
 export const PlayListArea = styled.div`
-  padding: 30px 10px 80px 10px;
-  border-top: 1px solid ${(props) => props.theme.color.detailLine};
+  padding: 30px 10px 100px 10px;
+  border-top: 1px solid ${(props) => props.theme.color.diaryInfoLine};
 
   > .playTitle {
     display: flex;

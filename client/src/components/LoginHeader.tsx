@@ -12,8 +12,6 @@ import defaultProfile from "../util/img/defaultProfile.png";
 const HeaderContainer = styled.header`
   display: flex;
   justify-content: center;
-  background-color: ${(props) => props.theme.color.background};
-  transition: 0.2s ease-in-out;
 `;
 
 const HeaderWrapper = styled.div`
@@ -54,7 +52,7 @@ const HeaderWrapper = styled.div`
 
         &:hover {
           font-weight: ${(props) => props.theme.font.titleWeight};
-          background-color: ${(props) => props.theme.color.playListHover};
+          background-color: ${(props) => props.theme.color.likeHover};
         }
       }
 
@@ -63,7 +61,7 @@ const HeaderWrapper = styled.div`
 
         &:hover {
           font-weight: ${(props) => props.theme.font.titleWeight};
-          background-color: ${(props) => props.theme.color.playListHover};
+          background-color: ${(props) => props.theme.color.likeHover};
         }
       }
     }
@@ -111,9 +109,9 @@ const NewDiaryPostButton = styled.button`
   height: 35px;
   border: none;
   background-color: transparent;
-  font-weight: ${(props) => props.theme.font.logoWeight};
   font-size: 16px;
   color: ${(props) => props.theme.color.mainText};
+  font-weight: ${(props) => props.theme.font.logoWeight};
   cursor: pointer;
 `;
 

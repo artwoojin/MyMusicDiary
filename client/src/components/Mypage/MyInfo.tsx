@@ -61,7 +61,7 @@ const ImgDeleteBtn = styled.button`
 
   &:hover {
     border-radius: 4px;
-    background-color: ${(props) => props.theme.color.playListHover};
+    background-color: ${(props) => props.theme.color.likeHover};
   }
 `;
 
@@ -257,8 +257,8 @@ const WithdrawalModalView = styled.div`
   > .deleteCancelButton {
     color: ${(props) => props.theme.color.subText};
     background-color: transparent;
-    border-top: 1px solid ${(props) => props.theme.color.detailLine};
-    border-right: 0.5px solid ${(props) => props.theme.color.detailLine};
+    border-top: 1px solid ${(props) => props.theme.color.diaryInfoLine};
+    border-right: 0.5px solid ${(props) => props.theme.color.diaryInfoLine};
     border-bottom-left-radius: 5px;
 
     &:hover {
@@ -269,8 +269,8 @@ const WithdrawalModalView = styled.div`
   > .deleteButton {
     color: #ec1d36;
     background-color: transparent;
-    border-top: 1px solid ${(props) => props.theme.color.detailLine};
-    border-left: 0.5px solid ${(props) => props.theme.color.detailLine};
+    border-top: 1px solid ${(props) => props.theme.color.diaryInfoLine};
+    border-left: 0.5px solid ${(props) => props.theme.color.diaryInfoLine};
     border-bottom-right-radius: 5px;
 
     &:hover {

@@ -22,10 +22,7 @@ export const lightMode: DefaultTheme = {
     disabled: `lightgray`,
 
     // detail
-    detailLine: `#d9d9d9`,
     likeHover: `#f1f3f5`,
-    commentInputBackground: `white`,
-    playListHover: `#f1f3f5`,
   },
 
   font: {
@@ -54,10 +51,7 @@ export const darkMode: DefaultTheme = {
     disabled: `gray`,
 
     // detail
-    detailLine: `#3C4048`,
     likeHover: `#2f3135`,
-    commentInputBackground: `#3C4048`,
-    playListHover: `#3C4048`,
   },
 
   font: {

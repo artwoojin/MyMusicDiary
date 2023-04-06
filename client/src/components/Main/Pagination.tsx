@@ -3,7 +3,8 @@ import { useState } from "react";
 import { BiArrowToLeft, BiArrowToRight, BiLeftArrowAlt, BiRightArrowAlt } from "react-icons/bi";
 
 export const PageNum = styled.div`
-  margin: 50px 0 40px 0;
+  margin: 50px 0 0 0;
+  padding-bottom: 50px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -29,7 +30,7 @@ export const PageNum = styled.div`
       width: 30px;
       height: 30px;
       border-radius: 50px;
-      background-color: ${(props) => props.theme.color.playListHover};
+      background-color: ${(props) => props.theme.color.likeHover};
     }
 
     &:disabled {

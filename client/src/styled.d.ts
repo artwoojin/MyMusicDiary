@@ -20,10 +20,7 @@ declare module "styled-components" {
       disabled: string;
 
       // detail
-      detailLine: string;
       likeHover: string;
-      commentInputBackground: string;
-      playListHover: string;
     };
 
     font: {

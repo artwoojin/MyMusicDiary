@@ -6,13 +6,13 @@ import firstcarousel from "../../util/img/firstcarousel.png";
 import secondcarousel from "../../util/img/secondcarousel.png";
 
 const StyledSlider = styled(Slider)`
-  height: 320px;
+  height: 330px;
   margin-bottom: 70px;
 `;
 
 const FirstSlide = styled.div`
   background-color: #ffdab9;
-  height: 300px;
+  height: 310px;
 `;
 
 const ContentArea = styled.div`
@@ -62,7 +62,7 @@ const ContentArea = styled.div`
 
 const SecondSlide = styled.div`
   background-color: #faeac7;
-  height: 300px;
+  height: 310px;
 `;
 
 function Carousel() {

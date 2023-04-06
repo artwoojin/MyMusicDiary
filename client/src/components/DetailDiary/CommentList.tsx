@@ -7,7 +7,7 @@ import { myContext } from "../../theme";
 export const CommentListContainer = styled.li`
   display: flex;
   justify-content: center;
-  border-bottom: 1px solid ${(props) => props.theme.color.detailLine};
+  border-bottom: 1px solid ${(props) => props.theme.color.diaryInfoLine};
 
   :last-child {
     border-bottom: none;
@@ -34,7 +34,7 @@ export const CommentListWrapper = styled.div`
   }
 
   .date {
-    font-size: 12px;
+    font-size: 13px;
     margin: 10px 0 15px 0;
     color: ${(props) => props.theme.color.diaryDate};
   }
@@ -140,8 +140,8 @@ const DeleteModalView = styled.div`
   > .deleteCancelButton {
     color: ${(props) => props.theme.color.subText};
     background-color: transparent;
-    border-top: 1px solid ${(props) => props.theme.color.detailLine};
-    border-right: 0.5px solid ${(props) => props.theme.color.detailLine};
+    border-top: 1px solid ${(props) => props.theme.color.diaryInfoLine};
+    border-right: 0.5px solid ${(props) => props.theme.color.diaryInfoLine};
     border-bottom-left-radius: 4px;
 
     &:hover {
@@ -152,8 +152,8 @@ const DeleteModalView = styled.div`
   > .deleteButton {
     color: #ec1d36;
     background-color: transparent;
-    border-top: 1px solid ${(props) => props.theme.color.detailLine};
-    border-left: 0.5px solid ${(props) => props.theme.color.detailLine};
+    border-top: 1px solid ${(props) => props.theme.color.diaryInfoLine};
+    border-left: 0.5px solid ${(props) => props.theme.color.diaryInfoLine};
     border-bottom-right-radius: 4px;
 
     &:hover {

@@ -122,7 +122,7 @@ function DiaryMain() {
   };
 
   return (
-    <main>
+    <>
       <ListTab>
         {tagArr.map((tab, index) => {
           return (
@@ -253,7 +253,7 @@ function DiaryMain() {
         setPage={setPage}
         currentTab={currentTab}
       />
-    </main>
+    </>
   );
 }
 
