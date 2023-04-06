@@ -60,7 +60,15 @@ const DiaryMainWrapper = styled.ul`
   display: flex;
   flex-wrap: wrap;
   padding: 0 15px 0 15px;
-  gap: 56.6px;
+  gap: 55px;
+
+  @media screen and (max-width: 1454px) {
+    max-width: 705px;
+  }
+
+  @media screen and (max-width: 721px) {
+    max-width: 340px;
+  }
 `;
 
 function DiaryMain() {
