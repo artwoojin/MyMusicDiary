@@ -34,7 +34,7 @@ export const TitleArea = styled.div`
   > .inputTitle {
     width: 580px;
     font-size: 24px;
-    font-weight: 600;
+    font-weight: 700;
     padding: 10px 8px 10px 8px;
     border-radius: 4px;
     color: ${(props) => props.theme.mainText};
@@ -49,7 +49,7 @@ export const TitleArea = styled.div`
 `;
 
 export const SubmitButton = styled.button`
-  font-size: 13px;
+  font-size: 14px;
   color: ${(props) => props.theme.TagColor};
   font-weight: 700;
   background-color: ${(props) => props.theme.mainColor};
@@ -86,11 +86,13 @@ export const InfoArea = styled.div`
 export const UserInfo = styled.div`
   margin-bottom: 15px;
   font-size: 14px;
+  font-weight: 500;
   color: ${(props) => props.theme.mainText};
 
   > .text {
     font-size: 13px;
     margin-right: 50px;
+    color: ${(props) => props.theme.subText};
   }
 `;
 
@@ -100,7 +102,7 @@ export const AlbumInfoArea = styled.div`
 
   > .playTitle {
     font-size: 19px;
-    font-weight: 500;
+    font-weight: 600;
     margin-bottom: 20px;
     color: ${(props) => props.theme.mainText};
   }
@@ -109,6 +111,7 @@ export const AlbumInfoArea = styled.div`
     color: ${(props) => props.theme.mainText};
     width: 100%;
     height: 200px;
+    font-weight: 500;
 
     > .ql-toolbar {
       border-top-left-radius: 4px;
@@ -141,7 +144,7 @@ export const PlayListArea = styled.div`
     display: flex;
     align-items: center;
     font-size: 19px;
-    font-weight: 500;
+    font-weight: 600;
     margin-bottom: 20px;
     color: ${(props) => props.theme.mainText};
 

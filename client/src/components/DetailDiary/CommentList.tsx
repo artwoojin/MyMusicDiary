@@ -23,19 +23,20 @@ export const CommentListWrapper = styled.div`
 
   .name {
     font-size: 14px;
-    font-weight: 500;
+    font-weight: 600;
     margin: 15px 0 15px 0;
     color: ${(props) => props.theme.mainText};
   }
 
   .content {
-    font-size: 14px;
+    font-size: 15px;
     font-weight: 500;
     color: ${(props) => props.theme.mainText};
   }
 
   .date {
     font-size: 12px;
+    font-weight: 500;
     margin: 10px 0 15px 0;
     color: ${(props) => props.theme.diaryDate};
   }
@@ -68,7 +69,7 @@ const ButtonArea = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 12px;
+    font-size: 13px;
     padding: 5px;
     background-color: transparent;
   }

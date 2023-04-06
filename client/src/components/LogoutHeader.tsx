@@ -52,7 +52,7 @@ const ModeButton = styled.button`
   width: 40px;
   border: none;
   background-color: transparent;
-  margin-right: 20px;
+  margin-right: 10px;
   cursor: pointer;
 
   > .lightIcon {
@@ -65,7 +65,7 @@ const ModeButton = styled.button`
 `;
 
 const NewDiaryPostButton = styled.button`
-  width: 120px;
+  width: 150px;
   height: 35px;
   border: none;
   background-color: transparent;
@@ -84,7 +84,7 @@ const LoginButton = styled.button`
   border-radius: 50px;
   color: ${(props) => props.theme.mainText};
   border: 1.5px solid ${(props) => props.theme.mainText};
-  margin: 0 10px 0 25px;
+  margin: 0 10px 0 15px;
   cursor: pointer;
 `;
 

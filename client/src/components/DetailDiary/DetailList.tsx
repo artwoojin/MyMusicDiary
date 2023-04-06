@@ -33,7 +33,7 @@ const TitleArea = styled.div`
   > .DetailTitle {
     width: 580px;
     font-size: 24px;
-    font-weight: 600;
+    font-weight: 700;
     color: ${(props) => props.theme.mainText};
   }
 `;
@@ -190,6 +190,7 @@ const InfoArea = styled.div`
 const UserInfo = styled.div`
   margin-bottom: 15px;
   font-size: 14px;
+  font-weight: 500;
   color: ${(props) => props.theme.mainText};
 
   > .text {
@@ -205,13 +206,14 @@ const AlbumInfoArea = styled.div`
 
   > .playTitle {
     font-size: 19px;
-    font-weight: 500;
+    font-weight: 600;
     margin-bottom: 20px;
     color: ${(props) => props.theme.mainText};
   }
 
   > .playContent {
-    font-size: 14px;
+    font-size: 15px;
+    font-weight: 500;
     color: ${(props) => props.theme.mainText};
   }
 `;
@@ -224,7 +226,7 @@ const PlayListArea = styled.div`
     display: flex;
     align-items: center;
     font-size: 19px;
-    font-weight: 500;
+    font-weight: 600;
     margin-bottom: 20px;
     color: ${(props) => props.theme.mainText};
 
@@ -253,7 +255,7 @@ const CommentInputArea = styled.div`
       align-items: center;
       font-size: 19px;
       margin-left: 5px;
-      font-weight: 500;
+      font-weight: 600;
 
       > .commentCount {
         font-size: 15px;
@@ -266,6 +268,7 @@ const CommentInputArea = styled.div`
       display: flex;
       align-items: center;
       font-size: 14px;
+      font-weight: 500;
       margin-right: 5px;
       cursor: pointer;
 
@@ -284,6 +287,8 @@ const TextArea = styled.div`
     width: 1300px;
     height: 70px;
     resize: none;
+    font-size: 14px;
+    font-weight: 500;
     margin: 0 10px 30px 0;
     border-radius: 4px;
     padding: 10px 8px 10px 8px;
@@ -301,6 +306,7 @@ const TextArea = styled.div`
     min-width: 90px;
     height: 70px;
     border: none;
+    font-size: 14px;
     font-weight: 700;
     color: ${(props) => props.theme.TagColor};
     border-radius: 4px;

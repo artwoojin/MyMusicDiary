@@ -28,6 +28,7 @@ export const ContentArea = styled.div`
 
   > .listTitle {
     font-size: 15px;
+    font-weight: 500;
     width: 100%;
   }
 
@@ -37,7 +38,7 @@ export const ContentArea = styled.div`
     border: none;
     text-decoration: underline;
     font-weight: 600;
-    font-size: 12px;
+    font-size: 13px;
     margin: 5px;
     background-color: transparent;
   }

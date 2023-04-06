@@ -33,6 +33,7 @@ const ContentArea = styled.div`
 
   > .listTitle {
     font-size: 15px;
+    font-weight: 500;
     width: 100%;
     color: ${(props) => props.theme.mainText};
   }

@@ -32,7 +32,7 @@ export const InfoArea = styled.div`
 
   > .infoTitle {
     color: ${(props) => props.theme.mainText};
-    font-weight: 500;
+    font-weight: 700;
     margin-bottom: 10px;
     white-space: nowrap;
     overflow: hidden;
@@ -41,7 +41,7 @@ export const InfoArea = styled.div`
 
   > .infoDate {
     font-size: 12px;
-    font-weight: 400;
+    font-weight: 500;
     color: ${(props) => props.theme.diaryDate};
     margin-bottom: 15px;
   }
@@ -82,7 +82,6 @@ export const ByUsername = styled.div`
 
   > .by {
     font-size: 12px;
-    font-weight: 400;
     color: ${(props) => props.theme.diaryDate};
     margin: 0 5px 2px 0;
   }
