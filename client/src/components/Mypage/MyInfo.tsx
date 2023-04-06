@@ -14,7 +14,7 @@ const MyInfoContainer = styled.div`
 const ProfileImgWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  border-right: 1px solid ${(props) => props.theme.color.diaryInfoLine};
+  border-right: 1px solid ${(props) => props.theme.color.borderLine};
 `;
 
 const ProfileImg = styled.img`
@@ -112,7 +112,7 @@ const EditNicknameBtn = styled.button`
 
 const MySettingContainer = styled.div`
   margin-top: 30px;
-  border-bottom: 1px solid ${(props) => props.theme.color.diaryInfoLine};
+  border-bottom: 1px solid ${(props) => props.theme.color.borderLine};
 `;
 
 const PasswordWrapper = styled.div`
@@ -169,7 +169,7 @@ const EditPasswordBtn = styled.button`
 `;
 
 const MyWithdrawalContainer = styled.div`
-  /* border-bottom: 1px solid ${(props) => props.theme.color.diaryInfoLine}; */
+  /* border-bottom: 1px solid ${(props) => props.theme.color.borderLine}; */
 `;
 
 const MyWithdrawalWrapper = styled.div`
@@ -257,8 +257,8 @@ const WithdrawalModalView = styled.div`
   > .deleteCancelButton {
     color: ${(props) => props.theme.color.subText};
     background-color: transparent;
-    border-top: 1px solid ${(props) => props.theme.color.diaryInfoLine};
-    border-right: 0.5px solid ${(props) => props.theme.color.diaryInfoLine};
+    border-top: 1px solid ${(props) => props.theme.color.borderLine};
+    border-right: 0.5px solid ${(props) => props.theme.color.borderLine};
     border-bottom-left-radius: 5px;
 
     &:hover {
@@ -269,8 +269,8 @@ const WithdrawalModalView = styled.div`
   > .deleteButton {
     color: #ec1d36;
     background-color: transparent;
-    border-top: 1px solid ${(props) => props.theme.color.diaryInfoLine};
-    border-left: 0.5px solid ${(props) => props.theme.color.diaryInfoLine};
+    border-top: 1px solid ${(props) => props.theme.color.borderLine};
+    border-left: 0.5px solid ${(props) => props.theme.color.borderLine};
     border-bottom-right-radius: 5px;
 
     &:hover {

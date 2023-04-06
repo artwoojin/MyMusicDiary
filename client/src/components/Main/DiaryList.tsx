@@ -10,6 +10,7 @@ export const DiaryListContainer = styled.li`
   height: 339px;
   list-style: none;
   border-radius: 4px;
+  background-color: ${(props) => props.theme.color.disabledTagBackground};
   transition: 0.2s ease-in-out;
   cursor: pointer;
 

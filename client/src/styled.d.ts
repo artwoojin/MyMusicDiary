@@ -21,6 +21,7 @@ declare module "styled-components" {
 
       // detail
       likeHover: string;
+      borderLine: string;
     };
 
     font: {

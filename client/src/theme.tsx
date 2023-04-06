@@ -23,6 +23,7 @@ export const lightMode: DefaultTheme = {
 
     // detail
     likeHover: `#f1f3f5`,
+    borderLine: `#f1f3f5`,
   },
 
   font: {
@@ -51,7 +52,8 @@ export const darkMode: DefaultTheme = {
     disabled: `gray`,
 
     // detail
-    likeHover: `#2f3135`,
+    likeHover: `#3C4048`,
+    borderLine: `#2B2B2B`,
   },
 
   font: {
