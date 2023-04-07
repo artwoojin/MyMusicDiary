@@ -67,7 +67,7 @@ export const UserArea = styled.div`
   padding: 8px 15px 8px 15px;
   border-top: 1px solid ${(props) => props.theme.color.diaryInfoLine};
   /* 태그 미구현으로 인한 임시로 위치 내림 */
-  margin-top: 19px;
+  margin-top: 18px;
 `;
 
 export const ByUsername = styled.div`
@@ -142,9 +142,9 @@ function DiaryList({ list }: DiaryDataProps) {
           <div className='userNickname'>{list.userNickname}</div>
         </ByUsername>
         <LikeAndComment>
-          <AiFillHeart className='likeIcon' size={16} />
+          <AiFillHeart className='likeIcon' size={17} />
           {list.likeCount}
-          <FaRegCommentDots className='commentIcon' size={15} />
+          <FaRegCommentDots className='commentIcon' size={16} />
           {list.comments.length}
         </LikeAndComment>
       </UserArea>

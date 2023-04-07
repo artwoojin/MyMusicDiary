@@ -19,11 +19,12 @@ export const MainWrapper = styled.div`
   width: 100vw;
   max-width: 900px;
   min-width: 300px;
+  margin-top: 20px;
   padding: 10px 20px 10px 20px;
 `;
 
 export const TitleArea = styled.div`
-  height: 90px;
+  height: 75px;
   display: flex;
   white-space: normal;
   justify-content: space-between;
@@ -32,9 +33,10 @@ export const TitleArea = styled.div`
   padding: 0 10px 0 10px;
 
   > .inputTitle {
-    width: 580px;
+    width: 700px;
     font-size: 24px;
     font-weight: ${(props) => props.theme.font.titleWeight};
+    margin-right: 10px;
     padding: 10px 8px 10px 8px;
     border-radius: 4px;
     color: ${(props) => props.theme.color.mainText};
@@ -54,7 +56,7 @@ export const SubmitButton = styled.button`
   font-weight: ${(props) => props.theme.font.titleWeight};
   background-color: ${(props) => props.theme.color.mainColor};
   border: none;
-  width: 140px;
+  width: 100px;
   height: 35px;
   border-radius: 4px;
   cursor: pointer;
@@ -175,8 +177,8 @@ export const UrlInput = styled.div`
   }
 
   > .sumbit {
-    width: 90px;
-    min-width: 90px;
+    width: 80px;
+    min-width: 80px;
     border: none;
     font-weight: ${(props) => props.theme.font.titleWeight};
     color: ${(props) => props.theme.color.TagColor};
@@ -297,8 +299,6 @@ function NewMain() {
         }
       });
   };
-
-  // console.log(newPlayList);
 
   return (
     <MainContainer>

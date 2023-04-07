@@ -10,7 +10,7 @@ export const lightMode: DefaultTheme = {
     mainText: `#22262c`,
     subText: `#495057`,
     mainColor: `#ffefd5`,
-    buttonHover: `#ffdeb7`,
+    buttonHover: `#F8EAD8`,
 
     // main
     diaryDate: `#9aa1a8`,

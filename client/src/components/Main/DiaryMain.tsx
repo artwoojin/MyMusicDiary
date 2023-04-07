@@ -17,7 +17,6 @@ const ListTab = styled.ul`
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 14px;
     width: 100px;
     height: 40px;
     border-radius: 50px;
@@ -29,6 +28,7 @@ const ListTab = styled.ul`
     cursor: pointer;
 
     > .el {
+      font-size: 13.8px;
       color: ${(props) => props.theme.color.diaryDate};
     }
 
@@ -42,6 +42,7 @@ const ListTab = styled.ul`
     background-color: ${(props) => props.theme.color.mainColor};
 
     > .el {
+      font-size: 14px;
       color: ${(props) => props.theme.color.TagColor};
       font-weight: ${(props) => props.theme.font.titleWeight};
     }

@@ -19,11 +19,12 @@ const DetailMainWrapper = styled.div`
   width: 100vw;
   max-width: 900px;
   min-width: 300px;
+  margin-top: 20px;
   padding: 10px 20px 10px 20px;
 `;
 
 const TitleArea = styled.div`
-  height: 90px;
+  height: 75px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -31,7 +32,7 @@ const TitleArea = styled.div`
   padding: 0 10px 0 10px;
 
   > .DetailTitle {
-    width: 580px;
+    width: 700px;
     font-size: 24px;
     font-weight: ${(props) => props.theme.font.titleWeight};
     color: ${(props) => props.theme.color.mainText};
@@ -67,29 +68,6 @@ const ButtonArea = styled.div`
     border: none;
     text-decoration: underline;
     font-weight: ${(props) => props.theme.font.titleWeight};
-  }
-
-  > .like {
-    color: ${(props) => props.theme.color.mainText};
-    margin-left: 25px;
-    width: 140px;
-    height: 35px;
-    font-weight: ${(props) => props.theme.font.contentWeight};
-    border: 1px solid ${(props) => props.theme.color.borderLine};
-    border-radius: 4px;
-
-    > .likeIcon {
-      color: #ec1d36;
-      margin-right: 5px;
-    }
-
-    > .likeCount {
-      margin-left: 5px;
-    }
-
-    &:hover {
-      background-color: ${(props) => props.theme.color.likeHover};
-    }
   }
 `;
 
@@ -182,18 +160,61 @@ const AlbumCoverArea = styled.div`
 `;
 
 const InfoArea = styled.div`
-  width: 400px;
-  margin-top: 5px;
+  width: 650px;
 `;
 
 const UserInfo = styled.div`
-  margin-bottom: 15px;
-  font-size: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+  font-size: 14px;
   color: ${(props) => props.theme.color.mainText};
 
+  > button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 13px;
+    padding: 5px;
+    background-color: transparent;
+    cursor: pointer;
+  }
+`;
+
+const User = styled.div`
+  font-size: 14px;
+
   > .text {
-    font-size: 14px;
     margin-right: 50px;
+  }
+`;
+
+const LikeButton = styled.button`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 13px;
+  padding: 5px;
+  background-color: transparent;
+  color: ${(props) => props.theme.color.mainText};
+  width: 80px;
+  height: 35px;
+  font-weight: ${(props) => props.theme.font.contentWeight};
+  border: 1px solid ${(props) => props.theme.color.borderLine};
+  border-radius: 50px;
+  cursor: pointer;
+
+  > .likeIcon {
+    color: #ec1d36;
+  }
+
+  > .likeCount {
+    margin-left: 5px;
+  }
+
+  &:hover {
+    background-color: ${(props) => props.theme.color.likeHover};
   }
 `;
 
@@ -296,8 +317,8 @@ const TextArea = styled.div`
   }
 
   > .sumbit {
-    width: 90px;
-    min-width: 90px;
+    width: 80px;
+    min-width: 80px;
     height: 70px;
     border: none;
     font-size: 14px;
@@ -387,18 +408,18 @@ function DetailList({ list, getDetailData }: DiaryDataProps) {
   // 좋아요 버튼
   const plusLikeCount = async () => {
     if (checkLike === false) {
-      const like = {
-        likeCount: list.likeCount + 1,
-      };
-      const res = await TOKEN_API.patch(`/diary/${diaryId}`, like);
-      getDetailData(res.data);
+      // const like = {
+      //   likeCount: list.likeCount + 1,
+      // };
+      // const res = await TOKEN_API.patch(`/diary/${diaryId}`, like);
+      // getDetailData(res.data);
       setCheckLike(true);
     } else {
-      const like = {
-        likeCount: list.likeCount - 1,
-      };
-      const res = await TOKEN_API.patch(`/diary/${diaryId}`, like);
-      getDetailData(res.data);
+      // const like = {
+      //   likeCount: list.likeCount - 1,
+      // };
+      // const res = await TOKEN_API.patch(`/diary/${diaryId}`, like);
+      // getDetailData(res.data);
       setCheckLike(false);
     }
   };
@@ -505,27 +526,30 @@ function DetailList({ list, getDetailData }: DiaryDataProps) {
                 </DeleteModalView>
               </DeleteModalBack>
             ) : null}
-            <button className='like' onClick={plusLikeCount}>
-              {checkLike === true ? (
-                <AiFillHeart className='likeIcon' size={16} />
-              ) : (
-                <AiOutlineHeart className='likeIcon' size={16} />
-              )}
-              좋아요
-              <span className='likeCount'>{list.likeCount}</span>
-            </button>
           </ButtonArea>
         </TitleArea>
         <AlbumCoverArea>
           <img className='coverImg' src={list.playlists[0]?.thumbnail} alt='첫번째 앨범 커버' />
           <InfoArea>
             <UserInfo>
-              <span className='text'>등록자</span>
-              {list.userNickname}
+              <User>
+                <span className='text'>등록자</span>
+                {list.userNickname}
+              </User>
+              <LikeButton onClick={plusLikeCount}>
+                {checkLike === true ? (
+                  <AiFillHeart className='likeIcon' size={17} />
+                ) : (
+                  <AiOutlineHeart className='likeIcon' size={17} />
+                )}
+                <span className='likeCount'>{list.likeCount}</span>
+              </LikeButton>
             </UserInfo>
             <UserInfo>
-              <span className='text'>등록일</span>
-              {list.createdAt.substring(0, 10)}
+              <User>
+                <span className='text'>등록일</span>
+                {list.createdAt.substring(0, 10)}
+              </User>
             </UserInfo>
           </InfoArea>
         </AlbumCoverArea>
