@@ -9,6 +9,7 @@ import NewPlayList from "./NewPlayList";
 import { myContext } from "../../theme";
 import { PlaylistData } from "../../util/Type";
 import { toast } from "react-toastify";
+import { HiPlus } from "react-icons/hi";
 
 export const MainContainer = styled.div`
   display: flex;
@@ -159,12 +160,13 @@ export const PlayListArea = styled.div`
 export const UrlInput = styled.div`
   display: flex;
   margin-bottom: 20px;
+  align-items: center;
+  position: relative;
 
   > input {
     color: ${(props) => props.theme.color.mainText};
     width: 1300px;
     resize: none;
-    margin-right: 10px;
     border-radius: 4px;
     padding: 10px 8px 10px 8px;
     border: none;
@@ -177,17 +179,21 @@ export const UrlInput = styled.div`
   }
 
   > .sumbit {
-    width: 80px;
-    min-width: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    right: 0;
+    width: 45px;
+    height: 40px;
     border: none;
-    font-weight: ${(props) => props.theme.font.titleWeight};
-    color: ${(props) => props.theme.color.TagColor};
+    color: gray;
     border-radius: 4px;
-    background-color: ${(props) => props.theme.color.mainColor};
+    background-color: transparent;
     cursor: pointer;
 
     &:hover {
-      background-color: ${(props) => props.theme.color.buttonHover};
+      color: ${(props) => props.theme.color.mainText};
     }
   }
 `;
@@ -344,7 +350,7 @@ function NewMain() {
               onChange={changeNewUrl}
             />
             <button className='sumbit' onClick={addPlayList} disabled={newUrl.length === 0}>
-              추가
+              <HiPlus size={23} />
             </button>
           </UrlInput>
           {newPlayList?.map((value, index) => {

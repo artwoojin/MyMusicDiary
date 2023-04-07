@@ -133,21 +133,21 @@ function Signup() {
 
   const navigate = useNavigate();
 
-  const onSubmit: SubmitHandler<FormValue> = (data) => {
-    BASE_API.post(`/users/sign-up`, {
-      nickname: data.nickname,
-      email: data.email,
-      password: data.password,
-    })
-      .then(() => {
-        navigate("/login");
-        toast.success(`${data.nickname}님 환영합니다!`);
-      })
-      .catch((err) => {
-        // 500 = 이미 중복된 이메일
-        // 400 = 유효한 형식의 이메일이 아닐때(@이가 없을 때, 닉네임이랑 비밀번호가 Null일 때)
-        if (err.response.status === 500) toast.error("이미 사용중인 이메일입니다.");
-      });
+  const onSubmit: SubmitHandler<FormValue> = async (data) => {
+    try {
+      const signupForm = {
+        nickname: data.nickname,
+        email: data.email,
+        password: data.password,
+      };
+      await BASE_API.post(`/users/sign-up`, signupForm);
+      navigate("/login");
+      toast.success(`${data.nickname}님 환영합니다!`);
+    } catch (err: any) {
+      // 500 = 이미 중복된 이메일
+      // 400 = 유효한 형식의 이메일이 아닐때(@이가 없을 때, 닉네임이랑 비밀번호가 Null일 때)
+      if (err.response.status === 500) toast.error("이미 사용중인 이메일입니다.");
+    }
   };
 
   return (

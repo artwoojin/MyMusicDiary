@@ -124,26 +124,31 @@ function Login() {
 
   const navigate = useNavigate();
 
-  const onSubmit: SubmitHandler<FormValue> = (data) => {
-    BASE_API.post(`/auth/login`, {
-      email: data.email,
-      password: data.password,
-    })
-      .then((res) => {
-        if (res.headers.authorization) {
-          localStorage.setItem("accessToken", res.headers.authorization);
-          localStorage.setItem("CURRENT_USER", JSON.stringify(res.data));
-        }
-      })
-      .then(() => {
-        navigate("/");
-        window.location.reload();
-      })
-      .catch((err) => {
-        // 401 = 이메일 or 비밀번호를 잘못 입력했을 때
-        if (err.response.status === 401) toast.error("입력하신 내용을 다시 확인해주세요.");
-      });
+  const onSubmit: SubmitHandler<FormValue> = async (data) => {
+    try {
+      const loginForm = {
+        email: data.email,
+        password: data.password,
+      };
+      const res = await BASE_API.post(`/auth/login`, loginForm);
+      if (res.headers.authorization) {
+        localStorage.setItem("accessToken", res.headers.authorization);
+        localStorage.setItem("CURRENT_USER", JSON.stringify(res.data));
+      }
+      navigate("/");
+      window.location.reload();
+    } catch (err: any) {
+      // 401 = 이메일 or 비밀번호를 잘못 입력했을 때
+      if (err.response?.status === 401) toast.error("입력하신 내용을 다시 확인해주세요.");
+    }
   };
+
+  // const onKeyPressEnter = (e: any) => {
+  //   if (e.key === "Enter") {
+  //     handleSubmit(onSubmit);
+  //     console.log("누름");
+  //   }
+  // };
 
   return (
     <LoginContainer>
@@ -173,6 +178,7 @@ function Login() {
               message: "8자리 이상 입력해 주세요.",
             },
           })}
+          // onKeyDown={onKeyPressEnter}
         />
         {errors.password && <Errormsg>{errors.password.message}</Errormsg>}
         <LoginButton type='button' onClick={handleSubmit(onSubmit)}>
