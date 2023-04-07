@@ -92,7 +92,6 @@ const ModeButton = styled.button`
   width: 40px;
   border: none;
   background-color: transparent;
-  margin-right: 10px;
   cursor: pointer;
 
   > .lightIcon {
@@ -118,7 +117,7 @@ const NewDiaryPostButton = styled.button`
 const ProfileButton = styled.div`
   display: flex;
   align-items: center;
-  margin-left: 10px;
+  cursor: pointer;
 
   > .triangleDown {
     color: #787f84;
@@ -131,7 +130,6 @@ const Profile = styled.img`
   margin: 0 10px 0 10px;
   border-radius: 50%;
   box-shadow: rgba(0, 0, 0, 0.086) 0px 0px 8px;
-  cursor: pointer;
 `;
 
 function LoginHeader() {
