@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { PlaylistDataProps } from "../../util/Type";
+import defaultProfile from "../../util/img/mainIcon.png";
 
 const PlayListContainer = styled.li`
   display: flex;
@@ -25,10 +26,12 @@ const ContentArea = styled.div`
   align-items: center;
 
   > .thumbnail {
-    width: 80px;
+    width: 50px;
     height: 50px;
     margin-right: 20px;
     border-radius: 4px;
+    object-fit: cover;
+    background-color: ${(props) => props.theme.color.background};
   }
 
   > .listTitle {
@@ -50,7 +53,11 @@ function DetailPlayList({ list }: PlaylistDataProps) {
       <PlayListWrapper>
         <Link to={list.url!} target='_blank'>
           <ContentArea>
-            <img className='thumbnail' src={list.thumbnail} alt='썸네일' />
+            <img
+              className='thumbnail'
+              src={list.thumbnail ? list.thumbnail : defaultProfile}
+              alt='썸네일'
+            />
             <div className='listTitle'>{list.title}</div>
           </ContentArea>
         </Link>

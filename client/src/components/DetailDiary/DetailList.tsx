@@ -10,6 +10,7 @@ import { RiErrorWarningLine } from "react-icons/ri";
 import DOMPurify from "dompurify";
 import { myContext } from "../../theme";
 import { toast } from "react-toastify";
+import defaultProfile from "../../util/img/mainIcon.png";
 
 const DetailMainContainer = styled.div`
   display: flex;
@@ -151,12 +152,12 @@ const AlbumCoverArea = styled.div`
   padding: 0 10px 0 10px;
 
   > .coverImg {
-    width: 190px;
+    width: 180px;
     height: 180px;
     margin-right: 30px;
     border-radius: 4px;
-    background-color: lightgray;
     object-fit: cover;
+    background-color: ${(props) => props.theme.color.background};
   }
 `;
 
@@ -208,6 +209,10 @@ const LikeButton = styled.button`
 
   > .likeIcon {
     color: #ec1d36;
+  }
+
+  > .unLikeIcon {
+    color: ${(props) => props.theme.color.mainText};
   }
 
   > .likeCount {
@@ -534,7 +539,11 @@ function DetailList({ list, getDetailData }: DiaryDataProps) {
           </ButtonArea>
         </TitleArea>
         <AlbumCoverArea>
-          <img className='coverImg' src={list.playlists[0]?.thumbnail} alt='첫번째 앨범 커버' />
+          <img
+            className='coverImg'
+            src={list.playlists[0]?.thumbnail ? list.playlists[0]?.thumbnail : defaultProfile}
+            alt='첫번째 앨범 커버'
+          />
           <InfoArea>
             <UserInfo>
               <User>
@@ -545,7 +554,7 @@ function DetailList({ list, getDetailData }: DiaryDataProps) {
                 {checkLike === true ? (
                   <AiFillHeart className='likeIcon' size={17} />
                 ) : (
-                  <AiOutlineHeart className='likeIcon' size={17} />
+                  <AiOutlineHeart className='unLikeIcon' size={17} />
                 )}
                 <span className='likeCount'>{list.likeCount}</span>
               </LikeButton>

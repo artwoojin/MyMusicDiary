@@ -9,7 +9,8 @@ import NewPlayList from "./NewPlayList";
 import { myContext } from "../../theme";
 import { PlaylistData } from "../../util/Type";
 import { toast } from "react-toastify";
-import { HiPlus } from "react-icons/hi";
+import { FiPlus } from "react-icons/fi";
+import defaultProfile from "../../util/img/mainIcon.png";
 
 export const MainContainer = styled.div`
   display: flex;
@@ -71,14 +72,15 @@ export const AlbumCoverArea = styled.div`
   display: flex;
   margin: 30px 0 30px 0;
   padding: 0 10px 0 10px;
+`;
 
-  > .coverImg {
-    width: 190px;
-    height: 180px;
-    margin-right: 30px;
-    border-radius: 4px;
-    background-color: lightgray;
-  }
+const CoverImg = styled.img`
+  width: 180px;
+  height: 180px;
+  margin-right: 30px;
+  border-radius: 4px;
+  object-fit: cover;
+  background-color: ${(props) => props.theme.color.background};
 `;
 
 export const InfoArea = styled.div`
@@ -123,6 +125,7 @@ export const AlbumInfoArea = styled.div`
     }
 
     > .ql-container {
+      font-size: 15px;
       border-bottom-left-radius: 4px;
       border-bottom-right-radius: 4px;
       border: none;
@@ -164,6 +167,7 @@ export const UrlInput = styled.div`
   position: relative;
 
   > input {
+    font-size: 15px;
     color: ${(props) => props.theme.color.mainText};
     width: 1300px;
     resize: none;
@@ -187,14 +191,10 @@ export const UrlInput = styled.div`
     width: 45px;
     height: 40px;
     border: none;
-    color: gray;
+    color: ${(props) => props.theme.color.mainText};
     border-radius: 4px;
     background-color: transparent;
     cursor: pointer;
-
-    &:hover {
-      color: ${(props) => props.theme.color.mainText};
-    }
   }
 `;
 
@@ -210,7 +210,7 @@ function NewMain() {
 
   // 다이어리 post 요청
   const submitHandler = async () => {
-    if (newTitle.length !== 0 && newPlayList.length !== 0) {
+    if (newTitle.length <= 50 && newTitle.length !== 0 && newPlayList.length !== 0) {
       const newDiary = {
         title: newTitle,
         body: newBody,
@@ -220,6 +220,8 @@ function NewMain() {
       navigate(`/`);
     } else if (newTitle.length === 0 && newTitle.length === 0) {
       toast.error("제목을 입력해 주세요.");
+    } else if (newTitle.length > 30) {
+      toast.error("제목은 50글자 이하로 입력해 주세요.");
     } else {
       toast.error("플레이리스트를 등록해 주세요.");
     }
@@ -319,7 +321,10 @@ function NewMain() {
           <SubmitButton onClick={submitHandler}>등록하기</SubmitButton>
         </TitleArea>
         <AlbumCoverArea>
-          <div className='coverImg'></div>
+          <CoverImg
+            src={newPlayList[0]?.thumbnail ? newPlayList[0]?.thumbnail : defaultProfile}
+            alt='다이어리 썸네일'
+          />
           <InfoArea>
             <UserInfo>
               <span className='text'>등록자</span>
@@ -346,11 +351,11 @@ function NewMain() {
           <UrlInput>
             <input
               value={newUrl}
-              placeholder='유튜브 url을 입력해 주세요'
+              placeholder='유튜브 url을 추가해 주세요'
               onChange={changeNewUrl}
             />
             <button className='sumbit' onClick={addPlayList} disabled={newUrl.length === 0}>
-              <HiPlus size={23} />
+              <FiPlus size={26} />
             </button>
           </UrlInput>
           {newPlayList?.map((value, index) => {

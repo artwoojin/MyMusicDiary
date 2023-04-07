@@ -83,7 +83,7 @@ function MypageMain() {
   // Tab 2(MyDiary) : 나의 다이어리 데이터 get 요청
   const getMyDiaryData = async () => {
     try {
-      const res = await BASE_API.get(`/diary?userNickname=동구222`);
+      const res = await BASE_API.get(`/diary`);
       setMyDiaryData(res.data);
     } catch (err) {
       console.error(err);

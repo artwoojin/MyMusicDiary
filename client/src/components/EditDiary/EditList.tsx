@@ -8,6 +8,8 @@ import "react-quill/dist/quill.snow.css";
 import axios from "axios";
 import EditPlayList from "./EditPlayList";
 import { PlaylistData } from "../../util/Type";
+import { toast } from "react-toastify";
+import { FiPlus } from "react-icons/fi";
 
 function EditList({ list }: DiaryDataProps) {
   const [editTitle, setEditTitle] = useState<string>(list.title);
@@ -20,13 +22,21 @@ function EditList({ list }: DiaryDataProps) {
 
   // 다이어리 patch 요청
   const submitHandler = async () => {
-    const editDiary = {
-      title: editTitle,
-      body: editBody,
-      playlists: editPlayList,
-    };
-    await TOKEN_API.patch(`/diary/${diaryId}`, editDiary);
-    navigate(`/DetailDiary/${diaryId}`);
+    if (editTitle.length <= 50 && editTitle.length !== 0 && editPlayList.length !== 0) {
+      const editDiary = {
+        title: editTitle,
+        body: editBody,
+        playlists: editPlayList,
+      };
+      await TOKEN_API.patch(`/diary/${diaryId}`, editDiary);
+      navigate(`/DetailDiary/${diaryId}`);
+    } else if (editTitle.length === 0 && editTitle.length === 0) {
+      toast.error("제목을 입력해 주세요.");
+    } else if (editTitle.length > 30) {
+      toast.error("제목은 50글자 이하로 입력해 주세요.");
+    } else {
+      toast.error("플레이리스트를 등록해 주세요.");
+    }
   };
 
   // 제목 수정 체인지 이벤트
@@ -130,7 +140,7 @@ function EditList({ list }: DiaryDataProps) {
               onChange={changeEditUrl}
             />
             <button className='sumbit' onClick={addPlayList} disabled={editUrl.length === 0}>
-              추가
+              <FiPlus size={26} />
             </button>
           </NewMain.UrlInput>
           {editPlayList?.map((value, index) => {
