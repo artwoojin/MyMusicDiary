@@ -9,6 +9,7 @@ import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
 import { RiErrorWarningLine } from "react-icons/ri";
 import DOMPurify from "dompurify";
 import { myContext } from "../../theme";
+import { toast } from "react-toastify";
 
 const DetailMainContainer = styled.div`
   display: flex;
@@ -402,7 +403,7 @@ function DetailList({ list, getDetailData }: DiaryDataProps) {
 
   const { diaryId } = useParams();
   const navigate = useNavigate();
-  const { currentUser }: any = useContext(myContext);
+  const { isLogin, currentUser }: any = useContext(myContext);
   const myDiary: boolean = list.userNickname === currentUser?.nickname;
 
   // 좋아요 버튼
@@ -453,13 +454,17 @@ function DetailList({ list, getDetailData }: DiaryDataProps) {
 
   // 댓글 post 요청
   const submitHandler = async () => {
-    const newComment = {
-      diaryId: diaryId,
-      body: commentBody,
-    };
-    const res = await TOKEN_API.post(`/comment`, newComment);
-    getDetailData(res.data);
-    setCommentBody("");
+    if (isLogin) {
+      const newComment = {
+        diaryId: diaryId,
+        body: commentBody,
+      };
+      const res = await TOKEN_API.post(`/comment`, newComment);
+      getDetailData(res.data);
+      setCommentBody("");
+    } else {
+      toast.error("로그인 후 이용해 주세요.");
+    }
   };
 
   // 댓글 작성 체인지 이벤트
