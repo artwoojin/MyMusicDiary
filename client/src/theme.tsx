@@ -3,27 +3,27 @@ import { DefaultTheme } from "styled-components";
 
 export const myContext: any = createContext(null);
 
+// #8c8c8c
+
 export const lightMode: DefaultTheme = {
   color: {
     logo: `#22262c`,
     background: `white`,
+
     mainText: `#22262c`,
     subText: `#495057`,
-    mainColor: `#ffefd5`,
-    buttonHover: `#F8EAD8`,
+    thirdText: `#9aa1a8`,
 
-    // main
-    diaryDate: `#9aa1a8`,
-    diaryInfoLine: `#f1f3f5`,
+    signature: `#ffefd5`,
+    signatureHover: `#F8EAD8`,
+    signatureText: `#22262c`,
 
-    TagColor: `#22262c`,
-    disabledTagBorder: `#d1d1d1`,
-    disabledTagBackground: `white`,
-    disabled: `lightgray`,
+    borderLine: `#f0f0f0`,
+    inputBackground: `white`,
 
-    // detail
-    likeHover: `#f1f3f5`,
-    borderLine: `#f1f3f5`,
+    buttonHover: `#f1f3f5`,
+
+    pageDisabled: `lightgray`,
   },
 
   font: {
@@ -36,24 +36,22 @@ export const lightMode: DefaultTheme = {
 export const darkMode: DefaultTheme = {
   color: {
     logo: `#ececec`,
-    background: `#1f2125`,
+    background: `#121212`,
+
     mainText: `#ececec`,
     subText: `#a6a6a6`,
-    mainColor: `#ffefd5`,
-    buttonHover: `#ffdeb7`,
+    thirdText: `#9aa1a8`,
 
-    // main
-    diaryDate: `#9aa1a8`,
-    diaryInfoLine: `#3C4048`,
+    signature: `#ffefd5`,
+    signatureHover: `#ffdeb7`,
+    signatureText: `#22262c`,
 
-    TagColor: `#22262c`,
-    disabledTagBorder: `#2f3135`,
-    disabledTagBackground: `#2f3135`,
-    disabled: `gray`,
+    borderLine: `#2a2a2a`,
+    inputBackground: `#1e1e1e`,
 
-    // detail
-    likeHover: `#3C4048`,
-    borderLine: `#2B2B2B`,
+    buttonHover: `#3C4048`,
+
+    pageDisabled: `gray`,
   },
 
   font: {

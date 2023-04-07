@@ -140,7 +140,7 @@ function EditList({ list }: DiaryDataProps) {
               onChange={changeEditUrl}
             />
             <button className='sumbit' onClick={addPlayList} disabled={editUrl.length === 0}>
-              <FiPlus size={26} />
+              <FiPlus size={25} />
             </button>
           </NewMain.UrlInput>
           {editPlayList?.map((value, index) => {

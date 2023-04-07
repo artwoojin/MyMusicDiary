@@ -33,8 +33,8 @@ const FormContainer = styled.form`
   height: 305px;
   border-radius: 4px;
   border: none;
-  border: 1px solid ${(props) => props.theme.color.disabledTagBorder};
-  background-color: ${(props) => props.theme.color.disabledTagBackground};
+  border: 1px solid ${(props) => props.theme.color.borderLine};
+  background-color: ${(props) => props.theme.color.inputBackground};
 `;
 
 const NicknameInput = styled.input`
@@ -45,7 +45,7 @@ const NicknameInput = styled.input`
   margin-bottom: 10px;
   color: ${(props) => props.theme.color.mainText};
   border: none;
-  border: 1px solid ${(props) => props.theme.color.disabledTagBorder};
+  border: 1px solid ${(props) => props.theme.color.borderLine};
   background-color: ${(props) => props.theme.color.background};
 
   &:focus {
@@ -60,7 +60,7 @@ const EmailInput = styled.input`
   padding: 10px 8px 10px 8px;
   color: ${(props) => props.theme.color.mainText};
   border: none;
-  border: 1px solid ${(props) => props.theme.color.disabledTagBorder};
+  border: 1px solid ${(props) => props.theme.color.borderLine};
   background-color: ${(props) => props.theme.color.background};
 
   &:focus {
@@ -76,7 +76,7 @@ const PasswordInput = styled.input`
   margin-top: 10px;
   color: ${(props) => props.theme.color.mainText};
   border: none;
-  border: 1px solid ${(props) => props.theme.color.disabledTagBorder};
+  border: 1px solid ${(props) => props.theme.color.borderLine};
   background-color: ${(props) => props.theme.color.background};
 
   &:focus {
@@ -93,11 +93,11 @@ const SignupButton = styled.button`
   font-size: 15px;
   font-weight: ${(props) => props.theme.font.titleWeight};
   margin-top: 30px;
-  background-color: ${(props) => props.theme.color.mainColor};
+  background-color: ${(props) => props.theme.color.signature};
   cursor: pointer;
 
   &:hover {
-    background-color: ${(props) => props.theme.color.buttonHover};
+    background-color: ${(props) => props.theme.color.signatureHover};
   }
 `;
 
@@ -109,8 +109,8 @@ const MoveLogin = styled.button`
   border-radius: 4px;
   border: none;
   color: ${(props) => props.theme.color.mainText};
-  border: 1px solid ${(props) => props.theme.color.disabledTagBorder};
-  background-color: ${(props) => props.theme.color.disabledTagBackground};
+  border: 1px solid ${(props) => props.theme.color.borderLine};
+  background-color: ${(props) => props.theme.color.inputBackground};
   cursor: pointer;
 
   > .bold {

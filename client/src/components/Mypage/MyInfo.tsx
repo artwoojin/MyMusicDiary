@@ -25,7 +25,7 @@ const ProfileImg = styled.img`
   cursor: pointer;
 
   &:hover {
-    outline: 5px solid ${(props) => props.theme.color.mainColor};
+    outline: 5px solid ${(props) => props.theme.color.signature};
   }
 `;
 
@@ -37,15 +37,15 @@ const ImgSubmitBtn = styled.button`
   width: 140px;
   height: 35px;
   border-radius: 4px;
-  background-color: ${(props) => props.theme.color.mainColor};
-  color: ${(props) => props.theme.color.TagColor};
+  background-color: ${(props) => props.theme.color.signature};
+  color: ${(props) => props.theme.color.signatureText};
   font-weight: ${(props) => props.theme.font.titleWeight};
   border: none;
   margin: 0 25px 5px 0;
   cursor: pointer;
 
   &:hover {
-    background-color: ${(props) => props.theme.color.buttonHover};
+    background-color: ${(props) => props.theme.color.signatureHover};
   }
 `;
 
@@ -61,7 +61,7 @@ const ImgDeleteBtn = styled.button`
 
   &:hover {
     border-radius: 4px;
-    background-color: ${(props) => props.theme.color.likeHover};
+    background-color: ${(props) => props.theme.color.buttonHover};
   }
 `;
 
@@ -79,8 +79,8 @@ const NickNameWrapper = styled.div`
     color: ${(props) => props.theme.color.mainText};
     font-weight: ${(props) => props.theme.font.titleWeight};
     border: none;
-    border: 1px solid ${(props) => props.theme.color.disabledTagBorder};
-    background-color: ${(props) => props.theme.color.disabledTagBackground};
+    border: 1px solid ${(props) => props.theme.color.borderLine};
+    background-color: ${(props) => props.theme.color.inputBackground};
     border-radius: 4px;
     padding: 10px 8px 10px 8px;
 
@@ -138,8 +138,8 @@ const PasswordWrapper = styled.div`
     border-radius: 4px;
     padding: 10px 8px 10px 8px;
     border: none;
-    border: 1px solid ${(props) => props.theme.color.disabledTagBorder};
-    background-color: ${(props) => props.theme.color.disabledTagBackground};
+    border: 1px solid ${(props) => props.theme.color.borderLine};
+    background-color: ${(props) => props.theme.color.inputBackground};
 
     &:focus {
       outline: none;
@@ -262,7 +262,7 @@ const WithdrawalModalView = styled.div`
     border-bottom-left-radius: 5px;
 
     &:hover {
-      background-color: ${(props) => props.theme.color.likeHover};
+      background-color: ${(props) => props.theme.color.buttonHover};
     }
   }
 
@@ -274,14 +274,14 @@ const WithdrawalModalView = styled.div`
     border-bottom-right-radius: 5px;
 
     &:hover {
-      background-color: ${(props) => props.theme.color.likeHover};
+      background-color: ${(props) => props.theme.color.buttonHover};
     }
   }
 `;
 
 const WarningText = styled.div`
   font-size: 13px;
-  color: ${(props) => props.theme.color.diaryDate};
+  color: ${(props) => props.theme.color.thirdText};
   margin: 0 0 15px 10px;
 `;
 

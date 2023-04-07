@@ -5,23 +5,21 @@ declare module "styled-components" {
     color: {
       logo: string;
       background: string;
+
       mainText: string;
       subText: string;
-      mainColor: string;
+      thirdText: string;
+
+      signature: string;
+      signatureHover: string;
+      signatureText: string;
+
+      borderLine: string;
+      inputBackground: string;
+
       buttonHover: string;
 
-      // main
-      diaryDate: string;
-      diaryInfoLine: string;
-
-      TagColor: string;
-      disabledTagBorder: string;
-      disabledTagBackground: string;
-      disabled: string;
-
-      // detail
-      likeHover: string;
-      borderLine: string;
+      pageDisabled: string;
     };
 
     font: {

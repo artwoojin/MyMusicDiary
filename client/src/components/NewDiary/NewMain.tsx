@@ -38,13 +38,13 @@ export const TitleArea = styled.div`
     width: 700px;
     font-size: 24px;
     font-weight: ${(props) => props.theme.font.titleWeight};
+    color: ${(props) => props.theme.color.mainText};
     margin-right: 10px;
     padding: 10px 8px 10px 8px;
     border-radius: 4px;
-    color: ${(props) => props.theme.color.mainText};
     border: none;
-    border: 1px solid ${(props) => props.theme.color.disabledTagBorder};
-    background-color: ${(props) => props.theme.color.disabledTagBackground};
+    border: 1px solid ${(props) => props.theme.color.borderLine};
+    background-color: ${(props) => props.theme.color.inputBackground};
 
     &:focus {
       outline: none;
@@ -54,9 +54,9 @@ export const TitleArea = styled.div`
 
 export const SubmitButton = styled.button`
   font-size: 14px;
-  color: ${(props) => props.theme.color.TagColor};
+  color: ${(props) => props.theme.color.signatureText};
   font-weight: ${(props) => props.theme.font.titleWeight};
-  background-color: ${(props) => props.theme.color.mainColor};
+  background-color: ${(props) => props.theme.color.signature};
   border: none;
   width: 100px;
   height: 35px;
@@ -64,7 +64,7 @@ export const SubmitButton = styled.button`
   cursor: pointer;
 
   &:hover {
-    background-color: ${(props) => props.theme.color.buttonHover};
+    background-color: ${(props) => props.theme.color.signatureHover};
   }
 `;
 
@@ -74,7 +74,7 @@ export const AlbumCoverArea = styled.div`
   padding: 0 10px 0 10px;
 `;
 
-const CoverImg = styled.img`
+export const CoverImg = styled.img`
   width: 180px;
   height: 180px;
   margin-right: 30px;
@@ -84,17 +84,21 @@ const CoverImg = styled.img`
 `;
 
 export const InfoArea = styled.div`
-  width: 400px;
-  margin-top: 5px;
+  width: 650px;
 `;
 
 export const UserInfo = styled.div`
-  margin-bottom: 15px;
+  display: flex;
+  align-items: center;
+  height: 35px;
   font-size: 14px;
   color: ${(props) => props.theme.color.mainText};
+`;
+
+export const User = styled.div`
+  font-size: 14px;
 
   > .text {
-    font-size: 13px;
     margin-right: 50px;
     color: ${(props) => props.theme.color.subText};
   }
@@ -120,8 +124,8 @@ export const AlbumInfoArea = styled.div`
       border-top-left-radius: 4px;
       border-top-right-radius: 4px;
       border: none;
-      border: 1px solid ${(props) => props.theme.color.disabledTagBorder};
-      background-color: ${(props) => props.theme.color.disabledTagBackground};
+      border: 1px solid ${(props) => props.theme.color.borderLine};
+      background-color: ${(props) => props.theme.color.inputBackground};
     }
 
     > .ql-container {
@@ -129,8 +133,8 @@ export const AlbumInfoArea = styled.div`
       border-bottom-left-radius: 4px;
       border-bottom-right-radius: 4px;
       border: none;
-      border: 1px solid ${(props) => props.theme.color.disabledTagBorder};
-      background-color: ${(props) => props.theme.color.disabledTagBackground};
+      border: 1px solid ${(props) => props.theme.color.borderLine};
+      background-color: ${(props) => props.theme.color.inputBackground};
 
       > .ql-editor::before {
         color: gray;
@@ -174,8 +178,8 @@ export const UrlInput = styled.div`
     border-radius: 4px;
     padding: 10px 8px 10px 8px;
     border: none;
-    border: 1px solid ${(props) => props.theme.color.disabledTagBorder};
-    background-color: ${(props) => props.theme.color.disabledTagBackground};
+    border: 1px solid ${(props) => props.theme.color.borderLine};
+    background-color: ${(props) => props.theme.color.inputBackground};
 
     &:focus {
       outline: none;
@@ -327,12 +331,16 @@ function NewMain() {
           />
           <InfoArea>
             <UserInfo>
-              <span className='text'>등록자</span>
-              {currentUser.nickname}
+              <User>
+                <span className='text'>등록자</span>
+                {currentUser.nickname}
+              </User>
             </UserInfo>
             <UserInfo>
-              <span className='text'>등록일</span>
-              {today.toString()}
+              <User>
+                <span className='text'>등록일</span>
+                {today.toString()}
+              </User>
             </UserInfo>
           </InfoArea>
         </AlbumCoverArea>
@@ -355,7 +363,7 @@ function NewMain() {
               onChange={changeNewUrl}
             />
             <button className='sumbit' onClick={addPlayList} disabled={newUrl.length === 0}>
-              <FiPlus size={26} />
+              <FiPlus size={25} />
             </button>
           </UrlInput>
           {newPlayList?.map((value, index) => {

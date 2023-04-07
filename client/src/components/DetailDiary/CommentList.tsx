@@ -36,7 +36,7 @@ export const CommentListWrapper = styled.div`
   .date {
     font-size: 13px;
     margin: 10px 0 15px 0;
-    color: ${(props) => props.theme.color.diaryDate};
+    color: ${(props) => props.theme.color.thirdText};
   }
 `;
 
@@ -52,8 +52,8 @@ const EditCommentArea = styled.input`
   padding: 10px 8px 10px 8px;
   border: none;
   border-radius: 4px;
-  border: 1px solid ${(props) => props.theme.color.disabledTagBorder};
-  background-color: ${(props) => props.theme.color.disabledTagBackground};
+  border: 1px solid ${(props) => props.theme.color.borderLine};
+  background-color: ${(props) => props.theme.color.inputBackground};
 
   &:focus {
     outline: none;
@@ -70,6 +70,7 @@ const ButtonArea = styled.div`
     font-size: 13px;
     padding: 5px;
     background-color: transparent;
+    cursor: pointer;
   }
 
   > .edit {
@@ -145,7 +146,7 @@ const DeleteModalView = styled.div`
     border-bottom-left-radius: 4px;
 
     &:hover {
-      background-color: ${(props) => props.theme.color.likeHover};
+      background-color: ${(props) => props.theme.color.buttonHover};
     }
   }
 
@@ -157,7 +158,7 @@ const DeleteModalView = styled.div`
     border-bottom-right-radius: 4px;
 
     &:hover {
-      background-color: ${(props) => props.theme.color.likeHover};
+      background-color: ${(props) => props.theme.color.buttonHover};
     }
   }
 `;

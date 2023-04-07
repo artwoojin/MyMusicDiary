@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import * as NewMain from "../NewDiary/NewMain";
 import CommentList from "./CommentList";
 import DetailPlayList from "./DetailPlayList";
 import { useState, useContext } from "react";
@@ -11,19 +12,6 @@ import DOMPurify from "dompurify";
 import { myContext } from "../../theme";
 import { toast } from "react-toastify";
 import defaultProfile from "../../util/img/mainIcon.png";
-
-const DetailMainContainer = styled.div`
-  display: flex;
-  justify-content: center;
-`;
-
-const DetailMainWrapper = styled.div`
-  width: 100vw;
-  max-width: 900px;
-  min-width: 300px;
-  margin-top: 20px;
-  padding: 10px 20px 10px 20px;
-`;
 
 const TitleArea = styled.div`
   height: 75px;
@@ -129,7 +117,7 @@ const DeleteModalView = styled.div`
     border-bottom-left-radius: 4px;
 
     &:hover {
-      background-color: ${(props) => props.theme.color.likeHover};
+      background-color: ${(props) => props.theme.color.buttonHover};
     }
   }
 
@@ -141,47 +129,18 @@ const DeleteModalView = styled.div`
     border-bottom-right-radius: 4px;
 
     &:hover {
-      background-color: ${(props) => props.theme.color.likeHover};
+      background-color: ${(props) => props.theme.color.buttonHover};
     }
   }
-`;
-
-const AlbumCoverArea = styled.div`
-  display: flex;
-  margin: 30px 0 30px 0;
-  padding: 0 10px 0 10px;
-
-  > .coverImg {
-    width: 180px;
-    height: 180px;
-    margin-right: 30px;
-    border-radius: 4px;
-    object-fit: cover;
-    background-color: ${(props) => props.theme.color.background};
-  }
-`;
-
-const InfoArea = styled.div`
-  width: 650px;
 `;
 
 const UserInfo = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 10px;
+  height: 35px;
   font-size: 14px;
   color: ${(props) => props.theme.color.mainText};
-
-  > button {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 13px;
-    padding: 5px;
-    background-color: transparent;
-    cursor: pointer;
-  }
 `;
 
 const User = styled.div`
@@ -189,6 +148,7 @@ const User = styled.div`
 
   > .text {
     margin-right: 50px;
+    color: ${(props) => props.theme.color.subText};
   }
 `;
 
@@ -220,7 +180,7 @@ const LikeButton = styled.button`
   }
 
   &:hover {
-    background-color: ${(props) => props.theme.color.likeHover};
+    background-color: ${(props) => props.theme.color.buttonHover};
   }
 `;
 
@@ -314,8 +274,8 @@ const TextArea = styled.div`
     border-radius: 4px;
     padding: 10px 8px 10px 8px;
     border: none;
-    border: 1px solid ${(props) => props.theme.color.disabledTagBorder};
-    background-color: ${(props) => props.theme.color.disabledTagBackground};
+    border: 1px solid ${(props) => props.theme.color.borderLine};
+    background-color: ${(props) => props.theme.color.inputBackground};
 
     &:focus {
       outline: none;
@@ -329,13 +289,13 @@ const TextArea = styled.div`
     border: none;
     font-size: 14px;
     font-weight: ${(props) => props.theme.font.titleWeight};
-    color: ${(props) => props.theme.color.TagColor};
+    color: ${(props) => props.theme.color.signatureText};
     border-radius: 4px;
-    background-color: ${(props) => props.theme.color.mainColor};
+    background-color: ${(props) => props.theme.color.signature};
     cursor: pointer;
 
     &:hover {
-      background-color: ${(props) => props.theme.color.buttonHover};
+      background-color: ${(props) => props.theme.color.signatureHover};
     }
   }
 `;
@@ -387,7 +347,7 @@ const RuleModalView = styled.div`
     border-bottom-left-radius: 4px;
 
     &:hover {
-      background-color: ${(props) => props.theme.color.likeHover};
+      background-color: ${(props) => props.theme.color.buttonHover};
     }
   }
 `;
@@ -501,8 +461,8 @@ function DetailList({ list, getDetailData }: DiaryDataProps) {
   };
 
   return (
-    <DetailMainContainer>
-      <DetailMainWrapper>
+    <NewMain.MainContainer>
+      <NewMain.MainWrapper>
         <TitleArea>
           <div className='DetailTitle'>{list.title}</div>
           <ButtonArea>
@@ -538,13 +498,12 @@ function DetailList({ list, getDetailData }: DiaryDataProps) {
             ) : null}
           </ButtonArea>
         </TitleArea>
-        <AlbumCoverArea>
-          <img
-            className='coverImg'
+        <NewMain.AlbumCoverArea>
+          <NewMain.CoverImg
             src={list.playlists[0]?.thumbnail ? list.playlists[0]?.thumbnail : defaultProfile}
             alt='첫번째 앨범 커버'
           />
-          <InfoArea>
+          <NewMain.InfoArea>
             <UserInfo>
               <User>
                 <span className='text'>등록자</span>
@@ -565,8 +524,8 @@ function DetailList({ list, getDetailData }: DiaryDataProps) {
                 {list.createdAt.substring(0, 10)}
               </User>
             </UserInfo>
-          </InfoArea>
-        </AlbumCoverArea>
+          </NewMain.InfoArea>
+        </NewMain.AlbumCoverArea>
         <AlbumInfoArea>
           <div className='playTitle'>다이어리 소개</div>
           <div
@@ -628,8 +587,8 @@ function DetailList({ list, getDetailData }: DiaryDataProps) {
             return <CommentList list={value} key={value.commentId} getDetailData={getDetailData} />;
           })}
         </CommentInputArea>
-      </DetailMainWrapper>
-    </DetailMainContainer>
+      </NewMain.MainWrapper>
+    </NewMain.MainContainer>
   );
 }
 

@@ -22,14 +22,14 @@ const ListTab = styled.ul`
     border-radius: 50px;
     text-align: center;
     padding: 7px 7px;
-    border: 1px solid ${(props) => props.theme.color.disabledTagBorder};
-    background-color: ${(props) => props.theme.color.disabledTagBackground};
+    border: 1px solid ${(props) => props.theme.color.borderLine};
     transition: 0.2s ease-in-out;
     cursor: pointer;
 
     > .el {
       font-size: 13.8px;
-      color: ${(props) => props.theme.color.diaryDate};
+      color: ${(props) => props.theme.color.thirdText};
+      font-weight: ${(props) => props.theme.font.contentWeight};
     }
 
     &:hover {
@@ -38,12 +38,12 @@ const ListTab = styled.ul`
   }
 
   .focused {
-    border: 1px solid ${(props) => props.theme.color.mainColor};
-    background-color: ${(props) => props.theme.color.mainColor};
+    border: 1px solid ${(props) => props.theme.color.signature};
+    background-color: ${(props) => props.theme.color.signature};
 
     > .el {
       font-size: 14px;
-      color: ${(props) => props.theme.color.TagColor};
+      color: ${(props) => props.theme.color.signatureText};
       font-weight: ${(props) => props.theme.font.titleWeight};
     }
   }

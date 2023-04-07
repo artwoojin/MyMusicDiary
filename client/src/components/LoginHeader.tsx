@@ -35,7 +35,7 @@ const HeaderWrapper = styled.div`
       width: 150px;
       font-weight: ${(props) => props.theme.font.contentWeight};
       box-shadow: 0 0 20px rgba(0, 0, 0, 0.19), 0 10px 10px rgba(0, 0, 0, 0.1);
-      background-color: ${(props) => props.theme.color.disabledTagBackground};
+      background-color: ${(props) => props.theme.color.inputBackground};
       display: flex;
       flex-direction: column;
       position: absolute;
@@ -52,7 +52,7 @@ const HeaderWrapper = styled.div`
 
         &:hover {
           font-weight: ${(props) => props.theme.font.titleWeight};
-          background-color: ${(props) => props.theme.color.likeHover};
+          background-color: ${(props) => props.theme.color.buttonHover};
         }
       }
 
@@ -61,7 +61,7 @@ const HeaderWrapper = styled.div`
 
         &:hover {
           font-weight: ${(props) => props.theme.font.titleWeight};
-          background-color: ${(props) => props.theme.color.likeHover};
+          background-color: ${(props) => props.theme.color.buttonHover};
         }
       }
     }

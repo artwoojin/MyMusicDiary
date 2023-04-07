@@ -33,7 +33,7 @@ const ToastAlert = styled(ToastContainer)`
   .Toastify__toast {
     font-size: 15px;
     color: ${(props) => props.theme.color.mainText};
-    background-color: ${(props) => props.theme.color.disabledTagBackground};
+    background-color: ${(props) => props.theme.color.inputBackground};
   }
 
   .Toastify__close-button {

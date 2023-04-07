@@ -43,7 +43,7 @@ const ContentArea = styled.div`
 
   &:hover {
     border-radius: 4px;
-    background-color: ${(props) => props.theme.color.likeHover};
+    background-color: ${(props) => props.theme.color.buttonHover};
   }
 `;
 

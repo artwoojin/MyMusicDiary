@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { DiaryDataProps } from "../../util/Type";
 import { AiFillHeart } from "react-icons/ai";
 import { FaRegCommentDots } from "react-icons/fa";
+import defaultProfile from "../../util/img/mainIcon.png";
 
 export const DiaryListContainer = styled.li`
   box-shadow: rgba(0, 0, 0, 0.04) 0px 4px 16px 0px;
@@ -10,7 +11,7 @@ export const DiaryListContainer = styled.li`
   height: 339px;
   list-style: none;
   border-radius: 4px;
-  background-color: ${(props) => props.theme.color.disabledTagBackground};
+  background-color: ${(props) => props.theme.color.inputBackground};
   transition: 0.2s ease-in-out;
   cursor: pointer;
 
@@ -41,7 +42,7 @@ export const InfoArea = styled.div`
 
   > .infoDate {
     font-size: 13px;
-    color: ${(props) => props.theme.color.diaryDate};
+    color: ${(props) => props.theme.color.thirdText};
     margin-bottom: 15px;
   }
 `;
@@ -65,7 +66,7 @@ export const UserArea = styled.div`
   align-items: center;
   justify-content: space-between;
   padding: 8px 15px 8px 15px;
-  border-top: 1px solid ${(props) => props.theme.color.diaryInfoLine};
+  border-top: 1px solid ${(props) => props.theme.color.borderLine};
   /* 태그 미구현으로 인한 임시로 위치 내림 */
   margin-top: 18px;
 `;
@@ -81,7 +82,7 @@ export const ByUsername = styled.div`
   > .by {
     font-size: 12px;
     font-weight: 400;
-    color: ${(props) => props.theme.color.diaryDate};
+    color: ${(props) => props.theme.color.thirdText};
     margin: 0 5px 2px 0;
   }
 
@@ -90,12 +91,13 @@ export const ByUsername = styled.div`
   }
 `;
 
-export const Profile = styled.div`
+export const Profile = styled.img`
   width: 25px;
   height: 25px;
   margin-right: 8px;
   border-radius: 50%;
-  background-color: lightgray;
+  object-fit: cover;
+  background-color: ${(props) => props.theme.color.background};
 `;
 
 export const LikeAndComment = styled.div`
@@ -137,7 +139,7 @@ function DiaryList({ list }: DiaryDataProps) {
       </InfoArea>
       <UserArea>
         <ByUsername>
-          <Profile />
+          <Profile src={defaultProfile} alt='프로필 이미지' />
           <div className='by'>by</div>
           <div className='userNickname'>{list.userNickname}</div>
         </ByUsername>
