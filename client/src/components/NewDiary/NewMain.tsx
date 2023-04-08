@@ -49,6 +49,10 @@ export const TitleArea = styled.div`
     &:focus {
       outline: none;
     }
+
+    @media screen and (max-width: 721px) {
+      font-size: 19px;
+    }
   }
 `;
 
@@ -59,6 +63,7 @@ export const SubmitButton = styled.button`
   background-color: ${(props) => props.theme.color.signature};
   border: none;
   width: 100px;
+  min-width: 60px;
   height: 35px;
   border-radius: 4px;
   cursor: pointer;
@@ -81,6 +86,12 @@ export const CoverImg = styled.img`
   border-radius: 4px;
   object-fit: cover;
   background-color: ${(props) => props.theme.color.background};
+
+  @media screen and (max-width: 721px) {
+    width: 100px;
+    height: 100px;
+    margin-right: 20px;
+  }
 `;
 
 export const InfoArea = styled.div`

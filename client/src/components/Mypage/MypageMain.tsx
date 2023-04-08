@@ -27,10 +27,10 @@ const ListTab = styled.ul`
     height: 40px;
     text-align: center;
     cursor: pointer;
-    font-weight: ${(props) => props.theme.font.titleWeight};
 
     > .el {
       color: ${(props) => props.theme.color.subText};
+      font-weight: ${(props) => props.theme.font.titleWeight};
     }
   }
 
@@ -39,6 +39,7 @@ const ListTab = styled.ul`
 
     > .el {
       color: ${(props) => props.theme.color.mainText};
+      font-weight: ${(props) => props.theme.font.logoWeight};
     }
   }
 `;
@@ -47,6 +48,26 @@ const MypageWrapper = styled.div`
   width: 100vw;
   max-width: 850px;
   min-width: 300px;
+`;
+
+const CommentCountWrapper = styled.div`
+  font-size: 15px;
+  height: 33px;
+  padding: 0 10px 0 10px;
+  border-bottom: 1px solid ${(props) => props.theme.color.borderLine};
+`;
+
+const CommentInfo = styled.div`
+  display: flex;
+  color: ${(props) => props.theme.color.mainText};
+
+  > .countNum {
+    font-weight: ${(props) => props.theme.font.titleWeight};
+  }
+
+  > .countText {
+    font-weight: ${(props) => props.theme.font.contentWeight};
+  }
 `;
 
 function MypageMain() {
@@ -119,6 +140,11 @@ function MypageMain() {
     getMyCommentData();
   }, []);
 
+  // 내가 작성한 댓글 개수 구하기 위한 필터링
+  const myComment = myCommentData.filter((value) => {
+    return value.userNickname === currentUser.nickname;
+  });
+
   // 마이 페이지 탭 리스트
   const tabArr = [
     { feel: "내 정보" },
@@ -156,9 +182,12 @@ function MypageMain() {
           </MypageWrapper>
         ) : currentTab === 1 ? (
           <DiaryMain.DiaryMainWrapper>
-            {myDiaryData.slice(offset, offset + LIMIT_COUNT).map((value) => {
-              return <MyDiary list={value} key={value.diaryId} />;
-            })}
+            {myDiaryData
+              .filter((value) => value.userNickname === currentUser.nickname)
+              .slice(offset, offset + LIMIT_COUNT)
+              .map((value) => {
+                return <MyDiary list={value} key={value.diaryId} />;
+              })}
           </DiaryMain.DiaryMainWrapper>
         ) : currentTab === 2 ? (
           <DiaryMain.DiaryMainWrapper>
@@ -168,9 +197,18 @@ function MypageMain() {
           </DiaryMain.DiaryMainWrapper>
         ) : (
           <MypageWrapper>
-            {myCommentData.slice(offset, offset + LIMIT_COUNT).map((value) => {
-              return <MyComment list={value} key={value.commentId} />;
-            })}
+            <CommentCountWrapper>
+              <CommentInfo>
+                <div className='countNum'>{myComment.length}</div>
+                <div className='countText'>개의 작성한 댓글이 있습니다.</div>
+              </CommentInfo>
+            </CommentCountWrapper>
+            {myCommentData
+              .filter((value) => value.userNickname === currentUser.nickname)
+              .slice(offset, offset + LIMIT_COUNT)
+              .map((value) => {
+                return <MyComment list={value} key={value.commentId} />;
+              })}
           </MypageWrapper>
         )}
       </DiaryMain.DiaryMainContainer>

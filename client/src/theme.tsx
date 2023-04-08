@@ -15,7 +15,7 @@ export const lightMode: DefaultTheme = {
     thirdText: `#9aa1a8`,
 
     signature: `#ffefd5`,
-    signatureHover: `#F8EAD8`,
+    signatureHover: `#ffdeb7`,
     signatureText: `#22262c`,
 
     borderLine: `#ebebeb`,

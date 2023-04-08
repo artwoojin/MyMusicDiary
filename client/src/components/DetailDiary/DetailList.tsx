@@ -26,6 +26,10 @@ const TitleArea = styled.div`
     font-size: 24px;
     font-weight: ${(props) => props.theme.font.titleWeight};
     color: ${(props) => props.theme.color.mainText};
+
+    @media screen and (max-width: 721px) {
+      font-size: 19px;
+    }
   }
 `;
 

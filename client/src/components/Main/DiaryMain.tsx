@@ -11,6 +11,7 @@ const ListTab = styled.ul`
   flex-wrap: wrap;
   list-style: none;
   margin-bottom: 50px;
+  padding: 0 15px 0 15px;
   gap: 10px;
 
   .tab {
