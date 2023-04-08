@@ -5,6 +5,7 @@ import { AiFillHeart } from "react-icons/ai";
 import { FaRegCommentDots } from "react-icons/fa";
 import { useContext } from "react";
 import { myContext } from "../../theme";
+import defaultProfile from "../../util/img/mainIcon.png";
 
 function MyDiary({ list }: DiaryDataProps) {
   const { currentUser }: any = useContext(myContext);
@@ -33,7 +34,7 @@ function MyDiary({ list }: DiaryDataProps) {
           </DiaryList.InfoArea>
           <DiaryList.UserArea>
             <DiaryList.ByUsername>
-              <DiaryList.Profile />
+              <DiaryList.Profile src={defaultProfile} alt='프로필 이미지' />
               <div className='by'>by</div>
               {list.userNickname}
             </DiaryList.ByUsername>

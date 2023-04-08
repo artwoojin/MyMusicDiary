@@ -195,7 +195,7 @@ export const UrlInput = styled.div`
     width: 45px;
     height: 40px;
     border: none;
-    color: ${(props) => props.theme.color.mainText};
+    color: ${(props) => props.theme.color.subText};
     border-radius: 4px;
     background-color: transparent;
     cursor: pointer;
@@ -214,7 +214,7 @@ function NewMain() {
 
   // 다이어리 post 요청
   const submitHandler = async () => {
-    if (newTitle.length <= 50 && newTitle.length !== 0 && newPlayList.length !== 0) {
+    if (newTitle.length <= 100 && newTitle.length !== 0 && newPlayList.length !== 0) {
       const newDiary = {
         title: newTitle,
         body: newBody,
@@ -224,8 +224,8 @@ function NewMain() {
       navigate(`/`);
     } else if (newTitle.length === 0 && newTitle.length === 0) {
       toast.error("제목을 입력해 주세요.");
-    } else if (newTitle.length > 30) {
-      toast.error("제목은 50글자 이하로 입력해 주세요.");
+    } else if (newTitle.length > 50) {
+      toast.error("제목의 길이를 줄여주세요.");
     } else {
       toast.error("플레이리스트를 등록해 주세요.");
     }

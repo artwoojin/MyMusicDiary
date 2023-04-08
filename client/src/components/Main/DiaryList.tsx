@@ -23,7 +23,7 @@ export const DiaryListContainer = styled.li`
 export const Thumbnail = styled.img`
   width: 310px;
   height: 184px;
-  background-color: lightgray;
+  background-color: ${(props) => props.theme.color.inputBackground};
   border-top-left-radius: 4px;
   border-top-right-radius: 4px;
 `;
@@ -97,7 +97,7 @@ export const Profile = styled.img`
   margin-right: 8px;
   border-radius: 50%;
   object-fit: cover;
-  background-color: ${(props) => props.theme.color.background};
+  background-color: ${(props) => props.theme.color.inputBackground};
 `;
 
 export const LikeAndComment = styled.div`

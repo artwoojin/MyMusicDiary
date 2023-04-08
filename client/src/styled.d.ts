@@ -18,6 +18,7 @@ declare module "styled-components" {
       inputBackground: string;
 
       buttonHover: string;
+      dropDownHover: string;
 
       pageDisabled: string;
     };

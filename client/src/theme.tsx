@@ -18,10 +18,11 @@ export const lightMode: DefaultTheme = {
     signatureHover: `#F8EAD8`,
     signatureText: `#22262c`,
 
-    borderLine: `#f0f0f0`,
+    borderLine: `#ebebeb`,
     inputBackground: `white`,
 
-    buttonHover: `#f1f3f5`,
+    buttonHover: `#f7f7f7`,
+    dropDownHover: `#f7f7f7`,
 
     pageDisabled: `lightgray`,
   },
@@ -49,7 +50,8 @@ export const darkMode: DefaultTheme = {
     borderLine: `#2a2a2a`,
     inputBackground: `#1e1e1e`,
 
-    buttonHover: `#3C4048`,
+    buttonHover: `#1e1e1e`,
+    dropDownHover: `#2d2d2d`,
 
     pageDisabled: `gray`,
   },
