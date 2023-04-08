@@ -187,7 +187,7 @@ function LoginHeader() {
     localStorage.removeItem("accessToken");
     localStorage.removeItem("CURRENT_USER");
     localStorage.removeItem("currentPage");
-    localStorage.removeItem("myCurrentPage");
+    localStorage.removeItem("myCurrentTab");
     navigate("/");
     window.location.reload();
   };
