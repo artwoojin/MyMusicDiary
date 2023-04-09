@@ -112,8 +112,9 @@ const Dropdown = styled.ul`
   color: ${(props) => props.theme.color.mainText};
   font-size: 14.5px;
   width: 150px;
+  border-radius: 4px;
   font-weight: ${(props) => props.theme.font.contentWeight};
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.19), 0 10px 10px rgba(0, 0, 0, 0.1);
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 8px;
   background-color: ${(props) => props.theme.color.inputBackground};
   display: flex;
   flex-direction: column;
@@ -121,7 +122,7 @@ const Dropdown = styled.ul`
   top: 55px;
   right: 1px;
   list-style: none;
-  z-index: 1;
+  z-index: 999;
   cursor: pointer;
 
   > a {
@@ -130,7 +131,6 @@ const Dropdown = styled.ul`
     padding: 12px 10px 10px 12px;
 
     &:hover {
-      font-weight: ${(props) => props.theme.font.titleWeight};
       background-color: ${(props) => props.theme.color.dropDownHover};
     }
   }
@@ -146,7 +146,6 @@ const Dropdown = styled.ul`
     padding: 10px 10px 12px 12px;
 
     &:hover {
-      font-weight: ${(props) => props.theme.font.titleWeight};
       background-color: ${(props) => props.theme.color.dropDownHover};
     }
   }

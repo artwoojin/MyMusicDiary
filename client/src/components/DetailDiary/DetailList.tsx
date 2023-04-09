@@ -3,11 +3,13 @@ import * as NewMain from "../NewDiary/NewMain";
 import CommentList from "./CommentList";
 import DetailPlayList from "./DetailPlayList";
 import { useState, useContext } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, Link } from "react-router-dom";
 import { DiaryData } from "../../util/Type";
 import { TOKEN_API } from "../../util/API";
-import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
+import { AiFillHeart, AiOutlineHeart, AiOutlineDelete } from "react-icons/ai";
 import { RiErrorWarningLine } from "react-icons/ri";
+import { BsThreeDotsVertical } from "react-icons/bs";
+import { FiEdit } from "react-icons/fi";
 import DOMPurify from "dompurify";
 import { myContext } from "../../theme";
 import { toast } from "react-toastify";
@@ -35,33 +37,16 @@ const TitleArea = styled.div`
 
 const ButtonArea = styled.div`
   display: flex;
+  position: relative;
 
-  > button {
+  > .newButton {
     display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 13px;
-    padding: 5px;
+    justify-content: flex-end;
+    width: 30px;
+    color: ${(props) => props.theme.color.mainText};
+    border: none;
     background-color: transparent;
     cursor: pointer;
-  }
-
-  > .edit {
-    /* 다이어리 수정 오류 때문에 임시로 수정 버튼 숨김처리  */
-    display: none;
-    width: 40px;
-    color: ${(props) => props.theme.color.mainText};
-    border: none;
-    text-decoration: underline;
-    font-weight: ${(props) => props.theme.font.titleWeight};
-  }
-
-  > .delete {
-    width: 40px;
-    color: ${(props) => props.theme.color.mainText};
-    border: none;
-    text-decoration: underline;
-    font-weight: ${(props) => props.theme.font.titleWeight};
   }
 `;
 
@@ -175,6 +160,111 @@ const LikeButton = styled.button`
 
   &:hover {
     background-color: ${(props) => props.theme.color.buttonHover};
+  }
+
+  // 721px 이하에서 헤더의 새 다이어리 작성 버튼 숨김 적용
+  @media screen and (max-width: 721px) {
+    display: none;
+  }
+`;
+
+const Dropdown = styled.ul`
+  width: 150px;
+  border-radius: 4px;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 8px;
+  background-color: ${(props) => props.theme.color.inputBackground};
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  top: 35px;
+  right: 1px;
+  list-style: none;
+  z-index: 999;
+
+  > li {
+    padding: 12px;
+    cursor: pointer;
+
+    > a {
+      text-decoration: none;
+    }
+
+    &:hover {
+      border-radius: 4px;
+      background-color: ${(props) => props.theme.color.dropDownHover};
+    }
+  }
+
+  // 722px 이상에서 드롭다운의 좋아요 버튼 숨김 적용
+  > li:first-child {
+    @media screen and (min-width: 722px) {
+      display: none;
+    }
+  }
+`;
+
+const DropdownLikeButton = styled.button`
+  display: flex;
+  align-items: center;
+  font-size: 14.5px;
+  background-color: transparent;
+  color: ${(props) => props.theme.color.mainText};
+  border: none;
+  font-weight: ${(props) => props.theme.font.contentWeight};
+  cursor: pointer;
+
+  > .likeIcon {
+    margin-right: 12px;
+    margin-bottom: 1px;
+    color: #ec1d36;
+  }
+
+  > .unLikeIcon {
+    margin-right: 12px;
+    margin-bottom: 1px;
+  }
+
+  > .likeText {
+    margin-right: 10px;
+  }
+
+  > .likeCount {
+    font-size: 13px;
+    margin-bottom: 1.5px;
+  }
+`;
+
+const DropdownEditButton = styled.button`
+  display: flex;
+  align-items: center;
+  font-size: 14.5px;
+  background-color: transparent;
+  color: ${(props) => props.theme.color.mainText};
+  border: none;
+  font-weight: ${(props) => props.theme.font.contentWeight};
+  cursor: pointer;
+
+  > .editIcon {
+    margin-right: 12px;
+    margin-left: 0.5px;
+    margin-bottom: 1px;
+  }
+`;
+
+const DropdownDeleteButton = styled.button`
+  display: flex;
+  align-items: center;
+  font-size: 14.5px;
+  background-color: transparent;
+  color: ${(props) => props.theme.color.mainText};
+  border: none;
+  font-weight: ${(props) => props.theme.font.contentWeight};
+  cursor: pointer;
+
+  > .deleteIcon {
+    margin-right: 10.5px;
+    margin-left: -1.5px;
+    margin-bottom: 1px;
   }
 `;
 
@@ -359,6 +449,7 @@ function DetailList({ list, getDetailData }: DiaryDataProps) {
   const [commentBody, setCommentBody] = useState<string>("");
   const [withDrawalModalOpen, setWithdrawalModalOpen] = useState<boolean>(false);
   const [ruleModal, setRuleModal] = useState<boolean>(false);
+  const [isOpen, setIsOpen] = useState<boolean>(false);
 
   const commentData = list.comments; // 선택한 다이어리의 코멘트 정보
   const playlistData = list.playlists; // 선택한 플레이리스트의 정보
@@ -368,7 +459,17 @@ function DetailList({ list, getDetailData }: DiaryDataProps) {
   const { isLogin, currentUser }: any = useContext(myContext);
   const myDiary: boolean = list.userNickname === currentUser?.nickname;
 
-  // 좋아요 버튼
+  // 드롬다운 오픈 이벤트 핸들러
+  const openDropdown = () => {
+    setIsOpen(!isOpen);
+  };
+
+  // 드롭다운 클로즈 이벤트 핸들러
+  const closeDropdown = () => {
+    setIsOpen(false);
+  };
+
+  // 좋아요 patch 요청
   const plusLikeCount = async () => {
     if (checkLike === false) {
       // const like = {
@@ -452,11 +553,6 @@ function DetailList({ list, getDetailData }: DiaryDataProps) {
     window.scrollTo(0, parseInt(scrollY || "0", 10) * -1);
   };
 
-  // 수정 페이지로 이동
-  const moveEditDiary = () => {
-    navigate(`/EditDiary/${list.diaryId}`);
-  };
-
   return (
     <NewMain.MainContainer>
       <NewMain.MainWrapper>
@@ -465,12 +561,38 @@ function DetailList({ list, getDetailData }: DiaryDataProps) {
           <ButtonArea>
             {myDiary === true ? (
               <>
-                <button className='edit' onClick={moveEditDiary}>
-                  수정
+                <button className='newButton' onClick={openDropdown}>
+                  <BsThreeDotsVertical size={17} />
                 </button>
-                <button className='delete' onClick={openModalHandler}>
-                  삭제
-                </button>
+                {isOpen ? (
+                  <Dropdown>
+                    <li onClick={plusLikeCount}>
+                      <DropdownLikeButton>
+                        {checkLike === true ? (
+                          <AiFillHeart className='likeIcon' size={17} />
+                        ) : (
+                          <AiOutlineHeart className='unLikeIcon' size={17} />
+                        )}
+                        <div className='likeText'>좋아요</div>
+                        <div className='likeCount'>{list.likeCount}</div>
+                      </DropdownLikeButton>
+                    </li>
+                    <li>
+                      <Link to={`/EditDiary/${list.diaryId}`}>
+                        <DropdownEditButton>
+                          <FiEdit className='editIcon' size={16} />
+                          <div className='editText'>수정</div>
+                        </DropdownEditButton>
+                      </Link>
+                    </li>
+                    <li onClick={openModalHandler}>
+                      <DropdownDeleteButton>
+                        <AiOutlineDelete className='deleteIcon' size={19} />
+                        <div className='deleteText'>삭제</div>
+                      </DropdownDeleteButton>
+                    </li>
+                  </Dropdown>
+                ) : null}
               </>
             ) : null}
             {withDrawalModalOpen ? (
@@ -478,7 +600,13 @@ function DetailList({ list, getDetailData }: DiaryDataProps) {
                 <DeleteModalView>
                   <div className='deleteModalTitle'>다이어리를 삭제 하시겠습니까?</div>
                   <div className='warningText'>삭제한 다이어리는 복구되지 않습니다.</div>
-                  <button className='deleteCancelButton' onClick={closeModalHandler}>
+                  <button
+                    className='deleteCancelButton'
+                    onClick={() => {
+                      closeModalHandler();
+                      closeDropdown();
+                    }}
+                  >
                     취소
                   </button>
                   <button
