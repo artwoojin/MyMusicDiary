@@ -10,6 +10,7 @@ import EditPlayList from "./EditPlayList";
 import { PlaylistData } from "../../util/Type";
 import { toast } from "react-toastify";
 import { FiPlus } from "react-icons/fi";
+import defaultProfile from "../../util/img/mainIcon.png";
 
 function EditList({ list }: DiaryDataProps) {
   const [editTitle, setEditTitle] = useState<string>(list.title);
@@ -22,7 +23,7 @@ function EditList({ list }: DiaryDataProps) {
 
   // 다이어리 patch 요청
   const submitHandler = async () => {
-    if (editTitle.length <= 50 && editTitle.length !== 0 && editPlayList.length !== 0) {
+    if (editTitle.length <= 100 && editTitle.length !== 0 && editPlayList.length !== 0) {
       const editDiary = {
         title: editTitle,
         body: editBody,
@@ -32,8 +33,8 @@ function EditList({ list }: DiaryDataProps) {
       navigate(`/DetailDiary/${diaryId}`);
     } else if (editTitle.length === 0 && editTitle.length === 0) {
       toast.error("제목을 입력해 주세요.");
-    } else if (editTitle.length > 30) {
-      toast.error("제목은 50글자 이하로 입력해 주세요.");
+    } else if (editTitle.length > 100) {
+      toast.error("제목의 길이를 줄여주세요.");
     } else {
       toast.error("플레이리스트를 등록해 주세요.");
     }
@@ -103,20 +104,25 @@ function EditList({ list }: DiaryDataProps) {
             placeholder='제목을 입력하세요'
             onChange={changeEditTitle}
           />
-          <NewMain.SubmitButton onClick={submitHandler} disabled={editTitle.length === 0}>
-            수정하기
-          </NewMain.SubmitButton>
+          <NewMain.SubmitButton onClick={submitHandler}>수정하기</NewMain.SubmitButton>
         </NewMain.TitleArea>
         <NewMain.AlbumCoverArea>
-          <div className='coverImg'></div>
+          <NewMain.CoverImg
+            src={editPlayList[0]?.thumbnail ? editPlayList[0]?.thumbnail : defaultProfile}
+            alt='다이어리 썸네일'
+          />
           <NewMain.InfoArea>
             <NewMain.UserInfo>
-              <span className='text'>등록자</span>
-              {list.userNickname}
+              <NewMain.User>
+                <span className='text'>등록자</span>
+                {list.userNickname}
+              </NewMain.User>
             </NewMain.UserInfo>
             <NewMain.UserInfo>
-              <span className='text'>등록일</span>
-              {list.createdAt.substring(0, 10)}
+              <NewMain.User>
+                <span className='text'>등록일</span>
+                {list.createdAt.substring(0, 10)}
+              </NewMain.User>
             </NewMain.UserInfo>
           </NewMain.InfoArea>
         </NewMain.AlbumCoverArea>

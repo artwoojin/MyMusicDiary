@@ -23,7 +23,7 @@ const TitleArea = styled.div`
 
   > .DetailTitle {
     width: 700px;
-    font-size: 24px;
+    font-size: 21px;
     font-weight: ${(props) => props.theme.font.titleWeight};
     color: ${(props) => props.theme.color.mainText};
 
@@ -143,17 +143,7 @@ const UserInfo = styled.div`
   align-items: center;
   justify-content: space-between;
   height: 35px;
-  font-size: 14px;
   color: ${(props) => props.theme.color.mainText};
-`;
-
-const User = styled.div`
-  font-size: 14px;
-
-  > .text {
-    margin-right: 50px;
-    color: ${(props) => props.theme.color.subText};
-  }
 `;
 
 const LikeButton = styled.button`
@@ -287,7 +277,6 @@ const TextArea = styled.div`
   }
 
   > .sumbit {
-    width: 80px;
     min-width: 80px;
     height: 70px;
     border: none;
@@ -300,6 +289,10 @@ const TextArea = styled.div`
 
     &:hover {
       background-color: ${(props) => props.theme.color.signatureHover};
+    }
+
+    @media screen and (max-width: 721px) {
+      min-width: 60px;
     }
   }
 `;
@@ -509,10 +502,10 @@ function DetailList({ list, getDetailData }: DiaryDataProps) {
           />
           <NewMain.InfoArea>
             <UserInfo>
-              <User>
+              <NewMain.User>
                 <span className='text'>등록자</span>
                 {list.userNickname}
-              </User>
+              </NewMain.User>
               <LikeButton onClick={plusLikeCount}>
                 {checkLike === true ? (
                   <AiFillHeart className='likeIcon' size={17} />
@@ -523,10 +516,10 @@ function DetailList({ list, getDetailData }: DiaryDataProps) {
               </LikeButton>
             </UserInfo>
             <UserInfo>
-              <User>
+              <NewMain.User>
                 <span className='text'>등록일</span>
                 {list.createdAt.substring(0, 10)}
-              </User>
+              </NewMain.User>
             </UserInfo>
           </NewMain.InfoArea>
         </NewMain.AlbumCoverArea>

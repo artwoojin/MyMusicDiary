@@ -22,7 +22,7 @@ const ListTab = styled.ul`
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 15px;
+    font-size: 16px;
     width: 200px;
     height: 40px;
     text-align: center;

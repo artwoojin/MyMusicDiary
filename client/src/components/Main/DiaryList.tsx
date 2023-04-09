@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { DiaryDataProps } from "../../util/Type";
 import { AiFillHeart } from "react-icons/ai";
 import { FaRegCommentDots } from "react-icons/fa";
@@ -14,6 +14,10 @@ export const DiaryListContainer = styled.li`
   background-color: ${(props) => props.theme.color.inputBackground};
   transition: 0.2s ease-in-out;
   cursor: pointer;
+
+  > a {
+    text-decoration: none;
+  }
 
   &:hover {
     transform: scale(1.01);
@@ -41,7 +45,7 @@ export const InfoArea = styled.div`
   }
 
   > .infoDate {
-    font-size: 13px;
+    font-size: 12px;
     color: ${(props) => props.theme.color.thirdText};
     margin-bottom: 15px;
   }
@@ -75,7 +79,7 @@ export const ByUsername = styled.div`
   display: flex;
   align-items: center;
   justify-content: flex-end;
-  font-size: 13px;
+  font-size: 12px;
   font-weight: ${(props) => props.theme.font.titleWeight};
   color: ${(props) => props.theme.color.mainText};
 
@@ -118,38 +122,36 @@ export const LikeAndComment = styled.div`
 `;
 
 function DiaryList({ list }: DiaryDataProps) {
-  const navigate = useNavigate();
-
-  // 디테일 페이지로 이동
-  const moveDetailDiary = () => {
-    navigate(`/DetailDiary/${list.diaryId}`);
-  };
-
   return (
-    <DiaryListContainer onClick={moveDetailDiary}>
-      <Thumbnail src={list.playlists[0]?.thumbnail} alt='첫번째 앨범 커버' />
-      <InfoArea>
-        <div className='infoTitle'>{list.title}</div>
-        <div className='infoDate'>{list.createdAt.substring(0, 10)}</div>
-        {/* <Tag>
+    <DiaryListContainer>
+      <Link to={`/DetailDiary/${list.diaryId}`}>
+        <Thumbnail
+          src={list.playlists[0].thumbnail ? list.playlists[0].thumbnail : defaultProfile}
+          alt='첫번째 앨범 커버'
+        />
+        <InfoArea>
+          <div className='infoTitle'>{list.title}</div>
+          <div className='infoDate'>{list.createdAt.substring(0, 10)}</div>
+          {/* <Tag>
           {list.tag.map((value: string, index: number) => {
             return <li key={index}>{value}</li>;
           })}
         </Tag> */}
-      </InfoArea>
-      <UserArea>
-        <ByUsername>
-          <Profile src={defaultProfile} alt='프로필 이미지' />
-          <div className='by'>by</div>
-          <div className='userNickname'>{list.userNickname}</div>
-        </ByUsername>
-        <LikeAndComment>
-          <AiFillHeart className='likeIcon' size={17} />
-          {list.likeCount}
-          <FaRegCommentDots className='commentIcon' size={16} />
-          {list.comments.length}
-        </LikeAndComment>
-      </UserArea>
+        </InfoArea>
+        <UserArea>
+          <ByUsername>
+            <Profile src={defaultProfile} alt='프로필 이미지' />
+            <div className='by'>by</div>
+            <div className='userNickname'>{list.userNickname}</div>
+          </ByUsername>
+          <LikeAndComment>
+            <AiFillHeart className='likeIcon' size={16} />
+            {list.likeCount}
+            <FaRegCommentDots className='commentIcon' size={15} />
+            {list.comments.length}
+          </LikeAndComment>
+        </UserArea>
+      </Link>
     </DiaryListContainer>
   );
 }

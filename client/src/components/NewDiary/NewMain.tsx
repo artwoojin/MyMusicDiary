@@ -36,7 +36,7 @@ export const TitleArea = styled.div`
 
   > .inputTitle {
     width: 700px;
-    font-size: 24px;
+    font-size: 21px;
     font-weight: ${(props) => props.theme.font.titleWeight};
     color: ${(props) => props.theme.color.mainText};
     margin-right: 10px;
@@ -102,7 +102,6 @@ export const UserInfo = styled.div`
   display: flex;
   align-items: center;
   height: 35px;
-  font-size: 14px;
   color: ${(props) => props.theme.color.mainText};
 `;
 
@@ -110,8 +109,13 @@ export const User = styled.div`
   font-size: 14px;
 
   > .text {
+    font-size: 13px;
     margin-right: 50px;
     color: ${(props) => props.theme.color.subText};
+
+    @media screen and (max-width: 721px) {
+      margin-right: 20px;
+    }
   }
 `;
 
@@ -187,7 +191,7 @@ export const UrlInput = styled.div`
     width: 1300px;
     resize: none;
     border-radius: 4px;
-    padding: 10px 8px 10px 8px;
+    padding: 10px 40px 10px 8px;
     border: none;
     border: 1px solid ${(props) => props.theme.color.borderLine};
     background-color: ${(props) => props.theme.color.inputBackground};
@@ -235,7 +239,7 @@ function NewMain() {
       navigate(`/`);
     } else if (newTitle.length === 0 && newTitle.length === 0) {
       toast.error("제목을 입력해 주세요.");
-    } else if (newTitle.length > 50) {
+    } else if (newTitle.length > 100) {
       toast.error("제목의 길이를 줄여주세요.");
     } else {
       toast.error("플레이리스트를 등록해 주세요.");

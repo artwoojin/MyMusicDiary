@@ -6,6 +6,10 @@ import { CommentDataProps } from "../../util/Type";
 const CommentListContainer = styled(CommentList.CommentListContainer)`
   cursor: pointer;
 
+  > a {
+    text-decoration: none;
+  }
+
   &:hover {
     background-color: ${(props) => props.theme.color.buttonHover};
   }
@@ -14,13 +18,12 @@ const CommentListContainer = styled(CommentList.CommentListContainer)`
 function MyComment({ list }: CommentDataProps) {
   const navigate = useNavigate();
 
-  // 해당 댓글이 있는 디테일 페이지로 이동
-  const clickHandler = () => {
+  const moveDetailDiary = () => {
     navigate(`/DetailDiary/${list.diaryId}`);
   };
 
   return (
-    <CommentListContainer onClick={clickHandler}>
+    <CommentListContainer onClick={moveDetailDiary}>
       <CommentList.CommentListWrapper>
         <div className='name'>{list.userNickname}</div>
         <div className='content'>{list.body}</div>

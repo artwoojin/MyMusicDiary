@@ -7,6 +7,7 @@ import { myContext } from "../../theme";
 export const CommentListContainer = styled.li`
   display: flex;
   justify-content: center;
+
   border-bottom: 1px solid ${(props) => props.theme.color.borderLine};
 
   :last-child {
