@@ -4,7 +4,6 @@ import { Link } from "react-router-dom";
 import { BsFillSunFill, BsFillMoonStarsFill } from "react-icons/bs";
 import { useContext } from "react";
 import { myContext } from "../theme";
-import mainIcon from "../util/img/mainIcon.png";
 
 const ButtonArea = styled.div`
   display: flex;
@@ -31,10 +30,7 @@ function LogoutHeader() {
     <LoginHeader.HeaderContainer>
       <LoginHeader.HeaderWrapper>
         <LoginHeader.Logo>
-          <Link to='/'>
-            <img src={mainIcon} alt='mainIcon' />
-            나만의 작은 음악 다이어리
-          </Link>
+          <Link to='/'>나만의 작은 음악 다이어리</Link>
         </LoginHeader.Logo>
         <ButtonArea>
           <LoginHeader.ModeButton onClick={changeMode}>

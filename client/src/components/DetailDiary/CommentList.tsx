@@ -7,7 +7,6 @@ import { myContext } from "../../theme";
 export const CommentListContainer = styled.li`
   display: flex;
   justify-content: center;
-
   border-bottom: 1px solid ${(props) => props.theme.color.borderLine};
 
   :last-child {
@@ -18,9 +17,8 @@ export const CommentListContainer = styled.li`
 export const CommentListWrapper = styled.div`
   width: 100vw;
   max-width: 900px;
-  min-width: 300px;
   border: none;
-  padding: 0 10px 0 10px;
+  padding: 0 5px 0 5px;
 
   .name {
     font-size: 14px;

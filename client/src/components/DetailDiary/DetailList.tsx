@@ -2,11 +2,12 @@ import styled from "styled-components";
 import * as NewMain from "../NewDiary/NewMain";
 import CommentList from "./CommentList";
 import DetailPlayList from "./DetailPlayList";
-import { useState, useContext } from "react";
+import { useState, useEffect, useContext, useRef } from "react";
 import { useParams, useNavigate, Link } from "react-router-dom";
 import { DiaryData } from "../../util/Type";
 import { TOKEN_API } from "../../util/API";
-import { AiFillHeart, AiOutlineHeart, AiOutlineDelete } from "react-icons/ai";
+import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
+import { BsTrash } from "react-icons/bs";
 import { RiErrorWarningLine } from "react-icons/ri";
 import { BsThreeDotsVertical } from "react-icons/bs";
 import { FiEdit } from "react-icons/fi";
@@ -21,7 +22,7 @@ const TitleArea = styled.div`
   justify-content: space-between;
   align-items: center;
   border-bottom: 1px solid ${(props) => props.theme.color.borderLine};
-  padding: 0 10px 0 10px;
+  padding: 0 5px 0 5px;
 
   > .DetailTitle {
     width: 700px;
@@ -180,14 +181,21 @@ const Dropdown = styled.ul`
   right: 1px;
   list-style: none;
   z-index: 999;
+  cursor: pointer;
+
+  > a {
+    padding: 12px;
+    text-decoration: none;
+
+    &:hover {
+      border-radius: 4px;
+      background-color: ${(props) => props.theme.color.dropDownHover};
+    }
+  }
 
   > li {
     padding: 12px;
-    cursor: pointer;
-
-    > a {
-      text-decoration: none;
-    }
+    text-decoration: none;
 
     &:hover {
       border-radius: 4px;
@@ -215,13 +223,13 @@ const DropdownLikeButton = styled.button`
 
   > .likeIcon {
     margin-right: 12px;
-    margin-bottom: 1px;
+    margin-left: -1px;
     color: #ec1d36;
   }
 
   > .unLikeIcon {
     margin-right: 12px;
-    margin-bottom: 1px;
+    margin-left: -1px;
   }
 
   > .likeText {
@@ -262,14 +270,13 @@ const DropdownDeleteButton = styled.button`
   cursor: pointer;
 
   > .deleteIcon {
-    margin-right: 10.5px;
-    margin-left: -1.5px;
-    margin-bottom: 1px;
+    margin-right: 12px;
+    margin-left: -1px;
   }
 `;
 
 const AlbumInfoArea = styled.div`
-  padding: 30px 10px 30px 10px;
+  padding: 30px 5px 30px 5px;
   border-top: 1px solid ${(props) => props.theme.color.borderLine};
 
   > .playTitle {
@@ -286,7 +293,7 @@ const AlbumInfoArea = styled.div`
 `;
 
 const PlayListArea = styled.div`
-  padding: 30px 10px 30px 10px;
+  padding: 30px 5px 30px 5px;
   border-top: 1px solid ${(props) => props.theme.color.borderLine};
 
   > .playTitle {
@@ -307,20 +314,20 @@ const PlayListArea = styled.div`
 
 const CommentInputArea = styled.div`
   border-top: 1px solid ${(props) => props.theme.color.borderLine};
-  padding: 30px 10px 30px 10px;
+  padding: 30px 0 30px 0;
 
   > .commentTitle {
     display: flex;
     align-items: center;
     justify-content: space-between;
     color: ${(props) => props.theme.color.mainText};
+    padding: 0 5px 0 5px;
     margin-bottom: 20px;
 
     > .commentText {
       display: flex;
       align-items: center;
       font-size: 19px;
-      margin-left: 5px;
       font-weight: ${(props) => props.theme.font.titleWeight};
 
       > .commentCount {
@@ -335,7 +342,6 @@ const CommentInputArea = styled.div`
       align-items: center;
       font-size: 14px;
       font-weight: ${(props) => props.theme.font.titleWeight};
-      margin-right: 5px;
       cursor: pointer;
 
       > .ruleIcon {
@@ -347,6 +353,7 @@ const CommentInputArea = styled.div`
 
 const TextArea = styled.div`
   display: flex;
+  padding: 0 5px 0 5px;
 
   > textArea {
     color: ${(props) => props.theme.color.mainText};
@@ -456,18 +463,24 @@ function DetailList({ list, getDetailData }: DiaryDataProps) {
 
   const { diaryId } = useParams();
   const navigate = useNavigate();
+  const dropMenuRef = useRef<HTMLDivElement | null>(null);
   const { isLogin, currentUser }: any = useContext(myContext);
   const myDiary: boolean = list.userNickname === currentUser?.nickname;
 
   // 드롬다운 오픈 이벤트 핸들러
-  const openDropdown = () => {
+  const openDropdown = (e: any) => {
+    e.stopPropagation();
     setIsOpen(!isOpen);
   };
 
-  // 드롭다운 클로즈 이벤트 핸들러
-  const closeDropdown = () => {
-    setIsOpen(false);
-  };
+  // 드롭다운 외부 클릭 시 닫기
+  useEffect(() => {
+    const handleOutsideClose = (e: any) => {
+      if (isOpen && !dropMenuRef.current?.contains(e.target)) setIsOpen(false);
+    };
+    document.addEventListener("click", handleOutsideClose);
+    return () => document.removeEventListener("click", handleOutsideClose);
+  }, [isOpen]);
 
   // 좋아요 patch 요청
   const plusLikeCount = async () => {
@@ -564,35 +577,37 @@ function DetailList({ list, getDetailData }: DiaryDataProps) {
                 <button className='newButton' onClick={openDropdown}>
                   <BsThreeDotsVertical size={17} />
                 </button>
-                {isOpen ? (
-                  <Dropdown>
-                    <li onClick={plusLikeCount}>
-                      <DropdownLikeButton>
-                        {checkLike === true ? (
-                          <AiFillHeart className='likeIcon' size={17} />
-                        ) : (
-                          <AiOutlineHeart className='unLikeIcon' size={17} />
-                        )}
-                        <div className='likeText'>좋아요</div>
-                        <div className='likeCount'>{list.likeCount}</div>
-                      </DropdownLikeButton>
-                    </li>
-                    <li>
+                <div ref={dropMenuRef}>
+                  {isOpen ? (
+                    <Dropdown>
+                      <li onClick={plusLikeCount}>
+                        <DropdownLikeButton>
+                          {checkLike === true ? (
+                            <AiFillHeart className='likeIcon' size={19} />
+                          ) : (
+                            <AiOutlineHeart className='unLikeIcon' size={19} />
+                          )}
+                          <div className='likeText'>좋아요</div>
+                          <div className='likeCount'>{list.likeCount}</div>
+                        </DropdownLikeButton>
+                      </li>
                       <Link to={`/EditDiary/${list.diaryId}`}>
-                        <DropdownEditButton>
-                          <FiEdit className='editIcon' size={16} />
-                          <div className='editText'>수정</div>
-                        </DropdownEditButton>
+                        <li>
+                          <DropdownEditButton>
+                            <FiEdit className='editIcon' size={17} />
+                            <div className='editText'>수정</div>
+                          </DropdownEditButton>
+                        </li>
                       </Link>
-                    </li>
-                    <li onClick={openModalHandler}>
-                      <DropdownDeleteButton>
-                        <AiOutlineDelete className='deleteIcon' size={19} />
-                        <div className='deleteText'>삭제</div>
-                      </DropdownDeleteButton>
-                    </li>
-                  </Dropdown>
-                ) : null}
+                      <li onClick={openModalHandler}>
+                        <DropdownDeleteButton>
+                          <BsTrash className='deleteIcon' size={18} />
+                          <div className='deleteText'>삭제</div>
+                        </DropdownDeleteButton>
+                      </li>
+                    </Dropdown>
+                  ) : null}
+                </div>
               </>
             ) : null}
             {withDrawalModalOpen ? (
@@ -600,13 +615,7 @@ function DetailList({ list, getDetailData }: DiaryDataProps) {
                 <DeleteModalView>
                   <div className='deleteModalTitle'>다이어리를 삭제 하시겠습니까?</div>
                   <div className='warningText'>삭제한 다이어리는 복구되지 않습니다.</div>
-                  <button
-                    className='deleteCancelButton'
-                    onClick={() => {
-                      closeModalHandler();
-                      closeDropdown();
-                    }}
-                  >
+                  <button className='deleteCancelButton' onClick={closeModalHandler}>
                     취소
                   </button>
                   <button

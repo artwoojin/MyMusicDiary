@@ -58,7 +58,6 @@ export const DiaryMainContainer = styled.div`
 export const DiaryMainWrapper = styled.ul`
   width: 100vw;
   max-width: 1440px;
-  min-width: 300px;
   display: flex;
   flex-wrap: wrap;
   padding: 0 15px 0 15px;

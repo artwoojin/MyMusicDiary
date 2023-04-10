@@ -20,9 +20,8 @@ export const MainContainer = styled.div`
 export const MainWrapper = styled.div`
   width: 100vw;
   max-width: 900px;
-  min-width: 300px;
   margin-top: 20px;
-  padding: 10px 20px 10px 20px;
+  padding: 10px;
 `;
 
 export const TitleArea = styled.div`
@@ -32,7 +31,7 @@ export const TitleArea = styled.div`
   justify-content: space-between;
   align-items: center;
   border-bottom: 1px solid ${(props) => props.theme.color.borderLine};
-  padding: 0 10px 0 10px;
+  padding: 0 5px 0 5px;
 
   > .inputTitle {
     width: 700px;
@@ -76,7 +75,7 @@ export const SubmitButton = styled.button`
 export const AlbumCoverArea = styled.div`
   display: flex;
   margin: 30px 0 30px 0;
-  padding: 0 10px 0 10px;
+  padding: 0 5px 0 5px;
 `;
 
 export const CoverImg = styled.img`
@@ -120,7 +119,7 @@ export const User = styled.div`
 `;
 
 export const AlbumInfoArea = styled.div`
-  padding: 30px 10px 80px 10px;
+  padding: 30px 5px 80px 5px;
   border-top: 1px solid ${(props) => props.theme.color.borderLine};
 
   > .playTitle {
@@ -160,7 +159,7 @@ export const AlbumInfoArea = styled.div`
 `;
 
 export const PlayListArea = styled.div`
-  padding: 30px 10px 100px 10px;
+  padding: 30px 5px 100px 5px;
   border-top: 1px solid ${(props) => props.theme.color.borderLine};
 
   > .playTitle {

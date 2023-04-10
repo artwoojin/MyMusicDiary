@@ -47,13 +47,13 @@ const ListTab = styled.ul`
 const MypageWrapper = styled.div`
   width: 100vw;
   max-width: 850px;
-  min-width: 300px;
+  padding: 10px;
 `;
 
 const CommentCountWrapper = styled.div`
   font-size: 15px;
   height: 33px;
-  padding: 0 10px 0 10px;
+  padding: 0 5px 0 5px;
   border-bottom: 1px solid ${(props) => props.theme.color.borderLine};
 `;
 

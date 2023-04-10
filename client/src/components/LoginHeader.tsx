@@ -1,12 +1,12 @@
 import styled from "styled-components";
 import { Link, useNavigate } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { BASE_API } from "../util/API";
 import { GoTriangleDown } from "react-icons/go";
 import { BsFillSunFill, BsFillMoonStarsFill } from "react-icons/bs";
+import { FiLogOut, FiEdit3, FiUser } from "react-icons/fi";
 import { useContext } from "react";
 import { myContext } from "../theme";
-import mainIcon from "../util/img/mainIcon.png";
 import defaultProfile from "../util/img/defaultProfile.png";
 
 export const HeaderContainer = styled.header`
@@ -26,12 +26,9 @@ export const HeaderWrapper = styled.div`
 `;
 
 export const Logo = styled.div`
-  font-weight: ${(props) => props.theme.font.logoWeight};
-  font-size: 20px;
-
-  a {
-    display: flex;
-    align-items: center;
+  > a {
+    font-size: 18px;
+    font-weight: ${(props) => props.theme.font.logoWeight};
     color: ${(props) => props.theme.color.logo};
     text-decoration: none;
 
@@ -55,7 +52,7 @@ export const ModeButton = styled.button`
   width: 40px;
   border: none;
   background-color: transparent;
-  margin-right: 5px;
+  margin-right: 2px;
   cursor: pointer;
 
   > .lightIcon {
@@ -86,7 +83,7 @@ export const NewPost = styled.button`
 const ProfileButton = styled.div`
   display: flex;
   align-items: center;
-  margin-left: 5px;
+  margin-left: 2px;
   cursor: pointer;
 
   > .triangleDown {
@@ -109,11 +106,8 @@ const Profile = styled.img`
 `;
 
 const Dropdown = styled.ul`
-  color: ${(props) => props.theme.color.mainText};
-  font-size: 14.5px;
-  width: 150px;
+  width: 170px;
   border-radius: 4px;
-  font-weight: ${(props) => props.theme.font.contentWeight};
   box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 8px;
   background-color: ${(props) => props.theme.color.inputBackground};
   display: flex;
@@ -126,28 +120,76 @@ const Dropdown = styled.ul`
   cursor: pointer;
 
   > a {
+    padding: 12px;
     text-decoration: none;
-    color: ${(props) => props.theme.color.mainText};
-    padding: 12px 10px 10px 12px;
 
     &:hover {
+      border-radius: 4px;
+      background-color: ${(props) => props.theme.color.dropDownHover};
+    }
+  }
+
+  > li {
+    padding: 12px;
+    text-decoration: none;
+
+    &:hover {
+      border-radius: 4px;
       background-color: ${(props) => props.theme.color.dropDownHover};
     }
   }
 
   // 722px 이상에서 드롭다운의 새 다이어리 작성 버튼 숨김 적용
-  > a:nth-child(2) {
+  > li:nth-child(2) {
     @media screen and (min-width: 722px) {
       display: none;
     }
   }
+`;
 
-  > li {
-    padding: 10px 10px 12px 12px;
+const DropdownMyPageButton = styled.button`
+  display: flex;
+  align-items: center;
+  font-size: 14.5px;
+  background-color: transparent;
+  color: ${(props) => props.theme.color.mainText};
+  border: none;
+  font-weight: ${(props) => props.theme.font.contentWeight};
+  cursor: pointer;
 
-    &:hover {
-      background-color: ${(props) => props.theme.color.dropDownHover};
-    }
+  > .myPageIcon {
+    margin-right: 12px;
+    margin-left: -0.5px;
+  }
+`;
+
+const DropdownNewWriteButton = styled.button`
+  display: flex;
+  align-items: center;
+  font-size: 14.5px;
+  background-color: transparent;
+  color: ${(props) => props.theme.color.mainText};
+  border: none;
+  font-weight: ${(props) => props.theme.font.contentWeight};
+  cursor: pointer;
+
+  > .newWriteIcon {
+    margin-right: 12px;
+  }
+`;
+
+const DropdownLogoutButton = styled.button`
+  display: flex;
+  align-items: center;
+  font-size: 14.5px;
+  background-color: transparent;
+  color: ${(props) => props.theme.color.mainText};
+  border: none;
+  font-weight: ${(props) => props.theme.font.contentWeight};
+  cursor: pointer;
+
+  > .logoutIcon {
+    margin-right: 12px;
   }
 `;
 
@@ -157,6 +199,7 @@ function LoginHeader() {
 
   const { currentUser, isChange, changeMode }: any = useContext(myContext);
   const navigate = useNavigate();
+  const dropMenuRef = useRef<HTMLDivElement | null>(null);
 
   // 내 유저 정보 get 요청
   const getImageData = async () => {
@@ -172,14 +215,19 @@ function LoginHeader() {
   }, []);
 
   // 드롬다운 오픈 이벤트
-  const openDropdown = () => {
+  const openDropdown = (e: any) => {
+    e.stopPropagation();
     setIsOpen(!isOpen);
   };
 
-  // 드롭다운 클로즈 이벤트
-  const closeDropdown = () => {
-    setIsOpen(false);
-  };
+  // 드롭다운 외부 클릭 시 닫기
+  useEffect(() => {
+    const handleOutsideClose = (e: any) => {
+      if (isOpen && !dropMenuRef.current?.contains(e.target)) setIsOpen(false);
+    };
+    document.addEventListener("click", handleOutsideClose);
+    return () => document.removeEventListener("click", handleOutsideClose);
+  }, [isOpen]);
 
   // 로그아웃
   const logOut = () => {
@@ -194,11 +242,8 @@ function LoginHeader() {
   return (
     <HeaderContainer>
       <HeaderWrapper>
-        <Logo onClick={closeDropdown}>
-          <Link to='/'>
-            <img src={mainIcon} alt='mainIcon' />
-            나만의 작은 음악 다이어리
-          </Link>
+        <Logo>
+          <Link to='/'>나만의 작은 음악 다이어리</Link>
         </Logo>
         <ButtonArea>
           <ModeButton onClick={changeMode}>
@@ -209,7 +254,7 @@ function LoginHeader() {
             )}
           </ModeButton>
           <Link to='/NewDiary'>
-            <NewPost onClick={closeDropdown}>새 다이어리 작성</NewPost>
+            <NewPost>새 다이어리 작성</NewPost>
           </Link>
           <ProfileButton onClick={openDropdown}>
             <Profile
@@ -218,17 +263,34 @@ function LoginHeader() {
             />
             <GoTriangleDown className='triangleDown' size={14} />
           </ProfileButton>
-          {isOpen ? (
-            <Dropdown onClick={closeDropdown}>
-              <Link to='/Mypage'>
-                <li>마이페이지</li>
-              </Link>
-              <Link to='/NewDiary'>
-                <li>새 다이어리 작성</li>
-              </Link>
-              <li onClick={logOut}>로그아웃</li>
-            </Dropdown>
-          ) : null}
+          <div ref={dropMenuRef}>
+            {isOpen ? (
+              <Dropdown>
+                <Link to='/Mypage'>
+                  <li>
+                    <DropdownMyPageButton>
+                      <FiUser className='myPageIcon' size={19} />
+                      <div className='myPageText'>마이페이지</div>
+                    </DropdownMyPageButton>
+                  </li>
+                </Link>
+                <Link to='/NewDiary'>
+                  <li>
+                    <DropdownNewWriteButton>
+                      <FiEdit3 className='newWriteIcon' size={18} />
+                      <div className='newWriteText'>새 다이어리 작성</div>
+                    </DropdownNewWriteButton>
+                  </li>
+                </Link>
+                <li onClick={logOut}>
+                  <DropdownLogoutButton>
+                    <FiLogOut className='logoutIcon' size={18} />
+                    <div className='logoutText'>로그아웃</div>
+                  </DropdownLogoutButton>
+                </li>
+              </Dropdown>
+            ) : null}
+          </div>
         </ButtonArea>
       </HeaderWrapper>
     </HeaderContainer>
