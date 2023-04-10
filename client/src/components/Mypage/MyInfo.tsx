@@ -169,10 +169,6 @@ const EditPasswordBtn = styled.button`
 `;
 
 const MyWithdrawalContainer = styled.div`
-  /* border-bottom: 1px solid ${(props) => props.theme.color.borderLine}; */
-`;
-
-const MyWithdrawalWrapper = styled.div`
   display: flex;
   align-items: center;
   height: 50px;
@@ -221,30 +217,31 @@ const WithdrawalModalView = styled.div`
   text-align: center;
   border-radius: 5px;
   background-color: ${(props) => props.theme.color.background};
-  width: 430px;
-  height: 220px;
+  width: 80%;
+  max-width: 400px;
+  height: 200px;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.19), 0 10px 10px rgba(0, 0, 0, 0.1);
 
   > .deleteModalTitle {
     color: ${(props) => props.theme.color.mainText};
-    font-size: 20px;
+    font-size: ${(props) => props.theme.font.diarySubTitleSize}px;
     font-weight: ${(props) => props.theme.font.titleWeight};
     text-align: center;
-    margin: 30px 0 35px 0;
+    margin: 30px 15px 30px 15px;
   }
 
   > .warningText {
     color: ${(props) => props.theme.color.subText};
+    font-size: ${(props) => props.theme.font.diaryContentSize}px;
     font-weight: ${(props) => props.theme.font.contentWeight};
-    font-size: 15px;
-    margin-bottom: 41.5px;
+    margin: 0 15px 29px 15px;
   }
 
   > button {
+    font-size: ${(props) => props.theme.font.diaryContentSize}px;
     font-weight: ${(props) => props.theme.font.titleWeight};
-    width: 215px;
+    width: 50%;
     height: 50px;
-    color: white;
     border: none;
     text-decoration: none;
     cursor: pointer;
@@ -259,7 +256,7 @@ const WithdrawalModalView = styled.div`
     background-color: transparent;
     border-top: 1px solid ${(props) => props.theme.color.borderLine};
     border-right: 0.5px solid ${(props) => props.theme.color.borderLine};
-    border-bottom-left-radius: 5px;
+    border-bottom-left-radius: 4px;
 
     &:hover {
       background-color: ${(props) => props.theme.color.buttonHover};
@@ -271,7 +268,7 @@ const WithdrawalModalView = styled.div`
     background-color: transparent;
     border-top: 1px solid ${(props) => props.theme.color.borderLine};
     border-left: 0.5px solid ${(props) => props.theme.color.borderLine};
-    border-bottom-right-radius: 5px;
+    border-bottom-right-radius: 4px;
 
     &:hover {
       background-color: ${(props) => props.theme.color.buttonHover};
@@ -444,34 +441,32 @@ function MyInfo({ list, getUserData }: UserDataProps) {
         <WarningText>로그인 시 사용되는 비밀번호입니다.</WarningText>
       </MySettingContainer>
       <MyWithdrawalContainer>
-        <MyWithdrawalWrapper>
-          <div className='withdrawalTitle'>회원 탈퇴</div>
-          <button className='withdrawalBtn' onClick={openModalHandler}>
-            회원 탈퇴
-          </button>
-          {withDrawalModalOpen ? (
-            <WithdrawalModalBack>
-              <WithdrawalModalView>
-                <div className='deleteModalTitle'>정말 탈퇴 하시겠습니까?</div>
-                <div className='warningText'>
-                  탈퇴 시 작성하신 다이어리 및 댓글이 모두 삭제되며
-                  <br />
-                  복구되지 않습니다.
-                </div>
-                <button className='deleteCancelButton' onClick={openModalHandler}>
-                  취소
-                </button>
-                <button className='deleteButton' onClick={withDrawal}>
-                  탈퇴
-                </button>
-              </WithdrawalModalView>
-            </WithdrawalModalBack>
-          ) : null}
-        </MyWithdrawalWrapper>
-        <WarningText>
-          탈퇴 시 작성하신 다이어리 및 댓글이 모두 삭제되며 복구되지 않습니다.
-        </WarningText>
+        <div className='withdrawalTitle'>회원 탈퇴</div>
+        <button className='withdrawalBtn' onClick={openModalHandler}>
+          회원 탈퇴
+        </button>
+        {withDrawalModalOpen ? (
+          <WithdrawalModalBack>
+            <WithdrawalModalView>
+              <div className='deleteModalTitle'>정말 탈퇴 하시겠습니까?</div>
+              <div className='warningText'>
+                탈퇴 시 작성하신 다이어리 및 댓글이
+                <br />
+                모두 삭제되며 복구되지 않습니다.
+              </div>
+              <button className='deleteCancelButton' onClick={openModalHandler}>
+                취소
+              </button>
+              <button className='deleteButton' onClick={withDrawal}>
+                탈퇴
+              </button>
+            </WithdrawalModalView>
+          </WithdrawalModalBack>
+        ) : null}
       </MyWithdrawalContainer>
+      <WarningText>
+        탈퇴 시 작성하신 다이어리 및 댓글이 모두 삭제되며 복구되지 않습니다.
+      </WarningText>
     </>
   );
 }

@@ -3,8 +3,6 @@ import { DefaultTheme } from "styled-components";
 
 export const myContext: any = createContext(null);
 
-// #8c8c8c
-
 export const lightMode: DefaultTheme = {
   color: {
     logo: `#22262c`,
@@ -28,6 +26,10 @@ export const lightMode: DefaultTheme = {
   },
 
   font: {
+    diaryMainTitleSize: 21,
+    diarySubTitleSize: 18,
+    diaryContentSize: 15,
+
     logoWeight: 700,
     titleWeight: 600,
     contentWeight: 500,
@@ -57,6 +59,10 @@ export const darkMode: DefaultTheme = {
   },
 
   font: {
+    diaryMainTitleSize: 21,
+    diarySubTitleSize: 18,
+    diaryContentSize: 15,
+
     logoWeight: 700,
     titleWeight: 600,
     contentWeight: 500,

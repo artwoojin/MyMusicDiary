@@ -30,7 +30,7 @@ export const ContentArea = styled.div`
   }
 
   > .listTitle {
-    font-size: 15px;
+    font-size: ${(props) => props.theme.font.diaryContentSize}px;
     font-weight: ${(props) => props.theme.font.contentWeight};
     width: 100%;
   }

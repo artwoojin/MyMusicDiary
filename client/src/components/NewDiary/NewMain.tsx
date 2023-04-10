@@ -35,7 +35,7 @@ export const TitleArea = styled.div`
 
   > .inputTitle {
     width: 700px;
-    font-size: 21px;
+    font-size: ${(props) => props.theme.font.diaryMainTitleSize}px;
     font-weight: ${(props) => props.theme.font.titleWeight};
     color: ${(props) => props.theme.color.mainText};
     margin-right: 10px;
@@ -123,7 +123,7 @@ export const AlbumInfoArea = styled.div`
   border-top: 1px solid ${(props) => props.theme.color.borderLine};
 
   > .playTitle {
-    font-size: 19px;
+    font-size: ${(props) => props.theme.font.diarySubTitleSize}px;
     font-weight: ${(props) => props.theme.font.titleWeight};
     margin-bottom: 20px;
     color: ${(props) => props.theme.color.mainText};
@@ -143,7 +143,7 @@ export const AlbumInfoArea = styled.div`
     }
 
     > .ql-container {
-      font-size: 15px;
+      font-size: ${(props) => props.theme.font.diaryContentSize}px;
       border-bottom-left-radius: 4px;
       border-bottom-right-radius: 4px;
       border: none;
@@ -165,13 +165,13 @@ export const PlayListArea = styled.div`
   > .playTitle {
     display: flex;
     align-items: center;
-    font-size: 19px;
+    font-size: ${(props) => props.theme.font.diarySubTitleSize}px;
     font-weight: ${(props) => props.theme.font.titleWeight};
     margin-bottom: 20px;
     color: ${(props) => props.theme.color.mainText};
 
     > .playCount {
-      font-size: 15px;
+      font-size: ${(props) => props.theme.font.diaryContentSize}px;
       margin: 0 0 3px 5px;
       color: ${(props) => props.theme.color.subText};
     }
@@ -185,7 +185,7 @@ export const UrlInput = styled.div`
   position: relative;
 
   > input {
-    font-size: 15px;
+    font-size: 14px;
     color: ${(props) => props.theme.color.mainText};
     width: 1300px;
     resize: none;

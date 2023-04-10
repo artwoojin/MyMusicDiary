@@ -21,7 +21,7 @@ export const PageNum = styled.div`
     height: 30px;
     background-color: transparent;
     border: none;
-    font-size: 15px;
+    font-size: ${(props) => props.theme.font.diaryContentSize}px;
     color: ${(props) => props.theme.color.mainText};
     transition: 0.2s ease-in-out;
     cursor: pointer;

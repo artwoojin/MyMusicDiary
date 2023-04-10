@@ -14,8 +14,8 @@ const SingupContainer = styled.div`
 `;
 
 const Logo = styled.div`
-  font-weight: 700;
-  font-size: 27px;
+  font-weight: ${(props) => props.theme.font.logoWeight};
+  font-size: 25px;
   margin-bottom: 30px;
 
   a {
@@ -38,6 +38,7 @@ const FormContainer = styled.form`
 `;
 
 const NicknameInput = styled.input`
+  font-size: 14px;
   width: 350px;
   height: 50px;
   border-radius: 4px;
@@ -54,6 +55,7 @@ const NicknameInput = styled.input`
 `;
 
 const EmailInput = styled.input`
+  font-size: 14px;
   width: 350px;
   height: 50px;
   border-radius: 4px;
@@ -69,6 +71,7 @@ const EmailInput = styled.input`
 `;
 
 const PasswordInput = styled.input`
+  font-size: 14px;
   width: 350px;
   height: 50px;
   border-radius: 4px;
@@ -89,8 +92,8 @@ const SignupButton = styled.button`
   height: 45px;
   border: none;
   border-radius: 4px;
-  color: #1c1a16;
-  font-size: 15px;
+  color: ${(props) => props.theme.color.signatureText};
+  font-size: ${(props) => props.theme.font.diaryContentSize}px;
   font-weight: ${(props) => props.theme.font.titleWeight};
   margin-top: 30px;
   background-color: ${(props) => props.theme.color.signature};
@@ -102,7 +105,7 @@ const SignupButton = styled.button`
 `;
 
 const MoveLogin = styled.button`
-  font-size: 14px;
+  font-size: ${(props) => props.theme.font.diaryContentSize}px;
   margin-top: 20px;
   width: 410px;
   height: 60px;

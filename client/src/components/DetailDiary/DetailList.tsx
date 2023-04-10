@@ -26,7 +26,7 @@ const TitleArea = styled.div`
 
   > .DetailTitle {
     width: 700px;
-    font-size: 21px;
+    font-size: ${(props) => props.theme.font.diaryMainTitleSize}px;
     font-weight: ${(props) => props.theme.font.titleWeight};
     color: ${(props) => props.theme.color.mainText};
 
@@ -40,7 +40,7 @@ const ButtonArea = styled.div`
   display: flex;
   position: relative;
 
-  > .newButton {
+  > .detailDropdownButton {
     display: flex;
     justify-content: flex-end;
     width: 30px;
@@ -67,28 +67,30 @@ const DeleteModalView = styled.div`
   text-align: center;
   border-radius: 4px;
   background-color: ${(props) => props.theme.color.background};
-  width: 430px;
-  height: 220px;
+  width: 80%;
+  max-width: 400px;
+  height: 200px;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.19), 0 10px 10px rgba(0, 0, 0, 0.1);
 
   > .deleteModalTitle {
     color: ${(props) => props.theme.color.mainText};
-    font-size: 20px;
+    font-size: ${(props) => props.theme.font.diarySubTitleSize}px;
     font-weight: ${(props) => props.theme.font.titleWeight};
     text-align: center;
-    margin: 30px 0 45px 0;
+    margin: 30px 15px 35px 15px;
   }
 
   > .warningText {
     color: ${(props) => props.theme.color.subText};
+    font-size: ${(props) => props.theme.font.diaryContentSize}px;
     font-weight: ${(props) => props.theme.font.contentWeight};
-    font-size: 15px;
-    margin-bottom: 50.5px;
+    margin: 0 15px 43px 15px;
   }
 
   > button {
+    font-size: ${(props) => props.theme.font.diaryContentSize}px;
     font-weight: ${(props) => props.theme.font.titleWeight};
-    width: 215px;
+    width: 50%;
     height: 50px;
     border: none;
     text-decoration: none;
@@ -214,22 +216,20 @@ const Dropdown = styled.ul`
 const DropdownLikeButton = styled.button`
   display: flex;
   align-items: center;
-  font-size: 14.5px;
   background-color: transparent;
   color: ${(props) => props.theme.color.mainText};
-  border: none;
+  font-size: 14px;
   font-weight: ${(props) => props.theme.font.contentWeight};
+  border: none;
   cursor: pointer;
 
   > .likeIcon {
     margin-right: 12px;
-    margin-left: -1px;
     color: #ec1d36;
   }
 
   > .unLikeIcon {
     margin-right: 12px;
-    margin-left: -1px;
   }
 
   > .likeText {
@@ -237,24 +237,24 @@ const DropdownLikeButton = styled.button`
   }
 
   > .likeCount {
-    font-size: 13px;
-    margin-bottom: 1.5px;
+    font-size: 13.5px;
+    margin-bottom: 1px;
   }
 `;
 
 const DropdownEditButton = styled.button`
   display: flex;
   align-items: center;
-  font-size: 14.5px;
   background-color: transparent;
   color: ${(props) => props.theme.color.mainText};
   border: none;
+  font-size: 14px;
   font-weight: ${(props) => props.theme.font.contentWeight};
   cursor: pointer;
 
   > .editIcon {
     margin-right: 12px;
-    margin-left: 0.5px;
+    margin-left: 1px;
     margin-bottom: 1px;
   }
 `;
@@ -262,16 +262,15 @@ const DropdownEditButton = styled.button`
 const DropdownDeleteButton = styled.button`
   display: flex;
   align-items: center;
-  font-size: 14.5px;
   background-color: transparent;
   color: ${(props) => props.theme.color.mainText};
   border: none;
+  font-size: 14px;
   font-weight: ${(props) => props.theme.font.contentWeight};
   cursor: pointer;
 
   > .deleteIcon {
     margin-right: 12px;
-    margin-left: -1px;
   }
 `;
 
@@ -280,14 +279,14 @@ const AlbumInfoArea = styled.div`
   border-top: 1px solid ${(props) => props.theme.color.borderLine};
 
   > .playTitle {
-    font-size: 19px;
+    font-size: ${(props) => props.theme.font.diarySubTitleSize}px;
     font-weight: ${(props) => props.theme.font.titleWeight};
     margin-bottom: 20px;
     color: ${(props) => props.theme.color.mainText};
   }
 
   > .playContent {
-    font-size: 15px;
+    font-size: ${(props) => props.theme.font.diaryContentSize}px;
     color: ${(props) => props.theme.color.mainText};
   }
 `;
@@ -299,13 +298,13 @@ const PlayListArea = styled.div`
   > .playTitle {
     display: flex;
     align-items: center;
-    font-size: 19px;
+    font-size: ${(props) => props.theme.font.diarySubTitleSize}px;
     font-weight: ${(props) => props.theme.font.titleWeight};
     margin-bottom: 20px;
     color: ${(props) => props.theme.color.mainText};
 
     > .playCount {
-      font-size: 15px;
+      font-size: ${(props) => props.theme.font.diaryContentSize}px;
       margin: 0 0 3px 5px;
       color: ${(props) => props.theme.color.subText};
     }
@@ -327,11 +326,11 @@ const CommentInputArea = styled.div`
     > .commentText {
       display: flex;
       align-items: center;
-      font-size: 19px;
+      font-size: ${(props) => props.theme.font.diarySubTitleSize}px;
       font-weight: ${(props) => props.theme.font.titleWeight};
 
       > .commentCount {
-        font-size: 15px;
+        font-size: ${(props) => props.theme.font.diaryContentSize}px;
         margin: 0 0 3px 5px;
         color: ${(props) => props.theme.color.subText};
       }
@@ -340,12 +339,16 @@ const CommentInputArea = styled.div`
     > .commentRule {
       display: flex;
       align-items: center;
-      font-size: 14px;
+      font-size: 13px;
       font-weight: ${(props) => props.theme.font.titleWeight};
       cursor: pointer;
 
       > .ruleIcon {
         margin-right: 5px;
+      }
+
+      @media screen and (max-width: 721px) {
+        display: none;
       }
     }
   }
@@ -398,16 +401,17 @@ const RuleModalView = styled.div`
   text-align: center;
   border-radius: 4px;
   background-color: ${(props) => props.theme.color.background};
-  width: 550px;
-  height: 420px;
+  width: 80%;
+  max-width: 500px;
+  height: 300px;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.19), 0 10px 10px rgba(0, 0, 0, 0.1);
 
   > .ruleModalTitle {
     color: ${(props) => props.theme.color.mainText};
-    font-size: 20px;
+    font-size: ${(props) => props.theme.font.diarySubTitleSize}px;
     font-weight: ${(props) => props.theme.font.titleWeight};
     text-align: center;
-    margin: 30px 0 45px 0;
+    margin: 30px 15px 35px 15px;
   }
 
   > .warningText {
@@ -415,14 +419,14 @@ const RuleModalView = styled.div`
     font-weight: ${(props) => props.theme.font.contentWeight};
     line-height: 30px;
     text-align: left;
-    font-size: 15px;
-    padding: 0 25px 0 25px;
-    margin-bottom: 59px;
+    font-size: ${(props) => props.theme.font.diaryContentSize}px;
+    margin: 0 15px 42px 15px;
   }
 
   > button {
+    font-size: ${(props) => props.theme.font.diaryContentSize}px;
     font-weight: ${(props) => props.theme.font.titleWeight};
-    width: 550px;
+    width: 100%;
     height: 50px;
     border: none;
     text-decoration: none;
@@ -574,7 +578,7 @@ function DetailList({ list, getDetailData }: DiaryDataProps) {
           <ButtonArea>
             {myDiary === true ? (
               <>
-                <button className='newButton' onClick={openDropdown}>
+                <button className='detailDropdownButton' onClick={openDropdown}>
                   <BsThreeDotsVertical size={17} />
                 </button>
                 <div ref={dropMenuRef}>
@@ -690,15 +694,9 @@ function DetailList({ list, getDetailData }: DiaryDataProps) {
                   <div className='ruleModalTitle'>나만의 작은 음악 다이어리 댓글 운영 원칙</div>
                   <div className='warningText'>
                     <div>1. 욕설 및 비방 글을 등록하지 말아 주세요</div>
-                    <div>
-                      2. 한 페이지 내에서 동일한 내용의 글을 반복적으로 3회 이상 등록하지 말아
-                      주세요.
-                    </div>
+                    <div>2. 동일한 내용의 글을 반복해서 등록하지 말아 주세요.</div>
                     <div>3. 홍보 및 상업성 글을 등록하지 말아 주세요.</div>
-                    <div>4. 음란성 글을 등록하지 말아 주세요.</div>
-                    <div>5. 악성코드를 유포하지 말아주세요.</div>
-                    <div>6. 본인 및 타인의 개인 정보를 유출하지 말아 주세요.</div>
-                    <div>7. 반사회성 글을 등록하지 말아주세요.</div>
+                    <div>4. 본인 및 타인의 개인 정보를 유출하지 말아 주세요.</div>
                   </div>
                   <button className='confirmButton' onClick={closeRuleModalHandler}>
                     확인

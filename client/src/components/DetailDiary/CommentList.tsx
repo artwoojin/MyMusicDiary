@@ -28,7 +28,7 @@ export const CommentListWrapper = styled.div`
   }
 
   .content {
-    font-size: 15px;
+    font-size: ${(props) => props.theme.font.diaryContentSize}px;
     color: ${(props) => props.theme.color.mainText};
   }
 
@@ -105,28 +105,30 @@ const DeleteModalView = styled.div`
   text-align: center;
   border-radius: 4px;
   background-color: ${(props) => props.theme.color.background};
-  width: 430px;
-  height: 220px;
+  width: 80%;
+  max-width: 400px;
+  height: 200px;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.19), 0 10px 10px rgba(0, 0, 0, 0.1);
 
   > .deleteModalTitle {
     color: ${(props) => props.theme.color.mainText};
-    font-size: 20px;
+    font-size: ${(props) => props.theme.font.diarySubTitleSize}px;
     font-weight: ${(props) => props.theme.font.titleWeight};
     text-align: center;
-    margin: 30px 0 45px 0;
+    margin: 30px 15px 35px 15px;
   }
 
   > .warningText {
     color: ${(props) => props.theme.color.subText};
+    font-size: ${(props) => props.theme.font.diaryContentSize}px;
     font-weight: ${(props) => props.theme.font.contentWeight};
-    font-size: 15px;
-    margin-bottom: 50.5px;
+    margin: 0 15px 43px 15px;
   }
 
   > button {
+    font-size: ${(props) => props.theme.font.diaryContentSize}px;
     font-weight: ${(props) => props.theme.font.titleWeight};
-    width: 215px;
+    width: 50%;
     height: 50px;
     border: none;
     text-decoration: none;

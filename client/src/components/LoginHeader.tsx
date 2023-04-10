@@ -17,7 +17,6 @@ export const HeaderContainer = styled.header`
 export const HeaderWrapper = styled.div`
   width: 100vw;
   max-width: 1440px;
-  min-width: 300px;
   display: flex;
   align-items: center;
   height: 80px;
@@ -150,11 +149,11 @@ const Dropdown = styled.ul`
 const DropdownMyPageButton = styled.button`
   display: flex;
   align-items: center;
-  font-size: 14.5px;
+  font-size: 14px;
+  font-weight: ${(props) => props.theme.font.contentWeight};
   background-color: transparent;
   color: ${(props) => props.theme.color.mainText};
   border: none;
-  font-weight: ${(props) => props.theme.font.contentWeight};
   cursor: pointer;
 
   > .myPageIcon {
@@ -166,11 +165,11 @@ const DropdownMyPageButton = styled.button`
 const DropdownNewWriteButton = styled.button`
   display: flex;
   align-items: center;
-  font-size: 14.5px;
+  font-size: 14px;
+  font-weight: ${(props) => props.theme.font.contentWeight};
   background-color: transparent;
   color: ${(props) => props.theme.color.mainText};
   border: none;
-  font-weight: ${(props) => props.theme.font.contentWeight};
   cursor: pointer;
 
   > .newWriteIcon {
@@ -181,11 +180,11 @@ const DropdownNewWriteButton = styled.button`
 const DropdownLogoutButton = styled.button`
   display: flex;
   align-items: center;
-  font-size: 14.5px;
+  font-size: 14px;
+  font-weight: ${(props) => props.theme.font.contentWeight};
   background-color: transparent;
   color: ${(props) => props.theme.color.mainText};
   border: none;
-  font-weight: ${(props) => props.theme.font.contentWeight};
   cursor: pointer;
 
   > .logoutIcon {

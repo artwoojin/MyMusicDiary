@@ -24,6 +24,10 @@ declare module "styled-components" {
     };
 
     font: {
+      diaryMainTitleSize: number;
+      diarySubTitleSize: number;
+      diaryContentSize: number;
+
       logoWeight: number;
       titleWeight: number;
       contentWeight: number;

@@ -12,7 +12,6 @@ const PlayListContainer = styled.li`
 const PlayListWrapper = styled.div`
   width: 100vw;
   max-width: 1440px;
-  min-width: 300px;
   border: none;
   color: ${(props) => props.theme.color.mainText};
 
@@ -35,7 +34,7 @@ const ContentArea = styled.div`
   }
 
   > .listTitle {
-    font-size: 15px;
+    font-size: ${(props) => props.theme.font.diaryContentSize}px;
     font-weight: ${(props) => props.theme.font.contentWeight};
     width: 100%;
     color: ${(props) => props.theme.color.mainText};

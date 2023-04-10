@@ -28,7 +28,7 @@ const ListTab = styled.ul`
     cursor: pointer;
 
     > .el {
-      font-size: 13.8px;
+      font-size: 13.5px;
       color: ${(props) => props.theme.color.thirdText};
       font-weight: ${(props) => props.theme.font.contentWeight};
     }
