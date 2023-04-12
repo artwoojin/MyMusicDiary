@@ -16,6 +16,7 @@ const ListTab = styled.ul`
   display: flex;
   justify-content: center;
   margin: 50px 0 50px 0;
+  padding: 0 15px 0 15px;
   gap: 10px;
 
   .tab {
@@ -32,6 +33,11 @@ const ListTab = styled.ul`
       color: ${(props) => props.theme.color.subText};
       font-weight: ${(props) => props.theme.font.titleWeight};
     }
+
+    // 721px 이하에서 탭 글씨 크기 축소
+    @media screen and (max-width: 721px) {
+      font-size: 13px;
+    }
   }
 
   .focused {
@@ -47,7 +53,8 @@ const ListTab = styled.ul`
 const MypageWrapper = styled.div`
   width: 100vw;
   max-width: 850px;
-  padding: 10px;
+  padding: 0 10px 0 10px;
+  /* border: 1px solid red; */
 `;
 
 const CommentCountWrapper = styled.div`

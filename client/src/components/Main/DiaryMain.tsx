@@ -9,7 +9,6 @@ const ListTab = styled.ul`
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
-  list-style: none;
   margin-bottom: 50px;
   padding: 0 15px 0 15px;
   gap: 10px;

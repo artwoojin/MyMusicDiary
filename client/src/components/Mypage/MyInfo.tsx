@@ -7,25 +7,31 @@ import defaultProfile from "../../util/img/defaultProfile.png";
 
 const MyInfoContainer = styled.div`
   display: flex;
-  width: 100vw;
-  max-width: 900px;
+  justify-content: center;
+  padding: 0 5px 0 5px;
 `;
 
 const ProfileImgWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  border-right: 1px solid ${(props) => props.theme.color.borderLine};
+  align-items: center;
 `;
 
 const ProfileImg = styled.img`
   width: 150px;
   height: 150px;
   border-radius: 100%;
-  margin: 0 20px 20px 0;
+  margin-bottom: 20px;
   cursor: pointer;
 
   &:hover {
     outline: 5px solid ${(props) => props.theme.color.signature};
+  }
+
+  // 721px 이하에서 프로필 이미지 크기 축소
+  @media screen and (max-width: 721px) {
+    width: 120px;
+    height: 120px;
   }
 `;
 
@@ -34,14 +40,14 @@ const ImgInput = styled.input`
 `;
 
 const ImgSubmitBtn = styled.button`
-  width: 140px;
+  width: 150px;
   height: 35px;
   border-radius: 4px;
   background-color: ${(props) => props.theme.color.signature};
   color: ${(props) => props.theme.color.signatureText};
   font-weight: ${(props) => props.theme.font.titleWeight};
   border: none;
-  margin: 0 25px 5px 0;
+  margin-bottom: 5px;
   cursor: pointer;
 
   &:hover {
@@ -50,13 +56,12 @@ const ImgSubmitBtn = styled.button`
 `;
 
 const ImgDeleteBtn = styled.button`
-  width: 140px;
+  width: 150px;
   height: 35px;
   background-color: transparent;
   color: ${(props) => props.theme.color.mainText};
   font-weight: ${(props) => props.theme.font.titleWeight};
   border: none;
-  margin: 0 25px 0 0;
   cursor: pointer;
 
   &:hover {
@@ -65,24 +70,60 @@ const ImgDeleteBtn = styled.button`
   }
 `;
 
-const NickNameWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  width: 100%;
-  height: 100px;
-  margin: 0 20px 0 20px;
+const NicknameContainer = styled.div`
+  margin-top: 20px;
+  border-bottom: 1px solid ${(props) => props.theme.color.borderLine};
+  font-size: 15px;
+  padding: 0 5px 0 5px;
 
-  > .editNicknameArea {
-    width: 90%;
-    font-size: 25px;
+  > .nicknameTitle {
+    display: flex;
+    align-items: center;
+    min-width: 185px;
+    height: 30px;
     color: ${(props) => props.theme.color.mainText};
     font-weight: ${(props) => props.theme.font.titleWeight};
+
+    // 722px 이상에서 비밀번호 타이틀 숨김 적용
+    @media screen and (min-width: 722px) {
+      display: none;
+    }
+  }
+`;
+
+const NicknameWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  height: 50px;
+
+  > .nicknameTitle {
+    display: flex;
+    align-items: center;
+    min-width: 185px;
+    height: 30px;
+    color: ${(props) => props.theme.color.mainText};
+    font-weight: ${(props) => props.theme.font.titleWeight};
+
+    // 721px 이하에서 비밀번호 타이틀 숨김
+    @media screen and (max-width: 721px) {
+      display: none;
+    }
+  }
+`;
+
+const NicknameInputWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  width: 100%;
+
+  > .editNicknameArea {
+    width: 100%;
+    color: ${(props) => props.theme.color.mainText};
+    border-radius: 4px;
+    padding: 10px 8px 10px 8px;
     border: none;
     border: 1px solid ${(props) => props.theme.color.borderLine};
     background-color: ${(props) => props.theme.color.inputBackground};
-    border-radius: 4px;
-    padding: 10px 8px 10px 8px;
 
     &:focus {
       outline: none;
@@ -90,47 +131,72 @@ const NickNameWrapper = styled.div`
   }
 
   > .nicknameArea {
-    color: ${(props) => props.theme.color.mainText};
+    display: flex;
+    align-items: center;
     width: 100%;
-    font-size: 30px;
-    font-weight: ${(props) => props.theme.font.titleWeight};
+    height: 30px;
+    color: ${(props) => props.theme.color.mainText};
   }
 `;
 
 const EditNicknameBtn = styled.button`
   color: ${(props) => props.theme.color.mainText};
-  width: 40px;
-  margin-top: 10px;
+  min-width: 40px;
+  height: 30px;
+  text-align: right;
   border: none;
-  text-align: left;
   background-color: transparent;
   text-decoration: underline;
-  font-size: 15px;
+  font-size: 14px;
   font-weight: ${(props) => props.theme.font.titleWeight};
   cursor: pointer;
 `;
 
-const MySettingContainer = styled.div`
-  margin-top: 30px;
+const PasswordContainer = styled.div`
   border-bottom: 1px solid ${(props) => props.theme.color.borderLine};
+  font-size: 15px;
+  padding: 0 5px 0 5px;
+
+  > .passwordTitle {
+    display: flex;
+    align-items: center;
+    min-width: 185px;
+    height: 30px;
+    color: ${(props) => props.theme.color.mainText};
+    font-weight: ${(props) => props.theme.font.titleWeight};
+    margin-top: 15px;
+
+    // 722px 이상에서 비밀번호 타이틀 숨김 적용
+    @media screen and (min-width: 722px) {
+      display: none;
+    }
+  }
 `;
 
 const PasswordWrapper = styled.div`
   display: flex;
   align-items: center;
   height: 50px;
-  padding: 0 10px 0 10px;
-  font-size: 15px;
 
   > .passwordTitle {
     display: flex;
     align-items: center;
+    min-width: 185px;
     height: 30px;
     color: ${(props) => props.theme.color.mainText};
-    width: 140px;
-    margin-right: 85px;
     font-weight: ${(props) => props.theme.font.titleWeight};
+
+    // 721px 이하에서 비밀번호 타이틀 숨김
+    @media screen and (max-width: 721px) {
+      display: none;
+    }
   }
+`;
+
+const PasswordInputWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  width: 100%;
 
   > .editPasswordArea {
     width: 100%;
@@ -157,31 +223,33 @@ const PasswordWrapper = styled.div`
 
 const EditPasswordBtn = styled.button`
   color: ${(props) => props.theme.color.mainText};
-  width: 100px;
+  min-width: 40px;
   height: 30px;
-  margin-left: 10px;
+  text-align: right;
   border: none;
   background-color: transparent;
   text-decoration: underline;
-  font-size: 15px;
+  font-size: 14px;
   font-weight: ${(props) => props.theme.font.titleWeight};
   cursor: pointer;
 `;
 
 const MyWithdrawalContainer = styled.div`
+  font-size: 15px;
+  padding: 0 5px 0 5px;
+`;
+
+const MyWithdrawalWrapper = styled.div`
   display: flex;
   align-items: center;
   height: 50px;
-  padding: 0 10px 0 10px;
-  font-size: 15px;
 
   > .withdrawalTitle {
     display: flex;
     align-items: center;
     color: ${(props) => props.theme.color.mainText};
-    width: 98px;
+    min-width: 185px;
     height: 30px;
-    margin-right: 85px;
     font-weight: ${(props) => props.theme.font.titleWeight};
   }
 
@@ -199,6 +267,10 @@ const MyWithdrawalContainer = styled.div`
       background-color: #ec1d36;
     }
   }
+
+  /* @media screen and (max-width: 721px) {
+    justify-content: space-between;
+  } */
 `;
 
 const WithdrawalModalBack = styled.div`
@@ -279,7 +351,7 @@ const WithdrawalModalView = styled.div`
 const WarningText = styled.div`
   font-size: 13px;
   color: ${(props) => props.theme.color.thirdText};
-  margin: 0 0 15px 10px;
+  margin-bottom: 15px;
 `;
 
 export interface UserDataProps {
@@ -401,72 +473,84 @@ function MyInfo({ list, getUserData }: UserDataProps) {
           <ImgSubmitBtn onClick={changeImage}>프로필 이미지 저장</ImgSubmitBtn>
           <ImgDeleteBtn onClick={deleteImage}>프로필 이미지 제거</ImgDeleteBtn>
         </ProfileImgWrapper>
-        <NickNameWrapper>
-          {editNickname ? (
-            <input
-              className='editNicknameArea'
-              type='text'
-              value={nickname}
-              onChange={onChangeEditInput}
-            ></input>
-          ) : (
-            <div className='nicknameArea'>{list.nickname}</div>
-          )}
-          {editNickname ? (
-            <EditNicknameBtn onClick={changeNickname}>저장</EditNicknameBtn>
-          ) : (
-            <EditNicknameBtn onClick={onClickEditButton}>수정</EditNicknameBtn>
-          )}
-        </NickNameWrapper>
       </MyInfoContainer>
-      <MySettingContainer>
+      <NicknameContainer>
+        <div className='nicknameTitle'>닉네임</div>
+        <NicknameWrapper>
+          <div className='nicknameTitle'>닉네임</div>
+          <NicknameInputWrapper>
+            {editNickname ? (
+              <input
+                className='editNicknameArea'
+                type='text'
+                value={nickname}
+                onChange={onChangeEditInput}
+              ></input>
+            ) : (
+              <div className='nicknameArea'>{list.nickname}</div>
+            )}
+            {editNickname ? (
+              <EditNicknameBtn onClick={changeNickname}>저장</EditNicknameBtn>
+            ) : (
+              <EditNicknameBtn onClick={onClickEditButton}>수정</EditNicknameBtn>
+            )}
+          </NicknameInputWrapper>
+        </NicknameWrapper>
+        <WarningText>나만의 작은 음악 다이어리에서 사용되는 이름입니다.</WarningText>
+      </NicknameContainer>
+      <PasswordContainer>
+        <div className='passwordTitle'>비밀번호</div>
         <PasswordWrapper>
           <div className='passwordTitle'>비밀번호</div>
-          {editPassword ? (
-            <input
-              className='editPasswordArea'
-              type='text'
-              value={password}
-              onChange={onChangePasswordInput}
-            ></input>
-          ) : (
-            <div className='passwordArea'>********</div>
-          )}
-          {editPassword ? (
-            <EditPasswordBtn onClick={changePassword}>저장</EditPasswordBtn>
-          ) : (
-            <EditPasswordBtn onClick={onClickPasswordButton}>수정</EditPasswordBtn>
-          )}
+          <PasswordInputWrapper>
+            {editPassword ? (
+              <input
+                className='editPasswordArea'
+                type='text'
+                value={password}
+                onChange={onChangePasswordInput}
+              ></input>
+            ) : (
+              <div className='passwordArea'>********</div>
+            )}
+            {editPassword ? (
+              <EditPasswordBtn onClick={changePassword}>저장</EditPasswordBtn>
+            ) : (
+              <EditPasswordBtn onClick={onClickPasswordButton}>수정</EditPasswordBtn>
+            )}
+          </PasswordInputWrapper>
         </PasswordWrapper>
         <WarningText>로그인 시 사용되는 비밀번호입니다.</WarningText>
-      </MySettingContainer>
+      </PasswordContainer>
       <MyWithdrawalContainer>
-        <div className='withdrawalTitle'>회원 탈퇴</div>
-        <button className='withdrawalBtn' onClick={openModalHandler}>
-          회원 탈퇴
-        </button>
-        {withDrawalModalOpen ? (
-          <WithdrawalModalBack>
-            <WithdrawalModalView>
-              <div className='deleteModalTitle'>정말 탈퇴 하시겠습니까?</div>
-              <div className='warningText'>
-                탈퇴 시 작성하신 다이어리 및 댓글이
-                <br />
-                모두 삭제되며 복구되지 않습니다.
-              </div>
-              <button className='deleteCancelButton' onClick={openModalHandler}>
-                취소
-              </button>
-              <button className='deleteButton' onClick={withDrawal}>
-                탈퇴
-              </button>
-            </WithdrawalModalView>
-          </WithdrawalModalBack>
-        ) : null}
+        <MyWithdrawalWrapper>
+          <div className='withdrawalTitle'>회원 탈퇴</div>
+          <button className='withdrawalBtn' onClick={openModalHandler}>
+            회원 탈퇴
+          </button>
+          {withDrawalModalOpen ? (
+            <WithdrawalModalBack>
+              <WithdrawalModalView>
+                <div className='deleteModalTitle'>정말 탈퇴 하시겠습니까?</div>
+                <div className='warningText'>
+                  탈퇴 시 작성하신 다이어리 및 댓글이
+                  <br />
+                  모두 삭제되며 복구되지 않습니다.
+                </div>
+                <button className='deleteCancelButton' onClick={openModalHandler}>
+                  취소
+                </button>
+                <button className='deleteButton' onClick={withDrawal}>
+                  탈퇴
+                </button>
+              </WithdrawalModalView>
+            </WithdrawalModalBack>
+          ) : null}
+        </MyWithdrawalWrapper>
+        <WarningText>
+          탈퇴 시 작성하신 다이어리 및 댓글이 모두 삭제되며 복구되지 않습니다.
+        </WarningText>
       </MyWithdrawalContainer>
-      <WarningText>
-        탈퇴 시 작성하신 다이어리 및 댓글이 모두 삭제되며 복구되지 않습니다.
-      </WarningText>
     </>
   );
 }
