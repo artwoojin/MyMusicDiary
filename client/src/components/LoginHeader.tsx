@@ -7,7 +7,7 @@ import { BsFillSunFill, BsFillMoonStarsFill } from "react-icons/bs";
 import { FiLogOut, FiEdit3, FiUser } from "react-icons/fi";
 import { useContext } from "react";
 import { myContext } from "../theme";
-import defaultProfile from "../util/img/defaultProfile.png";
+import mainIcon from "../util/img/defaultProfile.png";
 
 export const HeaderContainer = styled.header`
   display: flex;
@@ -238,6 +238,10 @@ function LoginHeader() {
     window.location.reload();
   };
 
+  const replaceImg = (e: any) => {
+    e.target.src = mainIcon;
+  };
+
   return (
     <HeaderContainer>
       <HeaderWrapper>
@@ -257,8 +261,9 @@ function LoginHeader() {
           </Link>
           <ProfileButton onClick={openDropdown}>
             <Profile
-              src={imageData.data?.imageUrl ? imageData.data?.imageUrl : defaultProfile}
+              src={imageData.data?.imageUrl ? imageData.data?.imageUrl : mainIcon}
               alt='헤더 프로필 이미지'
+              onError={replaceImg}
             />
             <GoTriangleDown className='triangleDown' size={14} />
           </ProfileButton>

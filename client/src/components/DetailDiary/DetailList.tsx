@@ -14,7 +14,7 @@ import { FiEdit } from "react-icons/fi";
 import DOMPurify from "dompurify";
 import { myContext } from "../../theme";
 import { toast } from "react-toastify";
-import defaultProfile from "../../util/img/mainIcon.png";
+import mainIcon from "../../util/img/mainIcon.png";
 
 const TitleArea = styled.div`
   height: 75px;
@@ -570,6 +570,10 @@ function DetailList({ list, getDetailData }: DiaryDataProps) {
     window.scrollTo(0, parseInt(scrollY || "0", 10) * -1);
   };
 
+  const replaceImg = (e: any) => {
+    e.target.src = mainIcon;
+  };
+
   return (
     <NewMain.MainContainer>
       <NewMain.MainWrapper>
@@ -638,8 +642,9 @@ function DetailList({ list, getDetailData }: DiaryDataProps) {
         </TitleArea>
         <NewMain.AlbumCoverArea>
           <NewMain.CoverImg
-            src={list.playlists[0]?.thumbnail ? list.playlists[0]?.thumbnail : defaultProfile}
+            src={list.playlists[0]?.thumbnail ? list.playlists[0]?.thumbnail : mainIcon}
             alt='첫번째 앨범 커버'
+            onError={replaceImg}
           />
           <NewMain.InfoArea>
             <UserInfo>

@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useState, useRef } from "react";
 import { UserData } from "../../util/Type";
 import { TOKEN_API } from "../../util/API";
-import defaultProfile from "../../util/img/defaultProfile.png";
+import mainIcon from "../../util/img/defaultProfile.png";
 
 const MyInfoContainer = styled.div`
   display: flex;
@@ -394,7 +394,7 @@ function MyInfo({ list, getUserData }: UserDataProps) {
   // 기본 이미지로 patch 요청
   const deleteImage = async () => {
     const newImg = {
-      imageUrl: defaultProfile,
+      imageUrl: mainIcon,
       nickname: list.nickname,
       password: list.password,
     };
@@ -460,13 +460,18 @@ function MyInfo({ list, getUserData }: UserDataProps) {
     window.location.reload();
   };
 
+  const replaceImg = (e: any) => {
+    e.target.src = mainIcon;
+  };
+
   return (
     <>
       <MyInfoContainer>
         <ProfileImgWrapper>
           <ProfileImg
-            src={image ? image : defaultProfile}
+            src={image ? image : mainIcon}
             alt='프로필 이미지'
+            onError={replaceImg}
             onClick={clickProfile}
           />
           <ImgInput type='file' accept='image/*' onChange={saveImage} ref={fileInput} />

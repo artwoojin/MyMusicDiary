@@ -154,7 +154,7 @@ function MypageMain() {
 
   // 마이 페이지 탭 리스트
   const tabArr = [
-    { feel: "내 정보" },
+    { feel: "내 정보 수정" },
     { feel: "나의 다이어리" },
     { feel: "좋아한 다이어리" },
     { feel: "작성한 댓글" },

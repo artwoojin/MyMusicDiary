@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { PlaylistDataProps } from "../../util/Type";
-import defaultProfile from "../../util/img/mainIcon.png";
+import mainIcon from "../../util/img/mainIcon.png";
 
 const PlayListContainer = styled.li`
   display: flex;
@@ -47,6 +47,10 @@ const ContentArea = styled.div`
 `;
 
 function DetailPlayList({ list }: PlaylistDataProps) {
+  const replaceImg = (e: any) => {
+    e.target.src = mainIcon;
+  };
+
   return (
     <PlayListContainer>
       <PlayListWrapper>
@@ -54,8 +58,9 @@ function DetailPlayList({ list }: PlaylistDataProps) {
           <ContentArea>
             <img
               className='thumbnail'
-              src={list.thumbnail ? list.thumbnail : defaultProfile}
+              src={list.thumbnail ? list.thumbnail : mainIcon}
               alt='썸네일'
+              onError={replaceImg}
             />
             <div className='listTitle'>{list.title}</div>
           </ContentArea>

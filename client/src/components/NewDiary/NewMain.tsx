@@ -10,7 +10,7 @@ import { myContext } from "../../theme";
 import { PlaylistData } from "../../util/Type";
 import { toast } from "react-toastify";
 import { FiPlus } from "react-icons/fi";
-import defaultProfile from "../../util/img/mainIcon.png";
+import mainIcon from "../../util/img/mainIcon.png";
 
 export const MainContainer = styled.div`
   display: flex;
@@ -326,6 +326,10 @@ function NewMain() {
       });
   };
 
+  const replaceImg = (e: any) => {
+    e.target.src = mainIcon;
+  };
+
   return (
     <MainContainer>
       <MainWrapper>
@@ -340,8 +344,9 @@ function NewMain() {
         </TitleArea>
         <AlbumCoverArea>
           <CoverImg
-            src={newPlayList[0]?.thumbnail ? newPlayList[0]?.thumbnail : defaultProfile}
+            src={newPlayList[0]?.thumbnail ? newPlayList[0]?.thumbnail : mainIcon}
             alt='다이어리 썸네일'
+            onError={replaceImg}
           />
           <InfoArea>
             <UserInfo>

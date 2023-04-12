@@ -10,7 +10,7 @@ import EditPlayList from "./EditPlayList";
 import { PlaylistData } from "../../util/Type";
 import { toast } from "react-toastify";
 import { FiPlus } from "react-icons/fi";
-import defaultProfile from "../../util/img/mainIcon.png";
+import mainIcon from "../../util/img/mainIcon.png";
 
 function EditList({ list }: DiaryDataProps) {
   const [editTitle, setEditTitle] = useState<string>(list.title);
@@ -93,6 +93,10 @@ function EditList({ list }: DiaryDataProps) {
       });
   };
 
+  const replaceImg = (e: any) => {
+    e.target.src = mainIcon;
+  };
+
   return (
     <NewMain.MainContainer>
       <NewMain.MainWrapper>
@@ -108,8 +112,9 @@ function EditList({ list }: DiaryDataProps) {
         </NewMain.TitleArea>
         <NewMain.AlbumCoverArea>
           <NewMain.CoverImg
-            src={editPlayList[0]?.thumbnail ? editPlayList[0]?.thumbnail : defaultProfile}
+            src={editPlayList[0]?.thumbnail ? editPlayList[0]?.thumbnail : mainIcon}
             alt='다이어리 썸네일'
+            onError={replaceImg}
           />
           <NewMain.InfoArea>
             <NewMain.UserInfo>

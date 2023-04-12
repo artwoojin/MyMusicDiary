@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { DiaryDataProps } from "../../util/Type";
 import { AiFillHeart } from "react-icons/ai";
 import { FaRegCommentDots } from "react-icons/fa";
-import defaultProfile from "../../util/img/mainIcon.png";
+import mainIcon from "../../util/img/mainIcon.png";
 
 export const DiaryListContainer = styled.li`
   box-shadow: rgba(0, 0, 0, 0.04) 0px 4px 16px 0px;
@@ -26,10 +26,11 @@ export const DiaryListContainer = styled.li`
 
 export const Thumbnail = styled.img`
   width: 310px;
-  height: 184px;
+  height: 174.5px;
   background-color: ${(props) => props.theme.color.inputBackground};
   border-top-left-radius: 4px;
   border-top-right-radius: 4px;
+  object-fit: contain;
 `;
 
 export const InfoArea = styled.div`
@@ -72,7 +73,7 @@ export const UserArea = styled.div`
   padding: 8px 15px 8px 15px;
   border-top: 1px solid ${(props) => props.theme.color.borderLine};
   /* 태그 미구현으로 인한 임시로 위치 내림 */
-  margin-top: 18px;
+  margin-top: 30px;
 `;
 
 export const ByUsername = styled.div`
@@ -122,12 +123,17 @@ export const LikeAndComment = styled.div`
 `;
 
 function DiaryList({ list }: DiaryDataProps) {
+  const replaceImg = (e: any) => {
+    e.target.src = mainIcon;
+  };
+
   return (
     <DiaryListContainer>
       <Link to={`/DetailDiary/${list.diaryId}`}>
         <Thumbnail
-          src={list.playlists[0].thumbnail ? list.playlists[0].thumbnail : defaultProfile}
+          src={list.playlists[0].thumbnail ? list.playlists[0].thumbnail : mainIcon}
           alt='첫번째 앨범 커버'
+          onError={replaceImg}
         />
         <InfoArea>
           <div className='infoTitle'>{list.title}</div>
@@ -140,7 +146,7 @@ function DiaryList({ list }: DiaryDataProps) {
         </InfoArea>
         <UserArea>
           <ByUsername>
-            <Profile src={defaultProfile} alt='프로필 이미지' />
+            <Profile src={mainIcon} alt='프로필 이미지' />
             <div className='by'>by</div>
             <div className='userNickname'>{list.userNickname}</div>
           </ByUsername>

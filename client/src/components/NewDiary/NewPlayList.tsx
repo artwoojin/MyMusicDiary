@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { PlaylistData } from "../../util/Type";
-import defaultProfile from "../../util/img/mainIcon.png";
+import mainIcon from "../../util/img/mainIcon.png";
 
 export const PlayListContainer = styled.li`
   display: flex;
@@ -59,7 +59,9 @@ function NewPlayList({ list, newPlayList, setNewPlayList }: PlaylistDataProps) {
     setNewPlayList(newPlayList.filter((value: any) => value.url !== deleteUrl));
   };
 
-  // console.log(list);
+  const replaceImg = (e: any) => {
+    e.target.src = mainIcon;
+  };
 
   return (
     <PlayListContainer>
@@ -67,8 +69,9 @@ function NewPlayList({ list, newPlayList, setNewPlayList }: PlaylistDataProps) {
         <ContentArea>
           <img
             className='thumbnail'
-            src={list.thumbnail ? list.thumbnail : defaultProfile}
+            src={list.thumbnail ? list.thumbnail : mainIcon}
             alt='썸네일'
+            onError={replaceImg}
           />
           <div className='listTitle'>{list.title}</div>
           <button className='delete' onClick={() => deleteList(list.url)}>
