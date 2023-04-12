@@ -7,12 +7,14 @@ import com.seb42.main30.seb42_main_030.diary.dto.DiaryDto;
 import com.seb42.main30.seb42_main_030.diary.entity.Diary;
 import com.seb42.main30.seb42_main_030.playlist.dto.PlaylistResponseDto;
 import com.seb42.main30.seb42_main_030.playlist.entity.Playlist;
+import com.seb42.main30.seb42_main_030.user.entity.User;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Named;
 import org.springframework.data.domain.Page;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Mapper(componentModel = "spring")
@@ -49,25 +51,25 @@ public interface DiaryMapper {
 //    PlaylistDto.Response playlistToPlaylistDto(Playlist playlist);
 
     //    @Mapping(source = "playlists", target = "playlists", qualifiedByName = "playlistToPlaylistDto")
-    @Mapping(source = "user.nickname", target = "userNickname")
-    @Mapping(source = "comments", target = "comments", qualifiedByName = "commentToCommentDto")
+//    @Mapping(source = "user.nickname", target = "userNickname")
+//    @Mapping(source = "comments", target = "comments", qualifiedByName = "commentToCommentDto")
     default DiaryDto.Response diaryToResponse(Diary diary) {
         if (diary == null) {
             return null;
         } else {
             List<Comment> comments = diary.getComments();
-            DiaryDto.Response.ResponseBuilder  diaryDto = DiaryDto.Response.builder();
+            DiaryDto.Response.ResponseBuilder diaryDto = DiaryDto.Response.builder();
             List<Playlist> playlists = diary.getPlaylists();
             diaryDto.diaryId(diary.getDiaryId());
             diaryDto.title(diary.getTitle());
             diaryDto.body(diary.getBody());
             diaryDto.createdAt(diary.getCreatedAt());
             diaryDto.modifiedAt(diary.getModifiedAt());
-            diaryDto.userNickname(diary.getUser().getNickname());
             diaryDto.viewCount(diary.getViewCount());
             diaryDto.likeCount(diary.getLikeCount());
 
-
+            Optional<User> user = Optional.ofNullable(diary.getUser());
+            user.ifPresent(u -> diaryDto.userNickname(u.getNickname()));
 
             diaryDto.playlists(playlistsToPlaylistResponseDto(playlists));
             diaryDto.comments(commentToCommentDto(comments));
@@ -96,7 +98,7 @@ public interface DiaryMapper {
 
 
 //    @Mapping(source = "playlists", target = "playlists", qualifiedByName = "playlistToPlaylistDto")
-    @Mapping(source = "comments", target = "comments", qualifiedByName = "commentToCommentDto")
+//    @Mapping(source = "comments", target = "comments", qualifiedByName = "commentToCommentDto")
     List<DiaryDto.Response> diaryToResponses(Page<Diary> diaries);
 
     @Named("commentToCommentDto")
