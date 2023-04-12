@@ -7,6 +7,7 @@ import com.seb42.main30.seb42_main_030.diary.dto.DiaryDto;
 import com.seb42.main30.seb42_main_030.diary.entity.Diary;
 import com.seb42.main30.seb42_main_030.playlist.dto.PlaylistResponseDto;
 import com.seb42.main30.seb42_main_030.playlist.entity.Playlist;
+import com.seb42.main30.seb42_main_030.user.entity.User;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Named;
@@ -18,13 +19,14 @@ import java.util.stream.Collectors;
 @Mapper(componentModel = "spring")
 public interface DiaryMapper {
 
-    default Diary diaryPostToDiary (DiaryDto.Post post) {
+    default Diary diaryPostToDiary (DiaryDto.Post post, User user) {
         if (post == null) {
             return null;
         } else {
             Diary diary = new Diary();
             diary.setTitle(post.getTitle());
             diary.setBody(post.getBody());
+            diary.setUser(user);
 
             return diary;
         }
@@ -49,8 +51,8 @@ public interface DiaryMapper {
 //    PlaylistDto.Response playlistToPlaylistDto(Playlist playlist);
 
     //    @Mapping(source = "playlists", target = "playlists", qualifiedByName = "playlistToPlaylistDto")
-    @Mapping(source = "user.nickname", target = "userNickname")
-    @Mapping(source = "comments", target = "comments", qualifiedByName = "commentToCommentDto")
+//    @Mapping(source = "user.nickname", target = "userNickname")
+//    @Mapping(source = "comments", target = "comments", qualifiedByName = "commentToCommentDto")
     default DiaryDto.Response diaryToResponse(Diary diary) {
         if (diary == null) {
             return null;
@@ -96,12 +98,12 @@ public interface DiaryMapper {
 
 
 //    @Mapping(source = "playlists", target = "playlists", qualifiedByName = "playlistToPlaylistDto")
-    @Mapping(source = "comments", target = "comments", qualifiedByName = "commentToCommentDto")
-    List<DiaryDto.Response> diaryToResponses(Page<Diary> diaries);
+//    @Mapping(source = "comments", target = "comments", qualifiedByName = "commentToCommentDto")
+    List<DiaryDto.Response> diaryToResponses(List<Diary> diarys);
 
-    @Named("commentToCommentDto")
-    @Mapping(source = "user.nickname", target = "userNickname")
-    @Mapping(source = "diary.diaryId", target = "diaryId")
+//    @Named("commentToCommentDto")
+//    @Mapping(source = "user.nickname", target = "userNickname")
+//    @Mapping(source = "diary.diaryId", target = "diaryId")
     default List<CommentDto.Response> commentToCommentDto(List<Comment> comments){
         return comments
                 .stream()

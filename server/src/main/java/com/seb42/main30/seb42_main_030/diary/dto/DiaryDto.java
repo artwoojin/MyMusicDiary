@@ -14,7 +14,6 @@ public class DiaryDto {
 
     @Getter
     @Setter
-    @NoArgsConstructor
     public static class Post{
 
         @NotBlank(message = "제목을 입력하세요")
@@ -31,7 +30,6 @@ public class DiaryDto {
 
     @Getter
     @Setter
-    @NoArgsConstructor
     public static class Patch {
 
         @NotBlank(message = "제목을 입력하세요")
@@ -69,12 +67,4 @@ public class DiaryDto {
         private List<PlaylistResponseDto> playlists;
 
     }
-
-
-    @Getter
-    @Setter
-    public static class ResponseCheck{
-        private long Id;
-    }
-
 }
