@@ -5,6 +5,7 @@ import com.seb42.main30.seb42_main_030.comment.service.CommentService;
 import com.seb42.main30.seb42_main_030.diary.dto.DiaryDto;
 import com.seb42.main30.seb42_main_030.diary.entity.Diary;
 import com.seb42.main30.seb42_main_030.diary.mapper.DiaryMapper;
+import com.seb42.main30.seb42_main_030.diary.repository.DiaryRepository;
 import com.seb42.main30.seb42_main_030.diary.service.DiaryService;
 import com.seb42.main30.seb42_main_030.exception.BusinessException;
 import lombok.RequiredArgsConstructor;
@@ -30,7 +31,7 @@ public class DiaryController {
     private final DiaryService diaryService;
     private final DiaryMapper diaryMapper;
     private final CommentService commentService;
-//    private final PlaylistService playlistService;
+
 
     // 게시물 등록
     @PostMapping

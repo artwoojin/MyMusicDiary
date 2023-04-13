@@ -13,6 +13,7 @@ import com.seb42.main30.seb42_main_030.user.repository.UserRepository;
 import com.seb42.main30.seb42_main_030.user.service.UserService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -102,7 +103,7 @@ public class DiaryService {
             playlist.setTitle(patch.getPlaylists().get(i).getTitle());
             playlist.setThumbnail(patch.getPlaylists().get(i).getThumbnail());
             playlist.setChannelId(patch.getPlaylists().get(i).getChannelId());
-            playlist.setDiary(diary);
+            playlist.setDiary(verifyDiary);
             playlistList.add(playlist);
             playlistRepository.save(playlist);
         }
