@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useState, useRef } from "react";
 import { UserData } from "../../util/Type";
 import { TOKEN_API } from "../../util/API";
-import mainIcon from "../../util/img/defaultProfile.png";
+import defaultProfile from "../../util/img/defaultProfile.png";
 
 const MyInfoContainer = styled.div`
   display: flex;
@@ -73,8 +73,8 @@ const ImgDeleteBtn = styled.button`
 const NicknameContainer = styled.div`
   margin-top: 20px;
   border-bottom: 1px solid ${(props) => props.theme.color.borderLine};
-  font-size: 15px;
   padding: 0 5px 0 5px;
+  font-size: ${(props) => props.theme.font.diaryContentSize};
 
   > .nicknameTitle {
     display: flex;
@@ -154,7 +154,7 @@ const EditNicknameBtn = styled.button`
 
 const PasswordContainer = styled.div`
   border-bottom: 1px solid ${(props) => props.theme.color.borderLine};
-  font-size: 15px;
+  /* font-size: ${(props) => props.theme.font.diaryContentSize}; */
   padding: 0 5px 0 5px;
 
   > .passwordTitle {
@@ -394,7 +394,7 @@ function MyInfo({ list, getUserData }: UserDataProps) {
   // 기본 이미지로 patch 요청
   const deleteImage = async () => {
     const newImg = {
-      imageUrl: mainIcon,
+      imageUrl: defaultProfile,
       nickname: list.nickname,
       password: list.password,
     };
@@ -461,7 +461,7 @@ function MyInfo({ list, getUserData }: UserDataProps) {
   };
 
   const replaceImg = (e: any) => {
-    e.target.src = mainIcon;
+    e.target.src = defaultProfile;
   };
 
   return (
@@ -469,7 +469,7 @@ function MyInfo({ list, getUserData }: UserDataProps) {
       <MyInfoContainer>
         <ProfileImgWrapper>
           <ProfileImg
-            src={image ? image : mainIcon}
+            src={image ? image : defaultProfile}
             alt='프로필 이미지'
             onError={replaceImg}
             onClick={clickProfile}

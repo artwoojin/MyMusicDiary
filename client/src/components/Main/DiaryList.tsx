@@ -8,7 +8,7 @@ import mainIcon from "../../util/img/mainIcon.png";
 export const DiaryListContainer = styled.li`
   box-shadow: rgba(0, 0, 0, 0.04) 0px 4px 16px 0px;
   width: 310px;
-  height: 339px;
+  height: 330px;
   list-style: none;
   border-radius: 4px;
   background-color: ${(props) => props.theme.color.inputBackground};
@@ -73,7 +73,7 @@ export const UserArea = styled.div`
   padding: 8px 15px 8px 15px;
   border-top: 1px solid ${(props) => props.theme.color.borderLine};
   /* 태그 미구현으로 인한 임시로 위치 내림 */
-  margin-top: 30px;
+  margin-top: 22px;
 `;
 
 export const ByUsername = styled.div`

@@ -100,7 +100,7 @@ export const InfoArea = styled.div`
 export const UserInfo = styled.div`
   display: flex;
   align-items: center;
-  height: 35px;
+  height: 30px;
   color: ${(props) => props.theme.color.mainText};
 `;
 
@@ -117,6 +117,73 @@ export const User = styled.div`
     }
   }
 `;
+
+//-----------------------------------------------------------------
+
+export const TagArea = styled.div`
+  padding: 30px 5px 30px 5px;
+  border-top: 1px solid ${(props) => props.theme.color.borderLine};
+
+  > .tagTitle {
+    font-size: ${(props) => props.theme.font.diarySubTitleSize}px;
+    font-weight: ${(props) => props.theme.font.titleWeight};
+    margin-bottom: 20px;
+    color: ${(props) => props.theme.color.mainText};
+  }
+`;
+
+export const TagDropdown = styled.div`
+  display: flex;
+  align-items: center;
+  width: 100%;
+  min-height: 45px;
+  padding: 0 5px 0 5px;
+  border: 1px solid ${(props) => props.theme.color.borderLine};
+  border-radius: 4px;
+  background-color: ${(props) => props.theme.color.inputBackground};
+
+  > .tagDropDown {
+    font-size: 13px;
+    height: 40px;
+    border-top-left-radius: 4px;
+    border-bottom-left-radius: 4px;
+    margin-right: 12px;
+    border: none;
+    color: ${(props) => props.theme.color.mainText};
+    background-color: transparent;
+
+    &:focus {
+      outline: none;
+    }
+  }
+`;
+
+export const Tag = styled.ul`
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  font-size: 13px;
+  gap: 5px;
+  font-weight: ${(props) => props.theme.font.contentWeight};
+  color: ${(props) => props.theme.color.mainText};
+
+  > li {
+    display: flex;
+    align-items: center;
+    height: 30px;
+    padding: 4px 10px 4px 10px;
+    border: 1px solid ${(props) => props.theme.color.borderLine};
+    border-radius: 50px;
+
+    > .tagcloseBtn {
+      margin-bottom: 1px;
+      margin-left: 5px;
+      cursor: pointer;
+    }
+  }
+`;
+
+//-----------------------------------------------------------------
 
 export const AlbumInfoArea = styled.div`
   padding: 30px 5px 80px 5px;
@@ -188,6 +255,7 @@ export const UrlInput = styled.div`
     font-size: 14px;
     color: ${(props) => props.theme.color.mainText};
     width: 1300px;
+    height: 45px;
     resize: none;
     border-radius: 4px;
     padding: 10px 40px 10px 8px;
@@ -218,6 +286,7 @@ export const UrlInput = styled.div`
 
 function NewMain() {
   const [newTitle, setNewTitle] = useState<string>("");
+  const [newTag, setNewTag] = useState<any>([]);
   const [newBody, setNewBody] = useState<string>("");
   const [newPlayList, setNewPlayList] = useState<PlaylistData[]>([]);
   const [newUrl, setNewUrl] = useState<string>("");
@@ -231,10 +300,12 @@ function NewMain() {
     if (newTitle.length <= 100 && newTitle.length !== 0 && newPlayList.length !== 0) {
       const newDiary = {
         title: newTitle,
+        // tags: newTag,
         body: newBody,
         playlists: newPlayList,
       };
       await TOKEN_API.post(`/diary`, newDiary);
+      // await axios.post(`http://localhost:3001/diary`, newDiary);
       navigate(`/`);
     } else if (newTitle.length === 0 && newTitle.length === 0) {
       toast.error("제목을 입력해 주세요.");
@@ -330,6 +401,26 @@ function NewMain() {
     e.target.src = mainIcon;
   };
 
+  // 드롭다운 선택 시 태그 추가하는 이벤트 핸들러
+  const addCategory = (value: string) => {
+    if (value !== "") {
+      if (newTag.length <= 3 && !newTag.includes(value)) {
+        setNewTag([...newTag, value]);
+        console.log(newTag);
+      } else if (newTag.length === 4) {
+        toast.error("태그는 4개까지만 추가할 수 있습니다.");
+      } else if (newTag.includes(value)) {
+        toast.error("이미 추가한 태그입니다.");
+      }
+    }
+  };
+
+  // 태그 삭제 이벤트 핸들러
+  const removeTags = (deleteIndex: any) => {
+    setNewTag(newTag.filter((value: any) => value !== newTag[deleteIndex]));
+    console.log(newTag);
+  };
+
   return (
     <MainContainer>
       <MainWrapper>
@@ -363,6 +454,32 @@ function NewMain() {
             </UserInfo>
           </InfoArea>
         </AlbumCoverArea>
+        <TagArea>
+          <div className='tagTitle'>다이어리 태그</div>
+          <TagDropdown>
+            <select className='tagDropDown' onChange={(e) => addCategory(e.target.value)}>
+              <option value=''>태그</option>
+              <option value='#신나는'>신나는</option>
+              <option value='#감성적인'>감성적인</option>
+              <option value='#잔잔한'>잔잔한</option>
+              <option value='#애절한'>애절한</option>
+              <option value='#그루브한'>그루브한</option>
+              <option value='#몽환적인'>몽환적인</option>
+              <option value='#어쿠스틱한'>어쿠스틱한</option>
+              <option value='#청량한'>청량한</option>
+            </select>
+            <Tag>
+              {newTag.map((value: any, index: any) => (
+                <li key={index}>
+                  <div className='tagTitle'>{value}</div>
+                  <div className='tagcloseBtn' onClick={() => removeTags(index)}>
+                    X
+                  </div>
+                </li>
+              ))}
+            </Tag>
+          </TagDropdown>
+        </TagArea>
         <AlbumInfoArea>
           <div className='playTitle'>다이어리 소개</div>
           <ReactQuill

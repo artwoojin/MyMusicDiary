@@ -1,3 +1,17 @@
 {
-  "likediary": []
+  "diary": [
+    {
+      "title": "제목",
+      "tags": ["#신나는", "#감성적인", "#어쿠스틱한", "#청량한"],
+      "body": "<p>본문</p>",
+      "playlists": [
+        {
+          "channelId": "UCJEER74X9kBenMT_x9iK9Mw",
+          "thumbnail": "https://i.ytimg.com/vi/XCikSpjR1ic/maxresdefault.jpg",
+          "title": "FIFTY FIFTY (피프티피프티) - ‘Higher’ -  Official MV",
+          "url": "https://www.youtube.com/watch?v=XCikSpjR1ic"
+        }
+      ]
+    }
+  ]
 }

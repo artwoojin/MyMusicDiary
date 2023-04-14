@@ -139,7 +139,7 @@ const Dropdown = styled.ul`
   }
 
   // 722px 이상에서 드롭다운의 새 다이어리 작성 버튼 숨김 적용
-  > li:nth-child(2) {
+  > a:nth-child(2) {
     @media screen and (min-width: 722px) {
       display: none;
     }

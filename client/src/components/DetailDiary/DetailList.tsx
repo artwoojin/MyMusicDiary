@@ -130,7 +130,7 @@ const UserInfo = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  height: 35px;
+  height: 30px;
   color: ${(props) => props.theme.color.mainText};
 `;
 

@@ -14,6 +14,7 @@ import mainIcon from "../../util/img/mainIcon.png";
 
 function EditList({ list }: DiaryDataProps) {
   const [editTitle, setEditTitle] = useState<string>(list.title);
+  const [editTag, setEditTag] = useState<any>([]);
   const [editBody, setEditBody] = useState<string>(list.body);
   const [editPlayList, setEditPlayList] = useState<PlaylistData[]>(list.playlists);
   const [editUrl, setEditUrl] = useState<string>("");
@@ -51,7 +52,7 @@ function EditList({ list }: DiaryDataProps) {
   };
 
   // 전체 url을 입력받은 후 id만 필터링
-  const getVideoId = (url: string) => {
+  const filteredUrlId = (url: string) => {
     if (url.indexOf("/watch") > -1) {
       const arr = url.replaceAll(/=|&/g, "?").split("?");
       return arr[arr.indexOf("v") + 1];
@@ -59,7 +60,7 @@ function EditList({ list }: DiaryDataProps) {
       const arr = url.replaceAll(/=|&|\//g, "?").split("?");
       return arr[arr.indexOf("youtu.be") + 1];
     } else {
-      return "none";
+      return;
     }
   };
 
@@ -77,24 +78,72 @@ function EditList({ list }: DiaryDataProps) {
 
   // 추가 버튼 클릭 시 플레이리스트 담는 이벤트 핸들러
   const addPlayList = () => {
-    const musicInfo: PlaylistData = {};
-    const urlId = getVideoId(editUrl);
+    // 플레이리스트 등록 개수 제한(리스트가 20개 이상일 경우 alert 발생)
+    if (editPlayList.length >= 20) {
+      return toast.error("플레이리스트는 최대 20개까지만 등록 가능합니다.");
+    }
 
+    const musicInfo: PlaylistData = {};
+    let urlId = filteredUrlId(editUrl);
+
+    // 새로 추가할 리스트의 url과 newPlayList에 담겨있는 리스트들의 url 중 동일한 url이 있을 경우
+    // urlId를 "sameUrl"로 바꾸고 플레이리스트 추가 제한
+    editPlayList.map((value) => {
+      if (value.url === editUrl) {
+        urlId = "sameUrl";
+      }
+    });
+    if (urlId === "sameUrl") {
+      return toast.error("이미 추가한 플레이리스트 입니다.");
+    }
+
+    let check = false;
     getYoutubeData(urlId)
       .then((res) => {
-        musicInfo.channelId = res.channelId;
-        musicInfo.thumbnail = res.thumbnails.default.url;
-        musicInfo.title = res.title;
-        musicInfo.url = editUrl;
+        if (res) {
+          check = true;
+          musicInfo.channelId = res.channelId;
+          if (res.thumbnails.maxres) {
+            musicInfo.thumbnail = res.thumbnails.maxres.url;
+          } else {
+            musicInfo.thumbnail = res.thumbnails.medium.url;
+          }
+          musicInfo.title = res.title;
+          musicInfo.url = editUrl;
+        } else {
+          return toast.error("url을 다시 확인해 주세요.");
+        }
       })
       .then(() => {
-        setEditPlayList((value) => [...value, musicInfo]);
-        setEditUrl("");
+        if (check) {
+          setEditPlayList((value) => [...value, musicInfo]);
+          setEditUrl("");
+        }
       });
   };
 
   const replaceImg = (e: any) => {
     e.target.src = mainIcon;
+  };
+
+  // 드롭다운 선택 시 태그 추가하는 이벤트 핸들러
+  const addCategory = (value: string) => {
+    if (value !== "") {
+      if (editTag.length <= 3 && !editTag.includes(value)) {
+        setEditTag([...editTag, value]);
+        console.log(editTag);
+      } else if (editTag.length === 4) {
+        toast.error("태그는 4개까지만 추가할 수 있습니다.");
+      } else if (editTag.includes(value)) {
+        toast.error("이미 추가한 태그입니다.");
+      }
+    }
+  };
+
+  // 태그 삭제 이벤트 핸들러
+  const removeTags = (deleteIndex: any) => {
+    setEditTag(editTag.filter((value: any) => value !== editTag[deleteIndex]));
+    console.log(editTag);
   };
 
   return (
@@ -131,6 +180,34 @@ function EditList({ list }: DiaryDataProps) {
             </NewMain.UserInfo>
           </NewMain.InfoArea>
         </NewMain.AlbumCoverArea>
+
+        <NewMain.TagArea>
+          <div className='tagTitle'>다이어리 태그</div>
+          <NewMain.TagDropdown>
+            <select className='tagDropDown' onChange={(e) => addCategory(e.target.value)}>
+              <option value=''>태그</option>
+              <option value='#신나는'>신나는</option>
+              <option value='#감성적인'>감성적인</option>
+              <option value='#잔잔한'>잔잔한</option>
+              <option value='#애절한'>애절한</option>
+              <option value='#그루브한'>그루브한</option>
+              <option value='#몽환적인'>몽환적인</option>
+              <option value='#어쿠스틱한'>어쿠스틱한</option>
+              <option value='#청량한'>청량한</option>
+            </select>
+            <NewMain.Tag>
+              {editTag.map((value: any, index: any) => (
+                <li key={index}>
+                  <div className='tagTitle'>{value}</div>
+                  <div className='tagcloseBtn' onClick={() => removeTags(index)}>
+                    X
+                  </div>
+                </li>
+              ))}
+            </NewMain.Tag>
+          </NewMain.TagDropdown>
+        </NewMain.TagArea>
+
         <NewMain.AlbumInfoArea>
           <div className='playTitle'>다이어리 소개</div>
           <ReactQuill

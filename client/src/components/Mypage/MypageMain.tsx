@@ -15,15 +15,16 @@ import { myContext } from "../../theme";
 const ListTab = styled.ul`
   display: flex;
   justify-content: center;
+  font-size: 16px;
   margin: 50px 0 50px 0;
   padding: 0 15px 0 15px;
   gap: 10px;
+  word-break: keep-all;
 
   .tab {
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 16px;
     width: 200px;
     height: 40px;
     text-align: center;
