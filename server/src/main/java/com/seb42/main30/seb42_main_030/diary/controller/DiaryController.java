@@ -6,7 +6,7 @@ import com.seb42.main30.seb42_main_030.diary.dto.DiaryDto;
 import com.seb42.main30.seb42_main_030.diary.entity.Diary;
 import com.seb42.main30.seb42_main_030.diary.mapper.DiaryMapper;
 import com.seb42.main30.seb42_main_030.diary.service.DiaryService;
-import exception.BusinessException;
+import com.seb42.main30.seb42_main_030.exception.BusinessException;
 import com.seb42.main30.seb42_main_030.like.service.LikeService;
 import com.seb42.main30.seb42_main_030.response.MultiResponseDto;
 import com.seb42.main30.seb42_main_030.response.PageInfo;

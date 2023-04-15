@@ -2,8 +2,8 @@ package com.seb42.main30.seb42_main_030.like.service;
 
 import com.seb42.main30.seb42_main_030.diary.entity.Diary;
 import com.seb42.main30.seb42_main_030.diary.service.DiaryService;
-import exception.BusinessException;
-import exception.ExceptionCode;
+import com.seb42.main30.seb42_main_030.exception.BusinessException;
+import com.seb42.main30.seb42_main_030.exception.ExceptionCode;
 import com.seb42.main30.seb42_main_030.like.entity.Like;
 import com.seb42.main30.seb42_main_030.like.repository.LikeRepository;
 import lombok.RequiredArgsConstructor;

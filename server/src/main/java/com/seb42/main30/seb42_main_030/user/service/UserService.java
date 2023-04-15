@@ -1,8 +1,8 @@
 package com.seb42.main30.seb42_main_030.user.service;
 
 import com.seb42.main30.seb42_main_030.auth.utils.CustomAuthorityUtils;
-import exception.BusinessException;
-import exception.ExceptionCode;
+import com.seb42.main30.seb42_main_030.exception.BusinessException;
+import com.seb42.main30.seb42_main_030.exception.ExceptionCode;
 import com.seb42.main30.seb42_main_030.user.entity.User;
 import com.seb42.main30.seb42_main_030.user.repository.UserRepository;
 import lombok.AllArgsConstructor;
