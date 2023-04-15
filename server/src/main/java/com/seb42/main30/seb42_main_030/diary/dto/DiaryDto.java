@@ -26,6 +26,7 @@ public class DiaryDto {
         private List<PlaylistDto> playlists;
 
         private int likeCount;
+        private boolean likeCheck;
 
     }
 
@@ -43,6 +44,7 @@ public class DiaryDto {
         private List<PlaylistDto> playlists;
 
         private int likeCount;
+        private boolean likeCheck;
 
     }
 
@@ -57,6 +59,7 @@ public class DiaryDto {
         private String body;
         private int viewCount;
         private int likeCount;
+        private boolean likeCheck;
         private LocalDateTime createdAt;
         private LocalDateTime modifiedAt;
 
@@ -75,6 +78,14 @@ public class DiaryDto {
     @Setter
     public static class ResponseCheck{
         private long Id;
+    }
+
+    @Getter
+    @Setter
+    @NoArgsConstructor
+    public static class Short {
+        private long diaryId;
+        private String title;
     }
 
 }

@@ -1,6 +1,6 @@
 package com.seb42.main30.seb42_main_030.response;
 
-import com.seb42.main30.seb42_main_030.exception.ExceptionCode;
+import exception.ExceptionCode;
 import lombok.Getter;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.BindingResult;

@@ -5,7 +5,7 @@ import com.seb42.main30.seb42_main_030.comment.dto.CommentDto;
 import com.seb42.main30.seb42_main_030.comment.entity.Comment;
 import com.seb42.main30.seb42_main_030.comment.mapper.CommentMapper;
 import com.seb42.main30.seb42_main_030.comment.service.CommentService;
-import com.seb42.main30.seb42_main_030.exception.BusinessException;
+import exception.BusinessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

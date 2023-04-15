@@ -1,4 +1,4 @@
-package com.seb42.main30.seb42_main_030.exception;
+package exception;
 
 import lombok.Getter;
 

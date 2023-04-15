@@ -1,6 +1,7 @@
 package com.seb42.main30.seb42_main_030.user.dto;
 
 
+import com.seb42.main30.seb42_main_030.diary.dto.DiaryDto;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -8,6 +9,7 @@ import lombok.Setter;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+import java.util.List;
 
 public class UserDto {
 
@@ -47,7 +49,8 @@ public class UserDto {
     }
 
     @Getter
-    @AllArgsConstructor
+    @Setter
+    //@AllArgsConstructor
     public static class Response {
 
         private long userId;
@@ -56,8 +59,23 @@ public class UserDto {
         private String email;
         private String password;
         private String imageUrl;
+
     }
 
+    @Getter
+    @Setter
+    public static class MyPage {
+
+        private long userId;
+
+        private String nickname;
+        private String email;
+        private String password;
+        private String imageUrl;
+
+        // 좋아요한 다이어리
+        private List<DiaryDto.Response> likeDiaries;
+    }
 
 
 }

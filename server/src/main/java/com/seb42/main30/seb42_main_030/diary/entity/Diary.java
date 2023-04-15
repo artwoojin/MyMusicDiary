@@ -3,11 +3,13 @@ package com.seb42.main30.seb42_main_030.diary.entity;
 
 import com.seb42.main30.seb42_main_030.audit.Auditable;
 import com.seb42.main30.seb42_main_030.comment.entity.Comment;
+import com.seb42.main30.seb42_main_030.like.entity.Like;
 import com.seb42.main30.seb42_main_030.playlist.entity.Playlist;
 import com.seb42.main30.seb42_main_030.user.entity.User;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.mapping.Array;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -37,6 +39,7 @@ public class Diary extends Auditable {
     private int viewCount;
 
     private int likeCount;
+    private boolean likeCheck;
 
 //    @Column(name = "createdAt", insertable = false, updatable = false)
 //    private LocalDateTime createdAt;
@@ -56,5 +59,9 @@ public class Diary extends Auditable {
 
     @OneToMany(mappedBy = "diary", cascade = CascadeType.REMOVE)
     private List<Playlist> playlists = new ArrayList<>();
+
+    // Like 1:N
+    @OneToMany(mappedBy = "diary", cascade = CascadeType.ALL)
+    private List<Like> likeDiariesList = new ArrayList<>();
 
 }

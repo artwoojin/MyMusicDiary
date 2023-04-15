@@ -3,8 +3,8 @@ package com.seb42.main30.seb42_main_030.comment.service;
 
 import com.seb42.main30.seb42_main_030.comment.entity.Comment;
 import com.seb42.main30.seb42_main_030.comment.repository.CommentRepository;
-import com.seb42.main30.seb42_main_030.exception.BusinessException;
-import com.seb42.main30.seb42_main_030.exception.ExceptionCode;
+import exception.BusinessException;
+import exception.ExceptionCode;
 import com.seb42.main30.seb42_main_030.user.entity.User;
 import com.seb42.main30.seb42_main_030.user.repository.UserRepository;
 import com.seb42.main30.seb42_main_030.user.service.UserService;
@@ -36,7 +36,7 @@ public class CommentService {
         return commentRepository.save(comment);
     }
     //    read
-    private User getUserFromId(long userId) {return userRepository.findById(userId).get(); }
+    private User getUserFromId(long userId) {return userRepository.findUserByUserId(userId); }
 
     public Comment readComment(long commentId) { return verifyComment(commentId); }
 

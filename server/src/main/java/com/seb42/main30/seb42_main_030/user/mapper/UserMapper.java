@@ -17,4 +17,6 @@ public interface UserMapper {
     UserDto.Response userToUserResponse(User user);
 
     List<UserDto.Response> usersToUserResponses(List<User> users);
+
+    UserDto.MyPage userToMyPage(User findUser);
 }

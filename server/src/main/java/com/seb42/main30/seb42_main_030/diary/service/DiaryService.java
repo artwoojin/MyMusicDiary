@@ -4,8 +4,8 @@ package com.seb42.main30.seb42_main_030.diary.service;
 import com.seb42.main30.seb42_main_030.diary.dto.DiaryDto;
 import com.seb42.main30.seb42_main_030.diary.entity.Diary;
 import com.seb42.main30.seb42_main_030.diary.repository.DiaryRepository;
-import com.seb42.main30.seb42_main_030.exception.BusinessException;
-import com.seb42.main30.seb42_main_030.exception.ExceptionCode;
+import exception.BusinessException;
+import exception.ExceptionCode;
 import com.seb42.main30.seb42_main_030.playlist.entity.Playlist;
 import com.seb42.main30.seb42_main_030.playlist.repository.PlaylistRepository;
 import com.seb42.main30.seb42_main_030.user.entity.User;
@@ -13,7 +13,6 @@ import com.seb42.main30.seb42_main_030.user.repository.UserRepository;
 import com.seb42.main30.seb42_main_030.user.service.UserService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -124,7 +123,7 @@ public class DiaryService {
 
 
 //    게시글 존재 확인
-    private Diary existDiary(long diaryId){
+    public Diary existDiary(long diaryId){
         Optional<Diary> diary = diaryRepository.findById(diaryId);
         return diary.orElseThrow(() -> new BusinessException(ExceptionCode.DIARY_NOT_FOUND));
     }

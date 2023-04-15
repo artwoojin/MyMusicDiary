@@ -67,7 +67,7 @@ public interface DiaryMapper {
             diaryDto.modifiedAt(diary.getModifiedAt());
             diaryDto.viewCount(diary.getViewCount());
             diaryDto.likeCount(diary.getLikeCount());
-
+            //diaryDto.likeCheck(diary.getLikeCheck());
             Optional<User> user = Optional.ofNullable(diary.getUser());
             user.ifPresent(u -> diaryDto.userNickname(u.getNickname()));
 
@@ -119,4 +119,5 @@ public interface DiaryMapper {
                 .collect(Collectors.toList());
     }
 
+    List<DiaryDto.Response> diariesToDtos(List<Diary> likeDiaryList);
 }
