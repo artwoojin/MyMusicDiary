@@ -9,6 +9,7 @@ import com.seb42.main30.seb42_main_030.like.repository.LikeRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -36,6 +37,8 @@ public class LikeService {
         verifyCanLike(userId, findDiary);
 
         Like like = new Like(findDiary, userId);
+        findDiary.setLikeCount(findDiary.getLikeCount() + 1);
+
         likeRepository.save(like);
     }
 
@@ -51,6 +54,8 @@ public class LikeService {
     public void deleteLike(long userId, long diaryId) {
         Diary findDiary = diaryService.existDiary(diaryId);
         Like like = findVerifyCanLike(userId, findDiary);
+        findDiary.setLikeCount(findDiary.getLikeCount() - 1);
+
         likeRepository.delete(like);
     }
 
