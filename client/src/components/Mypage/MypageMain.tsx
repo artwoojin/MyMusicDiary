@@ -79,7 +79,7 @@ const CommentInfo = styled.div`
 `;
 
 function MypageMain() {
-  const [userData, setUserData] = useState<UserData[]>([]);
+  const [myUserData, setMyUserData] = useState<UserData>();
   const [myDiaryData, setMyDiaryData] = useState<DiaryData[]>([]);
   const [myLikeDiaryData, setLikeDiaryData] = useState<DiaryData[]>([]);
   const [myCommentData, setMyCommentData] = useState<CommentData[]>([]);
@@ -100,7 +100,7 @@ function MypageMain() {
   const getUserData = async () => {
     try {
       const res = await BASE_API.get(`/users/${currentUser.userId}`);
-      setUserData(res.data);
+      setMyUserData(res.data);
     } catch (err) {
       console.error(err);
     }
@@ -109,11 +109,13 @@ function MypageMain() {
     getUserData();
   }, []);
 
-  // Tab 2(MyDiary) : 나의 다이어리 데이터 get 요청
+  // Tab 2(MyDiary) : 내가 작성한 다이어리만 불러오는 get 요청
   const getMyDiaryData = async () => {
     try {
       const res = await BASE_API.get(`/diary`);
-      setMyDiaryData(res.data);
+      setMyDiaryData(
+        res.data.filter((value: DiaryData) => value.userNickname === currentUser.nickname)
+      );
     } catch (err) {
       console.error(err);
     }
@@ -123,23 +125,25 @@ function MypageMain() {
   }, []);
 
   // Tab 3(MyLikeDiary) : 내가 좋아요 한 다이어리 데이터 get 요청
-  // const getLikeData = async () => {
-  //   try {
-  //     const res = await axios.get(`http://localhost:3001/likediary`);
-  //     setLikeDiaryData(res.data);
-  //   } catch (err) {
-  //     console.error(err);
-  //   }
-  // };
-  // useEffect(() => {
-  //   getLikeData();
-  // }, []);
+  const getLikeData = async () => {
+    try {
+      const res = await BASE_API.get(`/users/${currentUser.userId}`);
+      setLikeDiaryData(res.data.likeDiaries);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+  useEffect(() => {
+    getLikeData();
+  }, []);
 
-  // Tab 4(MyComment) : 내가 작성한 댓글 데이터 get 요청
+  // Tab 4(MyComment) : 내가 작성한 댓글만 불러오는 get 요청
   const getMyCommentData = async () => {
     try {
       const res = await BASE_API.get(`/comment`);
-      setMyCommentData(res.data);
+      setMyCommentData(
+        res.data.filter((value: CommentData) => value.userNickname === currentUser.nickname)
+      );
     } catch (err) {
       console.error(err);
     }
@@ -184,22 +188,17 @@ function MypageMain() {
       <DiaryMain.DiaryMainContainer>
         {currentTab === 0 ? (
           <MypageWrapper>
-            {Object.values(userData).map((value: any) => {
-              return <MyInfo list={value} key={value.userId} getUserData={getUserData} />;
-            })}
+            {myUserData && <MyInfo list={myUserData} getUserData={getUserData} />};
           </MypageWrapper>
         ) : currentTab === 1 ? (
           <DiaryMain.DiaryMainWrapper>
-            {myDiaryData
-              .filter((value) => value.userNickname === currentUser.nickname)
-              .slice(offset, offset + LIMIT_COUNT)
-              .map((value) => {
-                return <MyDiary list={value} key={value.diaryId} />;
-              })}
+            {myDiaryData.slice(offset, offset + LIMIT_COUNT).map((value) => {
+              return <MyDiary list={value} key={value.diaryId} />;
+            })}
           </DiaryMain.DiaryMainWrapper>
         ) : currentTab === 2 ? (
           <DiaryMain.DiaryMainWrapper>
-            {myLikeDiaryData.slice(offset, offset + LIMIT_COUNT).map((value) => {
+            {myLikeDiaryData?.slice(offset, offset + LIMIT_COUNT).map((value) => {
               return <MyLikeDiary list={value} key={value.diaryId} />;
             })}
           </DiaryMain.DiaryMainWrapper>
@@ -211,12 +210,9 @@ function MypageMain() {
                 <div className='countText'>개의 작성한 댓글이 있습니다.</div>
               </CommentInfo>
             </CommentCountWrapper>
-            {myCommentData
-              .filter((value) => value.userNickname === currentUser.nickname)
-              .slice(offset, offset + LIMIT_COUNT)
-              .map((value) => {
-                return <MyComment list={value} key={value.commentId} />;
-              })}
+            {myCommentData.slice(offset, offset + LIMIT_COUNT).map((value) => {
+              return <MyComment list={value} key={value.commentId} />;
+            })}
           </MypageWrapper>
         )}
       </DiaryMain.DiaryMainContainer>

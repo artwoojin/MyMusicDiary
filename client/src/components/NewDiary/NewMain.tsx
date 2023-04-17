@@ -406,7 +406,7 @@ function NewMain() {
     if (value !== "") {
       if (newTag.length <= 3 && !newTag.includes(value)) {
         setNewTag([...newTag, value]);
-        console.log(newTag);
+        // console.log(newTag);
       } else if (newTag.length === 4) {
         toast.error("태그는 4개까지만 추가할 수 있습니다.");
       } else if (newTag.includes(value)) {
@@ -418,7 +418,7 @@ function NewMain() {
   // 태그 삭제 이벤트 핸들러
   const removeTags = (deleteIndex: any) => {
     setNewTag(newTag.filter((value: any) => value !== newTag[deleteIndex]));
-    console.log(newTag);
+    // console.log(newTag);
   };
 
   return (

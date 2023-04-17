@@ -1,8 +1,9 @@
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
-import { useState, useRef } from "react";
+import { useState, useRef, useContext } from "react";
 import { UserData } from "../../util/Type";
 import { TOKEN_API } from "../../util/API";
+import { myContext } from "../../theme";
 import defaultProfile from "../../util/img/defaultProfile.png";
 
 const MyInfoContainer = styled.div`
@@ -369,6 +370,7 @@ function MyInfo({ list, getUserData }: UserDataProps) {
 
   const fileInput = useRef<HTMLInputElement>(null);
   const navigate = useNavigate();
+  const { currentUser }: any = useContext(myContext);
 
   // 프로필 이미지 클릭 시 input으로 연결되는 이벤트
   const clickProfile = () => {
@@ -411,6 +413,8 @@ function MyInfo({ list, getUserData }: UserDataProps) {
     };
     const res = await TOKEN_API.patch(`/users/${list.userId}`, newNickname);
     getUserData(res.data);
+    currentUser.nickname = nickname;
+    localStorage.setItem("CURRENT_USER", JSON.stringify(currentUser));
     setEditNickname(false);
   };
 
@@ -463,6 +467,8 @@ function MyInfo({ list, getUserData }: UserDataProps) {
   const replaceImg = (e: any) => {
     e.target.src = defaultProfile;
   };
+
+  // console.log(list.nickname);
 
   return (
     <>

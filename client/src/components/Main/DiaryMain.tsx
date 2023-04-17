@@ -78,7 +78,7 @@ export const DiaryMainWrapper = styled.ul`
 function DiaryMain() {
   const [diaryData, setDiaryData] = useState<DiaryData[]>([]); // 전체 diary 데이터
   const [currentTab, setCurrentTab] = useState<number>(0); // 탭 이동 상태
-  const [page, setPage] = useState(
+  const [page, setPage] = useState<number>(
     () => JSON.parse(window.localStorage.getItem("currentPage")!) || 1 // 현재 페이지 번호 (기본값: 1페이지부터 노출)
   );
 

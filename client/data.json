@@ -4,6 +4,7 @@
       "title": "제목",
       "tags": ["#신나는", "#감성적인", "#어쿠스틱한", "#청량한"],
       "body": "<p>본문</p>",
+      "likeCount": [],
       "playlists": [
         {
           "channelId": "UCJEER74X9kBenMT_x9iK9Mw",

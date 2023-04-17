@@ -15,6 +15,7 @@ import DOMPurify from "dompurify";
 import { myContext } from "../../theme";
 import { toast } from "react-toastify";
 import mainIcon from "../../util/img/mainIcon.png";
+import axios from "axios";
 
 const TitleArea = styled.div`
   height: 75px;
@@ -453,6 +454,8 @@ const RuleModalView = styled.div`
 interface DiaryDataProps {
   list: DiaryData;
   getDetailData: React.Dispatch<React.SetStateAction<object>>;
+  // likeData: any;
+  // getLikeData: any;
 }
 
 function DetailList({ list, getDetailData }: DiaryDataProps) {
@@ -486,22 +489,20 @@ function DetailList({ list, getDetailData }: DiaryDataProps) {
     return () => document.removeEventListener("click", handleOutsideClose);
   }, [isOpen]);
 
-  // 좋아요 patch 요청
+  // 좋아요 post/delete 요청
   const plusLikeCount = async () => {
-    if (checkLike === false) {
-      // const like = {
-      //   likeCount: list.likeCount + 1,
-      // };
-      // const res = await TOKEN_API.patch(`/diary/${diaryId}`, like);
-      // getDetailData(res.data);
-      setCheckLike(true);
-    } else {
-      // const like = {
-      //   likeCount: list.likeCount - 1,
-      // };
-      // const res = await TOKEN_API.patch(`/diary/${diaryId}`, like);
-      // getDetailData(res.data);
-      setCheckLike(false);
+    try {
+      const newLike = {
+        userId: currentUser.userId,
+        diaryId: diaryId,
+      };
+      const res = await TOKEN_API.post(`/likes/${diaryId}`, newLike);
+      getDetailData(res.data);
+    } catch (err: any) {
+      if (err.response?.status === 500) {
+        const res = await TOKEN_API.delete(`/likes/${diaryId}`);
+        getDetailData(res.data);
+      }
     }
   };
 

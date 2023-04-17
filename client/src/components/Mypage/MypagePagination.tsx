@@ -23,12 +23,14 @@ function MypagePagination({
 }: PaginationProps) {
   const [blockNum, setBlockNum] = useState<number>(0); // 페이지 당 표시할 페이지네이션 수
 
-  const PAGE_COUNT: number = 1; // 페이지 당 표시할 페이지네이션 수 (기본값 : 10개의 페이지네이션 노출)
+  const PAGE_COUNT: number = 10; // 페이지 당 표시할 페이지네이션 수 (기본값 : 10개의 페이지네이션 노출)
   const blockArea: number = blockNum * PAGE_COUNT; // 각 페이지에서 첫 페이지네이션의 위치 계산
 
   const numMyPages: number = Math.ceil(myPageLength / LIMIT_COUNT); // 나의 다이어리 페이지 개수
   const numMyLikePages: number = Math.ceil(myLikePageLength / LIMIT_COUNT); // 좋아한 다이러리 페이지 개수
   const numCommentPages: number = Math.ceil(myCommentPageLength / LIMIT_COUNT); // 내가 작성한 댓글 페이지 개수
+
+  // console.log(myLikePageLength);
 
   // 새로운 배열 생성 함수
   const createArr = (n: number) => {

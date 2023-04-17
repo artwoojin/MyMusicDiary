@@ -7,7 +7,7 @@ import { BsFillSunFill, BsFillMoonStarsFill } from "react-icons/bs";
 import { FiLogOut, FiEdit3, FiUser } from "react-icons/fi";
 import { useContext } from "react";
 import { myContext } from "../theme";
-import mainIcon from "../util/img/defaultProfile.png";
+import defaultProfile from "../util/img/defaultProfile.png";
 
 export const HeaderContainer = styled.header`
   display: flex;
@@ -239,8 +239,10 @@ function LoginHeader() {
   };
 
   const replaceImg = (e: any) => {
-    e.target.src = mainIcon;
+    e.target.src = defaultProfile;
   };
+
+  // console.log(imageData.data);
 
   return (
     <HeaderContainer>
@@ -261,7 +263,7 @@ function LoginHeader() {
           </Link>
           <ProfileButton onClick={openDropdown}>
             <Profile
-              src={imageData.data?.imageUrl ? imageData.data?.imageUrl : mainIcon}
+              src={imageData?.imageUrl ? imageData?.imageUrl : defaultProfile}
               alt='헤더 프로필 이미지'
               onError={replaceImg}
             />
