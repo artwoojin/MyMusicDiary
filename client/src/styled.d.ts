@@ -16,6 +16,7 @@ declare module "styled-components" {
 
       borderLine: string;
       inputBackground: string;
+      loginBorderLine: string;
 
       buttonHover: string;
       dropDownHover: string;

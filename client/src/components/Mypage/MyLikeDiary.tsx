@@ -6,8 +6,6 @@ import { FaRegCommentDots } from "react-icons/fa";
 import defaultProfile from "../../util/img/mainIcon.png";
 
 function MyLikeDiary({ list }: DiaryDataProps) {
-  // console.log(list);
-
   return (
     <DiaryList.DiaryListContainer>
       <Link to={`/DetailDiary/${list.diaryId}`}>

@@ -290,7 +290,7 @@ const WithdrawalModalView = styled.div`
   text-align: center;
   border-radius: 5px;
   background-color: ${(props) => props.theme.color.background};
-  width: 80%;
+  width: 80vw;
   max-width: 400px;
   height: 200px;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.19), 0 10px 10px rgba(0, 0, 0, 0.1);
@@ -467,8 +467,6 @@ function MyInfo({ list, getUserData }: UserDataProps) {
   const replaceImg = (e: any) => {
     e.target.src = defaultProfile;
   };
-
-  // console.log(list.nickname);
 
   return (
     <>

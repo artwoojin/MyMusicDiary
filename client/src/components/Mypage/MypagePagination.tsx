@@ -30,8 +30,6 @@ function MypagePagination({
   const numMyLikePages: number = Math.ceil(myLikePageLength / LIMIT_COUNT); // 좋아한 다이러리 페이지 개수
   const numCommentPages: number = Math.ceil(myCommentPageLength / LIMIT_COUNT); // 내가 작성한 댓글 페이지 개수
 
-  // console.log(myLikePageLength);
-
   // 새로운 배열 생성 함수
   const createArr = (n: number) => {
     const iArr: number[] = new Array(n);

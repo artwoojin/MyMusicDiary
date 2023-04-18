@@ -16,7 +16,7 @@ const LoginContainer = styled.div`
 const Logo = styled.div`
   font-weight: ${(props) => props.theme.font.logoWeight};
   font-size: 25px;
-  margin-bottom: 30px;
+  margin: 0 15px 30px 15px;
 
   a {
     color: ${(props) => props.theme.color.logo};
@@ -29,23 +29,25 @@ const FormContainer = styled.form`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 410px;
+  width: 90vw;
+  max-width: 400px;
   height: 250px;
   border-radius: 4px;
   border: none;
-  border: 1px solid ${(props) => props.theme.color.borderLine};
+  border: 1px solid ${(props) => props.theme.color.loginBorderLine};
   background-color: ${(props) => props.theme.color.inputBackground};
 `;
 
 const EmailInput = styled.input`
   font-size: 14px;
-  width: 350px;
+  width: 80vw;
+  max-width: 350px;
   height: 50px;
   border-radius: 4px;
   padding: 10px 8px 10px 8px;
   color: ${(props) => props.theme.color.mainText};
   border: none;
-  border: 1px solid ${(props) => props.theme.color.borderLine};
+  border: 1px solid ${(props) => props.theme.color.loginBorderLine};
   background-color: ${(props) => props.theme.color.background};
 
   &:focus {
@@ -55,14 +57,15 @@ const EmailInput = styled.input`
 
 const PasswordInput = styled.input`
   font-size: 14px;
-  width: 350px;
+  width: 80vw;
+  max-width: 350px;
   height: 50px;
   border-radius: 4px;
   padding: 10px 8px 10px 8px;
   margin-top: 10px;
   color: ${(props) => props.theme.color.mainText};
   border: none;
-  border: 1px solid ${(props) => props.theme.color.borderLine};
+  border: 1px solid ${(props) => props.theme.color.loginBorderLine};
   background-color: ${(props) => props.theme.color.background};
 
   &:focus {
@@ -71,7 +74,8 @@ const PasswordInput = styled.input`
 `;
 
 const LoginButton = styled.button`
-  width: 350px;
+  width: 80vw;
+  max-width: 350px;
   height: 45px;
   border: none;
   border-radius: 4px;
@@ -87,22 +91,23 @@ const LoginButton = styled.button`
   }
 `;
 
-const PasswordFind = styled.div`
-  margin-top: 23px;
-  color: ${(props) => props.theme.color.mainText};
-  font-size: 13px;
-  cursor: pointer;
-`;
+// const PasswordFind = styled.div`
+//   margin-top: 23px;
+//   color: ${(props) => props.theme.color.mainText};
+//   font-size: 13px;
+//   cursor: pointer;
+// `;
 
 const MoveSignup = styled.button`
   font-size: ${(props) => props.theme.font.diaryContentSize}px;
   margin-top: 20px;
-  width: 410px;
+  width: 90vw;
+  max-width: 400px;
   height: 60px;
   border-radius: 4px;
   border: none;
   color: ${(props) => props.theme.color.mainText};
-  border: 1px solid ${(props) => props.theme.color.borderLine};
+  border: 1px solid ${(props) => props.theme.color.loginBorderLine};
   background-color: ${(props) => props.theme.color.inputBackground};
   cursor: pointer;
 
@@ -145,13 +150,6 @@ function Login() {
     }
   };
 
-  // const onKeyPressEnter = (e: any) => {
-  //   if (e.key === "Enter") {
-  //     handleSubmit(onSubmit);
-  //     console.log("누름");
-  //   }
-  // };
-
   return (
     <LoginContainer>
       <Logo>
@@ -163,10 +161,6 @@ function Login() {
           placeholder='이메일'
           {...register("email", {
             required: "이메일을 입력해 주세요.",
-            pattern: {
-              value: /\S+@\S+\.\S+/,
-              message: "이메일 형식에 맞지 않습니다.",
-            },
           })}
         />
         {errors.email && <Errormsg>{errors.email.message}</Errormsg>}
@@ -175,19 +169,12 @@ function Login() {
           placeholder='비밀번호'
           {...register("password", {
             required: "비밀번호를 입력해 주세요.",
-            minLength: {
-              value: 4,
-              message: "8자리 이상 입력해 주세요.",
-            },
           })}
-          // onKeyDown={onKeyPressEnter}
         />
         {errors.password && <Errormsg>{errors.password.message}</Errormsg>}
-        <LoginButton type='button' onClick={handleSubmit(onSubmit)}>
-          로그인
-        </LoginButton>
+        <LoginButton onClick={handleSubmit(onSubmit)}>로그인</LoginButton>
       </FormContainer>
-      <PasswordFind>비밀번호를 잊으셨나요?</PasswordFind>
+      {/* <PasswordFind>비밀번호를 잊으셨나요?</PasswordFind> */}
       <Link to='/Signup'>
         <MoveSignup>
           계정이 없으신가요? <span className='bold'>가입하기</span>

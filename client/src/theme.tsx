@@ -18,6 +18,7 @@ export const lightMode: DefaultTheme = {
 
     borderLine: `#ebebeb`,
     inputBackground: `white`,
+    loginBorderLine: `#dbdbdb`,
 
     buttonHover: `#f7f7f7`,
     dropDownHover: `#f7f7f7`,
@@ -51,6 +52,7 @@ export const darkMode: DefaultTheme = {
 
     borderLine: `#2a2a2a`,
     inputBackground: `#1e1e1e`,
+    loginBorderLine: `#2a2a2a`,
 
     buttonHover: `#1e1e1e`,
     dropDownHover: `#2d2d2d`,

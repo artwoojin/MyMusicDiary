@@ -188,7 +188,7 @@ function MypageMain() {
       <DiaryMain.DiaryMainContainer>
         {currentTab === 0 ? (
           <MypageWrapper>
-            {myUserData && <MyInfo list={myUserData} getUserData={getUserData} />};
+            {myUserData && <MyInfo list={myUserData} getUserData={getUserData} />}
           </MypageWrapper>
         ) : currentTab === 1 ? (
           <DiaryMain.DiaryMainWrapper>
