@@ -4,6 +4,7 @@ package com.seb42.main30.seb42_main_030.diary.dto;
 import com.seb42.main30.seb42_main_030.comment.dto.CommentDto;
 import com.seb42.main30.seb42_main_030.playlist.dto.PlaylistDto;
 import com.seb42.main30.seb42_main_030.playlist.dto.PlaylistResponseDto;
+import com.seb42.main30.seb42_main_030.user.dto.UserDto;
 import lombok.*;
 
 import javax.validation.constraints.NotBlank;
@@ -71,6 +72,8 @@ public class DiaryDto {
 //        private List<PlaylistDto.Response> playlists;
         private List<PlaylistResponseDto> playlists;
 
+        public void setLikedUsers(List<UserDto.Response> likedUsers) {
+        }
     }
 
 
@@ -88,4 +91,11 @@ public class DiaryDto {
         private String title;
     }
 
+    @Getter
+    @Setter
+    @NoArgsConstructor
+    public static class likedUsers {
+        private long diaryId;
+        private long userId;
+    }
 }

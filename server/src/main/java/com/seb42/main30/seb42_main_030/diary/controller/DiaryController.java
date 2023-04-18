@@ -38,7 +38,7 @@ public class DiaryController {
     private final DiaryMapper diaryMapper;
     private final CommentService commentService;
 //    private final PlaylistService playlistService;
-    private final LikeService likeService;
+    //private final LikeService likeService;
 
     // 게시물 등록
     @PostMapping
@@ -79,7 +79,6 @@ public class DiaryController {
 
     //메인페이지 전체 게시글 조회 + 페이지네이션
     @GetMapping
-    @Transactional
     public ResponseEntity diaryList(Model model,
                                     @PageableDefault(page = 0, size = 100, sort = "diaryId", direction = Sort.Direction.DESC) Pageable pageable){
 
@@ -101,26 +100,26 @@ public class DiaryController {
 
 
         // 유저가 로그인한 상태라면 좋아요 누른 다이어리 id, title 조회
-        List<DiaryDto.Short> likeDiaryList = new ArrayList<>();
+//        List<DiaryDto.Short> likeDiaryList = new ArrayList<>();
+//
+//        try {
+//            Long userId = Long.valueOf(String.valueOf(SecurityContextHolder.getContext().getAuthentication().getPrincipal()));
+//            likeDiaryList = likeService.getLikeDiariesByUserId(userId)
+//                    .stream()
+//                    .map(diary -> {
+//                        DiaryDto.Short likeDiary = new DiaryDto.Short();
+//                        likeDiary.setTitle(diary.getTitle());
+//                        likeDiary.setDiaryId(diary.getDiaryId());
+//
+//                        return likeDiary;
+//
+//                    }).collect(Collectors.toList());
+//
+//        } catch (Exception e) {}
+//
+//            return new ResponseEntity<>(new MultiResponseDto<>(responsess, (PageInfo) likeDiaryList), HttpStatus.OK);
 
-        try {
-            Long userId = Long.valueOf(String.valueOf(SecurityContextHolder.getContext().getAuthentication().getPrincipal()));
-            likeDiaryList = likeService.getLikeDiariesByUserId(userId)
-                    .stream()
-                    .map(diary -> {
-                        DiaryDto.Short likeDiary = new DiaryDto.Short();
-                        likeDiary.setTitle(diary.getTitle());
-                        likeDiary.setDiaryId(diary.getDiaryId());
-
-                        return likeDiary;
-
-                    }).collect(Collectors.toList());
-
-        } catch (Exception e) {}
-
-            return new ResponseEntity<>(new MultiResponseDto<>(responsess, (PageInfo) likeDiaryList), HttpStatus.OK);
-
-        //return new ResponseEntity(responsess, HttpStatus.OK);
+        return new ResponseEntity(responsess, HttpStatus.OK);
         }
 
     // 게시물 수정
