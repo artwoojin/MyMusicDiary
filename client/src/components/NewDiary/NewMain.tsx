@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { useState, useContext } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { TOKEN_API } from "../../util/API";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
@@ -11,6 +11,7 @@ import { PlaylistData } from "../../util/Type";
 import { toast } from "react-toastify";
 import { FiPlus } from "react-icons/fi";
 import { IoIosClose } from "react-icons/io";
+import { AiOutlineYoutube } from "react-icons/ai";
 import mainIcon from "../../util/img/mainIcon.png";
 
 export const MainContainer = styled.div`
@@ -247,6 +248,12 @@ export const UrlInput = styled.div`
   margin-bottom: 20px;
   align-items: center;
   position: relative;
+
+  > a {
+    margin-right: 5px;
+    color: ${(props) => props.theme.color.subText};
+    cursor: pointer;
+  }
 
   > input {
     font-size: 14px;
@@ -489,6 +496,9 @@ function NewMain() {
             다이어리 수록곡 <span className='playCount'>({newPlayList.length})</span>
           </div>
           <UrlInput>
+            <Link to='https://www.youtube.com/' target='_blank'>
+              <AiOutlineYoutube className='youtubeIcon' size={35} />
+            </Link>
             <input
               value={newUrl}
               placeholder='유튜브 url을 추가해 주세요'

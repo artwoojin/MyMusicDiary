@@ -5,7 +5,7 @@ import { useState, useEffect, useContext } from "react";
 import { DiaryData } from "../../util/Type";
 import { BASE_API } from "../../util/API";
 import { myContext } from "../../theme";
-import Skeleton from "../Skeleton";
+import Skeleton from "../Loading/Skeleton";
 
 const ListTab = styled.ul`
   display: flex;
