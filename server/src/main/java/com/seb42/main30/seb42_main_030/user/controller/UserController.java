@@ -3,6 +3,7 @@ package com.seb42.main30.seb42_main_030.user.controller;
 import com.seb42.main30.seb42_main_030.diary.dto.DiaryDto;
 import com.seb42.main30.seb42_main_030.diary.entity.Diary;
 import com.seb42.main30.seb42_main_030.diary.mapper.DiaryMapper;
+import com.seb42.main30.seb42_main_030.image.FileUploadService;
 import com.seb42.main30.seb42_main_030.like.service.LikeService;
 import com.seb42.main30.seb42_main_030.response.SingleResponseDto;
 import com.seb42.main30.seb42_main_030.user.dto.UserDto;
@@ -14,10 +15,12 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.transaction.Transactional;
 import javax.validation.Valid;
 import javax.validation.constraints.Positive;
+import java.io.IOException;
 import java.util.List;
 
 @RestController
@@ -30,6 +33,8 @@ public class UserController {
     private final UserMapperImpl userMapper;
     private final LikeService likeService;
     private final DiaryMapper diaryMapper;
+
+    private final FileUploadService fileUploadService;
 
     // UserMapper DI
 //    public UserController(UserService userService, Usermapper usermapper) {
@@ -88,5 +93,14 @@ public class UserController {
         userService.deleteUser(userId);
 
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+
+
+//s3 이미지
+    @PostMapping("/{userId}/image")
+    public ResponseEntity<?> uploadImage(@PathVariable Long userId, @RequestParam("file") MultipartFile file) throws IOException {
+        fileUploadService.uploadImage(file, userId);
+        return ResponseEntity.ok().build();
     }
 }
