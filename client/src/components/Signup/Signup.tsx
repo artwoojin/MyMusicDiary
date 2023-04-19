@@ -5,7 +5,7 @@ import { BASE_API } from "../../util/API";
 import { toast } from "react-toastify";
 import { FormValue } from "../../util/Type";
 
-const SingupContainer = styled.div`
+export const SignContainer = styled.div`
   height: 100vh;
   display: flex;
   justify-content: center;
@@ -13,7 +13,7 @@ const SingupContainer = styled.div`
   flex-direction: column;
 `;
 
-const Logo = styled.div`
+export const Logo = styled.div`
   font-weight: ${(props) => props.theme.font.logoWeight};
   font-size: 25px;
   margin: 0 15px 30px 15px;
@@ -34,7 +34,7 @@ const FormContainer = styled.form`
   height: 305px;
   border-radius: 4px;
   border: none;
-  border: 1px solid ${(props) => props.theme.color.borderLine};
+  border: 1px solid ${(props) => props.theme.color.loginBorderLine};
   background-color: ${(props) => props.theme.color.inputBackground};
 `;
 
@@ -48,7 +48,7 @@ const NicknameInput = styled.input`
   margin-bottom: 10px;
   color: ${(props) => props.theme.color.mainText};
   border: none;
-  border: 1px solid ${(props) => props.theme.color.borderLine};
+  border: 1px solid ${(props) => props.theme.color.loginBorderLine};
   background-color: ${(props) => props.theme.color.background};
 
   &:focus {
@@ -56,7 +56,7 @@ const NicknameInput = styled.input`
   }
 `;
 
-const EmailInput = styled.input`
+export const EmailInput = styled.input`
   font-size: 14px;
   width: 80vw;
   max-width: 350px;
@@ -65,7 +65,7 @@ const EmailInput = styled.input`
   padding: 10px 8px 10px 8px;
   color: ${(props) => props.theme.color.mainText};
   border: none;
-  border: 1px solid ${(props) => props.theme.color.borderLine};
+  border: 1px solid ${(props) => props.theme.color.loginBorderLine};
   background-color: ${(props) => props.theme.color.background};
 
   &:focus {
@@ -73,7 +73,7 @@ const EmailInput = styled.input`
   }
 `;
 
-const PasswordInput = styled.input`
+export const PasswordInput = styled.input`
   font-size: 14px;
   width: 80vw;
   max-width: 350px;
@@ -83,7 +83,7 @@ const PasswordInput = styled.input`
   margin-top: 10px;
   color: ${(props) => props.theme.color.mainText};
   border: none;
-  border: 1px solid ${(props) => props.theme.color.borderLine};
+  border: 1px solid ${(props) => props.theme.color.loginBorderLine};
   background-color: ${(props) => props.theme.color.background};
 
   &:focus {
@@ -91,7 +91,7 @@ const PasswordInput = styled.input`
   }
 `;
 
-const SignupButton = styled.button`
+export const SubmitButton = styled.button`
   width: 80vw;
   max-width: 350px;
   height: 45px;
@@ -109,7 +109,7 @@ const SignupButton = styled.button`
   }
 `;
 
-const MoveLogin = styled.button`
+export const MovePageButton = styled.button`
   font-size: ${(props) => props.theme.font.diaryContentSize}px;
   margin-top: 20px;
   width: 90vw;
@@ -118,7 +118,7 @@ const MoveLogin = styled.button`
   border-radius: 4px;
   border: none;
   color: ${(props) => props.theme.color.mainText};
-  border: 1px solid ${(props) => props.theme.color.borderLine};
+  border: 1px solid ${(props) => props.theme.color.loginBorderLine};
   background-color: ${(props) => props.theme.color.inputBackground};
   cursor: pointer;
 
@@ -127,8 +127,15 @@ const MoveLogin = styled.button`
   }
 `;
 
-const Errormsg = styled.div`
-  margin-top: 5px;
+export const EmailErrormsg = styled.div`
+  margin-top: 6px;
+  color: #d0393e;
+  font-size: 12px;
+`;
+
+export const PasswordErrormsg = styled.div`
+  margin-top: 6px;
+  margin-bottom: -17px;
   color: #d0393e;
   font-size: 12px;
 `;
@@ -160,7 +167,7 @@ function Signup() {
   };
 
   return (
-    <SingupContainer>
+    <SignContainer>
       <Logo>
         <Link to='/'>나만의 작은 음악 다이어리</Link>
       </Logo>
@@ -177,7 +184,7 @@ function Signup() {
             },
           })}
         />
-        {errors.email && <Errormsg>{errors.email.message}</Errormsg>}
+        {errors.email && <EmailErrormsg>{errors.email.message}</EmailErrormsg>}
         <PasswordInput
           type='password'
           placeholder='비밀번호'
@@ -197,17 +204,17 @@ function Signup() {
             },
           })}
         />
-        {errors.password && <Errormsg>{errors.password.message}</Errormsg>}
-        <SignupButton type='button' onClick={handleSubmit(onSubmit)}>
+        {errors.password && <PasswordErrormsg>{errors.password.message}</PasswordErrormsg>}
+        <SubmitButton type='button' onClick={handleSubmit(onSubmit)}>
           가입
-        </SignupButton>
+        </SubmitButton>
       </FormContainer>
       <Link to='/login'>
-        <MoveLogin>
+        <MovePageButton>
           계정이 있으신가요? <span className='bold'>로그인</span>
-        </MoveLogin>
+        </MovePageButton>
       </Link>
-    </SingupContainer>
+    </SignContainer>
   );
 }
 

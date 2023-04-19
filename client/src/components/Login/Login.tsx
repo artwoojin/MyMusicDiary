@@ -1,28 +1,10 @@
 import styled from "styled-components";
+import * as Signup from "../Signup/Signup";
 import { useNavigate, Link } from "react-router-dom";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { BASE_API } from "../../util/API";
 import { toast } from "react-toastify";
 import { FormValue } from "../../util/Type";
-
-const LoginContainer = styled.div`
-  height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-`;
-
-const Logo = styled.div`
-  font-weight: ${(props) => props.theme.font.logoWeight};
-  font-size: 25px;
-  margin: 0 15px 30px 15px;
-
-  a {
-    color: ${(props) => props.theme.color.logo};
-    text-decoration: none;
-  }
-`;
 
 const FormContainer = styled.form`
   display: flex;
@@ -38,89 +20,12 @@ const FormContainer = styled.form`
   background-color: ${(props) => props.theme.color.inputBackground};
 `;
 
-const EmailInput = styled.input`
-  font-size: 14px;
-  width: 80vw;
-  max-width: 350px;
-  height: 50px;
-  border-radius: 4px;
-  padding: 10px 8px 10px 8px;
-  color: ${(props) => props.theme.color.mainText};
-  border: none;
-  border: 1px solid ${(props) => props.theme.color.loginBorderLine};
-  background-color: ${(props) => props.theme.color.background};
-
-  &:focus {
-    outline: none;
-  }
-`;
-
-const PasswordInput = styled.input`
-  font-size: 14px;
-  width: 80vw;
-  max-width: 350px;
-  height: 50px;
-  border-radius: 4px;
-  padding: 10px 8px 10px 8px;
-  margin-top: 10px;
-  color: ${(props) => props.theme.color.mainText};
-  border: none;
-  border: 1px solid ${(props) => props.theme.color.loginBorderLine};
-  background-color: ${(props) => props.theme.color.background};
-
-  &:focus {
-    outline: none;
-  }
-`;
-
-const LoginButton = styled.button`
-  width: 80vw;
-  max-width: 350px;
-  height: 45px;
-  border: none;
-  border-radius: 4px;
-  color: ${(props) => props.theme.color.signatureText};
-  font-size: ${(props) => props.theme.font.diaryContentSize}px;
-  font-weight: ${(props) => props.theme.font.titleWeight};
-  margin-top: 30px;
-  background-color: ${(props) => props.theme.color.signature};
-  cursor: pointer;
-
-  &:hover {
-    background-color: ${(props) => props.theme.color.signatureHover};
-  }
-`;
-
 // const PasswordFind = styled.div`
 //   margin-top: 23px;
 //   color: ${(props) => props.theme.color.mainText};
 //   font-size: 13px;
 //   cursor: pointer;
 // `;
-
-const MoveSignup = styled.button`
-  font-size: ${(props) => props.theme.font.diaryContentSize}px;
-  margin-top: 20px;
-  width: 90vw;
-  max-width: 400px;
-  height: 60px;
-  border-radius: 4px;
-  border: none;
-  color: ${(props) => props.theme.color.mainText};
-  border: 1px solid ${(props) => props.theme.color.loginBorderLine};
-  background-color: ${(props) => props.theme.color.inputBackground};
-  cursor: pointer;
-
-  > .bold {
-    font-weight: ${(props) => props.theme.font.titleWeight};
-  }
-`;
-
-const Errormsg = styled.div`
-  margin-top: 5px;
-  color: #d0393e;
-  font-size: 12px;
-`;
 
 function Login() {
   const {
@@ -151,36 +56,38 @@ function Login() {
   };
 
   return (
-    <LoginContainer>
-      <Logo>
+    <Signup.SignContainer>
+      <Signup.Logo>
         <Link to='/'>나만의 작은 음악 다이어리</Link>
-      </Logo>
+      </Signup.Logo>
       <FormContainer>
-        <EmailInput
+        <Signup.EmailInput
           type='email'
           placeholder='이메일'
           {...register("email", {
             required: "이메일을 입력해 주세요.",
           })}
         />
-        {errors.email && <Errormsg>{errors.email.message}</Errormsg>}
-        <PasswordInput
+        {errors.email && <Signup.EmailErrormsg>{errors.email.message}</Signup.EmailErrormsg>}
+        <Signup.PasswordInput
           type='password'
           placeholder='비밀번호'
           {...register("password", {
             required: "비밀번호를 입력해 주세요.",
           })}
         />
-        {errors.password && <Errormsg>{errors.password.message}</Errormsg>}
-        <LoginButton onClick={handleSubmit(onSubmit)}>로그인</LoginButton>
+        {errors.password && (
+          <Signup.PasswordErrormsg>{errors.password.message}</Signup.PasswordErrormsg>
+        )}
+        <Signup.SubmitButton onClick={handleSubmit(onSubmit)}>로그인</Signup.SubmitButton>
       </FormContainer>
       {/* <PasswordFind>비밀번호를 잊으셨나요?</PasswordFind> */}
       <Link to='/Signup'>
-        <MoveSignup>
+        <Signup.MovePageButton>
           계정이 없으신가요? <span className='bold'>가입하기</span>
-        </MoveSignup>
+        </Signup.MovePageButton>
       </Link>
-    </LoginContainer>
+    </Signup.SignContainer>
   );
 }
 

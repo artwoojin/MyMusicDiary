@@ -10,6 +10,7 @@ import EditPlayList from "./EditPlayList";
 import { PlaylistData } from "../../util/Type";
 import { toast } from "react-toastify";
 import { FiPlus } from "react-icons/fi";
+import { IoIosClose } from "react-icons/io";
 import mainIcon from "../../util/img/mainIcon.png";
 
 function EditList({ list }: DiaryDataProps) {
@@ -180,7 +181,6 @@ function EditList({ list }: DiaryDataProps) {
             </NewMain.UserInfo>
           </NewMain.InfoArea>
         </NewMain.AlbumCoverArea>
-
         <NewMain.TagArea>
           <div className='tagTitle'>다이어리 태그</div>
           <NewMain.TagDropdown>
@@ -200,14 +200,13 @@ function EditList({ list }: DiaryDataProps) {
                 <li key={index}>
                   <div className='tagTitle'>{value}</div>
                   <div className='tagcloseBtn' onClick={() => removeTags(index)}>
-                    X
+                    <IoIosClose size={20} />
                   </div>
                 </li>
               ))}
             </NewMain.Tag>
           </NewMain.TagDropdown>
         </NewMain.TagArea>
-
         <NewMain.AlbumInfoArea>
           <div className='playTitle'>다이어리 소개</div>
           <ReactQuill

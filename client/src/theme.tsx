@@ -16,6 +16,7 @@ export const lightMode: DefaultTheme = {
     signatureHover: `#ffdeb7`,
     signatureText: `#22262c`,
 
+    userAreaLine: `#f1f3f5`,
     borderLine: `#ebebeb`,
     inputBackground: `white`,
     loginBorderLine: `#dbdbdb`,
@@ -50,6 +51,7 @@ export const darkMode: DefaultTheme = {
     signatureHover: `#ffdeb7`,
     signatureText: `#22262c`,
 
+    userAreaLine: `#2a2a2a`,
     borderLine: `#2a2a2a`,
     inputBackground: `#1e1e1e`,
     loginBorderLine: `#2a2a2a`,

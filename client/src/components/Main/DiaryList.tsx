@@ -71,9 +71,9 @@ export const UserArea = styled.div`
   align-items: center;
   justify-content: space-between;
   padding: 8px 15px 8px 15px;
-  border-top: 1px solid ${(props) => props.theme.color.borderLine};
+  border-top: 1px solid ${(props) => props.theme.color.userAreaLine};
   /* 태그 미구현으로 인한 임시로 위치 내림 */
-  margin-top: 22px;
+  margin-top: 20px;
 `;
 
 export const ByUsername = styled.div`

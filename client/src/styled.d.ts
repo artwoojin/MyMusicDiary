@@ -14,6 +14,7 @@ declare module "styled-components" {
       signatureHover: string;
       signatureText: string;
 
+      userAreaLine: string;
       borderLine: string;
       inputBackground: string;
       loginBorderLine: string;

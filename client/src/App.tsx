@@ -42,6 +42,8 @@ const ToastAlert = styled(ToastContainer)`
 `;
 
 function App() {
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+
   const isLogin = localStorage.getItem("accessToken");
   const currentUser = JSON.parse(localStorage.getItem("CURRENT_USER")!);
 
@@ -55,7 +57,9 @@ function App() {
   };
 
   return (
-    <myContext.Provider value={{ isLogin, currentUser, isChange, changeMode }}>
+    <myContext.Provider
+      value={{ isLogin, currentUser, isChange, changeMode, isLoading, setIsLoading }}
+    >
       <ThemeProvider theme={isChange === "dark" ? darkMode : lightMode}>
         <div className='App'>
           <GlobalStyle />

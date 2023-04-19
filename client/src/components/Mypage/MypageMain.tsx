@@ -11,6 +11,7 @@ import { CommentData } from "../../util/Type";
 import { UserData } from "../../util/Type";
 import { BASE_API } from "../../util/API";
 import { myContext } from "../../theme";
+import Skeleton from "../Skeleton";
 
 const ListTab = styled.ul`
   display: flex;
@@ -94,7 +95,7 @@ function MypageMain() {
 
   const LIMIT_COUNT: number = 20;
   const offset: number = (page - 1) * LIMIT_COUNT;
-  const { currentUser }: any = useContext(myContext);
+  const { currentUser, isLoading, setIsLoading }: any = useContext(myContext);
 
   // Tab 1(MyInfo) : 나의 유저 정보만 불러오는 get 요청
   const getUserData = async () => {

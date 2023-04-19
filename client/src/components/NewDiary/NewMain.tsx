@@ -10,6 +10,7 @@ import { myContext } from "../../theme";
 import { PlaylistData } from "../../util/Type";
 import { toast } from "react-toastify";
 import { FiPlus } from "react-icons/fi";
+import { IoIosClose } from "react-icons/io";
 import mainIcon from "../../util/img/mainIcon.png";
 
 export const MainContainer = styled.div`
@@ -118,8 +119,6 @@ export const User = styled.div`
   }
 `;
 
-//-----------------------------------------------------------------
-
 export const TagArea = styled.div`
   padding: 30px 5px 30px 5px;
   border-top: 1px solid ${(props) => props.theme.color.borderLine};
@@ -171,19 +170,17 @@ export const Tag = styled.ul`
     display: flex;
     align-items: center;
     height: 30px;
-    padding: 4px 10px 4px 10px;
+    padding: 4px 4px 4px 10px;
     border: 1px solid ${(props) => props.theme.color.borderLine};
     border-radius: 50px;
 
     > .tagcloseBtn {
-      margin-bottom: 1px;
-      margin-left: 5px;
+      display: flex;
+      align-items: center;
       cursor: pointer;
     }
   }
 `;
-
-//-----------------------------------------------------------------
 
 export const AlbumInfoArea = styled.div`
   padding: 30px 5px 80px 5px;
@@ -305,7 +302,6 @@ function NewMain() {
         playlists: newPlayList,
       };
       await TOKEN_API.post(`/diary`, newDiary);
-      // await axios.post(`http://localhost:3001/diary`, newDiary);
       navigate(`/`);
     } else if (newTitle.length === 0 && newTitle.length === 0) {
       toast.error("제목을 입력해 주세요.");
@@ -473,7 +469,7 @@ function NewMain() {
                 <li key={index}>
                   <div className='tagTitle'>{value}</div>
                   <div className='tagcloseBtn' onClick={() => removeTags(index)}>
-                    X
+                    <IoIosClose size={20} />
                   </div>
                 </li>
               ))}
