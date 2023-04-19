@@ -4,6 +4,7 @@ package com.seb42.main30.seb42_main_030.user.entity;
 //import com.seb42.main30.seb42_main_030.diary.entity.Diary;
 import com.seb42.main30.seb42_main_030.comment.entity.Comment;
 import com.seb42.main30.seb42_main_030.diary.entity.Diary;
+import com.seb42.main30.seb42_main_030.like.entity.Like;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -55,4 +56,14 @@ public class User {
         this.nickname = nickname;
         this.imageUrl = imageUrl;
     }
+
+    // like 맵핑(한 user:여러 like)
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private List<Like> likes = new ArrayList<>();
+
+
+//    // like 맵핑(한 like:한 user)
+//    @OneToOne(mappedBy = "user")
+//    @JoinColumn(name = "userId")
+//    private User user;
 }

@@ -10,6 +10,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.mapping.Array;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -23,6 +26,7 @@ import java.util.List;
 @Setter
 @Entity
 @Table
+@Component
 public class Diary extends Auditable {
 
     @Id
