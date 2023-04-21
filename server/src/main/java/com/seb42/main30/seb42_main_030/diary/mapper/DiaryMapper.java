@@ -13,6 +13,7 @@ import org.mapstruct.Mapping;
 import org.mapstruct.Named;
 import org.springframework.data.domain.Page;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -68,6 +69,7 @@ public interface DiaryMapper {
             diaryDto.viewCount(diary.getViewCount());
             diaryDto.likeCount(diary.getLikeCount());
             //diaryDto.likeCheck(diary.getLikeCheck());
+            diaryDto.tags(Collections.singletonList(diary.getTagDto().getTagId()));
             Optional<User> user = Optional.ofNullable(diary.getUser());
             user.ifPresent(u -> diaryDto.userNickname(u.getNickname()));
 

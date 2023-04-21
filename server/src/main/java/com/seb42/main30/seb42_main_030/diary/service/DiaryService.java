@@ -8,12 +8,14 @@ import com.seb42.main30.seb42_main_030.exception.BusinessException;
 import com.seb42.main30.seb42_main_030.exception.ExceptionCode;
 import com.seb42.main30.seb42_main_030.playlist.entity.Playlist;
 import com.seb42.main30.seb42_main_030.playlist.repository.PlaylistRepository;
+import com.seb42.main30.seb42_main_030.tag.entity.Tag;
+import com.seb42.main30.seb42_main_030.tag.repository.TagRepository;
+import com.seb42.main30.seb42_main_030.tag.service.TagService;
 import com.seb42.main30.seb42_main_030.user.entity.User;
 import com.seb42.main30.seb42_main_030.user.repository.UserRepository;
 import com.seb42.main30.seb42_main_030.user.service.UserService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -35,6 +37,9 @@ public class DiaryService {
     private final UserService userService;
 
     private final PlaylistRepository playlistRepository;
+    private final TagService tagService;
+    private final DiaryDto diaryDto;
+    private final TagRepository tagRepository;
 
 
 //    create
@@ -56,6 +61,11 @@ public class DiaryService {
         }
 
         diary.setPlaylists(playlistList);
+
+
+        List<Tag> tags = tagService.findAll(post.getTags());
+        diary.setTags(tags);
+
         Diary savedDiary = diaryRepository.save(diary);
 
         return savedDiary;
@@ -110,6 +120,9 @@ public class DiaryService {
 
         verifyDiary.setPlaylists(playlistList);
         verifyDiary.setModifiedAt(LocalDateTime.now());
+
+        List<Long> tagIds = patch.getTags();
+        verifyDiary.setTags(tagService.findAll(tagIds));
 
         return diaryRepository.save(verifyDiary);
     }
