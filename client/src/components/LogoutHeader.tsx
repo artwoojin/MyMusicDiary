@@ -3,7 +3,7 @@ import * as LoginHeader from "./LoginHeader";
 import { Link } from "react-router-dom";
 import { BsFillSunFill, BsFillMoonStarsFill } from "react-icons/bs";
 import { useContext } from "react";
-import { myContext } from "../theme";
+import { MyContext } from "../theme";
 
 const ButtonArea = styled.div`
   display: flex;
@@ -24,7 +24,7 @@ const LoginButton = styled.button`
 `;
 
 function LogoutHeader() {
-  const { isChange, changeMode }: any = useContext(myContext);
+  const { isChange, changeMode }: any = useContext(MyContext);
 
   return (
     <LoginHeader.HeaderContainer>

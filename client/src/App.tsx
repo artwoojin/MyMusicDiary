@@ -5,7 +5,7 @@ import styled from "styled-components";
 import { useState } from "react";
 import { Routes, Route, Link } from "react-router-dom";
 import { createGlobalStyle, ThemeProvider } from "styled-components";
-import { myContext, lightMode, darkMode } from "./theme";
+import { MyContext, lightMode, darkMode } from "./theme";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.min.css";
 import Spinner from "./components/Loading/Spinner";
@@ -60,7 +60,7 @@ function App() {
   };
 
   return (
-    <myContext.Provider
+    <MyContext.Provider
       value={{ isLogin, currentUser, isChange, changeMode, isLoading, setIsLoading }}
     >
       <ThemeProvider theme={isChange === "dark" ? darkMode : lightMode}>
@@ -84,7 +84,7 @@ function App() {
           </div>
         </Suspense>
       </ThemeProvider>
-    </myContext.Provider>
+    </MyContext.Provider>
   );
 }
 

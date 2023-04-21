@@ -3,10 +3,10 @@ import NewMain from "../components/NewDiary/NewMain";
 import LoginHeader from "../components/LoginHeader";
 import LogoutHeader from "../components/LogoutHeader";
 import { useContext } from "react";
-import { myContext } from "../theme";
+import { MyContext } from "../theme";
 
 function NewDiary() {
-  const { isLogin }: any = useContext(myContext);
+  const { isLogin }: any = useContext(MyContext);
 
   return (
     <Main.Page>

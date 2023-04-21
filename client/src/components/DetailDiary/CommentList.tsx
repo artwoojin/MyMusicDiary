@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { useState, useContext } from "react";
 import { CommentData } from "../../util/Type";
 import { TOKEN_API } from "../../util/API";
-import { myContext } from "../../theme";
+import { MyContext } from "../../theme";
 
 export const CommentListContainer = styled.li`
   display: flex;
@@ -174,7 +174,7 @@ function CommentList({ list, getDetailData }: CommentDataProps) {
   const [click, setClick] = useState<boolean>(false);
   const [deleteCommentModal, setDeleteCommentModal] = useState<boolean>(false);
 
-  const { currentUser }: any = useContext(myContext);
+  const { currentUser }: any = useContext(MyContext);
   const myComment: boolean = list.userNickname === currentUser?.nickname;
 
   // 댓글 patch 요청

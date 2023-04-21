@@ -68,7 +68,7 @@ const UserArea = styled.div`
   justify-content: space-between;
   padding: 8px 15px 8px 15px;
   border-top: 1px solid ${(props) => props.theme.color.userAreaLine};
-  margin-top: 33px;
+  margin-top: 32.5px;
 `;
 
 const ByUsername = styled.div`

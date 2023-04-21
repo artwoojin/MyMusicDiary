@@ -4,7 +4,7 @@ import DiaryMain from "../components/Main/DiaryMain";
 import LoginHeader from "../components/LoginHeader";
 import LogoutHeader from "../components/LogoutHeader";
 import { useContext } from "react";
-import { myContext } from "../theme";
+import { MyContext } from "../theme";
 
 export const Page = styled.div`
   background-color: ${(props) => props.theme.color.background};
@@ -13,7 +13,7 @@ export const Page = styled.div`
 `;
 
 function Main() {
-  const { isLogin }: any = useContext(myContext);
+  const { isLogin }: any = useContext(MyContext);
 
   return (
     <Page>

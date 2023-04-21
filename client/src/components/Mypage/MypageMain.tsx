@@ -10,7 +10,7 @@ import { DiaryData } from "../../util/Type";
 import { CommentData } from "../../util/Type";
 import { UserData } from "../../util/Type";
 import { BASE_API } from "../../util/API";
-import { myContext } from "../../theme";
+import { MyContext } from "../../theme";
 import Skeleton from "../Loading/Skeleton";
 
 const ListTab = styled.ul`
@@ -95,7 +95,7 @@ function MypageMain() {
 
   const LIMIT_COUNT: number = 20;
   const offset: number = (page - 1) * LIMIT_COUNT;
-  const { currentUser, isLoading, setIsLoading }: any = useContext(myContext);
+  const { currentUser }: any = useContext(MyContext);
 
   // Tab 1(MyInfo) : 나의 유저 정보만 불러오는 get 요청
   const getUserData = async () => {

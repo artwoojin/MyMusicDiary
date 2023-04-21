@@ -3,10 +3,10 @@ import DetailMain from "../components/DetailDiary/DetailMain";
 import LoginHeader from "../components/LoginHeader";
 import LogoutHeader from "../components/LogoutHeader";
 import { useContext } from "react";
-import { myContext } from "../theme";
+import { MyContext } from "../theme";
 
 function DetailDiary() {
-  const { isLogin }: any = useContext(myContext);
+  const { isLogin }: any = useContext(MyContext);
 
   return (
     <Main.Page>

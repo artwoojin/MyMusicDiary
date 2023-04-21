@@ -6,7 +6,7 @@ import { GoTriangleDown } from "react-icons/go";
 import { BsFillSunFill, BsFillMoonStarsFill } from "react-icons/bs";
 import { FiLogOut, FiEdit3, FiUser } from "react-icons/fi";
 import { useContext } from "react";
-import { myContext } from "../theme";
+import { MyContext } from "../theme";
 import defaultProfile from "../util/img/defaultProfile.png";
 
 export const HeaderContainer = styled.header`
@@ -196,7 +196,7 @@ function LoginHeader() {
   const [imageData, setImageData] = useState<any>([]);
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
-  const { currentUser, isChange, changeMode }: any = useContext(myContext);
+  const { currentUser, isChange, changeMode }: any = useContext(MyContext);
   const navigate = useNavigate();
   const dropMenuRef = useRef<HTMLDivElement | null>(null);
 

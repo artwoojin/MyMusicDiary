@@ -56,7 +56,7 @@ interface PlaylistDataProps {
 
 function NewPlayList({ list, newPlayList, setNewPlayList }: PlaylistDataProps) {
   const deleteList = (deleteUrl: string | undefined) => {
-    setNewPlayList(newPlayList.filter((value: any) => value.url !== deleteUrl));
+    setNewPlayList(newPlayList.filter((value: PlaylistData) => value.url !== deleteUrl));
   };
 
   const replaceImg = (e: any) => {

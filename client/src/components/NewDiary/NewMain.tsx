@@ -1,12 +1,12 @@
 import styled from "styled-components";
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { TOKEN_API } from "../../util/API";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import axios from "axios";
 import NewPlayList from "./NewPlayList";
-import { myContext } from "../../theme";
+import { MyContext } from "../../theme";
 import { PlaylistData } from "../../util/Type";
 import { toast } from "react-toastify";
 import { FiPlus } from "react-icons/fi";
@@ -296,7 +296,7 @@ function NewMain() {
   const [newUrl, setNewUrl] = useState<string>("");
 
   const navigate = useNavigate();
-  const { currentUser }: any = useContext(myContext);
+  const { currentUser }: any = useContext(MyContext);
   const today: string = new Date().toISOString().substring(0, 10);
 
   // 다이어리 post 요청
@@ -347,7 +347,7 @@ function NewMain() {
     try {
       const res =
         await axios.get(`https://www.googleapis.com/youtube/v3/videos?id=${id}&key=${process.env.REACT_APP_YOUTUBE_API_KEY}
-      &part=snippet`);
+    &part=snippet`);
       return res.data.items[0]?.snippet;
     } catch (err) {
       console.error(err);
@@ -355,7 +355,7 @@ function NewMain() {
   };
 
   // 추가 버튼 클릭 시 플레이리스트 담는 이벤트 핸들러
-  const addPlayList = () => {
+  const addPlayList = async () => {
     // 플레이리스트 등록 개수 제한(리스트가 20개 이상일 경우 alert 발생)
     if (newPlayList.length >= 20) {
       return toast.error("플레이리스트는 최대 20개까지만 등록 가능합니다.");
@@ -376,28 +376,24 @@ function NewMain() {
     }
 
     let check = false;
-    getYoutubeData(urlId)
-      .then((res) => {
-        if (res) {
-          check = true;
-          musicInfo.channelId = res.channelId;
-          if (res.thumbnails.maxres) {
-            musicInfo.thumbnail = res.thumbnails.maxres.url;
-          } else {
-            musicInfo.thumbnail = res.thumbnails.medium.url;
-          }
-          musicInfo.title = res.title;
-          musicInfo.url = newUrl;
-        } else {
-          return toast.error("url을 다시 확인해 주세요.");
-        }
-      })
-      .then(() => {
-        if (check) {
-          setNewPlayList((value) => [...value, musicInfo]);
-          setNewUrl("");
-        }
-      });
+    const res = await getYoutubeData(urlId);
+    if (res) {
+      check = true;
+      musicInfo.channelId = res.channelId;
+      if (res.thumbnails.maxres) {
+        musicInfo.thumbnail = res.thumbnails.maxres.url;
+      } else {
+        musicInfo.thumbnail = res.thumbnails.medium.url;
+      }
+      musicInfo.title = res.title;
+      musicInfo.url = newUrl;
+    } else {
+      return toast.error("url을 다시 확인해 주세요.");
+    }
+    if (check) {
+      setNewPlayList((value) => [...value, musicInfo]);
+      setNewUrl("");
+    }
   };
 
   const replaceImg = (e: any) => {
@@ -423,6 +419,20 @@ function NewMain() {
     setNewTag(newTag.filter((value: any) => value !== newTag[deleteIndex]));
     // console.log(newTag);
   };
+
+  // 새로고침 & 페이지 닫기 방지
+  const preventClose = (e: BeforeUnloadEvent) => {
+    e.preventDefault();
+    e.returnValue = ""; // Chrome
+  };
+  useEffect(() => {
+    (() => {
+      window.addEventListener("beforeunload", preventClose);
+    })();
+    return () => {
+      window.removeEventListener("beforeunload", preventClose);
+    };
+  }, []);
 
   return (
     <MainContainer>

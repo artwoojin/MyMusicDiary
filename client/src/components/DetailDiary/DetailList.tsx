@@ -12,7 +12,7 @@ import { RiErrorWarningLine } from "react-icons/ri";
 import { BsThreeDotsVertical } from "react-icons/bs";
 import { FiEdit } from "react-icons/fi";
 import DOMPurify from "dompurify";
-import { myContext } from "../../theme";
+import { MyContext } from "../../theme";
 import { toast } from "react-toastify";
 import mainIcon from "../../util/img/mainIcon.png";
 
@@ -470,7 +470,7 @@ function DetailList({ list, getDetailData }: DiaryDataProps) {
   const { diaryId } = useParams();
   const navigate = useNavigate();
   const dropMenuRef = useRef<HTMLDivElement | null>(null);
-  const { isLogin, currentUser }: any = useContext(myContext);
+  const { isLogin, currentUser }: any = useContext(MyContext);
   const myDiary: boolean = list.userNickname === currentUser?.nickname;
 
   // 드롬다운 오픈 이벤트 핸들러

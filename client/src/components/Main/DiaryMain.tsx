@@ -4,7 +4,7 @@ import styled from "styled-components";
 import { useState, useEffect, useContext } from "react";
 import { DiaryData } from "../../util/Type";
 import { BASE_API } from "../../util/API";
-import { myContext } from "../../theme";
+import { MyContext } from "../../theme";
 import Skeleton from "../Loading/Skeleton";
 
 const ListTab = styled.ul`
@@ -84,7 +84,7 @@ function DiaryMain() {
     () => JSON.parse(window.localStorage.getItem("currentPage")!) || 1 // 현재 페이지 번호 (기본값: 1페이지부터 노출)
   );
 
-  const { isLoading, setIsLoading }: any = useContext(myContext);
+  const { isLoading, setIsLoading }: any = useContext(MyContext);
 
   // 로컬스토리지에 현재 페이지 번호 저장
   useEffect(() => {

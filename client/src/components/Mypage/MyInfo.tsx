@@ -3,8 +3,9 @@ import { useNavigate } from "react-router-dom";
 import { useState, useRef, useContext } from "react";
 import { UserData } from "../../util/Type";
 import { TOKEN_API } from "../../util/API";
-import { myContext } from "../../theme";
+import { MyContext } from "../../theme";
 import defaultProfile from "../../util/img/defaultProfile.png";
+import axios from "axios";
 
 const MyInfoContainer = styled.div`
   display: flex;
@@ -370,7 +371,9 @@ function MyInfo({ list, getUserData }: UserDataProps) {
 
   const fileInput = useRef<HTMLInputElement>(null);
   const navigate = useNavigate();
-  const { currentUser }: any = useContext(myContext);
+  const { currentUser }: any = useContext(MyContext);
+
+  const TOKEN = localStorage.getItem("accessToken");
 
   // 프로필 이미지 클릭 시 input으로 연결되는 이벤트
   const clickProfile = () => {
@@ -378,8 +381,24 @@ function MyInfo({ list, getUserData }: UserDataProps) {
   };
 
   // 선택한 이미지 미리보기 이벤트
-  const saveImage = (e: any) => {
-    setImage(URL.createObjectURL(e.target.files[0]));
+  // const saveImage = async (e: any) => {
+  //   setImage(URL.createObjectURL(e.target.files[0]));
+  // };
+
+  const saveImage = async (e: any) => {
+    const image = e.target.files[0];
+    console.log(e.target.files[0]);
+
+    const formData = new FormData();
+    formData.append("file", image);
+
+    console.log(formData);
+
+    // const newImg = {
+    //   file: formData,
+    // };
+    await axios.post(`/users/${list.userId}/image`, formData);
+    // window.location.reload();
   };
 
   // 선택한 이미지 patch 요청
