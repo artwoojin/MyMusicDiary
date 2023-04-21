@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { PlaylistData } from "../../util/Type";
+import mainIcon from "../../util/img/mainIcon.png";
 
 export const PlayListContainer = styled.li`
   display: flex;
@@ -12,7 +13,7 @@ export const PlayListWrapper = styled.div`
   max-width: 1440px;
   min-width: 300px;
   border: none;
-  color: ${(props) => props.theme.mainText};
+  color: ${(props) => props.theme.color.mainText};
 `;
 
 export const ContentArea = styled.div`
@@ -20,25 +21,30 @@ export const ContentArea = styled.div`
   align-items: center;
 
   > .thumbnail {
-    width: 80px;
+    width: 50px;
     height: 50px;
     margin-right: 20px;
+    border-radius: 4px;
+    object-fit: cover;
+    background-color: ${(props) => props.theme.color.background};
   }
 
   > .listTitle {
-    font-size: 15px;
+    font-size: ${(props) => props.theme.font.diaryContentSize}px;
+    font-weight: ${(props) => props.theme.font.contentWeight};
     width: 100%;
   }
 
   > .delete {
     width: 50px;
-    color: ${(props) => props.theme.mainText};
+    color: ${(props) => props.theme.color.mainText};
     border: none;
     text-decoration: underline;
-    font-weight: 600;
-    font-size: 12px;
+    font-weight: ${(props) => props.theme.font.titleWeight};
+    font-size: 13px;
     margin: 5px;
     background-color: transparent;
+    cursor: pointer;
   }
 `;
 
@@ -49,17 +55,26 @@ interface PlaylistDataProps {
 }
 
 function NewPlayList({ list, newPlayList, setNewPlayList }: PlaylistDataProps) {
-  const deleteList = (deleteId: any) => {
-    setNewPlayList(newPlayList.filter((value: any) => value.channelId !== deleteId));
+  const deleteList = (deleteUrl: string | undefined) => {
+    setNewPlayList(newPlayList.filter((value: PlaylistData) => value.url !== deleteUrl));
+  };
+
+  const replaceImg = (e: any) => {
+    e.target.src = mainIcon;
   };
 
   return (
     <PlayListContainer>
       <PlayListWrapper>
         <ContentArea>
-          <img className='thumbnail' src={list.thumbnail} alt='썸네일' />
+          <img
+            className='thumbnail'
+            src={list.thumbnail ? list.thumbnail : mainIcon}
+            alt='썸네일'
+            onError={replaceImg}
+          />
           <div className='listTitle'>{list.title}</div>
-          <button className='delete' onClick={() => deleteList(list.channelId)}>
+          <button className='delete' onClick={() => deleteList(list.url)}>
             삭제
           </button>
         </ContentArea>

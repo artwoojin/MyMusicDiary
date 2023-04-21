@@ -1,93 +1,127 @@
+import styled from "styled-components";
+import * as DiaryMain from "../Main/DiaryMain";
 import MyDiary from "./MyDiary";
 import MypagePagination from "./MypagePagination";
 import MyLikeDiary from "./MyLikeDiary";
 import MyComment from "./MyComment";
 import MyInfo from "./MyInfo";
-import styled from "styled-components";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { DiaryData } from "../../util/Type";
 import { CommentData } from "../../util/Type";
 import { UserData } from "../../util/Type";
 import { BASE_API } from "../../util/API";
-import { useContext } from "react";
-import { myContext } from "../../theme";
+import { MyContext } from "../../theme";
+import diary from "../../util/img/diary.png";
+import like from "../../util/img/like.png";
+import comment from "../../util/img/comment.png";
 
 const ListTab = styled.ul`
   display: flex;
   justify-content: center;
-  position: relative;
+  font-size: 16px;
   margin: 50px 0 50px 0;
+  padding: 0 15px 0 15px;
   gap: 10px;
-  cursor: pointer;
+  word-break: keep-all;
 
   .tab {
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 15px;
-    font-weight: 700;
     width: 200px;
     height: 40px;
     text-align: center;
+    cursor: pointer;
 
     > .el {
-      color: ${(props) => props.theme.subText};
+      color: ${(props) => props.theme.color.subText};
+      font-weight: ${(props) => props.theme.font.titleWeight};
+    }
+
+    // 721px 이하에서 탭 글씨 크기 축소
+    @media screen and (max-width: 721px) {
+      font-size: 13px;
     }
   }
 
   .focused {
-    border-bottom: 2px solid ${(props) => props.theme.mainText};
+    border-bottom: 2px solid ${(props) => props.theme.color.mainText};
 
     > .el {
-      color: ${(props) => props.theme.mainText};
+      color: ${(props) => props.theme.color.mainText};
+      font-weight: ${(props) => props.theme.font.logoWeight};
     }
   }
 `;
 
-const MypageContainer = styled.div`
-  display: flex;
-  justify-content: center;
+const MypageWrapper = styled.div`
+  width: 100vw;
+  max-width: 850px;
+  padding: 0 10px 0 10px;
+  /* border: 1px solid red; */
 `;
 
-const InfoContainer = styled.div`
-  width: 100vw;
-  max-width: 900px;
+const CommentCountWrapper = styled.div`
   font-size: 15px;
+  height: 33px;
+  padding: 0 5px 0 5px;
+  border-bottom: 1px solid ${(props) => props.theme.color.borderLine};
 `;
 
-const DiaryContainer = styled.ul`
-  width: 100vw;
-  max-width: 1440px;
-  min-width: 300px;
+const CommentInfo = styled.div`
   display: flex;
-  flex-wrap: wrap;
-  padding: 0 15px 0 15px;
-  gap: 56.6px;
+  color: ${(props) => props.theme.color.mainText};
+
+  > .countNum {
+    font-weight: ${(props) => props.theme.font.titleWeight};
+  }
+
+  > .countText {
+    font-weight: ${(props) => props.theme.font.contentWeight};
+  }
 `;
 
-const CommentContainer = styled.ul`
-  width: 100vw;
-  max-width: 1440px;
-  min-width: 300px;
+const MyPageImgWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  > img {
+    width: 500px;
+    height: 340px;
+    margin-bottom: 20px;
+  }
+
+  > div {
+    color: ${(props) => props.theme.color.subText};
+    font-size: 25px;
+    font-weight: ${(props) => props.theme.font.titleWeight};
+  }
 `;
 
 function MypageMain() {
-  const [userData, setUserData] = useState<UserData[]>([]);
+  const [myUserData, setMyUserData] = useState<UserData>();
   const [myDiaryData, setMyDiaryData] = useState<DiaryData[]>([]);
   const [myLikeDiaryData, setLikeDiaryData] = useState<DiaryData[]>([]);
   const [myCommentData, setMyCommentData] = useState<CommentData[]>([]);
-  const [currentTab, setCurrentTab] = useState<number>(0);
+  const [currentTab, setCurrentTab] = useState<number>(
+    () => JSON.parse(window.localStorage.getItem("myCurrentTab")!) || 0
+  );
   const [page, setPage] = useState<number>(1);
+
+  useEffect(() => {
+    window.localStorage.setItem("myCurrentTab", JSON.stringify(currentTab));
+  }, [currentTab]);
 
   const LIMIT_COUNT: number = 20;
   const offset: number = (page - 1) * LIMIT_COUNT;
-  const { currentUser }: any = useContext(myContext);
+  const { currentUser }: any = useContext(MyContext);
 
   // Tab 1(MyInfo) : 나의 유저 정보만 불러오는 get 요청
   const getUserData = async () => {
     try {
       const res = await BASE_API.get(`/users/${currentUser.userId}`);
-      setUserData(res.data);
+      setMyUserData(res.data);
     } catch (err) {
       console.error(err);
     }
@@ -96,11 +130,13 @@ function MypageMain() {
     getUserData();
   }, []);
 
-  // Tab 2(MyDiary) : 나의 다이어리 데이터 get 요청
+  // Tab 2(MyDiary) : 내가 작성한 다이어리만 불러오는 get 요청
   const getMyDiaryData = async () => {
     try {
       const res = await BASE_API.get(`/diary`);
-      setMyDiaryData(res.data);
+      setMyDiaryData(
+        res.data.filter((value: DiaryData) => value.userNickname === currentUser.nickname)
+      );
     } catch (err) {
       console.error(err);
     }
@@ -110,23 +146,25 @@ function MypageMain() {
   }, []);
 
   // Tab 3(MyLikeDiary) : 내가 좋아요 한 다이어리 데이터 get 요청
-  // const getLikeData = async () => {
-  //   try {
-  //     const res = await axios.get(`http://localhost:3001/likediary`);
-  //     setLikeDiaryData(res.data);
-  //   } catch (err) {
-  //     console.error(err);
-  //   }
-  // };
-  // useEffect(() => {
-  //   getLikeData();
-  // }, []);
+  const getLikeData = async () => {
+    try {
+      const res = await BASE_API.get(`/users/${currentUser.userId}`);
+      setLikeDiaryData(res.data.likeDiaries);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+  useEffect(() => {
+    getLikeData();
+  }, []);
 
-  // Tab 4(MyComment) : 내가 작성한 댓글 데이터 get 요청
+  // Tab 4(MyComment) : 내가 작성한 댓글만 불러오는 get 요청
   const getMyCommentData = async () => {
     try {
       const res = await BASE_API.get(`/comment`);
-      setMyCommentData(res.data);
+      setMyCommentData(
+        res.data.filter((value: CommentData) => value.userNickname === currentUser.nickname)
+      );
     } catch (err) {
       console.error(err);
     }
@@ -137,7 +175,7 @@ function MypageMain() {
 
   // 마이 페이지 탭 리스트
   const tabArr = [
-    { feel: "내 정보" },
+    { feel: "내 정보 수정" },
     { feel: "나의 다이어리" },
     { feel: "좋아한 다이어리" },
     { feel: "작성한 댓글" },
@@ -163,33 +201,56 @@ function MypageMain() {
           );
         })}
       </ListTab>
-      <MypageContainer>
+      <DiaryMain.DiaryMainContainer>
         {currentTab === 0 ? (
-          <InfoContainer>
-            {Object.values(userData).map((value: any) => {
-              return <MyInfo list={value} key={value.userId} getUserData={getUserData} />;
-            })}
-          </InfoContainer>
+          <MypageWrapper>
+            {myUserData && <MyInfo list={myUserData} getUserData={getUserData} />}
+          </MypageWrapper>
         ) : currentTab === 1 ? (
-          <DiaryContainer>
-            {myDiaryData.slice(offset, offset + LIMIT_COUNT).map((value) => {
-              return <MyDiary list={value} key={value.diaryId} />;
-            })}
-          </DiaryContainer>
+          myDiaryData.length !== 0 ? (
+            <DiaryMain.DiaryMainWrapper>
+              {myDiaryData.slice(offset, offset + LIMIT_COUNT).map((value) => {
+                return <MyDiary list={value} key={value.diaryId} />;
+              })}
+            </DiaryMain.DiaryMainWrapper>
+          ) : (
+            <MyPageImgWrapper>
+              <img src={diary} alt='myDiary' />
+              <div>아직 작성한 다이어리가 없습니다.</div>
+            </MyPageImgWrapper>
+          )
         ) : currentTab === 2 ? (
-          <DiaryContainer>
-            {myLikeDiaryData.slice(offset, offset + LIMIT_COUNT).map((value) => {
-              return <MyLikeDiary list={value} key={value.diaryId} />;
-            })}
-          </DiaryContainer>
-        ) : (
-          <CommentContainer>
+          myLikeDiaryData.length !== 0 ? (
+            <DiaryMain.DiaryMainWrapper>
+              {myLikeDiaryData?.slice(offset, offset + LIMIT_COUNT).map((value) => {
+                return <MyLikeDiary list={value} key={value.diaryId} />;
+              })}
+            </DiaryMain.DiaryMainWrapper>
+          ) : (
+            <MyPageImgWrapper>
+              <img src={like} alt='myDiary' />
+              <div>아직 좋아한 다이어리가 없습니다.</div>
+            </MyPageImgWrapper>
+          )
+        ) : myCommentData.length !== 0 ? (
+          <MypageWrapper>
+            <CommentCountWrapper>
+              <CommentInfo>
+                <div className='countNum'>{myCommentData.length}</div>
+                <div className='countText'>개의 작성한 댓글이 있습니다.</div>
+              </CommentInfo>
+            </CommentCountWrapper>
             {myCommentData.slice(offset, offset + LIMIT_COUNT).map((value) => {
               return <MyComment list={value} key={value.commentId} />;
             })}
-          </CommentContainer>
+          </MypageWrapper>
+        ) : (
+          <MyPageImgWrapper>
+            <img src={comment} alt='myDiary' />
+            <div>아직 작성한 댓글이 없습니다.</div>
+          </MyPageImgWrapper>
         )}
-      </MypageContainer>
+      </DiaryMain.DiaryMainContainer>
       <MypagePagination
         myPageLength={myDiaryData.length}
         myLikePageLength={myLikeDiaryData.length}

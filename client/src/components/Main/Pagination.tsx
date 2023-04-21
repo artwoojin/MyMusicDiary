@@ -3,7 +3,8 @@ import { useState } from "react";
 import { BiArrowToLeft, BiArrowToRight, BiLeftArrowAlt, BiRightArrowAlt } from "react-icons/bi";
 
 export const PageNum = styled.div`
-  margin: 50px 0 40px 0;
+  margin: 50px 0 0 0;
+  padding-bottom: 50px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -13,29 +14,46 @@ export const PageNum = styled.div`
   > .pageTab,
   .leftHandle,
   .rightHandle {
-    width: 20px;
-    height: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 30px;
+    height: 30px;
     background-color: transparent;
     border: none;
-    font-size: 15px;
-    margin: 0 5px 0 5px;
-    color: ${(props) => props.theme.mainText};
+    font-size: ${(props) => props.theme.font.diaryContentSize}px;
+    color: ${(props) => props.theme.color.mainText};
+    transition: 0.2s ease-in-out;
     cursor: pointer;
 
+    &:hover {
+      width: 30px;
+      height: 30px;
+      border-radius: 50px;
+      background-color: ${(props) => props.theme.color.buttonHover};
+    }
+
     &:disabled {
-      color: ${(props) => props.theme.disabled};
+      color: ${(props) => props.theme.color.pageDisabled};
+      background-color: transparent;
     }
   }
 
   > .pageFocused {
     width: 30px;
     height: 30px;
-    border-radius: 3px;
-    background-color: ${(props) => props.theme.mainColor};
+    background-color: ${(props) => props.theme.color.signature};
     border: none;
     border-radius: 50px;
-    color: ${(props) => props.theme.TagColor};
-    font-weight: 600;
+    color: ${(props) => props.theme.color.signatureText};
+    font-weight: ${(props) => props.theme.font.titleWeight};
+
+    &:hover {
+      width: 30px;
+      height: 30px;
+      border-radius: 50px;
+      background-color: ${(props) => props.theme.color.signature};
+    }
   }
 `;
 

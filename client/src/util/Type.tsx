@@ -46,4 +46,11 @@ export interface UserData {
   email: string;
   password: string;
   imageUrl?: string;
+  likeDiaries?: DiaryData[];
+}
+
+export interface FormValue {
+  nickname: string;
+  email: string;
+  password: string;
 }
