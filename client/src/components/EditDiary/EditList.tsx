@@ -1,5 +1,5 @@
 import * as NewMain from "../NewDiary/NewMain";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { DiaryDataProps } from "../../util/Type";
 import { TOKEN_API } from "../../util/API";
@@ -78,7 +78,7 @@ function EditList({ list }: DiaryDataProps) {
   };
 
   // 추가 버튼 클릭 시 플레이리스트 담는 이벤트 핸들러
-  const addPlayList = () => {
+  const addPlayList = async () => {
     // 플레이리스트 등록 개수 제한(리스트가 20개 이상일 경우 alert 발생)
     if (editPlayList.length >= 20) {
       return toast.error("플레이리스트는 최대 20개까지만 등록 가능합니다.");
@@ -99,28 +99,24 @@ function EditList({ list }: DiaryDataProps) {
     }
 
     let check = false;
-    getYoutubeData(urlId)
-      .then((res) => {
-        if (res) {
-          check = true;
-          musicInfo.channelId = res.channelId;
-          if (res.thumbnails.maxres) {
-            musicInfo.thumbnail = res.thumbnails.maxres.url;
-          } else {
-            musicInfo.thumbnail = res.thumbnails.medium.url;
-          }
-          musicInfo.title = res.title;
-          musicInfo.url = editUrl;
-        } else {
-          return toast.error("url을 다시 확인해 주세요.");
-        }
-      })
-      .then(() => {
-        if (check) {
-          setEditPlayList((value) => [...value, musicInfo]);
-          setEditUrl("");
-        }
-      });
+    const res = await getYoutubeData(urlId);
+    if (res) {
+      check = true;
+      musicInfo.channelId = res.channelId;
+      if (res.thumbnails.maxres) {
+        musicInfo.thumbnail = res.thumbnails.maxres.url;
+      } else {
+        musicInfo.thumbnail = res.thumbnails.medium.url;
+      }
+      musicInfo.title = res.title;
+      musicInfo.url = editUrl;
+    } else {
+      return toast.error("url을 다시 확인해 주세요.");
+    }
+    if (check) {
+      setEditPlayList((value) => [...value, musicInfo]);
+      setEditUrl("");
+    }
   };
 
   const replaceImg = (e: any) => {
@@ -146,6 +142,20 @@ function EditList({ list }: DiaryDataProps) {
     setEditTag(editTag.filter((value: any) => value !== editTag[deleteIndex]));
     console.log(editTag);
   };
+
+  // 새로고침 & 페이지 닫기 방지
+  const preventClose = (e: BeforeUnloadEvent) => {
+    e.preventDefault();
+    e.returnValue = ""; // Chrome
+  };
+  useEffect(() => {
+    (() => {
+      window.addEventListener("beforeunload", preventClose);
+    })();
+    return () => {
+      window.removeEventListener("beforeunload", preventClose);
+    };
+  }, []);
 
   return (
     <NewMain.MainContainer>
