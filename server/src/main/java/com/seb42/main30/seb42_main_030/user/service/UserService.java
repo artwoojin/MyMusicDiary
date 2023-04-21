@@ -7,11 +7,9 @@ import com.seb42.main30.seb42_main_030.user.entity.User;
 import com.seb42.main30.seb42_main_030.user.repository.UserRepository;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import javax.swing.text.html.Option;
 import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
@@ -57,12 +55,9 @@ public class UserService {
     }
 
     // (2) user 정보 수정
-    public User updateUser(User user) {
+    public User updateUser(User user) throws Exception{
 
-//        // 먼저 해당 회원의 이메일이 존재하는지 확인
-//        verifyExistsEmail2(user.getEmail());
-//
-//        // 존재한다면 해당 회원의 아이디를 가져옴
+        // 유저가 존재한다면 해당 유저의 아이디를 가져옴
         User findUser = findVerifiedUser(user.getUserId());
 
         // 회원정보 업데이트
@@ -100,12 +95,33 @@ public class UserService {
     }
 
     // (6) 이미 등록된 이메일인지 검증
-    private void verifyExistsEmail(String email) {
+    public User verifyExistsEmail(String email) {
         Optional<User> user = userRepository.findByEmail(email);
 
         if(user.isPresent())
             throw new BusinessException(ExceptionCode.USER_EXISTS);
+        return null;
     }
 
+    // Login 한 Member 를 가져오는 로직
+    public User getLoginUser() {
+        return  userRepository.findById(Long.valueOf(GetAuthUserUtils.getAuthUser().getName()))
+                .orElseThrow(()
+                        -> new BusinessException(ExceptionCode.USER_NOT_FOUND));
+    }
+    public Optional<User> getUserByEmail(String email) {
+        return userRepository.findByEmail(email);}
+
+    public User findUserByEmail(String email) {
+        return userRepository.findUserByEmail(email);
+    }
+//    public User findUserById(long userId) {
+//        User findUser = userRepository.findById(userId);
+//
+//        if (findUser == null) {
+//            throw new BusinessException(ExceptionCode.USER_NOT_FOUND);
+//        }
+//        return findUser;
+//    }
 }
 

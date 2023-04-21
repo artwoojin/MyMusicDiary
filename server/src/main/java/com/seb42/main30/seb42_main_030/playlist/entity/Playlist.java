@@ -1,37 +1,43 @@
 package com.seb42.main30.seb42_main_030.playlist.entity;
 
 
-import com.seb42.main30.seb42_main_030.audit.Auditable;
 import com.seb42.main30.seb42_main_030.diary.entity.Diary;
-import com.seb42.main30.seb42_main_030.user.entity.User;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
 
 @NoArgsConstructor
 @Getter
 @Setter
 @Entity
-public class Playlist extends Auditable {
+public class Playlist {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long playlistId;
-    @Column(nullable = false)
-    private String playlistTitle;
 
-    @OneToMany(mappedBy = "playlist", cascade = CascadeType.REMOVE)
-    private List<Track> tracks = new ArrayList<>();
+    @Column
+    private String thumbnail;
+
+    @Column
+    private String title;
+
+    @Column
+    private String url;
+
+    @Column
+    private String channelId;
 
 
-    @ManyToOne
-    @JoinColumn(name = "user_id")
-    private User user;
-    @ManyToOne
+//    //    유저랑 다이어리 연결
+//    @ManyToOne
+//    @JoinColumn(name = "user_id")
+//    private User user;
+    //
+    @ManyToOne(targetEntity = Diary.class, cascade = CascadeType.PERSIST)
     @JoinColumn(name = "diary_id")
     private Diary diary;
+
 }

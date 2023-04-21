@@ -2,9 +2,10 @@ package com.seb42.main30.seb42_main_030.diary.dto;
 
 
 import com.seb42.main30.seb42_main_030.comment.dto.CommentDto;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.Setter;
+import com.seb42.main30.seb42_main_030.playlist.dto.PlaylistDto;
+import com.seb42.main30.seb42_main_030.playlist.dto.PlaylistResponseDto;
+import com.seb42.main30.seb42_main_030.user.dto.UserDto;
+import lombok.*;
 
 import javax.validation.constraints.NotBlank;
 import java.time.LocalDateTime;
@@ -14,7 +15,7 @@ public class DiaryDto {
 
     @Getter
     @Setter
-    @AllArgsConstructor
+    @NoArgsConstructor
     public static class Post{
 
         @NotBlank(message = "제목을 입력하세요")
@@ -23,13 +24,16 @@ public class DiaryDto {
         @NotBlank(message = "내용을 입력하세요")
         private String body;
 
+        private List<PlaylistDto> playlists;
+
         private int likeCount;
+        private boolean likeCheck;
 
     }
 
     @Getter
     @Setter
-    @AllArgsConstructor
+    @NoArgsConstructor
     public static class Patch {
 
         @NotBlank(message = "제목을 입력하세요")
@@ -38,13 +42,17 @@ public class DiaryDto {
         @NotBlank(message = "내용을 입력하세요")
         private String body;
 
+        private List<PlaylistDto> playlists;
+
         private int likeCount;
+        private boolean likeCheck;
 
     }
 
     @Getter
     @Setter
     @AllArgsConstructor
+    @Builder
     public static class Response {
 
         private long diaryId;
@@ -52,15 +60,20 @@ public class DiaryDto {
         private String body;
         private int viewCount;
         private int likeCount;
+        private boolean likeCheck;
         private LocalDateTime createdAt;
         private LocalDateTime modifiedAt;
 
 //        user 데이터 가져오는 것
-        private String nickname;
+        private String userNickname;
 
 
-        private List<CommentDto> comments;
+        private List<CommentDto.Response> comments;
+//        private List<PlaylistDto.Response> playlists;
+        private List<PlaylistResponseDto> playlists;
 
+        public void setLikedUsers(List<UserDto.Response> likedUsers) {
+        }
     }
 
 
@@ -70,4 +83,19 @@ public class DiaryDto {
         private long Id;
     }
 
+    @Getter
+    @Setter
+    @NoArgsConstructor
+    public static class Short {
+        private long diaryId;
+        private String title;
+    }
+
+    @Getter
+    @Setter
+    @NoArgsConstructor
+    public static class likedUsers {
+        private long diaryId;
+        private long userId;
+    }
 }

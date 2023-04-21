@@ -1,16 +1,20 @@
 package com.seb42.main30.seb42_main_030.user.entity;
 
+//import com.seb42.main30.seb42_main_030.comment.entity.Comment;
+//import com.seb42.main30.seb42_main_030.diary.entity.Diary;
 import com.seb42.main30.seb42_main_030.comment.entity.Comment;
 import com.seb42.main30.seb42_main_030.diary.entity.Diary;
+import com.seb42.main30.seb42_main_030.like.entity.Like;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.data.annotation.Id;
 
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
+
+@Table(name = "USERS")
 @Getter
 @Setter
 @NoArgsConstructor
@@ -41,6 +45,9 @@ public class User {
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Comment> comments = new ArrayList<>();
 
+//    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+//    private List<Playlist> playlists = new ArrayList<>();
+
     @ElementCollection(fetch = FetchType.EAGER)
     private List<String> roles = new ArrayList<>();
 
@@ -49,4 +56,14 @@ public class User {
         this.nickname = nickname;
         this.imageUrl = imageUrl;
     }
+
+    // like 맵핑(한 user:여러 like)
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private List<Like> likes = new ArrayList<>();
+
+
+//    // like 맵핑(한 like:한 user)
+//    @OneToOne(mappedBy = "user")
+//    @JoinColumn(name = "userId")
+//    private User user;
 }
