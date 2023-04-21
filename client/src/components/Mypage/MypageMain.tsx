@@ -11,7 +11,9 @@ import { CommentData } from "../../util/Type";
 import { UserData } from "../../util/Type";
 import { BASE_API } from "../../util/API";
 import { MyContext } from "../../theme";
-import Skeleton from "../Loading/Skeleton";
+import diary from "../../util/img/diary.png";
+import like from "../../util/img/like.png";
+import comment from "../../util/img/comment.png";
 
 const ListTab = styled.ul`
   display: flex;
@@ -76,6 +78,24 @@ const CommentInfo = styled.div`
 
   > .countText {
     font-weight: ${(props) => props.theme.font.contentWeight};
+  }
+`;
+
+const MyPageImgWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  > img {
+    width: 500px;
+    height: 340px;
+    margin-bottom: 20px;
+  }
+
+  > div {
+    color: ${(props) => props.theme.color.subText};
+    font-size: 25px;
+    font-weight: ${(props) => props.theme.font.titleWeight};
   }
 `;
 
@@ -153,11 +173,6 @@ function MypageMain() {
     getMyCommentData();
   }, []);
 
-  // 내가 작성한 댓글 개수 구하기 위한 필터링
-  const myComment = myCommentData.filter((value) => {
-    return value.userNickname === currentUser.nickname;
-  });
-
   // 마이 페이지 탭 리스트
   const tabArr = [
     { feel: "내 정보 수정" },
@@ -192,22 +207,36 @@ function MypageMain() {
             {myUserData && <MyInfo list={myUserData} getUserData={getUserData} />}
           </MypageWrapper>
         ) : currentTab === 1 ? (
-          <DiaryMain.DiaryMainWrapper>
-            {myDiaryData.slice(offset, offset + LIMIT_COUNT).map((value) => {
-              return <MyDiary list={value} key={value.diaryId} />;
-            })}
-          </DiaryMain.DiaryMainWrapper>
+          myDiaryData.length !== 0 ? (
+            <DiaryMain.DiaryMainWrapper>
+              {myDiaryData.slice(offset, offset + LIMIT_COUNT).map((value) => {
+                return <MyDiary list={value} key={value.diaryId} />;
+              })}
+            </DiaryMain.DiaryMainWrapper>
+          ) : (
+            <MyPageImgWrapper>
+              <img src={diary} alt='myDiary' />
+              <div>아직 작성한 다이어리가 없습니다.</div>
+            </MyPageImgWrapper>
+          )
         ) : currentTab === 2 ? (
-          <DiaryMain.DiaryMainWrapper>
-            {myLikeDiaryData?.slice(offset, offset + LIMIT_COUNT).map((value) => {
-              return <MyLikeDiary list={value} key={value.diaryId} />;
-            })}
-          </DiaryMain.DiaryMainWrapper>
-        ) : (
+          myLikeDiaryData.length !== 0 ? (
+            <DiaryMain.DiaryMainWrapper>
+              {myLikeDiaryData?.slice(offset, offset + LIMIT_COUNT).map((value) => {
+                return <MyLikeDiary list={value} key={value.diaryId} />;
+              })}
+            </DiaryMain.DiaryMainWrapper>
+          ) : (
+            <MyPageImgWrapper>
+              <img src={like} alt='myDiary' />
+              <div>아직 좋아한 다이어리가 없습니다.</div>
+            </MyPageImgWrapper>
+          )
+        ) : myCommentData.length !== 0 ? (
           <MypageWrapper>
             <CommentCountWrapper>
               <CommentInfo>
-                <div className='countNum'>{myComment.length}</div>
+                <div className='countNum'>{myCommentData.length}</div>
                 <div className='countText'>개의 작성한 댓글이 있습니다.</div>
               </CommentInfo>
             </CommentCountWrapper>
@@ -215,6 +244,11 @@ function MypageMain() {
               return <MyComment list={value} key={value.commentId} />;
             })}
           </MypageWrapper>
+        ) : (
+          <MyPageImgWrapper>
+            <img src={comment} alt='myDiary' />
+            <div>아직 작성한 댓글이 없습니다.</div>
+          </MyPageImgWrapper>
         )}
       </DiaryMain.DiaryMainContainer>
       <MypagePagination
