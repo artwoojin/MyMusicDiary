@@ -2,6 +2,8 @@ import styled from "styled-components";
 import MainIcon from "../../util/img/mainIcon.png";
 
 const LoadingContainer = styled.div`
+  margin: -8px;
+  height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
