@@ -6,63 +6,94 @@ import firstcarousel from "../../util/img/firstcarousel.png";
 import secondcarousel from "../../util/img/secondcarousel.png";
 
 const StyledSlider = styled(Slider)`
-  height: 320px;
+  height: 325px;
   margin-bottom: 70px;
+
+  @media screen and (max-width: 525px) {
+    height: 245px;
+  }
 `;
 
 const FirstSlide = styled.div`
   background-color: #ffdab9;
-  height: 300px;
-`;
+  height: 310px;
+  padding: 0 15px 0 15px;
 
-const ContentArea = styled.div`
-  display: flex;
-  align-items: center;
-  max-width: 1440px;
-  margin: auto;
-  height: 100%;
-
-  > .promotionTitle {
-    flex: 5;
-
-    > .mainTitle {
-      font-size: 31px;
-      font-weight: 800;
-      margin-bottom: 10px;
-      padding-left: 200px;
-    }
-
-    > .subTitle {
-      display: flex;
-      align-items: center;
-      font-size: 22px;
-      font-weight: 500;
-      padding-left: 200px;
-
-      > .musicIcon {
-        margin-left: 5px;
-      }
-    }
-  }
-
-  > .promotionImg {
-    flex: 5;
-
-    > img {
-      margin-left: 50px;
-      height: 300px;
-      object-fit: contain;
-
-      @media screen and (max-width: 1024px) {
-        display: none;
-      }
-    }
+  @media screen and (max-width: 525px) {
+    height: 230px;
   }
 `;
 
 const SecondSlide = styled.div`
   background-color: #faeac7;
-  height: 300px;
+  height: 310px;
+  padding: 0 15px 0 15px;
+
+  @media screen and (max-width: 525px) {
+    height: 230px;
+  }
+`;
+
+const ContentArea = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  height: 310px;
+
+  @media screen and (max-width: 525px) {
+    height: 230px;
+  }
+`;
+
+const PromotionTitle = styled.div`
+  > .mainTitle {
+    font-size: 31px;
+    font-weight: 800;
+    margin-bottom: 10px;
+
+    @media screen and (max-width: 1084px) {
+      font-size: 28px;
+      margin-right: 50px;
+    }
+
+    @media screen and (max-width: 721px) {
+      font-size: 24px;
+    }
+  }
+
+  > .subTitle {
+    display: flex;
+    align-items: center;
+    font-size: 22px;
+    font-weight: ${(props) => props.theme.font.contentWeight};
+
+    @media screen and (max-width: 721px) {
+      font-size: 18px;
+    }
+  }
+
+  @media screen and (max-width: 525px) {
+    width: 100%;
+  }
+`;
+
+const PromotionImg = styled.div`
+  @media screen and (max-width: 525px) {
+    display: none;
+  }
+
+  > img {
+    height: 300px;
+    object-fit: contain;
+
+    @media screen and (max-width: 1084px) {
+      height: 250px;
+    }
+
+    @media screen and (max-width: 721px) {
+      height: 200px;
+    }
+  }
 `;
 
 function Carousel() {
@@ -81,28 +112,28 @@ function Carousel() {
     <StyledSlider {...settings}>
       <FirstSlide>
         <ContentArea>
-          <div className='promotionTitle'>
+          <PromotionTitle>
             <div className='mainTitle'>혼자 듣기 아까웠던 숨은 명곡들</div>
             <div className='subTitle'>이제 나만의 작은 음악 다이어리에서 같이 들어요 🎵</div>
-          </div>
-          <div className='promotionImg'>
+          </PromotionTitle>
+          <PromotionImg>
             <img src={firstcarousel} alt='listen music' />
-          </div>
+          </PromotionImg>
         </ContentArea>
       </FirstSlide>
       <SecondSlide>
         <ContentArea>
-          <div className='promotionTitle'>
+          <PromotionTitle>
             <div className='mainTitle'>
-              평범한 플레이리스트가 아닌
+              평범한 플레이리스트가 아닌 추억이 담긴
               <br />
-              추억이 담긴 나만의 음악 다이어리
+              나만의 음악 다이어리
             </div>
             <div className='subTitle'>소중했던 순간을 남겨보세요 ✏️</div>
-          </div>
-          <div className='promotionImg'>
+          </PromotionTitle>
+          <PromotionImg>
             <img src={secondcarousel} alt='love music' />
-          </div>
+          </PromotionImg>
         </ContentArea>
       </SecondSlide>
     </StyledSlider>

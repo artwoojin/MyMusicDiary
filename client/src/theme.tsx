@@ -1,56 +1,74 @@
 import { createContext } from "react";
 import { DefaultTheme } from "styled-components";
 
-export const myContext: any = createContext(null);
+export const MyContext: any = createContext(null);
 
 export const lightMode: DefaultTheme = {
-  logo: `#22262c`,
-  background: `white`,
-  mainText: `#22262c`,
-  subText: `#495057`,
-  mainColor: `#ffefd5`,
-  buttonHover: `#ffdeb7`,
+  color: {
+    logo: `#22262c`,
+    background: `white`,
 
-  // main
-  diaryDate: `#9aa1a8`,
-  diaryInfoLine: `#f1f3f5`,
+    mainText: `#22262c`,
+    subText: `#495057`,
+    thirdText: `#9aa1a8`,
 
-  TagColor: `#22262c`,
-  disabledTagColor: `gray`,
-  disabledTagBorder: `#d1d1d1`,
-  disabledTagBackground: `white`,
-  disabled: `lightgray`,
+    signature: `#ffefd5`,
+    signatureHover: `#ffdeb7`,
+    signatureText: `#22262c`,
 
-  // detail
-  detailLine: `#d9d9d9`,
-  likeHover: `#f1f3f5`,
-  commentInputBackground: `white`,
-  playListHover: `#f1f3f5`,
-  editBorder: `gray`,
+    userAreaLine: `#f1f3f5`,
+    borderLine: `#ebebeb`,
+    inputBackground: `white`,
+    loginBorderLine: `#dbdbdb`,
+
+    buttonHover: `#f7f7f7`,
+    dropDownHover: `#f7f7f7`,
+
+    pageDisabled: `lightgray`,
+  },
+
+  font: {
+    diaryMainTitleSize: 21,
+    diarySubTitleSize: 18,
+    diaryContentSize: 15,
+
+    logoWeight: 700,
+    titleWeight: 600,
+    contentWeight: 500,
+  },
 };
 
 export const darkMode: DefaultTheme = {
-  logo: `#ececec`,
-  background: `#1f2125`,
-  mainText: `#ececec`,
-  subText: `#a6a6a6`,
-  mainColor: `#ffefd5`,
-  buttonHover: `#ffdeb7`,
+  color: {
+    logo: `#ececec`,
+    background: `#121212`,
 
-  // main
-  diaryDate: `#9aa1a8`,
-  diaryInfoLine: `#3C4048`,
+    mainText: `#ececec`,
+    subText: `#a6a6a6`,
+    thirdText: `#9aa1a8`,
 
-  TagColor: `#22262c`,
-  disabledTagColor: `gray`,
-  disabledTagBorder: `#2f3135`,
-  disabledTagBackground: `#2f3135`,
-  disabled: `gray`,
+    signature: `#ffefd5`,
+    signatureHover: `#ffdeb7`,
+    signatureText: `#22262c`,
 
-  // detail
-  detailLine: `#3C4048`,
-  likeHover: `#2f3135`,
-  commentInputBackground: `#3C4048`,
-  playListHover: `#3C4048`,
-  editBorder: `gray`,
+    userAreaLine: `#2a2a2a`,
+    borderLine: `#2a2a2a`,
+    inputBackground: `#1e1e1e`,
+    loginBorderLine: `#2a2a2a`,
+
+    buttonHover: `#1e1e1e`,
+    dropDownHover: `#2d2d2d`,
+
+    pageDisabled: `gray`,
+  },
+
+  font: {
+    diaryMainTitleSize: 21,
+    diarySubTitleSize: 18,
+    diaryContentSize: 15,
+
+    logoWeight: 700,
+    titleWeight: 600,
+    contentWeight: 500,
+  },
 };

@@ -1,33 +1,41 @@
 import styled from "styled-components";
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { CommentData } from "../../util/Type";
 import { TOKEN_API } from "../../util/API";
-import { useContext } from "react";
-import { myContext } from "../../theme";
+import { MyContext } from "../../theme";
 
-const CommentListContainer = styled.li`
+export const CommentListContainer = styled.li`
   display: flex;
   justify-content: center;
+  border-bottom: 1px solid ${(props) => props.theme.color.borderLine};
+
+  :last-child {
+    border-bottom: none;
+  }
 `;
 
-const CommentListWrapper = styled.div`
+export const CommentListWrapper = styled.div`
   width: 100vw;
   max-width: 900px;
-  min-width: 300px;
   border: none;
-  border-bottom: 1px solid ${(props) => props.theme.detailLine};
-  color: ${(props) => props.theme.mainText};
+  padding: 0 5px 0 5px;
 
-  > .content {
-    font-size: 13px;
-    color: ${(props) => props.theme.mainText};
-    font-weight: 500;
+  .name {
+    font-size: 14px;
+    font-weight: ${(props) => props.theme.font.titleWeight};
+    margin: 15px 0 15px 0;
+    color: ${(props) => props.theme.color.mainText};
   }
 
-  > .date {
-    font-size: 12px;
-    color: #848180;
+  .content {
+    font-size: ${(props) => props.theme.font.diaryContentSize}px;
+    color: ${(props) => props.theme.color.mainText};
+  }
+
+  .date {
+    font-size: 13px;
     margin: 10px 0 15px 0;
+    color: ${(props) => props.theme.color.thirdText};
   }
 `;
 
@@ -35,22 +43,16 @@ const NameArea = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-
-  > .name {
-    font-size: 14px;
-    font-weight: 500;
-    margin: 15px 0 15px 0;
-  }
 `;
 
 const EditCommentArea = styled.input`
-  color: ${(props) => props.theme.mainText};
+  color: ${(props) => props.theme.color.mainText};
   width: 100%;
   padding: 10px 8px 10px 8px;
   border: none;
   border-radius: 4px;
-  border: 1px solid ${(props) => props.theme.disabledTagBorder};
-  background-color: ${(props) => props.theme.disabledTagBackground};
+  border: 1px solid ${(props) => props.theme.color.borderLine};
+  background-color: ${(props) => props.theme.color.inputBackground};
 
   &:focus {
     outline: none;
@@ -64,25 +66,26 @@ const ButtonArea = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 12px;
+    font-size: 13px;
     padding: 5px;
     background-color: transparent;
+    cursor: pointer;
   }
 
   > .edit {
     width: 40px;
-    color: ${(props) => props.theme.mainText};
+    color: ${(props) => props.theme.color.mainText};
     border: none;
     text-decoration: underline;
-    font-weight: 600;
+    font-weight: ${(props) => props.theme.font.titleWeight};
   }
 
   > .delete {
     width: 40px;
-    color: ${(props) => props.theme.mainText};
+    color: ${(props) => props.theme.color.mainText};
     border: none;
     text-decoration: underline;
-    font-weight: 600;
+    font-weight: ${(props) => props.theme.font.titleWeight};
   }
 `;
 
@@ -100,32 +103,36 @@ const DeleteModalBack = styled.div`
 
 const DeleteModalView = styled.div`
   text-align: center;
-  border-radius: 5px;
-  background-color: white;
-  width: 430px;
-  height: 220px;
+  border-radius: 4px;
+  background-color: ${(props) => props.theme.color.background};
+  width: 80%;
+  max-width: 400px;
+  height: 200px;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.19), 0 10px 10px rgba(0, 0, 0, 0.1);
 
   > .deleteModalTitle {
-    font-size: 20px;
-    font-weight: 700;
+    color: ${(props) => props.theme.color.mainText};
+    font-size: ${(props) => props.theme.font.diarySubTitleSize}px;
+    font-weight: ${(props) => props.theme.font.titleWeight};
     text-align: center;
-    margin: 30px 0 45px 0;
+    margin: 30px 15px 35px 15px;
   }
 
   > .warningText {
-    font-size: 15px;
-    font-weight: 500;
-    margin-bottom: 50.5px;
+    color: ${(props) => props.theme.color.subText};
+    font-size: ${(props) => props.theme.font.diaryContentSize}px;
+    font-weight: ${(props) => props.theme.font.contentWeight};
+    margin: 0 15px 43px 15px;
   }
 
   > button {
-    font-weight: 500;
-    width: 215px;
+    font-size: ${(props) => props.theme.font.diaryContentSize}px;
+    font-weight: ${(props) => props.theme.font.titleWeight};
+    width: 50%;
     height: 50px;
-    color: white;
     border: none;
     text-decoration: none;
+    cursor: pointer;
 
     &:hover {
       text-decoration: none;
@@ -133,28 +140,26 @@ const DeleteModalView = styled.div`
   }
 
   > .deleteCancelButton {
-    color: #21252b;
-    font-weight: 600;
+    color: ${(props) => props.theme.color.subText};
     background-color: transparent;
-    border-top: 1px solid #eeeeee;
-    border-right: 0.5px solid #eeeeee;
-    border-bottom-left-radius: 5px;
+    border-top: 1px solid ${(props) => props.theme.color.borderLine};
+    border-right: 0.5px solid ${(props) => props.theme.color.borderLine};
+    border-bottom-left-radius: 4px;
 
     &:hover {
-      background-color: #eeeeee;
+      background-color: ${(props) => props.theme.color.buttonHover};
     }
   }
 
   > .deleteButton {
     color: #ec1d36;
-    font-weight: 600;
     background-color: transparent;
-    border-top: 1px solid #eeeeee;
-    border-left: 0.5px solid #eeeeee;
-    border-bottom-right-radius: 5px;
+    border-top: 1px solid ${(props) => props.theme.color.borderLine};
+    border-left: 0.5px solid ${(props) => props.theme.color.borderLine};
+    border-bottom-right-radius: 4px;
 
     &:hover {
-      background-color: #eeeeee;
+      background-color: ${(props) => props.theme.color.buttonHover};
     }
   }
 `;
@@ -169,7 +174,7 @@ function CommentList({ list, getDetailData }: CommentDataProps) {
   const [click, setClick] = useState<boolean>(false);
   const [deleteCommentModal, setDeleteCommentModal] = useState<boolean>(false);
 
-  const { currentUser }: any = useContext(myContext);
+  const { currentUser }: any = useContext(MyContext);
   const myComment: boolean = list.userNickname === currentUser?.nickname;
 
   // 댓글 patch 요청

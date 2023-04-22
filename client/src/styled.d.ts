@@ -2,28 +2,37 @@ import "styled-components";
 
 declare module "styled-components" {
   export interface DefaultTheme {
-    logo: string;
-    background: string;
-    mainText: string;
-    subText: string;
-    mainColor: string;
-    buttonHover: string;
+    color: {
+      logo: string;
+      background: string;
 
-    // main
-    diaryDate: string;
-    diaryInfoLine: string;
+      mainText: string;
+      subText: string;
+      thirdText: string;
 
-    TagColor: string;
-    disabledTagColor: string;
-    disabledTagBorder: string;
-    disabledTagBackground: string;
-    disabled: string;
+      signature: string;
+      signatureHover: string;
+      signatureText: string;
 
-    // detail
-    detailLine: string;
-    likeHover: string;
-    commentInputBackground: string;
-    playListHover: string;
-    editBorder: string;
+      userAreaLine: string;
+      borderLine: string;
+      inputBackground: string;
+      loginBorderLine: string;
+
+      buttonHover: string;
+      dropDownHover: string;
+
+      pageDisabled: string;
+    };
+
+    font: {
+      diaryMainTitleSize: number;
+      diarySubTitleSize: number;
+      diaryContentSize: number;
+
+      logoWeight: number;
+      titleWeight: number;
+      contentWeight: number;
+    };
   }
 }
