@@ -15,7 +15,9 @@ import com.seb42.main30.seb42_main_030.user.entity.User;
 import com.seb42.main30.seb42_main_030.user.repository.UserRepository;
 import com.seb42.main30.seb42_main_030.user.service.UserService;
 import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.context.annotation.Bean;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -61,7 +63,6 @@ public class DiaryService {
         }
 
         diary.setPlaylists(playlistList);
-
 
         List<Tag> tags = tagService.findAll(post.getTags());
         diary.setTags(tags);

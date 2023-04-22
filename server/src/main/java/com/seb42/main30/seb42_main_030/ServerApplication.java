@@ -29,14 +29,14 @@ public class ServerApplication implements CommandLineRunner {
 	@Override
 	public void run(String[] args) {
 		final List<Tag> tags = Arrays.asList(
-				new Tag(1, "#신나는"),
-				new Tag(2, "#감성적인"),
-				new Tag(3, "#잔잔한"),
-				new Tag(4, "#애절한"),
-				new Tag(5, "#그루브한"),
-				new Tag(6, "#몽환적인"),
-				new Tag(7,"#어쿠스틱한"),
-				new Tag(8,"#청량한")
+				new Tag(0, "#신나는"),
+				new Tag(1, "#감성적인"),
+				new Tag(2, "#잔잔한"),
+				new Tag(3, "#애절한"),
+				new Tag(4, "#그루브한"),
+				new Tag(5, "#몽환적인"),
+				new Tag(6,"#어쿠스틱한"),
+				new Tag(7,"#청량한")
 
 		);
 		for (Tag tag : tags){

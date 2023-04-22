@@ -76,21 +76,21 @@ public class Diary extends Auditable {
         this.tags = tags;
     }
 
-    public TagDto.Response getTagDto() {
-
-        List<String> moods = new ArrayList<>();
-
-        for (Tag tag : this.tags) {
-
-             moods.add(tag.getTagName());
-            }
-
-
-        TagDto.Response response = TagDto.Response.builder()
-                .moodTag(moods)
-                .build();
-
-        return response;
-    }
+//    public TagDto.Response getTagDto() {
+//
+//        List<Long> moods = new ArrayList<>();
+//
+//        for (Tag tag : this.tags) {
+//
+//             moods.add(tag.getTagId());
+//            }
+//
+//
+//        TagDto.Response response = TagDto.Response.builder()
+//                .moodTag(moods)
+//                .build();
+//
+//        return response;
+//    }
 
 }

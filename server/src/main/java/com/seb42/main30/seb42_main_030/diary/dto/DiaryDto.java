@@ -4,6 +4,7 @@ package com.seb42.main30.seb42_main_030.diary.dto;
 import com.seb42.main30.seb42_main_030.comment.dto.CommentDto;
 import com.seb42.main30.seb42_main_030.playlist.dto.PlaylistDto;
 import com.seb42.main30.seb42_main_030.playlist.dto.PlaylistResponseDto;
+import com.seb42.main30.seb42_main_030.tag.dto.TagDto;
 import com.seb42.main30.seb42_main_030.user.dto.UserDto;
 import lombok.*;
 import org.springframework.stereotype.Repository;
@@ -74,7 +75,7 @@ public class DiaryDto {
         private List<CommentDto.Response> comments;
 //        private List<PlaylistDto.Response> playlists;
         private List<PlaylistResponseDto> playlists;
-        private List<Long> tags;
+        private List<TagDto.Response> tags;
         public void setLikedUsers(List<UserDto.Response> likedUsers) {
         }
     }

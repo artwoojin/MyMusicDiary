@@ -7,6 +7,8 @@ import com.seb42.main30.seb42_main_030.diary.dto.DiaryDto;
 import com.seb42.main30.seb42_main_030.diary.entity.Diary;
 import com.seb42.main30.seb42_main_030.playlist.dto.PlaylistResponseDto;
 import com.seb42.main30.seb42_main_030.playlist.entity.Playlist;
+import com.seb42.main30.seb42_main_030.tag.dto.TagDto;
+import com.seb42.main30.seb42_main_030.tag.entity.Tag;
 import com.seb42.main30.seb42_main_030.user.entity.User;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -69,7 +71,9 @@ public interface DiaryMapper {
             diaryDto.viewCount(diary.getViewCount());
             diaryDto.likeCount(diary.getLikeCount());
             //diaryDto.likeCheck(diary.getLikeCheck());
-            diaryDto.tags(Collections.singletonList(diary.getTagDto().getTagId()));
+            //diaryDto.tags(Collections.singletonList(diary.getTagDto().getTagId()));
+            List<Tag> tags = diary.getTags();
+            diaryDto.tags(tagsToTagResponseDto(tags));
             Optional<User> user = Optional.ofNullable(diary.getUser());
             user.ifPresent(u -> diaryDto.userNickname(u.getNickname()));
 
@@ -122,4 +126,17 @@ public interface DiaryMapper {
     }
 
     List<DiaryDto.Response> diariesToDtos(List<Diary> likeDiaryList);
+
+
+    @Named("tagsToTagResponseDto")
+    default List<TagDto.Response> tagsToTagResponseDto(List<Tag> tags) {
+        return  tags
+                .stream()
+                .map(tag -> TagDto.Response
+                        .builder()
+                        .tagId(tag.getTagId())
+                        .tagName(tag.getTagName())
+                        .build())
+                .collect(Collectors.toList());
+    }
 }
