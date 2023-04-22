@@ -5,7 +5,6 @@ import { UserData } from "../../util/Type";
 import { TOKEN_API } from "../../util/API";
 import { MyContext } from "../../theme";
 import defaultProfile from "../../util/img/defaultProfile.png";
-import axios from "axios";
 
 const MyInfoContainer = styled.div`
   display: flex;
@@ -24,11 +23,6 @@ const ProfileImg = styled.img`
   height: 150px;
   border-radius: 100%;
   margin-bottom: 20px;
-  cursor: pointer;
-
-  &:hover {
-    outline: 5px solid ${(props) => props.theme.color.signature};
-  }
 
   // 721px 이하에서 프로필 이미지 크기 축소
   @media screen and (max-width: 721px) {
@@ -362,7 +356,6 @@ export interface UserDataProps {
 }
 
 function MyInfo({ list, getUserData }: UserDataProps) {
-  const [image, setImage] = useState(list.imageUrl);
   const [nickname, setNickname] = useState<string>(list.nickname);
   const [editNickname, setEditNickname] = useState<boolean>(false);
   const [password, setPassword] = useState<string>(list.password);
@@ -373,42 +366,17 @@ function MyInfo({ list, getUserData }: UserDataProps) {
   const navigate = useNavigate();
   const { currentUser }: any = useContext(MyContext);
 
-  const TOKEN = localStorage.getItem("accessToken");
-
-  // 프로필 이미지 클릭 시 input으로 연결되는 이벤트
-  const clickProfile = () => {
+  // 프로필 이미지 등록 버튼 클릭 시 ImgInput으로 연결되는 이벤트
+  const imageInput = () => {
     fileInput.current?.click();
   };
 
-  // 선택한 이미지 미리보기 이벤트
-  // const saveImage = async (e: any) => {
-  //   setImage(URL.createObjectURL(e.target.files[0]));
-  // };
-
-  const saveImage = async (e: any) => {
-    const image = e.target.files[0];
-    console.log(e.target.files[0]);
-
+  // 프로필 이미지 등록 이벤트 핸들러
+  const uploadImage = async (e: any) => {
+    const img = e.target.files[0];
     const formData = new FormData();
-    formData.append("file", image);
-
-    console.log(formData);
-
-    // const newImg = {
-    //   file: formData,
-    // };
-    await axios.post(`/users/${list.userId}/image`, formData);
-    // window.location.reload();
-  };
-
-  // 선택한 이미지 patch 요청
-  const changeImage = async () => {
-    const newImg = {
-      imageUrl: image,
-      nickname: list.nickname,
-      password: list.password,
-    };
-    await TOKEN_API.patch(`/users/${list.userId}`, newImg);
+    formData.append("file", img);
+    await TOKEN_API.post(`/users/${list.userId}/image`, formData);
     window.location.reload();
   };
 
@@ -492,13 +460,12 @@ function MyInfo({ list, getUserData }: UserDataProps) {
       <MyInfoContainer>
         <ProfileImgWrapper>
           <ProfileImg
-            src={image ? image : defaultProfile}
+            src={list.imageUrl ? list.imageUrl : defaultProfile}
             alt='프로필 이미지'
             onError={replaceImg}
-            onClick={clickProfile}
           />
-          <ImgInput type='file' accept='image/*' onChange={saveImage} ref={fileInput} />
-          <ImgSubmitBtn onClick={changeImage}>프로필 이미지 저장</ImgSubmitBtn>
+          <ImgInput type='file' accept='image/*' onChange={uploadImage} ref={fileInput} />
+          <ImgSubmitBtn onClick={imageInput}>프로필 이미지 등록</ImgSubmitBtn>
           <ImgDeleteBtn onClick={deleteImage}>프로필 이미지 제거</ImgDeleteBtn>
         </ProfileImgWrapper>
       </MyInfoContainer>

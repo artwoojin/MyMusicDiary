@@ -102,7 +102,7 @@ const MyPageImgWrapper = styled.div`
 function MypageMain() {
   const [myUserData, setMyUserData] = useState<UserData>();
   const [myDiaryData, setMyDiaryData] = useState<DiaryData[]>([]);
-  const [myLikeDiaryData, setLikeDiaryData] = useState<DiaryData[]>([]);
+  const [myLikeDiaryData, setMyLikeDiaryData] = useState<DiaryData[]>([]);
   const [myCommentData, setMyCommentData] = useState<CommentData[]>([]);
   const [currentTab, setCurrentTab] = useState<number>(
     () => JSON.parse(window.localStorage.getItem("myCurrentTab")!) || 0
@@ -141,6 +141,7 @@ function MypageMain() {
       console.error(err);
     }
   };
+
   useEffect(() => {
     getMyDiaryData();
   }, []);
@@ -149,11 +150,12 @@ function MypageMain() {
   const getLikeData = async () => {
     try {
       const res = await BASE_API.get(`/users/${currentUser.userId}`);
-      setLikeDiaryData(res.data.likeDiaries);
+      setMyLikeDiaryData(res.data.likeDiaries);
     } catch (err) {
       console.error(err);
     }
   };
+
   useEffect(() => {
     getLikeData();
   }, []);
@@ -186,6 +188,13 @@ function MypageMain() {
     setCurrentTab(index);
   };
 
+  // const ContentPlaceholder = React.memo((src, alt, description) => (
+  //   <MyPageImgWrapper>
+  //     <img src={src} alt={alt} />
+  //     <div>{description}</div>
+  //   </MyPageImgWrapper>
+  // ));
+
   return (
     <>
       <ListTab>
@@ -201,6 +210,7 @@ function MypageMain() {
           );
         })}
       </ListTab>
+
       <DiaryMain.DiaryMainContainer>
         {currentTab === 0 ? (
           <MypageWrapper>
@@ -222,7 +232,7 @@ function MypageMain() {
         ) : currentTab === 2 ? (
           myLikeDiaryData.length !== 0 ? (
             <DiaryMain.DiaryMainWrapper>
-              {myLikeDiaryData?.slice(offset, offset + LIMIT_COUNT).map((value) => {
+              {myLikeDiaryData.slice(offset, offset + LIMIT_COUNT).map((value) => {
                 return <MyLikeDiary list={value} key={value.diaryId} />;
               })}
             </DiaryMain.DiaryMainWrapper>

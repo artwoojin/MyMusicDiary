@@ -195,6 +195,7 @@ const DropdownLogoutButton = styled.button`
 function LoginHeader() {
   const [imageData, setImageData] = useState<any>([]);
   const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [test, setTest] = useState(false);
 
   const { currentUser, isChange, changeMode }: any = useContext(MyContext);
   const navigate = useNavigate();
@@ -242,8 +243,6 @@ function LoginHeader() {
     e.target.src = defaultProfile;
   };
 
-  // console.log(imageData.data);
-
   return (
     <HeaderContainer>
       <HeaderWrapper>
@@ -263,7 +262,7 @@ function LoginHeader() {
           </Link>
           <ProfileButton onClick={openDropdown}>
             <Profile
-              src={imageData?.imageUrl ? imageData?.imageUrl : defaultProfile}
+              src={imageData.imageUrl ? imageData.imageUrl : defaultProfile}
               alt='헤더 프로필 이미지'
               onError={replaceImg}
             />

@@ -2,10 +2,10 @@ import styled from "styled-components";
 import MainIcon from "../../util/img/mainIcon.png";
 
 const LoadingContainer = styled.div`
-  height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
+  background-color: ${(props) => props.theme.color.background};
 `;
 
 const MainIconImg = styled.img`

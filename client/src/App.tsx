@@ -1,15 +1,14 @@
+import styled from "styled-components";
 import Main from "./pages/Main";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
-import styled from "styled-components";
-import { useState } from "react";
-import { Routes, Route, Link } from "react-router-dom";
+import Spinner from "./components/Loading/Spinner";
+import { useState, lazy, Suspense } from "react";
+import { Routes, Route } from "react-router-dom";
 import { createGlobalStyle, ThemeProvider } from "styled-components";
 import { MyContext, lightMode, darkMode } from "./theme";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.min.css";
-import Spinner from "./components/Loading/Spinner";
-import { lazy, Suspense } from "react";
 
 const GlobalStyle = createGlobalStyle`
   * {
@@ -66,9 +65,6 @@ function App() {
       <ThemeProvider theme={isChange === "dark" ? darkMode : lightMode}>
         <Suspense fallback={<Spinner />}>
           <div className='App'>
-            {/* <Link to='/Loading'>
-              <div>Loading</div>
-            </Link> */}
             <GlobalStyle />
             <Routes>
               <Route path='/' element={<Main />} />
@@ -78,7 +74,6 @@ function App() {
               <Route path='/Signup' element={<Signup />} />
               <Route path='/DetailDiary/:diaryId' element={<DetailDiary />} />
               <Route path='/EditDiary/:diaryId' element={<EditDiary />} />
-              <Route path='/Loading' element={<Spinner />} />
             </Routes>
             <ToastAlert hideProgressBar={false} autoClose={2000} pauseOnFocusLoss={true} />
           </div>
