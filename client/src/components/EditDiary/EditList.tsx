@@ -11,11 +11,11 @@ import { PlaylistData } from "../../util/Type";
 import { toast } from "react-toastify";
 import { FiPlus } from "react-icons/fi";
 import { IoIosClose } from "react-icons/io";
-import mainIcon from "../../util/img/mainIcon.png";
+import mainIcon from "../../assets/images/mainIcon.png";
 
 function EditList({ list }: DiaryDataProps) {
   const [editTitle, setEditTitle] = useState<string>(list.title);
-  const [editTag, setEditTag] = useState<any>([]);
+  const [editTag, setEditTag] = useState<any>(list.tags);
   const [editBody, setEditBody] = useState<string>(list.body);
   const [editPlayList, setEditPlayList] = useState<PlaylistData[]>(list.playlists);
   const [editUrl, setEditUrl] = useState<string>("");
@@ -28,6 +28,7 @@ function EditList({ list }: DiaryDataProps) {
     if (editTitle.length <= 100 && editTitle.length !== 0 && editPlayList.length !== 0) {
       const editDiary = {
         title: editTitle,
+        tags: editTag,
         body: editBody,
         playlists: editPlayList,
       };
@@ -128,7 +129,6 @@ function EditList({ list }: DiaryDataProps) {
     if (value !== "") {
       if (editTag.length <= 3 && !editTag.includes(value)) {
         setEditTag([...editTag, value]);
-        console.log(editTag);
       } else if (editTag.length === 4) {
         toast.error("태그는 4개까지만 추가할 수 있습니다.");
       } else if (editTag.includes(value)) {
@@ -137,10 +137,11 @@ function EditList({ list }: DiaryDataProps) {
     }
   };
 
+  console.log(editTag);
+
   // 태그 삭제 이벤트 핸들러
   const removeTags = (deleteIndex: any) => {
     setEditTag(editTag.filter((value: any) => value !== editTag[deleteIndex]));
-    console.log(editTag);
   };
 
   // 새로고침 & 페이지 닫기 방지
@@ -208,7 +209,7 @@ function EditList({ list }: DiaryDataProps) {
             <NewMain.Tag>
               {editTag.map((value: any, index: any) => (
                 <li key={index}>
-                  <div className='tagTitle'>{value}</div>
+                  <div className='tagTitle'>{value.tagName}</div>
                   <div className='tagcloseBtn' onClick={() => removeTags(index)}>
                     <IoIosClose size={20} />
                   </div>

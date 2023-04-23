@@ -12,9 +12,10 @@ import { RiErrorWarningLine } from "react-icons/ri";
 import { BsThreeDotsVertical } from "react-icons/bs";
 import { FiEdit } from "react-icons/fi";
 import DOMPurify from "dompurify";
-import { MyContext } from "../../theme";
+import { MyContext } from "../../util/MyContext";
 import { toast } from "react-toastify";
-import mainIcon from "../../util/img/mainIcon.png";
+import mainIcon from "../../assets/images/mainIcon.png";
+import TagList from "./TagList";
 
 const TitleArea = styled.div`
   height: 75px;
@@ -239,6 +240,21 @@ const DropdownDeleteButton = styled.button`
   }
 `;
 
+const TagArea = styled.ul`
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  font-size: 13px;
+  gap: 5px;
+  color: ${(props) => props.theme.color.mainText};
+  margin-top: 5px;
+  /* border: 1px solid blue; */
+
+  @media screen and (max-width: 721px) {
+    font-size: 12px;
+  }
+`;
+
 const AlbumInfoArea = styled.div`
   padding: 30px 5px 30px 5px;
   border-top: 1px solid ${(props) => props.theme.color.borderLine};
@@ -418,8 +434,6 @@ const RuleModalView = styled.div`
 interface DiaryDataProps {
   list: DiaryData;
   getDetailData: React.Dispatch<React.SetStateAction<object>>;
-  // likeData: any;
-  // getLikeData: any;
 }
 
 function DetailList({ list, getDetailData }: DiaryDataProps) {
@@ -431,6 +445,7 @@ function DetailList({ list, getDetailData }: DiaryDataProps) {
 
   const commentData = list.comments; // 선택한 다이어리의 댓글 데이터
   const playlistData = list.playlists; // 선택한 플레이리스트 데이터
+  const tagData = list.tags;
 
   const { diaryId } = useParams();
   const navigate = useNavigate();
@@ -621,6 +636,11 @@ function DetailList({ list, getDetailData }: DiaryDataProps) {
                 {list.createdAt.substring(0, 10)}
               </NewMain.User>
             </UserInfo>
+            <TagArea>
+              {tagData.map((value: any) => {
+                return <TagList list={value} key={value.tagId} />;
+              })}
+            </TagArea>
           </NewMain.InfoArea>
         </NewMain.AlbumCoverArea>
         <AlbumInfoArea>

@@ -3,7 +3,7 @@ import * as LoginHeader from "./LoginHeader";
 import { Link } from "react-router-dom";
 import { BsFillSunFill, BsFillMoonStarsFill } from "react-icons/bs";
 import { useContext } from "react";
-import { MyContext } from "../theme";
+import { MyContext } from "../../util/MyContext";
 
 const ButtonArea = styled.div`
   display: flex;

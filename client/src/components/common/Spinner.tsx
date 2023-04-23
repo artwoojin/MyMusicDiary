@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import MainIcon from "../../util/img/mainIcon.png";
+import MainIcon from "../../assets/images/mainIcon.png";
 
 const LoadingContainer = styled.div`
   margin: -8px;

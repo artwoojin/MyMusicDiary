@@ -3,8 +3,8 @@ import { useNavigate } from "react-router-dom";
 import { useState, useRef, useContext } from "react";
 import { UserData } from "../../util/Type";
 import { TOKEN_API } from "../../util/API";
-import { MyContext } from "../../theme";
-import defaultProfile from "../../util/img/defaultProfile.png";
+import { MyContext } from "../../util/MyContext";
+import defaultProfile from "../../assets/images/defaultProfile.png";
 
 const MyInfoContainer = styled.div`
   display: flex;

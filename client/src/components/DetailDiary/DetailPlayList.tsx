@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { PlaylistDataProps } from "../../util/Type";
-import mainIcon from "../../util/img/mainIcon.png";
+import mainIcon from "../../assets/images/mainIcon.png";
 
 const PlayListContainer = styled.li`
   display: flex;

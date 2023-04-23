@@ -9,7 +9,7 @@ export interface DiaryData {
   userNickname: string;
   comments: CommentData[];
   playlists: PlaylistData[];
-  tag: string[];
+  tags: string[];
 }
 
 export interface DiaryDataProps {

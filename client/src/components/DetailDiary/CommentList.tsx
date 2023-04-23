@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { useState, useContext } from "react";
 import { CommentData } from "../../util/Type";
 import { TOKEN_API } from "../../util/API";
-import { MyContext } from "../../theme";
+import { MyContext } from "../../util/MyContext";
 
 export const CommentListContainer = styled.li`
   display: flex;

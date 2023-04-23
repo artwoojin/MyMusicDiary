@@ -4,8 +4,8 @@ import styled from "styled-components";
 import { useState, useEffect, useContext } from "react";
 import { DiaryData } from "../../util/Type";
 import { BASE_API } from "../../util/API";
-import { MyContext } from "../../theme";
-import Skeleton from "../Loading/Skeleton";
+import { MyContext } from "../../util/MyContext";
+import Skeleton from "../common/Skeleton";
 
 const ListTab = styled.ul`
   display: flex;

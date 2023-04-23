@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { DiaryDataProps } from "../../util/Type";
 import { AiFillHeart } from "react-icons/ai";
 import { FaRegCommentDots } from "react-icons/fa";
-import defaultProfile from "../../util/img/mainIcon.png";
+import defaultProfile from "../../assets/images/defaultProfile.png";
 
 function MyDiary({ list }: DiaryDataProps) {
   return (

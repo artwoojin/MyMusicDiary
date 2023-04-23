@@ -1,7 +1,4 @@
-import { createContext } from "react";
 import { DefaultTheme } from "styled-components";
-
-export const MyContext: any = createContext(null);
 
 export const lightMode: DefaultTheme = {
   color: {

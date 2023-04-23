@@ -1,13 +1,12 @@
 import styled from "styled-components";
 import { Link, useNavigate } from "react-router-dom";
-import { useState, useEffect, useRef } from "react";
-import { BASE_API } from "../util/API";
+import { useState, useEffect, useRef, useContext } from "react";
+import { BASE_API } from "../../util/API";
 import { GoTriangleDown } from "react-icons/go";
 import { BsFillSunFill, BsFillMoonStarsFill } from "react-icons/bs";
 import { FiLogOut, FiEdit3, FiUser } from "react-icons/fi";
-import { useContext } from "react";
-import { MyContext } from "../theme";
-import defaultProfile from "../util/img/defaultProfile.png";
+import { MyContext } from "../../util/MyContext";
+import defaultProfile from "../../assets/images/defaultProfile.png";
 
 export const HeaderContainer = styled.header`
   display: flex;
@@ -195,7 +194,6 @@ const DropdownLogoutButton = styled.button`
 function LoginHeader() {
   const [imageData, setImageData] = useState<any>([]);
   const [isOpen, setIsOpen] = useState<boolean>(false);
-  const [test, setTest] = useState(false);
 
   const { currentUser, isChange, changeMode }: any = useContext(MyContext);
   const navigate = useNavigate();

@@ -1,30 +1,16 @@
 import styled from "styled-components";
+import GlobalStyle from "./assets/style/GlobalStyle";
 import Main from "./pages/Main";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
-import Spinner from "./components/Loading/Spinner";
+import Spinner from "./components/common/Spinner";
 import { useState, lazy, Suspense } from "react";
 import { Routes, Route } from "react-router-dom";
-import { createGlobalStyle, ThemeProvider } from "styled-components";
-import { MyContext, lightMode, darkMode } from "./theme";
+import { ThemeProvider } from "styled-components";
+import { lightMode, darkMode } from "./assets/style/theme";
+import { MyContext } from "./util/MyContext";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.min.css";
-
-const GlobalStyle = createGlobalStyle`
-  * {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-    -webkit-font-smoothing: antialiased;
-  }
-
-  body {
-    background-color: ${(props) => props.theme.color.background};
-}
-`;
 
 const ToastAlert = styled(ToastContainer)`
   .Toastify__toast {

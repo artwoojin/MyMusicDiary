@@ -6,13 +6,13 @@ import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import axios from "axios";
 import NewPlayList from "./NewPlayList";
-import { MyContext } from "../../theme";
+import { MyContext } from "../../util/MyContext";
 import { PlaylistData } from "../../util/Type";
 import { toast } from "react-toastify";
 import { FiPlus } from "react-icons/fi";
 import { IoIosClose } from "react-icons/io";
 import { AiOutlineYoutube } from "react-icons/ai";
-import mainIcon from "../../util/img/mainIcon.png";
+import mainIcon from "../../assets/images/mainIcon.png";
 
 export const MainContainer = styled.div`
   display: flex;
@@ -97,6 +97,7 @@ export const CoverImg = styled.img`
 
 export const InfoArea = styled.div`
   width: 650px;
+  /* border: 1px solid red; */
 `;
 
 export const UserInfo = styled.div`
@@ -164,7 +165,7 @@ export const Tag = styled.ul`
   flex-wrap: wrap;
   font-size: 13px;
   gap: 5px;
-  font-weight: ${(props) => props.theme.font.contentWeight};
+  padding: 5px 0 5px 0;
   color: ${(props) => props.theme.color.mainText};
 
   > li {
@@ -304,7 +305,7 @@ function NewMain() {
     if (newTitle.length <= 100 && newTitle.length !== 0 && newPlayList.length !== 0) {
       const newDiary = {
         title: newTitle,
-        // tags: newTag,
+        tags: newTag,
         body: newBody,
         playlists: newPlayList,
       };
@@ -405,7 +406,6 @@ function NewMain() {
     if (value !== "") {
       if (newTag.length <= 3 && !newTag.includes(value)) {
         setNewTag([...newTag, value]);
-        // console.log(newTag);
       } else if (newTag.length === 4) {
         toast.error("태그는 4개까지만 추가할 수 있습니다.");
       } else if (newTag.includes(value)) {
@@ -417,8 +417,9 @@ function NewMain() {
   // 태그 삭제 이벤트 핸들러
   const removeTags = (deleteIndex: any) => {
     setNewTag(newTag.filter((value: any) => value !== newTag[deleteIndex]));
-    // console.log(newTag);
   };
+
+  // console.log(newTag);
 
   // 새로고침 & 페이지 닫기 방지
   const preventClose = (e: BeforeUnloadEvent) => {

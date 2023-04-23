@@ -10,10 +10,10 @@ import { DiaryData } from "../../util/Type";
 import { CommentData } from "../../util/Type";
 import { UserData } from "../../util/Type";
 import { BASE_API } from "../../util/API";
-import { MyContext } from "../../theme";
-import diary from "../../util/img/diary.png";
-import like from "../../util/img/like.png";
-import comment from "../../util/img/comment.png";
+import { MyContext } from "../../util/MyContext";
+import diary from "../../assets/images/diary.png";
+import like from "../../assets/images/like.png";
+import comment from "../../assets/images/comment.png";
 
 const ListTab = styled.ul`
   display: flex;

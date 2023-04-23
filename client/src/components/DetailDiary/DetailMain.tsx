@@ -6,7 +6,6 @@ import { BASE_API } from "../../util/API";
 
 function DetailMain() {
   const [detailData, setDetailData] = useState<DiaryData>();
-  const [likeData, setLikeData] = useState<any>();
 
   const { diaryId } = useParams();
 
@@ -23,31 +22,7 @@ function DetailMain() {
     getDetailData();
   }, []);
 
-  // const getLikeData = async () => {
-  //   try {
-  //     const res = await BASE_API.get(`/likes/${diaryId}`);
-  //     setLikeData(res.data);
-  //   } catch (err) {
-  //     console.error(err);
-  //   }
-  // };
-  // useEffect(() => {
-  //   getLikeData();
-  // }, []);
-
-  return (
-    <>
-      {detailData && (
-        <DetailList
-          list={detailData}
-          getDetailData={getDetailData}
-          // likeData={likeData}
-          // getLikeData={getLikeData}
-        />
-      )}
-      ;
-    </>
-  );
+  return <>{detailData && <DetailList list={detailData} getDetailData={getDetailData} />};</>;
 }
 
 export default DetailMain;

@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { PlaylistData } from "../../util/Type";
-import mainIcon from "../../util/img/mainIcon.png";
+import mainIcon from "../../assets/images/mainIcon.png";
 
 export const PlayListContainer = styled.li`
   display: flex;
