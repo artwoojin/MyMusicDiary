@@ -54,14 +54,17 @@ export const InfoArea = styled.div`
 
 // export const Tag = styled.ul`
 //   display: flex;
+//   align-items: center;
 //   font-size: 12px;
-//   color: #757170;
+//   color: ${(props) => props.theme.color.mainText};
 //   list-style: none;
+//   gap: 5px;
 
 //   > li {
 //     margin-right: 5px;
-//     padding: 3px 6px 3px 6px;
-//     border: 1px solid #d1d1d1;
+//     height: 25px;
+//     padding: 4px 10px 4px 10px;
+//     border: 1px solid ${(props) => props.theme.color.borderLine};
 //     border-radius: 50px;
 //   }
 // `;

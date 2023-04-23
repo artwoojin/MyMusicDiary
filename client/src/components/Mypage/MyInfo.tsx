@@ -5,6 +5,7 @@ import { UserData } from "../../util/Type";
 import { TOKEN_API } from "../../util/API";
 import { MyContext } from "../../util/MyContext";
 import defaultProfile from "../../assets/images/defaultProfile.png";
+import Modal from "../common/Modal";
 
 const MyInfoContainer = styled.div`
   display: flex;
@@ -150,7 +151,6 @@ const EditNicknameBtn = styled.button`
 
 const PasswordContainer = styled.div`
   border-bottom: 1px solid ${(props) => props.theme.color.borderLine};
-  /* font-size: ${(props) => props.theme.font.diaryContentSize}; */
   padding: 0 5px 0 5px;
 
   > .passwordTitle {
@@ -264,83 +264,8 @@ const MyWithdrawalWrapper = styled.div`
     }
   }
 
-  /* @media screen and (max-width: 721px) {
+  @media screen and (max-width: 721px) {
     justify-content: space-between;
-  } */
-`;
-
-const WithdrawalModalBack = styled.div`
-  position: fixed;
-  z-index: 999;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  right: 0;
-  background-color: rgba(0, 0, 0, 0.4);
-  display: grid;
-  place-items: center;
-`;
-
-const WithdrawalModalView = styled.div`
-  text-align: center;
-  border-radius: 5px;
-  background-color: ${(props) => props.theme.color.background};
-  width: 80vw;
-  max-width: 400px;
-  height: 200px;
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.19), 0 10px 10px rgba(0, 0, 0, 0.1);
-
-  > .deleteModalTitle {
-    color: ${(props) => props.theme.color.mainText};
-    font-size: ${(props) => props.theme.font.diarySubTitleSize}px;
-    font-weight: ${(props) => props.theme.font.titleWeight};
-    text-align: center;
-    margin: 30px 15px 30px 15px;
-  }
-
-  > .warningText {
-    color: ${(props) => props.theme.color.subText};
-    font-size: ${(props) => props.theme.font.diaryContentSize}px;
-    font-weight: ${(props) => props.theme.font.contentWeight};
-    margin: 0 15px 29px 15px;
-  }
-
-  > button {
-    font-size: ${(props) => props.theme.font.diaryContentSize}px;
-    font-weight: ${(props) => props.theme.font.titleWeight};
-    width: 50%;
-    height: 50px;
-    border: none;
-    text-decoration: none;
-    cursor: pointer;
-
-    &:hover {
-      text-decoration: none;
-    }
-  }
-
-  > .deleteCancelButton {
-    color: ${(props) => props.theme.color.subText};
-    background-color: transparent;
-    border-top: 1px solid ${(props) => props.theme.color.borderLine};
-    border-right: 0.5px solid ${(props) => props.theme.color.borderLine};
-    border-bottom-left-radius: 4px;
-
-    &:hover {
-      background-color: ${(props) => props.theme.color.buttonHover};
-    }
-  }
-
-  > .deleteButton {
-    color: #ec1d36;
-    background-color: transparent;
-    border-top: 1px solid ${(props) => props.theme.color.borderLine};
-    border-left: 0.5px solid ${(props) => props.theme.color.borderLine};
-    border-bottom-right-radius: 4px;
-
-    &:hover {
-      background-color: ${(props) => props.theme.color.buttonHover};
-    }
   }
 `;
 
@@ -348,6 +273,7 @@ const WarningText = styled.div`
   font-size: 13px;
   color: ${(props) => props.theme.color.thirdText};
   margin-bottom: 15px;
+  word-break: keep-all;
 `;
 
 export interface UserDataProps {
@@ -524,22 +450,13 @@ function MyInfo({ list, getUserData }: UserDataProps) {
             회원 탈퇴
           </button>
           {withDrawalModalOpen ? (
-            <WithdrawalModalBack>
-              <WithdrawalModalView>
-                <div className='deleteModalTitle'>정말 탈퇴 하시겠습니까?</div>
-                <div className='warningText'>
-                  탈퇴 시 작성하신 다이어리 및 댓글이
-                  <br />
-                  모두 삭제되며 복구되지 않습니다.
-                </div>
-                <button className='deleteCancelButton' onClick={openModalHandler}>
-                  취소
-                </button>
-                <button className='deleteButton' onClick={withDrawal}>
-                  탈퇴
-                </button>
-              </WithdrawalModalView>
-            </WithdrawalModalBack>
+            <Modal
+              title={"정말 탈퇴 하시겠습니까?"}
+              text={`탈퇴 시 ${nickname}님이 작성한 다이어리 및 댓글이 모두 삭제되며 복구되지 않습니다.`}
+              confirmText={"탈퇴"}
+              cancelHandler={openModalHandler}
+              confirmHandler={withDrawal}
+            />
           ) : null}
         </MyWithdrawalWrapper>
         <WarningText>

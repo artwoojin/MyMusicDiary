@@ -58,7 +58,6 @@ const MypageWrapper = styled.div`
   width: 100vw;
   max-width: 850px;
   padding: 0 10px 0 10px;
-  /* border: 1px solid red; */
 `;
 
 const CommentCountWrapper = styled.div`
@@ -188,13 +187,6 @@ function MypageMain() {
     setCurrentTab(index);
   };
 
-  // const ContentPlaceholder = React.memo((src, alt, description) => (
-  //   <MyPageImgWrapper>
-  //     <img src={src} alt={alt} />
-  //     <div>{description}</div>
-  //   </MyPageImgWrapper>
-  // ));
-
   return (
     <>
       <ListTab>
@@ -210,7 +202,6 @@ function MypageMain() {
           );
         })}
       </ListTab>
-
       <DiaryMain.DiaryMainContainer>
         {currentTab === 0 ? (
           <MypageWrapper>
@@ -226,7 +217,7 @@ function MypageMain() {
           ) : (
             <MyPageImgWrapper>
               <img src={diary} alt='myDiary' />
-              <div>아직 작성한 다이어리가 없습니다.</div>
+              <div>아직 나의 다이어리가 없습니다.</div>
             </MyPageImgWrapper>
           )
         ) : currentTab === 2 ? (
