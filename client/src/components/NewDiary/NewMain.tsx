@@ -89,8 +89,8 @@ export const CoverImg = styled.img`
   background-color: ${(props) => props.theme.color.background};
 
   @media screen and (max-width: 721px) {
-    width: 100px;
-    height: 100px;
+    width: 120px;
+    height: 120px;
     margin-right: 20px;
   }
 `;
@@ -115,7 +115,7 @@ export const User = styled.div`
     color: ${(props) => props.theme.color.subText};
 
     @media screen and (max-width: 721px) {
-      margin-right: 20px;
+      display: none;
     }
   }
 `;

@@ -142,8 +142,8 @@ const LikeButton = styled.button`
   padding: 5px;
   background-color: transparent;
   color: ${(props) => props.theme.color.mainText};
-  width: 80px;
-  height: 35px;
+  width: 75px;
+  height: 30px;
   font-weight: ${(props) => props.theme.font.contentWeight};
   border: 1px solid ${(props) => props.theme.color.borderLine};
   border-radius: 50px;
@@ -165,9 +165,10 @@ const LikeButton = styled.button`
     background-color: ${(props) => props.theme.color.buttonHover};
   }
 
-  // 721px 이하에서 헤더의 새 다이어리 작성 버튼 숨김 적용
+  // 721px 이하에서 UserInfo의 좋아요 버튼 크기 축소
   @media screen and (max-width: 721px) {
-    display: none;
+    width: 65px;
+    height: 30px;
   }
 `;
 
@@ -203,42 +204,6 @@ const Dropdown = styled.ul`
       border-radius: 4px;
       background-color: ${(props) => props.theme.color.dropDownHover};
     }
-  }
-
-  // 722px 이상에서 드롭다운의 좋아요 버튼 숨김 적용
-  > li:first-child {
-    @media screen and (min-width: 722px) {
-      display: none;
-    }
-  }
-`;
-
-const DropdownLikeButton = styled.button`
-  display: flex;
-  align-items: center;
-  background-color: transparent;
-  color: ${(props) => props.theme.color.mainText};
-  font-size: 14px;
-  font-weight: ${(props) => props.theme.font.contentWeight};
-  border: none;
-  cursor: pointer;
-
-  > .likeIcon {
-    margin-right: 12px;
-    color: #ec1d36;
-  }
-
-  > .unLikeIcon {
-    margin-right: 12px;
-  }
-
-  > .likeText {
-    margin-right: 10px;
-  }
-
-  > .likeCount {
-    font-size: 13.5px;
-    margin-bottom: 1px;
   }
 `;
 
@@ -464,14 +429,14 @@ function DetailList({ list, getDetailData }: DiaryDataProps) {
   const [ruleModal, setRuleModal] = useState<boolean>(false);
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
-  const commentData = list.comments; // 선택한 다이어리의 코멘트 정보
-  const playlistData = list.playlists; // 선택한 플레이리스트의 정보
+  const commentData = list.comments; // 선택한 다이어리의 댓글 데이터
+  const playlistData = list.playlists; // 선택한 플레이리스트 데이터
 
   const { diaryId } = useParams();
   const navigate = useNavigate();
   const dropMenuRef = useRef<HTMLDivElement | null>(null);
   const { isLogin, currentUser }: any = useContext(MyContext);
-  const myDiary: boolean = list.userNickname === currentUser?.nickname;
+  const myDiary: boolean = list.userNickname === currentUser.nickname;
 
   // 드롬다운 오픈 이벤트 핸들러
   const openDropdown = (e: any) => {
@@ -580,7 +545,7 @@ function DetailList({ list, getDetailData }: DiaryDataProps) {
         <TitleArea>
           <div className='DetailTitle'>{list.title}</div>
           <ButtonArea>
-            {myDiary === true ? (
+            {myDiary ? (
               <>
                 <button className='detailDropdownButton' onClick={openDropdown}>
                   <BsThreeDotsVertical size={17} />
@@ -588,17 +553,6 @@ function DetailList({ list, getDetailData }: DiaryDataProps) {
                 <div ref={dropMenuRef}>
                   {isOpen ? (
                     <Dropdown>
-                      <li onClick={plusLikeCount}>
-                        <DropdownLikeButton>
-                          {checkLike === true ? (
-                            <AiFillHeart className='likeIcon' size={19} />
-                          ) : (
-                            <AiOutlineHeart className='unLikeIcon' size={19} />
-                          )}
-                          <div className='likeText'>좋아요</div>
-                          <div className='likeCount'>{list.likeCount}</div>
-                        </DropdownLikeButton>
-                      </li>
                       <Link to={`/EditDiary/${list.diaryId}`}>
                         <li>
                           <DropdownEditButton>
