@@ -16,10 +16,10 @@ import java.util.List;
 public class TagService {
     private final TagRepository tagRepository;
 
-    public List<Tag> save(List<Long> tagIds, Diary diary) {
+    public List<Tag> save(List<String> tagNames, Diary diary) {
         List<Tag> tags = new ArrayList<>();
-        for (long tagId : tagIds) {
-            Tag tag = tagRepository.findById(tagId).get();
+        for (String tagName : tagNames) {
+            Tag tag = tagRepository.findByTagName(tagName).get();
             tag.updateDiaries(diary);
 
             tagRepository.save(tag);
@@ -28,12 +28,12 @@ public class TagService {
         return tags;
     }
 
-    public Tag find(long tagId) {
-        return tagRepository.findById(tagId).get();
+    public Tag find(String tagName) {
+        return tagRepository.findByTagName(tagName).get();
     }
 
-    public List<Tag> findAll(List<Long> tagIds) {
-        return tagRepository.findAllByTagIdIn(tagIds);
+    public List<Tag> findAll(List<String> tagNames) {
+        return tagRepository.findAllByTagNameIn(tagNames);
     }
 
 }

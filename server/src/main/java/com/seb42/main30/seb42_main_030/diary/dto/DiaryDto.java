@@ -31,7 +31,7 @@ public class DiaryDto {
 
         private int likeCount;
         //private boolean likeCheck;
-        private List<Long> tags;
+        private List<String> tags;
 
     }
 
@@ -50,7 +50,7 @@ public class DiaryDto {
 
         private int likeCount;
         //private boolean likeCheck;
-        private List<Long> tags;
+        private List<String> tags;
 
     }
 

@@ -21,11 +21,12 @@ import java.util.List;
 @Entity
 @Component
 public class Tag {
+
     @Id
-    private long tagId;
+    private String tagName;
 
     @Column
-    private String tagName;
+    private long tagId;
 
     @ManyToMany(mappedBy = "tags")
     private List<Diary> diaries = new ArrayList<>();

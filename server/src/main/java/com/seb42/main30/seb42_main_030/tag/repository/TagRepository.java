@@ -8,10 +8,10 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface TagRepository extends JpaRepository<Tag, Long> {
+public interface TagRepository extends JpaRepository<Tag, String> {
     Optional<Tag> findByTagName(String tagName);
 
-    List<Tag> findAllByTagIdIn(List<Long> tagIds);
+    List<Tag> findAllByTagNameIn(List<String> tagNames);
 
 
 }

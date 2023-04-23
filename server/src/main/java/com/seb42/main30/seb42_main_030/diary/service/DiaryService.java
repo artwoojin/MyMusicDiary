@@ -122,8 +122,8 @@ public class DiaryService {
         verifyDiary.setPlaylists(playlistList);
         verifyDiary.setModifiedAt(LocalDateTime.now());
 
-        List<Long> tagIds = patch.getTags();
-        verifyDiary.setTags(tagService.findAll(tagIds));
+        List<String> tagNames = patch.getTags();
+        verifyDiary.setTags(tagService.findAll(tagNames));
 
         return diaryRepository.save(verifyDiary);
     }
