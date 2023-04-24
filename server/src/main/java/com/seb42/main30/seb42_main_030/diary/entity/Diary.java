@@ -5,13 +5,12 @@ import com.seb42.main30.seb42_main_030.audit.Auditable;
 import com.seb42.main30.seb42_main_030.comment.entity.Comment;
 import com.seb42.main30.seb42_main_030.like.entity.Like;
 import com.seb42.main30.seb42_main_030.playlist.entity.Playlist;
+import com.seb42.main30.seb42_main_030.tag.dto.TagDto;
+import com.seb42.main30.seb42_main_030.tag.entity.Tag;
 import com.seb42.main30.seb42_main_030.user.entity.User;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.hibernate.mapping.Array;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
@@ -43,7 +42,7 @@ public class Diary extends Auditable {
     private int viewCount;
 
     private int likeCount;
-    private boolean likeCheck;
+    //private boolean likeCheck;
 
 //    @Column(name = "createdAt", insertable = false, updatable = false)
 //    private LocalDateTime createdAt;
@@ -67,5 +66,31 @@ public class Diary extends Auditable {
     // Like 1:N
     @OneToMany(mappedBy = "diary", cascade = CascadeType.ALL)
     private List<Like> likeDiariesList = new ArrayList<>();
+
+
+    @ManyToMany
+    @JoinTable(name = "diaryTag")
+    private List<Tag> tags = new ArrayList<Tag>();
+
+    public void setTags(List<Tag> tags) {
+        this.tags = tags;
+    }
+
+//    public TagDto.Response getTagDto() {
+//
+//        List<Long> moods = new ArrayList<>();
+//
+//        for (Tag tag : this.tags) {
+//
+//             moods.add(tag.getTagId());
+//            }
+//
+//
+//        TagDto.Response response = TagDto.Response.builder()
+//                .moodTag(moods)
+//                .build();
+//
+//        return response;
+//    }
 
 }

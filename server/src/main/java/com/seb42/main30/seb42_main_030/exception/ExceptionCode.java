@@ -12,7 +12,8 @@ public enum ExceptionCode {
     USER_EXISTS(6, "헤당 유저가 존재합니다."),
     NOT_FOUND(7, "찾지 못했습니다."),
     LIKE_NOT_FOUND(8, "좋아요를 찿지 못했습니다."),
-    LIKE_ALREADY_EXISTS(9,"좋아요는 한 번만 누를 수 있습니다.");
+    LIKE_ALREADY_EXISTS(9,"좋아요는 한 번만 누를 수 있습니다."),
+    TAG_NOT_FOUND(10, "해당 태그가 존재하지 않습니다.");
 
 
     @Getter
