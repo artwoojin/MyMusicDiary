@@ -231,8 +231,10 @@ function LoginHeader() {
   const logOut = () => {
     localStorage.removeItem("accessToken");
     localStorage.removeItem("CURRENT_USER");
-    localStorage.removeItem("currentPage");
+    localStorage.removeItem("mainCurrentTab");
+    localStorage.removeItem("mainCurrentPage");
     localStorage.removeItem("myCurrentTab");
+    localStorage.removeItem("myCurrentPage");
     navigate("/");
     window.location.reload();
   };

@@ -115,7 +115,7 @@ function MypageMain() {
   }, [myCurrentTab]);
 
   useEffect(() => {
-    window.localStorage.setItem("myCurrentTab", JSON.stringify(myCurrentPage));
+    window.localStorage.setItem("myCurrentPage", JSON.stringify(myCurrentPage));
   }, [myCurrentPage]);
 
   const LIMIT_COUNT: number = 20;

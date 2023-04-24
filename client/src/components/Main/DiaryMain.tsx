@@ -81,7 +81,7 @@ function DiaryMain() {
   const [diaryData, setDiaryData] = useState<DiaryData[]>([]); // 전체 diary 데이터
   const [mainCurrentTab, setMainCurrentTab] = useState<number>(
     () => JSON.parse(window.localStorage.getItem("mainCurrentTab")!) || 0
-  ); // 탭 이동 상태
+  ); // 현재 탭 번호 (기본값: 전체 다이어리 노출)
   const [mainCurrentPage, setMainCurrentPage] = useState<number>(
     () => JSON.parse(window.localStorage.getItem("mainCurrentPage")!) || 1 // 현재 페이지 번호 (기본값: 1페이지부터 노출)
   );
@@ -98,7 +98,7 @@ function DiaryMain() {
     window.localStorage.setItem("mainCurrentPage", JSON.stringify(mainCurrentPage));
   }, [mainCurrentPage]);
 
-  const LIMIT_COUNT: number = 20;
+  const LIMIT_COUNT: number = 1;
   const offset: number = (mainCurrentPage - 1) * LIMIT_COUNT; // 각 페이지에서 첫 데이터의 위치(index) 계산
 
   // 전체 diary 데이터 get 요청
