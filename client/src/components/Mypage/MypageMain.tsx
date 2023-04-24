@@ -103,17 +103,23 @@ function MypageMain() {
   const [myDiaryData, setMyDiaryData] = useState<DiaryData[]>([]);
   const [myLikeDiaryData, setMyLikeDiaryData] = useState<DiaryData[]>([]);
   const [myCommentData, setMyCommentData] = useState<CommentData[]>([]);
-  const [currentTab, setCurrentTab] = useState<number>(
+  const [myCurrentTab, setMyCurrentTab] = useState<number>(
     () => JSON.parse(window.localStorage.getItem("myCurrentTab")!) || 0
   );
-  const [page, setPage] = useState<number>(1);
+  const [myCurrentPage, setMyCurrentPage] = useState<number>(
+    () => JSON.parse(window.localStorage.getItem("myCurrentPage")!) || 1
+  );
 
   useEffect(() => {
-    window.localStorage.setItem("myCurrentTab", JSON.stringify(currentTab));
-  }, [currentTab]);
+    window.localStorage.setItem("myCurrentTab", JSON.stringify(myCurrentTab));
+  }, [myCurrentTab]);
+
+  useEffect(() => {
+    window.localStorage.setItem("myCurrentTab", JSON.stringify(myCurrentPage));
+  }, [myCurrentPage]);
 
   const LIMIT_COUNT: number = 20;
-  const offset: number = (page - 1) * LIMIT_COUNT;
+  const offset: number = (myCurrentPage - 1) * LIMIT_COUNT;
   const { currentUser }: any = useContext(MyContext);
 
   // Tab 1(MyInfo) : 나의 유저 정보만 불러오는 get 요청
@@ -184,7 +190,7 @@ function MypageMain() {
 
   // 탭 선택 이벤트 핸들러
   const selectTabHandler = (index: number) => {
-    setCurrentTab(index);
+    setMyCurrentTab(index);
   };
 
   return (
@@ -194,7 +200,7 @@ function MypageMain() {
           return (
             <li
               key={index}
-              className={currentTab === index ? "tab focused" : "tab"}
+              className={myCurrentTab === index ? "tab focused" : "tab"}
               onClick={() => selectTabHandler(index)}
             >
               <div className='el'>{tab.feel}</div>
@@ -203,11 +209,11 @@ function MypageMain() {
         })}
       </ListTab>
       <DiaryMain.DiaryMainContainer>
-        {currentTab === 0 ? (
+        {myCurrentTab === 0 ? (
           <MypageWrapper>
             {myUserData && <MyInfo list={myUserData} getUserData={getUserData} />}
           </MypageWrapper>
-        ) : currentTab === 1 ? (
+        ) : myCurrentTab === 1 ? (
           myDiaryData.length !== 0 ? (
             <DiaryMain.DiaryMainWrapper>
               {myDiaryData.slice(offset, offset + LIMIT_COUNT).map((value) => {
@@ -220,7 +226,7 @@ function MypageMain() {
               <div>아직 나의 다이어리가 없습니다.</div>
             </MyPageImgWrapper>
           )
-        ) : currentTab === 2 ? (
+        ) : myCurrentTab === 2 ? (
           myLikeDiaryData.length !== 0 ? (
             <DiaryMain.DiaryMainWrapper>
               {myLikeDiaryData.slice(offset, offset + LIMIT_COUNT).map((value) => {
@@ -257,9 +263,9 @@ function MypageMain() {
         myLikePageLength={myLikeDiaryData.length}
         myCommentPageLength={myCommentData.length}
         LIMIT_COUNT={LIMIT_COUNT}
-        page={page}
-        setPage={setPage}
-        currentTab={currentTab}
+        myCurrentPage={myCurrentPage}
+        setMyCurrentPage={setMyCurrentPage}
+        myCurrentTab={myCurrentTab}
       />
     </>
   );

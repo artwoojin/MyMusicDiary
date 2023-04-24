@@ -7,16 +7,16 @@ interface PaginationProps {
   myLikePageLength: number;
   myCommentPageLength: number;
   LIMIT_COUNT: number;
-  page: number;
-  setPage: React.Dispatch<React.SetStateAction<number>>;
-  currentTab: number;
+  myCurrentPage: number;
+  setMyCurrentPage: React.Dispatch<React.SetStateAction<number>>;
+  myCurrentTab: number;
 }
 
 function MypagePagination({
   LIMIT_COUNT,
-  page,
-  setPage,
-  currentTab,
+  myCurrentPage,
+  setMyCurrentPage,
+  myCurrentTab,
   myPageLength,
   myLikePageLength,
   myCommentPageLength,
@@ -44,57 +44,61 @@ function MypagePagination({
 
   // 제일 처음 페이지로 이동하는 버튼 이벤트 핸들러
   const firstPageHandler = () => {
-    setPage(1);
+    setMyCurrentPage(1);
     setBlockNum(0);
     window.scrollTo(0, parseInt(document.body.style.top || "0", 10) * -1);
   };
 
   // 제일 마지막 페이지로 이동하는 버튼 이벤트 핸들러
   const lastPageHandler = () => {
-    setPage(numMyPages);
+    setMyCurrentPage(numMyPages);
     setBlockNum(Math.ceil(numMyPages / PAGE_COUNT) - 1);
     window.scrollTo(0, parseInt(document.body.style.top || "0", 10) * -1);
   };
 
   // 현재 페이지의 이전 페이지로 이동하는 버튼 이벤트 핸들러
   const prevPageHandler = () => {
-    if (page <= 1) {
+    if (myCurrentPage <= 1) {
       return;
-    } else if (page - 1 <= PAGE_COUNT * blockNum) {
+    } else if (myCurrentPage - 1 <= PAGE_COUNT * blockNum) {
       setBlockNum((n: number) => n - 1);
     }
-    setPage((n: number) => n - 1);
+    setMyCurrentPage((n: number) => n - 1);
     window.scrollTo(0, parseInt(document.body.style.top || "0", 10) * -1);
   };
 
   // 현재 페이지의 다음 페이지 이동하는 버튼 이벤트 핸들러
   const nextPageHandler = () => {
-    if (page >= numMyPages) {
+    if (myCurrentPage >= numMyPages) {
       return;
-    } else if (PAGE_COUNT * (blockNum + 1) < page + 1) {
+    } else if (PAGE_COUNT * (blockNum + 1) < myCurrentPage + 1) {
       setBlockNum((n: number) => n + 1);
     }
-    setPage((n: number) => n + 1);
+    setMyCurrentPage((n: number) => n + 1);
     window.scrollTo(0, parseInt(document.body.style.top || "0", 10) * -1);
   };
 
   return (
     <>
-      {currentTab === 1 ? (
+      {myCurrentTab === 1 ? (
         myArr.length !== 0 ? (
           <Pagination.PageNum>
-            <button className='leftHandle' onClick={firstPageHandler} disabled={page === 1}>
+            <button
+              className='leftHandle'
+              onClick={firstPageHandler}
+              disabled={myCurrentPage === 1}
+            >
               <BiArrowToLeft size={20} />
             </button>
-            <button className='leftHandle' onClick={prevPageHandler} disabled={page === 1}>
+            <button className='leftHandle' onClick={prevPageHandler} disabled={myCurrentPage === 1}>
               <BiLeftArrowAlt size={19} />
             </button>
             {myArr.slice(blockArea, PAGE_COUNT + blockArea).map((n) => (
               <button
-                className={page === n ? "pageTab pageFocused" : "pageTab"}
+                className={myCurrentPage === n ? "pageTab pageFocused" : "pageTab"}
                 key={n}
                 onClick={() => {
-                  setPage(n);
+                  setMyCurrentPage(n);
                   window.scrollTo(0, parseInt(document.body.style.top || "0", 10) * -1);
                 }}
               >
@@ -104,34 +108,38 @@ function MypagePagination({
             <button
               className='rightHandle'
               onClick={nextPageHandler}
-              disabled={page === numMyPages}
+              disabled={myCurrentPage === numMyPages}
             >
               <BiRightArrowAlt size={19} />
             </button>
             <button
               className='rightHandle'
               onClick={lastPageHandler}
-              disabled={page === numMyPages}
+              disabled={myCurrentPage === numMyPages}
             >
               <BiArrowToRight size={20} />
             </button>
           </Pagination.PageNum>
         ) : null
-      ) : currentTab === 2 ? (
+      ) : myCurrentTab === 2 ? (
         likeArr.length !== 0 ? (
           <Pagination.PageNum>
-            <button className='leftHandle' onClick={firstPageHandler} disabled={page === 1}>
+            <button
+              className='leftHandle'
+              onClick={firstPageHandler}
+              disabled={myCurrentPage === 1}
+            >
               <BiArrowToLeft size={20} />
             </button>
-            <button className='leftHandle' onClick={prevPageHandler} disabled={page === 1}>
+            <button className='leftHandle' onClick={prevPageHandler} disabled={myCurrentPage === 1}>
               <BiLeftArrowAlt size={19} />
             </button>
             {likeArr.slice(blockArea, PAGE_COUNT + blockArea).map((n) => (
               <button
-                className={page === n ? "pageTab pageFocused" : "pageTab"}
+                className={myCurrentPage === n ? "pageTab pageFocused" : "pageTab"}
                 key={n}
                 onClick={() => {
-                  setPage(n);
+                  setMyCurrentPage(n);
                   window.scrollTo(0, parseInt(document.body.style.top || "0", 10) * -1);
                 }}
               >
@@ -141,34 +149,38 @@ function MypagePagination({
             <button
               className='rightHandle'
               onClick={nextPageHandler}
-              disabled={page === numMyPages}
+              disabled={myCurrentPage === numMyPages}
             >
               <BiRightArrowAlt size={19} />
             </button>
             <button
               className='rightHandle'
               onClick={lastPageHandler}
-              disabled={page === numMyPages}
+              disabled={myCurrentPage === numMyPages}
             >
               <BiArrowToRight size={20} />
             </button>
           </Pagination.PageNum>
         ) : null
-      ) : currentTab === 3 ? (
+      ) : myCurrentTab === 3 ? (
         commentArr.length !== 0 ? (
           <Pagination.PageNum>
-            <button className='leftHandle' onClick={firstPageHandler} disabled={page === 1}>
+            <button
+              className='leftHandle'
+              onClick={firstPageHandler}
+              disabled={myCurrentPage === 1}
+            >
               <BiArrowToLeft size={20} />
             </button>
-            <button className='leftHandle' onClick={prevPageHandler} disabled={page === 1}>
+            <button className='leftHandle' onClick={prevPageHandler} disabled={myCurrentPage === 1}>
               <BiLeftArrowAlt size={19} />
             </button>
             {commentArr.slice(blockArea, PAGE_COUNT + blockArea).map((n) => (
               <button
-                className={page === n ? "pageTab pageFocused" : "pageTab"}
+                className={myCurrentPage === n ? "pageTab pageFocused" : "pageTab"}
                 key={n}
                 onClick={() => {
-                  setPage(n);
+                  setMyCurrentPage(n);
                   window.scrollTo(0, parseInt(document.body.style.top || "0", 10) * -1);
                 }}
               >
@@ -178,14 +190,14 @@ function MypagePagination({
             <button
               className='rightHandle'
               onClick={nextPageHandler}
-              disabled={page === numMyPages}
+              disabled={myCurrentPage === numMyPages}
             >
               <BiRightArrowAlt size={19} />
             </button>
             <button
               className='rightHandle'
               onClick={lastPageHandler}
-              disabled={page === numMyPages}
+              disabled={myCurrentPage === numMyPages}
             >
               <BiArrowToRight size={20} />
             </button>

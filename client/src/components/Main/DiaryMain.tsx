@@ -79,20 +79,27 @@ export const DiaryMainWrapper = styled.ul`
 
 function DiaryMain() {
   const [diaryData, setDiaryData] = useState<DiaryData[]>([]); // 전체 diary 데이터
-  const [currentTab, setCurrentTab] = useState<number>(0); // 탭 이동 상태
-  const [page, setPage] = useState<number>(
-    () => JSON.parse(window.localStorage.getItem("currentPage")!) || 1 // 현재 페이지 번호 (기본값: 1페이지부터 노출)
+  const [mainCurrentTab, setMainCurrentTab] = useState<number>(
+    () => JSON.parse(window.localStorage.getItem("mainCurrentTab")!) || 0
+  ); // 탭 이동 상태
+  const [mainCurrentPage, setMainCurrentPage] = useState<number>(
+    () => JSON.parse(window.localStorage.getItem("mainCurrentPage")!) || 1 // 현재 페이지 번호 (기본값: 1페이지부터 노출)
   );
 
   const { isLoading, setIsLoading }: any = useContext(MyContext);
 
+  // 로컬스토리지에 현재 탭 번호 저장
+  useEffect(() => {
+    window.localStorage.setItem("mainCurrentTab", JSON.stringify(mainCurrentTab));
+  }, [mainCurrentTab]);
+
   // 로컬스토리지에 현재 페이지 번호 저장
   useEffect(() => {
-    window.localStorage.setItem("currentPage", JSON.stringify(page));
-  }, [page]);
+    window.localStorage.setItem("mainCurrentPage", JSON.stringify(mainCurrentPage));
+  }, [mainCurrentPage]);
 
-  const LIMIT_COUNT: number = 20;
-  const offset: number = (page - 1) * LIMIT_COUNT; // 각 페이지에서 첫 데이터의 위치(index) 계산
+  const LIMIT_COUNT: number = 2;
+  const offset: number = (mainCurrentPage - 1) * LIMIT_COUNT; // 각 페이지에서 첫 데이터의 위치(index) 계산
 
   // 전체 diary 데이터 get 요청
   const getDiaryData = async () => {
@@ -124,7 +131,7 @@ function DiaryMain() {
 
   // 태그 선택 이벤트 핸들러
   const selectTagHandler = (index: number) => {
-    setCurrentTab(index);
+    setMainCurrentTab(index);
   };
 
   return (
@@ -134,7 +141,7 @@ function DiaryMain() {
           return (
             <li
               key={index}
-              className={currentTab === index ? "tab focused" : "tab"}
+              className={mainCurrentTab === index ? "tab focused" : "tab"}
               onClick={() => selectTagHandler(index)}
             >
               <div className='el'>{tab.feel}</div>
@@ -152,84 +159,84 @@ function DiaryMain() {
             })}
           </DiaryMainWrapper>
           {/* {currentTab === 0 ? (
-          <DiaryMainWrapper>
-            {diaryData.slice(offset, offset + LIMIT_COUNT).map((value) => {
-              return <DiaryList list={value} key={value.diaryId} />;
-            })}
-          </DiaryMainWrapper>
-        ) : currentTab === 1 ? (
-          <DiaryMainWrapper>
-            {diaryData
-              .filter((value) => value.tag.includes(tagArr[1].feel))
-              .slice(offset, offset + LIMIT_COUNT)
-              .map((value) => {
+            <DiaryMainWrapper>
+              {diaryData.slice(offset, offset + LIMIT_COUNT).map((value) => {
                 return <DiaryList list={value} key={value.diaryId} />;
               })}
-          </DiaryMainWrapper>
-        ) : currentTab === 2 ? (
-          <DiaryMainWrapper>
-            {diaryData
-              .filter((value) => value.tag.includes(tagArr[2].feel))
-              .slice(offset, offset + LIMIT_COUNT)
-              .map((value) => {
-                return <DiaryList list={value} key={value.diaryId} />;
-              })}
-          </DiaryMainWrapper>
-        ) : currentTab === 3 ? (
-          <DiaryMainWrapper>
-            {diaryData
-              .filter((value) => value.tag.includes(tagArr[3].feel))
-              .slice(offset, offset + LIMIT_COUNT)
-              .map((value) => {
-                return <DiaryList list={value} key={value.diaryId} />;
-              })}
-          </DiaryMainWrapper>
-        ) : currentTab === 4 ? (
-          <DiaryMainWrapper>
-            {diaryData
-              .filter((value) => value.tag.includes(tagArr[4].feel))
-              .slice(offset, offset + LIMIT_COUNT)
-              .map((value) => {
-                return <DiaryList list={value} key={value.diaryId} />;
-              })}
-          </DiaryMainWrapper>
-        ) : currentTab === 5 ? (
-          <DiaryMainWrapper>
-            {diaryData
-              .filter((value) => value.tag.includes(tagArr[5].feel))
-              .slice(offset, offset + LIMIT_COUNT)
-              .map((value) => {
-                return <DiaryList list={value} key={value.diaryId} />;
-              })}
-          </DiaryMainWrapper>
-        ) : currentTab === 6 ? (
-          <DiaryMainWrapper>
-            {diaryData
-              .filter((value) => value.tag.includes(tagArr[6].feel))
-              .slice(offset, offset + LIMIT_COUNT)
-              .map((value) => {
-                return <DiaryList list={value} key={value.diaryId} />;
-              })}
-          </DiaryMainWrapper>
-        ) : currentTab === 7 ? (
-          <DiaryMainWrapper>
-            {diaryData
-              .filter((value) => value.tag.includes(tagArr[7].feel))
-              .slice(offset, offset + LIMIT_COUNT)
-              .map((value) => {
-                return <DiaryList list={value} key={value.diaryId} />;
-              })}
-          </DiaryMainWrapper>
-        ) : (
-          <DiaryMainWrapper>
-            {diaryData
-              .slice(offset, offset + LIMIT_COUNT)
-              .filter((value) => value.tag.includes(tagArr[8].feel))
-              .map((value) => {
-                return <DiaryList list={value} key={value.diaryId} />;
-              })}
-          </DiaryMainWrapper>
-        )} */}
+            </DiaryMainWrapper>
+          ) : currentTab === 1 ? (
+            <DiaryMainWrapper>
+              {diaryData
+                .filter((value) => value.tags.includes(tagArr[1].feel))
+                .slice(offset, offset + LIMIT_COUNT)
+                .map((value) => {
+                  return <DiaryList list={value} key={value.diaryId} />;
+                })}
+            </DiaryMainWrapper>
+          ) : currentTab === 2 ? (
+            <DiaryMainWrapper>
+              {diaryData
+                .filter((value) => value.tags.includes(tagArr[2].feel))
+                .slice(offset, offset + LIMIT_COUNT)
+                .map((value) => {
+                  return <DiaryList list={value} key={value.diaryId} />;
+                })}
+            </DiaryMainWrapper>
+          ) : currentTab === 3 ? (
+            <DiaryMainWrapper>
+              {diaryData
+                .filter((value) => value.tags.includes(tagArr[3].feel))
+                .slice(offset, offset + LIMIT_COUNT)
+                .map((value) => {
+                  return <DiaryList list={value} key={value.diaryId} />;
+                })}
+            </DiaryMainWrapper>
+          ) : currentTab === 4 ? (
+            <DiaryMainWrapper>
+              {diaryData
+                .filter((value) => value.tags.includes(tagArr[4].feel))
+                .slice(offset, offset + LIMIT_COUNT)
+                .map((value) => {
+                  return <DiaryList list={value} key={value.diaryId} />;
+                })}
+            </DiaryMainWrapper>
+          ) : currentTab === 5 ? (
+            <DiaryMainWrapper>
+              {diaryData
+                .filter((value) => value.tags.includes(tagArr[5].feel))
+                .slice(offset, offset + LIMIT_COUNT)
+                .map((value) => {
+                  return <DiaryList list={value} key={value.diaryId} />;
+                })}
+            </DiaryMainWrapper>
+          ) : currentTab === 6 ? (
+            <DiaryMainWrapper>
+              {diaryData
+                .filter((value) => value.tags.includes(tagArr[6].feel))
+                .slice(offset, offset + LIMIT_COUNT)
+                .map((value) => {
+                  return <DiaryList list={value} key={value.diaryId} />;
+                })}
+            </DiaryMainWrapper>
+          ) : currentTab === 7 ? (
+            <DiaryMainWrapper>
+              {diaryData
+                .filter((value) => value.tags.includes(tagArr[7].feel))
+                .slice(offset, offset + LIMIT_COUNT)
+                .map((value) => {
+                  return <DiaryList list={value} key={value.diaryId} />;
+                })}
+            </DiaryMainWrapper>
+          ) : (
+            <DiaryMainWrapper>
+              {diaryData
+                .slice(offset, offset + LIMIT_COUNT)
+                .filter((value) => value.tags.includes(tagArr[8].feel))
+                .map((value) => {
+                  return <DiaryList list={value} key={value.diaryId} />;
+                })}
+            </DiaryMainWrapper>
+          )} */}
         </DiaryMainContainer>
       )}
       <Pagination
@@ -259,9 +266,9 @@ function DiaryMain() {
         //   diaryData.filter((value) => value.tag.includes(tagArr[8].feel)).length
         // }
         LIMIT_COUNT={LIMIT_COUNT}
-        page={page}
-        setPage={setPage}
-        currentTab={currentTab}
+        mainCurrentPage={mainCurrentPage}
+        setMainCurrentPage={setMainCurrentPage}
+        mainCurrentTab={mainCurrentTab}
       />
     </>
   );

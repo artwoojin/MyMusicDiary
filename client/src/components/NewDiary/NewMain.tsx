@@ -459,7 +459,7 @@ function NewMain() {
         </TitleArea>
         <AlbumCoverArea>
           <CoverImg
-            src={newPlayList[0]?.thumbnail ? newPlayList[0]?.thumbnail : mainIcon}
+            src={newPlayList[0].thumbnail ? newPlayList[0].thumbnail : mainIcon}
             alt='다이어리 썸네일'
             onError={replaceImg}
           />
