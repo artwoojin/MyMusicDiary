@@ -52,31 +52,29 @@ export const InfoArea = styled.div`
   }
 `;
 
-// export const Tag = styled.ul`
-//   display: flex;
-//   align-items: center;
-//   font-size: 12px;
-//   color: ${(props) => props.theme.color.mainText};
-//   list-style: none;
-//   gap: 5px;
+export const TagArea = styled.ul`
+  display: flex;
+  align-items: center;
+  font-size: 12px;
+  gap: 4px;
+  color: ${(props) => props.theme.color.mainText};
+  list-style: none;
+  margin: 0 -2px 0 -2px;
 
-//   > li {
-//     margin-right: 5px;
-//     height: 25px;
-//     padding: 4px 10px 4px 10px;
-//     border: 1px solid ${(props) => props.theme.color.borderLine};
-//     border-radius: 50px;
-//   }
-// `;
+  > li {
+    height: 25px;
+    padding: 4px 7px 4px 7px;
+    border: 1px solid ${(props) => props.theme.color.borderLine};
+    border-radius: 50px;
+  }
+`;
 
 export const UserArea = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 8px 15px 8px 15px;
+  padding: 5px 15px 5px 15px;
   border-top: 1px solid ${(props) => props.theme.color.userAreaLine};
-  /* 태그 미구현으로 인한 임시로 위치 내림 */
-  margin-top: 21px;
 `;
 
 export const ByUsername = styled.div`
@@ -91,11 +89,7 @@ export const ByUsername = styled.div`
     font-size: 12px;
     font-weight: 400;
     color: ${(props) => props.theme.color.thirdText};
-    margin: 0 5px 2px 0;
-  }
-
-  > .userNickname {
-    padding-bottom: 2px;
+    margin-right: 5px;
   }
 `;
 
@@ -141,11 +135,11 @@ function DiaryList({ list }: DiaryDataProps) {
         <InfoArea>
           <div className='infoTitle'>{list.title}</div>
           <div className='infoDate'>{list.createdAt.substring(0, 10)}</div>
-          {/* <Tag>
-          {list.tag.map((value: string, index: number) => {
-            return <li key={index}>{value}</li>;
-          })}
-        </Tag> */}
+          <TagArea>
+            {list.tags.map((value: any, index: number) => {
+              return <li key={index}>{value.tagName}</li>;
+            })}
+          </TagArea>
         </InfoArea>
         <UserArea>
           <ByUsername>
@@ -154,9 +148,9 @@ function DiaryList({ list }: DiaryDataProps) {
             <div className='userNickname'>{list.userNickname}</div>
           </ByUsername>
           <LikeAndComment>
-            <AiFillHeart className='likeIcon' size={16} />
+            <AiFillHeart className='likeIcon' size={15} />
             {list.likeCount}
-            <FaRegCommentDots className='commentIcon' size={15} />
+            <FaRegCommentDots className='commentIcon' size={14} />
             {list.comments.length}
           </LikeAndComment>
         </UserArea>

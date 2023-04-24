@@ -182,15 +182,10 @@ const TagArea = styled.ul`
   display: flex;
   align-items: center;
   flex-wrap: wrap;
-  font-size: 13px;
+  font-size: 12px;
   gap: 5px;
   color: ${(props) => props.theme.color.mainText};
   margin-top: 5px;
-  /* border: 1px solid blue; */
-
-  @media screen and (max-width: 721px) {
-    font-size: 12px;
-  }
 `;
 
 const AlbumInfoArea = styled.div`

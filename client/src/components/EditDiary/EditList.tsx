@@ -137,8 +137,6 @@ function EditList({ list }: DiaryDataProps) {
     }
   };
 
-  console.log(editTag);
-
   // 태그 삭제 이벤트 핸들러
   const removeTags = (deleteIndex: any) => {
     setEditTag(editTag.filter((value: any) => value !== editTag[deleteIndex]));

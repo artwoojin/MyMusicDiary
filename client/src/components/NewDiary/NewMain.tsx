@@ -108,7 +108,7 @@ export const UserInfo = styled.div`
 `;
 
 export const User = styled.div`
-  font-size: 14px;
+  font-size: 13px;
 
   > .text {
     font-size: 13px;
@@ -302,7 +302,13 @@ function NewMain() {
 
   // 다이어리 post 요청
   const submitHandler = async () => {
-    if (newTitle.length <= 100 && newTitle.length !== 0 && newPlayList.length !== 0) {
+    if (
+      newTitle.length <= 100 &&
+      newTitle.length !== 0 &&
+      newTag.length !== 0 &&
+      newBody.length !== 0 &&
+      newPlayList.length !== 0
+    ) {
       const newDiary = {
         title: newTitle,
         tags: newTag,
@@ -311,11 +317,15 @@ function NewMain() {
       };
       await TOKEN_API.post(`/diary`, newDiary);
       navigate(`/`);
-    } else if (newTitle.length === 0 && newTitle.length === 0) {
+    } else if (newTitle.length === 0) {
       toast.error("제목을 입력해 주세요.");
     } else if (newTitle.length > 100) {
       toast.error("제목의 길이를 줄여주세요.");
-    } else {
+    } else if (newTag.length === 0) {
+      toast.error("태그를 1개 이상 선택해주세요.");
+    } else if (newBody.length === 0) {
+      toast.error("다어어리 소개글을 작성해주세요.");
+    } else if (newPlayList.length === 0) {
       toast.error("플레이리스트를 등록해 주세요.");
     }
   };
