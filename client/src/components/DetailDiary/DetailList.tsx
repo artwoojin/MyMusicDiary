@@ -384,7 +384,7 @@ function DetailList({ list, getDetailData }: DiaryDataProps) {
   const navigate = useNavigate();
   const dropMenuRef = useRef<HTMLDivElement | null>(null);
   const { isLogin, currentUser }: any = useContext(MyContext);
-  const myDiary: boolean = list.userNickname === currentUser.nickname;
+  const myDiary: boolean = list.userNickname === currentUser?.nickname;
 
   // 드롬다운 오픈 이벤트 핸들러
   const openDropdown = (e: any) => {
