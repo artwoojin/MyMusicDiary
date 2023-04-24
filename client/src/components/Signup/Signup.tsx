@@ -1,10 +1,11 @@
 import styled from "styled-components";
-import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { BASE_API } from "../../util/API";
+import { toast } from "react-toastify";
+import { FormValue } from "../../util/Type";
 
-const SingupContainer = styled.div`
+export const SignContainer = styled.div`
   height: 100vh;
   display: flex;
   justify-content: center;
@@ -12,13 +13,13 @@ const SingupContainer = styled.div`
   flex-direction: column;
 `;
 
-const Logo = styled.div`
-  font-weight: 700;
-  font-size: 27px;
-  margin-bottom: 30px;
+export const Logo = styled.div`
+  font-weight: ${(props) => props.theme.font.logoWeight};
+  font-size: 25px;
+  margin: 0 15px 30px 15px;
 
   a {
-    color: ${(props) => props.theme.logo};
+    color: ${(props) => props.theme.color.logo};
     text-decoration: none;
   }
 `;
@@ -28,150 +29,192 @@ const FormContainer = styled.form`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 410px;
+  width: 90vw;
+  max-width: 400px;
   height: 305px;
   border-radius: 4px;
   border: none;
-  border: 1px solid ${(props) => props.theme.disabledTagBorder};
-  background-color: ${(props) => props.theme.disabledTagBackground};
+  border: 1px solid ${(props) => props.theme.color.loginBorderLine};
+  background-color: ${(props) => props.theme.color.inputBackground};
 `;
 
 const NicknameInput = styled.input`
-  width: 350px;
+  font-size: 14px;
+  width: 80vw;
+  max-width: 350px;
   height: 50px;
   border-radius: 4px;
   padding: 10px 8px 10px 8px;
   margin-bottom: 10px;
-  color: ${(props) => props.theme.mainText};
+  color: ${(props) => props.theme.color.mainText};
   border: none;
-  border: 1px solid ${(props) => props.theme.disabledTagBorder};
-  background-color: ${(props) => props.theme.background};
+  border: 1px solid ${(props) => props.theme.color.loginBorderLine};
+  background-color: ${(props) => props.theme.color.background};
 
   &:focus {
     outline: none;
   }
 `;
 
-const EmailInput = styled.input`
-  width: 350px;
+export const EmailInput = styled.input`
+  font-size: 14px;
+  width: 80vw;
+  max-width: 350px;
   height: 50px;
   border-radius: 4px;
   padding: 10px 8px 10px 8px;
-  margin-bottom: 10px;
-  color: ${(props) => props.theme.mainText};
+  color: ${(props) => props.theme.color.mainText};
   border: none;
-  border: 1px solid ${(props) => props.theme.disabledTagBorder};
-  background-color: ${(props) => props.theme.background};
+  border: 1px solid ${(props) => props.theme.color.loginBorderLine};
+  background-color: ${(props) => props.theme.color.background};
 
   &:focus {
     outline: none;
   }
 `;
 
-const PasswordInput = styled.input`
-  width: 350px;
+export const PasswordInput = styled.input`
+  font-size: 14px;
+  width: 80vw;
+  max-width: 350px;
   height: 50px;
   border-radius: 4px;
   padding: 10px 8px 10px 8px;
-  margin-bottom: 30px;
-  color: ${(props) => props.theme.mainText};
+  margin-top: 10px;
+  color: ${(props) => props.theme.color.mainText};
   border: none;
-  border: 1px solid ${(props) => props.theme.disabledTagBorder};
-  background-color: ${(props) => props.theme.background};
+  border: 1px solid ${(props) => props.theme.color.loginBorderLine};
+  background-color: ${(props) => props.theme.color.background};
 
   &:focus {
     outline: none;
   }
 `;
 
-const SignupButton = styled.button`
-  width: 350px;
+export const SubmitButton = styled.button`
+  width: 80vw;
+  max-width: 350px;
   height: 45px;
   border: none;
   border-radius: 4px;
-  color: #1c1a16;
-  font-size: 15px;
-  font-weight: 700;
-  background-color: ${(props) => props.theme.mainColor};
+  color: ${(props) => props.theme.color.signatureText};
+  font-size: ${(props) => props.theme.font.diaryContentSize}px;
+  font-weight: ${(props) => props.theme.font.titleWeight};
+  margin-top: 30px;
+  background-color: ${(props) => props.theme.color.signature};
   cursor: pointer;
 
   &:hover {
-    background-color: #ffdeb7;
+    background-color: ${(props) => props.theme.color.signatureHover};
   }
 `;
 
-const MoveLogin = styled.button`
-  font-size: 14px;
+export const MovePageButton = styled.button`
+  font-size: ${(props) => props.theme.font.diaryContentSize}px;
   margin-top: 20px;
-  width: 410px;
+  width: 90vw;
+  max-width: 400px;
   height: 60px;
   border-radius: 4px;
   border: none;
-  color: ${(props) => props.theme.mainText};
-  border: 1px solid ${(props) => props.theme.disabledTagBorder};
-  background-color: ${(props) => props.theme.disabledTagBackground};
+  color: ${(props) => props.theme.color.mainText};
+  border: 1px solid ${(props) => props.theme.color.loginBorderLine};
+  background-color: ${(props) => props.theme.color.inputBackground};
   cursor: pointer;
 
   > .bold {
-    font-weight: 500;
+    font-weight: ${(props) => props.theme.font.titleWeight};
   }
 `;
 
-interface FormValue {
-  nickname: string;
-  email: string;
-  password: any;
-}
+export const EmailErrormsg = styled.div`
+  margin-top: 6px;
+  color: #d0393e;
+  font-size: 12px;
+`;
+
+export const PasswordErrormsg = styled.div`
+  margin-top: 6px;
+  margin-bottom: -17px;
+  color: #d0393e;
+  font-size: 12px;
+`;
 
 function Signup() {
-  const [signUpError, setSignUpError] = useState(false);
-  const [errorMessage, setErrormessage] = useState("");
-
-  const navigate = useNavigate();
-
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<FormValue>();
 
-  const onSubmit: SubmitHandler<FormValue> = (data) => {
-    BASE_API.post(`/users/sign-up`, {
-      nickname: data.nickname,
-      email: data.email,
-      password: data.password,
-    })
-      .then(() => {
-        setErrormessage("");
-        setSignUpError(false);
-        navigate("/login");
-      })
-      .catch((err) => {
-        setErrormessage(err.response.data.message);
-        setSignUpError(true);
-      });
+  const navigate = useNavigate();
+
+  const onSubmit: SubmitHandler<FormValue> = async (data) => {
+    try {
+      const signupForm = {
+        nickname: data.nickname,
+        email: data.email,
+        password: data.password,
+      };
+      await BASE_API.post(`/users/sign-up`, signupForm);
+      navigate("/login");
+      toast.success(`${data.nickname}님 환영합니다!`);
+    } catch (err: any) {
+      // 500 = 이미 중복된 이메일
+      // 400 = 유효한 형식의 이메일이 아닐때(@이가 없을 때, 닉네임이랑 비밀번호가 Null일 때)
+      if (err.response.status === 500) toast.error("이미 사용중인 이메일입니다.");
+    }
   };
 
   return (
-    <SingupContainer>
+    <SignContainer>
       <Logo>
-        {" "}
         <Link to='/'>나만의 작은 음악 다이어리</Link>
       </Logo>
       <FormContainer>
         <NicknameInput placeholder='닉네임' {...register("nickname")} />
-        <EmailInput type='email' placeholder='이메일' {...register("email")} />
-        <PasswordInput type='password' placeholder='비밀번호' {...register("password")} />
-        <SignupButton type='button' onClick={handleSubmit(onSubmit)}>
+        <EmailInput
+          type='email'
+          placeholder='이메일'
+          {...register("email", {
+            required: "이메일을 입력해 주세요.",
+            pattern: {
+              value: /\S+@\S+\.\S+/,
+              message: "이메일 형식에 맞지 않습니다.",
+            },
+          })}
+        />
+        {errors.email && <EmailErrormsg>{errors.email.message}</EmailErrormsg>}
+        <PasswordInput
+          type='password'
+          placeholder='비밀번호'
+          {...register("password", {
+            required: "비밀번호를 입력해 주세요.",
+            minLength: {
+              value: 8,
+              message: "8자리 이상 입력해 주세요.",
+            },
+            maxLength: {
+              value: 16,
+              message: "16자리 이하로 입력해 주세요.",
+            },
+            pattern: {
+              value: /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$ %^&*-]).{8,}$/,
+              message: "영문 대 소문자, 숫자, 특수문자를 사용하세요.",
+            },
+          })}
+        />
+        {errors.password && <PasswordErrormsg>{errors.password.message}</PasswordErrormsg>}
+        <SubmitButton type='button' onClick={handleSubmit(onSubmit)}>
           가입
-        </SignupButton>
+        </SubmitButton>
       </FormContainer>
       <Link to='/login'>
-        <MoveLogin>
+        <MovePageButton>
           계정이 있으신가요? <span className='bold'>로그인</span>
-        </MoveLogin>
+        </MovePageButton>
       </Link>
-    </SingupContainer>
+    </SignContainer>
   );
 }
 

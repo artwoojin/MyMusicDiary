@@ -1,125 +1,54 @@
 import styled from "styled-components";
+import * as LoginHeader from "./LoginHeader";
 import { Link } from "react-router-dom";
 import { BsFillSunFill, BsFillMoonStarsFill } from "react-icons/bs";
 import { useContext } from "react";
-import { myContext } from "../theme";
-import mainIcon from "../util/img/mainIcon.png";
+import { MyContext } from "../theme";
 
-const HeaderContainer = styled.header`
-  display: flex;
-  justify-content: center;
-  background-color: ${(props) => props.theme.background};
-  transition: 0.2s ease-in-out;
-`;
-
-const HeaderWrapper = styled.div`
-  width: 100vw;
-  max-width: 1440px;
-  min-width: 300px;
+const ButtonArea = styled.div`
   display: flex;
   align-items: center;
-  height: 80px;
-  padding: 0 15px 0 15px;
-  justify-content: space-between;
-
-  .buttonArea {
-    display: flex;
-    align-items: center;
-  }
-`;
-
-const Logo = styled.div`
-  font-weight: 700;
-  font-size: 20px;
-
-  a {
-    display: flex;
-    align-items: center;
-    color: ${(props) => props.theme.logo};
-    text-decoration: none;
-
-    > img {
-      margin-right: 10px;
-      width: 40px;
-      height: 40px;
-      margin-bottom: 4px;
-    }
-  }
-`;
-
-const ModeButton = styled.button`
-  padding-top: 3px;
-  width: 40px;
-  border: none;
-  background-color: transparent;
-  margin-right: 10px;
-  cursor: pointer;
-
-  > .lightIcon {
-    color: ${(props) => props.theme.mainText};
-  }
-
-  > .darkIcon {
-    color: ${(props) => props.theme.mainText};
-  }
-`;
-
-const SubmitButton = styled.button`
-  width: 120px;
-  height: 35px;
-  border: none;
-  background-color: transparent;
-  font-weight: 700;
-  font-size: 15px;
-  color: ${(props) => props.theme.mainText};
-  cursor: pointer;
 `;
 
 const LoginButton = styled.button`
   width: 80px;
   height: 35px;
-  font-weight: 700;
+  font-weight: ${(props) => props.theme.font.logoWeight};
   font-size: 15px;
+  margin-left: 5px;
   background-color: transparent;
   border-radius: 50px;
-  color: ${(props) => props.theme.mainText};
-  border: 1.5px solid ${(props) => props.theme.mainText};
-  margin: 0 10px 0 20px;
+  color: ${(props) => props.theme.color.mainText};
+  border: 1.5px solid ${(props) => props.theme.color.mainText};
   cursor: pointer;
 `;
 
 function LogoutHeader() {
-  const { isChange, changeMode }: any = useContext(myContext);
+  const { isChange, changeMode }: any = useContext(MyContext);
 
   return (
-    <HeaderContainer>
-      <HeaderWrapper>
-        <Logo>
-          <Link to='/'>
-            {" "}
-            <img src={mainIcon} alt='mainIcon' />
-            나만의 작은 음악 다이어리
-          </Link>
-        </Logo>
-        <div className='buttonArea'>
-          <ModeButton onClick={changeMode}>
+    <LoginHeader.HeaderContainer>
+      <LoginHeader.HeaderWrapper>
+        <LoginHeader.Logo>
+          <Link to='/'>나만의 작은 음악 다이어리</Link>
+        </LoginHeader.Logo>
+        <ButtonArea>
+          <LoginHeader.ModeButton onClick={changeMode}>
             {isChange === "dark" ? (
               <BsFillMoonStarsFill className='darkIcon' size={20} />
             ) : (
               <BsFillSunFill className='lightIcon' size={25} />
             )}
-          </ModeButton>
-          <div className='buttonArea'>
-            <Link to='/Login'>
-              <SubmitButton>새 다이어리 등록</SubmitButton>
-            </Link>
-            <Link to='/Login'>
-              <LoginButton>로그인</LoginButton>
-            </Link>
-          </div>
-        </div>
-      </HeaderWrapper>
-    </HeaderContainer>
+          </LoginHeader.ModeButton>
+          <Link to='/Login'>
+            <LoginHeader.NewPost>새 다이어리 작성</LoginHeader.NewPost>
+          </Link>
+          <Link to='/Login'>
+            <LoginButton>로그인</LoginButton>
+          </Link>
+        </ButtonArea>
+      </LoginHeader.HeaderWrapper>
+    </LoginHeader.HeaderContainer>
   );
 }
 
