@@ -15,7 +15,6 @@ import DOMPurify from "dompurify";
 import { MyContext } from "../../util/MyContext";
 import { toast } from "react-toastify";
 import mainIcon from "../../assets/images/mainIcon.png";
-import DetailTagList from "./DetailTagList";
 import Modal from "../common/Modal";
 
 const TitleArea = styled.div`
@@ -184,8 +183,16 @@ const TagArea = styled.ul`
   flex-wrap: wrap;
   font-size: 12px;
   gap: 5px;
-  color: ${(props) => props.theme.color.mainText};
+  color: ${(props) => props.theme.color.subText};
+  list-style: none;
   margin-top: 5px;
+
+  > li {
+    height: 25px;
+    padding: 4px 7px 4px 7px;
+    border: 1px solid ${(props) => props.theme.color.borderLine};
+    border-radius: 50px;
+  }
 `;
 
 const AlbumInfoArea = styled.div`
@@ -559,8 +566,8 @@ function DetailList({ list, getDetailData }: DiaryDataProps) {
               </NewMain.User>
             </UserInfo>
             <TagArea>
-              {tagData.map((value: any) => {
-                return <DetailTagList list={value} key={value.tagId} />;
+              {tagData.map((value: any, index: number) => {
+                return <li key={index}>{value.tagName}</li>;
               })}
             </TagArea>
           </NewMain.InfoArea>

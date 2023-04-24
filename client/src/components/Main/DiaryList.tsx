@@ -57,7 +57,7 @@ export const TagArea = styled.ul`
   align-items: center;
   font-size: 12px;
   gap: 4px;
-  color: ${(props) => props.theme.color.mainText};
+  color: ${(props) => props.theme.color.tagText};
   list-style: none;
   margin: 0 -2px 0 -2px;
 
