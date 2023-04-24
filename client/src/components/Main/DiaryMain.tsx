@@ -98,7 +98,7 @@ function DiaryMain() {
     window.localStorage.setItem("mainCurrentPage", JSON.stringify(mainCurrentPage));
   }, [mainCurrentPage]);
 
-  const LIMIT_COUNT: number = 2;
+  const LIMIT_COUNT: number = 20;
   const offset: number = (mainCurrentPage - 1) * LIMIT_COUNT; // 각 페이지에서 첫 데이터의 위치(index) 계산
 
   // 전체 diary 데이터 get 요청

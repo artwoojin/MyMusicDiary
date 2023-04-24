@@ -128,7 +128,7 @@ function DiaryList({ list }: DiaryDataProps) {
     <DiaryListContainer>
       <Link to={`/DetailDiary/${list.diaryId}`}>
         <Thumbnail
-          src={list.playlists[0].thumbnail ? list.playlists[0].thumbnail : mainIcon}
+          src={list.playlists[0]?.thumbnail ? list.playlists[0]?.thumbnail : mainIcon}
           alt='첫번째 앨범 커버'
           onError={replaceImg}
         />

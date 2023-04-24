@@ -13,8 +13,8 @@ const TagContainer = styled.li`
   }
 `;
 
-function TagList({ list }: any) {
+function DetailTagList({ list }: any) {
   return <TagContainer>{list.tagName}</TagContainer>;
 }
 
-export default TagList;
+export default DetailTagList;

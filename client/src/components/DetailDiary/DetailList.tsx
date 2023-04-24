@@ -15,7 +15,7 @@ import DOMPurify from "dompurify";
 import { MyContext } from "../../util/MyContext";
 import { toast } from "react-toastify";
 import mainIcon from "../../assets/images/mainIcon.png";
-import TagList from "./TagList";
+import DetailTagList from "./DetailTagList";
 import Modal from "../common/Modal";
 
 const TitleArea = styled.div`
@@ -560,7 +560,7 @@ function DetailList({ list, getDetailData }: DiaryDataProps) {
             </UserInfo>
             <TagArea>
               {tagData.map((value: any) => {
-                return <TagList list={value} key={value.tagId} />;
+                return <DetailTagList list={value} key={value.tagId} />;
               })}
             </TagArea>
           </NewMain.InfoArea>
