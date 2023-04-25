@@ -71,6 +71,7 @@ public class DiaryDto {
 
 //        user 데이터 가져오는 것
         private String userNickname;
+        private String imageUrl;
 
         private List<CommentDto.Response> comments;
 //        private List<PlaylistDto.Response> playlists;

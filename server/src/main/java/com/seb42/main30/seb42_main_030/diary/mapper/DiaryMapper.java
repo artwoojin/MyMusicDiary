@@ -70,6 +70,7 @@ public interface DiaryMapper {
             diaryDto.modifiedAt(diary.getModifiedAt());
             diaryDto.viewCount(diary.getViewCount());
             diaryDto.likeCount(diary.getLikeCount());
+            diaryDto.imageUrl(diary.getUser().getImageUrl());
             //diaryDto.likeCheck(diary.getLikeCheck());
             //diaryDto.tags(Collections.singletonList(diary.getTagDto().getTagId()));
             List<Tag> tags = diary.getTags();
@@ -121,6 +122,7 @@ public interface DiaryMapper {
                         .createdAt(comment.getCreatedAt())
                         .modifiedAt(comment.getModifiedAt())
                         .userNickname(comment.getUser().getNickname())
+                        .imageUrl(comment.getUser().getImageUrl())
                         .build())
                 .collect(Collectors.toList());
     }
