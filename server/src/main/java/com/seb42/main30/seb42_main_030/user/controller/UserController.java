@@ -103,4 +103,12 @@ public class UserController {
         fileUploadService.uploadImage(file, userId);
         return ResponseEntity.ok().build();
     }
+
+
+
+    @DeleteMapping("/{userId}/image")
+    public ResponseEntity<?> deleteImage(@PathVariable Long userId) {
+        userService.deleteUserImage(userId);
+        return ResponseEntity.ok().build();
+    }
 }

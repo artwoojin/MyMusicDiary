@@ -3,6 +3,7 @@ package com.seb42.main30.seb42_main_030.user.service;
 import com.seb42.main30.seb42_main_030.auth.utils.CustomAuthorityUtils;
 import com.seb42.main30.seb42_main_030.exception.BusinessException;
 import com.seb42.main30.seb42_main_030.exception.ExceptionCode;
+import com.seb42.main30.seb42_main_030.image.UploadService;
 import com.seb42.main30.seb42_main_030.user.entity.User;
 import com.seb42.main30.seb42_main_030.user.repository.UserRepository;
 import lombok.AllArgsConstructor;
@@ -25,6 +26,7 @@ public class UserService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
     private final CustomAuthorityUtils authorityUtils;
+    private final UploadService s3Service;
 
 //    public UserService(UserRepository memberRepository,
 //                         ApplicationEventPublisher publisher,
@@ -123,5 +125,37 @@ public class UserService {
 //        }
 //        return findUser;
 //    }
+
+
+//    public void deleteUserImage(Long userId) {
+//        User user = userRepository.findById(userId)
+//                .orElseThrow(() -> new IllegalArgumentException("Invalid user ID"));
+//        String preFile = getFileNameFromUrl(user.getImageUrl());
+//        if(preFile != null){
+//            s3Service.deleteFile(preFile);
+//        }
+//    }
+
+
+    public void deleteUserImage(Long userId) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid user ID"));
+        if (user.getImageUrl() != null) {
+            s3Service.deleteFile(getFileNameFromUrl(user.getImageUrl()));
+            user.setImageUrl(null);
+            userRepository.save(user);
+        }
+    }
+
+    public String getFileNameFromUrl(String url) {
+        if (url == null) {
+            return null;
+        }
+        int pos = url.lastIndexOf("/");
+        if (pos == -1) {
+            return null;
+        }
+        return url.substring(pos + 1);
+    }
 }
 
