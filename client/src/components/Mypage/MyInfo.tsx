@@ -308,12 +308,6 @@ function MyInfo({ list, getUserData }: UserDataProps) {
 
   // 기본 이미지로 patch 요청
   const deleteImage = async () => {
-    // const newImg = {
-    //   imageUrl: defaultProfile,
-    //   nickname: list.nickname,
-    //   password: list.password,
-    // };
-    // await TOKEN_API.patch(`/users/${list.userId}`, newImg);
     await TOKEN_API.delete(`/users/${list.userId}/image`);
     window.location.reload();
   };

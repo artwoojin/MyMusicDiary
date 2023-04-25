@@ -4,6 +4,7 @@ import { DiaryDataProps } from "../../util/Type";
 import { AiFillHeart } from "react-icons/ai";
 import { FaRegCommentDots } from "react-icons/fa";
 import mainIcon from "../../assets/images/mainIcon.png";
+import defaultProfile from "../../assets/images/defaultProfile.png";
 
 function MyLikeDiary({ list }: DiaryDataProps) {
   const replaceImg = (e: any) => {
@@ -29,7 +30,7 @@ function MyLikeDiary({ list }: DiaryDataProps) {
         <DiaryList.UserArea>
           <DiaryList.ByUsername>
             <DiaryList.Profile
-              src={list?.imageUrl ? list?.imageUrl : mainIcon}
+              src={list?.imageUrl ? list?.imageUrl : defaultProfile}
               alt='프로필 이미지'
               onError={replaceImg}
             />

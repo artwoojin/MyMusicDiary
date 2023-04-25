@@ -13,7 +13,7 @@ import six from "../../assets/images/006.png";
 import seven from "../../assets/images/007.png";
 import eight from "../../assets/images/008.png";
 
-export const HeaderContainer = styled.header`
+export const HeaderContainer = styled.nav`
   display: flex;
   justify-content: center;
 `;

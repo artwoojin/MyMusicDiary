@@ -2,7 +2,7 @@ import styled from "styled-components";
 import * as CommentList from "../DetailDiary/CommentList";
 import { useNavigate } from "react-router-dom";
 import { CommentDataProps } from "../../util/Type";
-import mainIcon from "../../assets/images/mainIcon.png";
+import defaultProfile from "../../assets/images/defaultProfile.png";
 
 const CommentListContainer = styled(CommentList.CommentListContainer)`
   cursor: pointer;
@@ -28,7 +28,7 @@ function MyComment({ list }: CommentDataProps) {
   };
 
   const replaceImg = (e: any) => {
-    e.target.src = mainIcon;
+    e.target.src = defaultProfile;
   };
 
   return (
@@ -36,7 +36,7 @@ function MyComment({ list }: CommentDataProps) {
       <CommentList.CommentListWrapper>
         <UserInfoArea>
           <CommentList.Profile
-            src={list?.imageUrl ? list?.imageUrl : mainIcon}
+            src={list?.imageUrl ? list?.imageUrl : defaultProfile}
             alt='프로필 이미지'
             onError={replaceImg}
           />

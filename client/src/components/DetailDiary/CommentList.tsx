@@ -3,7 +3,7 @@ import { useState, useContext } from "react";
 import { CommentData } from "../../util/Type";
 import { TOKEN_API } from "../../util/API";
 import { MyContext } from "../../util/MyContext";
-import mainIcon from "../../assets/images/mainIcon.png";
+import defaultProfile from "../../assets/images/defaultProfile.png";
 import Modal from "../common/Modal";
 
 export const CommentListContainer = styled.li`
@@ -169,7 +169,7 @@ function CommentList({ list, getDetailData }: CommentDataProps) {
   };
 
   const replaceImg = (e: any) => {
-    e.target.src = mainIcon;
+    e.target.src = defaultProfile;
   };
 
   return (
@@ -178,7 +178,7 @@ function CommentList({ list, getDetailData }: CommentDataProps) {
         <NameArea>
           <UserInfoArea>
             <Profile
-              src={list?.imageUrl ? list?.imageUrl : mainIcon}
+              src={list?.imageUrl ? list?.imageUrl : defaultProfile}
               alt='프로필 이미지'
               onError={replaceImg}
             />

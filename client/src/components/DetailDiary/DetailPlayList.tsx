@@ -43,6 +43,10 @@ const ContentArea = styled.div`
   &:hover {
     border-radius: 4px;
     background-color: ${(props) => props.theme.color.buttonHover};
+
+    .thumbnail {
+      background-color: red;
+    }
   }
 `;
 

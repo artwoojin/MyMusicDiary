@@ -51,7 +51,7 @@ const ListTab = styled.ul`
   }
 `;
 
-export const DiaryMainContainer = styled.div`
+export const DiaryMainContainer = styled.main`
   display: flex;
   justify-content: center;
 `;

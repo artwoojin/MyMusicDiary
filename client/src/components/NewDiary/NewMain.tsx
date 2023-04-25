@@ -11,7 +11,7 @@ import { PlaylistData } from "../../util/Type";
 import { toast } from "react-toastify";
 import { FiPlus } from "react-icons/fi";
 import { IoIosClose } from "react-icons/io";
-import { AiOutlineYoutube } from "react-icons/ai";
+import { AiFillYoutube } from "react-icons/ai";
 import mainIcon from "../../assets/images/mainIcon.png";
 
 export const MainContainer = styled.div`
@@ -227,6 +227,11 @@ export const AlbumInfoArea = styled.div`
 export const PlayListArea = styled.div`
   padding: 30px 5px 100px 5px;
   border-top: 1px solid ${(props) => props.theme.color.borderLine};
+`;
+
+export const PlayTitleArea = styled.div`
+  display: flex;
+  align-items: flex-start;
 
   > .playTitle {
     display: flex;
@@ -242,6 +247,16 @@ export const PlayListArea = styled.div`
       color: ${(props) => props.theme.color.subText};
     }
   }
+
+  > a {
+    margin: -3px 0 0 10px;
+    color: ${(props) => props.theme.color.subText};
+    cursor: pointer;
+
+    &:hover {
+      color: #ff0000;
+    }
+  }
 `;
 
 export const UrlInput = styled.div`
@@ -249,12 +264,6 @@ export const UrlInput = styled.div`
   margin-bottom: 20px;
   align-items: center;
   position: relative;
-
-  > a {
-    margin-right: 5px;
-    color: ${(props) => props.theme.color.subText};
-    cursor: pointer;
-  }
 
   > input {
     font-size: 14px;
@@ -354,7 +363,7 @@ function NewMain() {
   };
 
   // input에 등록한 Url 정보 불러옴
-  const getYoutubeData = async (id: any) => {
+  const getYoutubeData = async (id: string | undefined) => {
     try {
       const res =
         await axios.get(`https://www.googleapis.com/youtube/v3/videos?id=${id}&key=${process.env.REACT_APP_YOUTUBE_API_KEY}
@@ -428,8 +437,6 @@ function NewMain() {
   const removeTags = (deleteIndex: any) => {
     setNewTag(newTag.filter((value: any) => value !== newTag[deleteIndex]));
   };
-
-  // console.log(newTag);
 
   // 새로고침 & 페이지 닫기 방지
   const preventClose = (e: BeforeUnloadEvent) => {
@@ -513,13 +520,15 @@ function NewMain() {
           />
         </AlbumInfoArea>
         <PlayListArea>
-          <div className='playTitle'>
-            다이어리 수록곡 <span className='playCount'>({newPlayList.length})</span>
-          </div>
-          <UrlInput>
+          <PlayTitleArea>
+            <div className='playTitle'>
+              다이어리 수록곡 <span className='playCount'>({newPlayList.length})</span>
+            </div>
             <Link to='https://www.youtube.com/' target='_blank'>
-              <AiOutlineYoutube className='youtubeIcon' size={35} />
+              <AiFillYoutube className='youtubeIcon' size={30} />
             </Link>
+          </PlayTitleArea>
+          <UrlInput>
             <input
               value={newUrl}
               placeholder='유튜브 url을 추가해 주세요'

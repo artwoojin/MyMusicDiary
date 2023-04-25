@@ -4,6 +4,7 @@ import { DiaryDataProps } from "../../util/Type";
 import { AiFillHeart } from "react-icons/ai";
 import { FaRegCommentDots } from "react-icons/fa";
 import mainIcon from "../../assets/images/mainIcon.png";
+import defaultProfile from "../../assets/images/defaultProfile.png";
 
 export const DiaryListContainer = styled.li`
   box-shadow: rgba(0, 0, 0, 0.04) 0px 4px 16px 0px;
@@ -35,6 +36,7 @@ export const Thumbnail = styled.img`
 
 export const InfoArea = styled.div`
   padding: 15px;
+  /* border: 1px solid red; */
 
   > .infoTitle {
     color: ${(props) => props.theme.color.mainText};
@@ -48,7 +50,7 @@ export const InfoArea = styled.div`
   > .infoDate {
     font-size: 12px;
     color: ${(props) => props.theme.color.thirdText};
-    margin-bottom: 15px;
+    margin-bottom: 14px;
   }
 `;
 
@@ -73,7 +75,7 @@ export const UserArea = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 5px 15px 5px 15px;
+  padding: 5.5px 15px 5px 15px;
   border-top: 1px solid ${(props) => props.theme.color.userAreaLine};
 `;
 
@@ -144,7 +146,7 @@ function DiaryList({ list }: DiaryDataProps) {
         <UserArea>
           <ByUsername>
             <Profile
-              src={list?.imageUrl ? list?.imageUrl : mainIcon}
+              src={list?.imageUrl ? list?.imageUrl : defaultProfile}
               alt='프로필 이미지'
               onError={replaceImg}
             />

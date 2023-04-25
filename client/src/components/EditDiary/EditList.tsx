@@ -1,6 +1,6 @@
 import * as NewMain from "../NewDiary/NewMain";
 import { useState, useEffect } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, Link } from "react-router-dom";
 import { DiaryDataProps } from "../../util/Type";
 import { TOKEN_API } from "../../util/API";
 import ReactQuill from "react-quill";
@@ -11,6 +11,7 @@ import { PlaylistData } from "../../util/Type";
 import { toast } from "react-toastify";
 import { FiPlus } from "react-icons/fi";
 import { IoIosClose } from "react-icons/io";
+import { AiFillYoutube } from "react-icons/ai";
 import mainIcon from "../../assets/images/mainIcon.png";
 
 function EditList({ list }: DiaryDataProps) {
@@ -226,9 +227,14 @@ function EditList({ list }: DiaryDataProps) {
           />
         </NewMain.AlbumInfoArea>
         <NewMain.PlayListArea>
-          <div className='playTitle'>
-            다이어리 수록곡 <span className='playCount'>({editPlayList.length})</span>
-          </div>
+          <NewMain.PlayTitleArea>
+            <div className='playTitle'>
+              다이어리 수록곡 <span className='playCount'>({editPlayList.length})</span>
+            </div>
+            <Link to='https://www.youtube.com/' target='_blank'>
+              <AiFillYoutube className='youtubeIcon' size={30} />
+            </Link>
+          </NewMain.PlayTitleArea>
           <NewMain.UrlInput>
             <input
               value={editUrl}
