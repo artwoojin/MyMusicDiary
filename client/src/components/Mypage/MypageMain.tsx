@@ -11,9 +11,6 @@ import { CommentData } from "../../util/Type";
 import { UserData } from "../../util/Type";
 import { BASE_API } from "../../util/API";
 import { MyContext } from "../../util/MyContext";
-import diary from "../../assets/images/diary.png";
-import like from "../../assets/images/like.png";
-import comment from "../../assets/images/comment.png";
 
 const ListTab = styled.ul`
   display: flex;
@@ -80,23 +77,23 @@ const CommentInfo = styled.div`
   }
 `;
 
-const MyPageImgWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+// const MyPageImgWrapper = styled.div`
+//   display: flex;
+//   flex-direction: column;
+//   align-items: center;
 
-  > img {
-    width: 500px;
-    height: 340px;
-    margin-bottom: 20px;
-  }
+//   > img {
+//     width: 500px;
+//     height: 340px;
+//     margin-bottom: 20px;
+//   }
 
-  > div {
-    color: ${(props) => props.theme.color.subText};
-    font-size: 25px;
-    font-weight: ${(props) => props.theme.font.titleWeight};
-  }
-`;
+//   > div {
+//     color: ${(props) => props.theme.color.subText};
+//     font-size: 25px;
+//     font-weight: ${(props) => props.theme.font.titleWeight};
+//   }
+// `;
 
 function MypageMain() {
   const [myUserData, setMyUserData] = useState<UserData>();
@@ -146,7 +143,6 @@ function MypageMain() {
       console.error(err);
     }
   };
-
   useEffect(() => {
     getMyDiaryData();
   }, []);
@@ -160,7 +156,6 @@ function MypageMain() {
       console.error(err);
     }
   };
-
   useEffect(() => {
     getLikeData();
   }, []);
@@ -193,8 +188,6 @@ function MypageMain() {
     setMyCurrentTab(index);
   };
 
-  // console.log(window.location.href);
-
   return (
     <>
       <ListTab>
@@ -216,32 +209,18 @@ function MypageMain() {
             {myUserData && <MyInfo list={myUserData} getUserData={getUserData} />}
           </MypageWrapper>
         ) : myCurrentTab === 1 ? (
-          myDiaryData.length !== 0 ? (
-            <DiaryMain.DiaryMainWrapper>
-              {myDiaryData.slice(offset, offset + LIMIT_COUNT).map((value) => {
-                return <MyDiary list={value} key={value.diaryId} />;
-              })}
-            </DiaryMain.DiaryMainWrapper>
-          ) : (
-            <MyPageImgWrapper>
-              <img src={diary} alt='myDiary' />
-              <div>아직 나의 다이어리가 없습니다.</div>
-            </MyPageImgWrapper>
-          )
+          <DiaryMain.DiaryMainWrapper>
+            {myDiaryData.slice(offset, offset + LIMIT_COUNT).map((value) => {
+              return <MyDiary list={value} key={value.diaryId} />;
+            })}
+          </DiaryMain.DiaryMainWrapper>
         ) : myCurrentTab === 2 ? (
-          myDiaryData.length !== 0 ? (
-            <DiaryMain.DiaryMainWrapper>
-              {myLikeDiaryData.slice(offset, offset + LIMIT_COUNT).map((value) => {
-                return <MyLikeDiary list={value} key={value.diaryId} />;
-              })}
-            </DiaryMain.DiaryMainWrapper>
-          ) : (
-            <MyPageImgWrapper>
-              <img src={like} alt='myDiary' />
-              <div>아직 좋아한 다이어리가 없습니다.</div>
-            </MyPageImgWrapper>
-          )
-        ) : myCommentData.length !== 0 ? (
+          <DiaryMain.DiaryMainWrapper>
+            {myLikeDiaryData.slice(offset, offset + LIMIT_COUNT).map((value) => {
+              return <MyLikeDiary list={value} key={value.diaryId} />;
+            })}
+          </DiaryMain.DiaryMainWrapper>
+        ) : (
           <MypageWrapper>
             <CommentCountWrapper>
               <CommentInfo>
@@ -253,11 +232,6 @@ function MypageMain() {
               return <MyComment list={value} key={value.commentId} />;
             })}
           </MypageWrapper>
-        ) : (
-          <MyPageImgWrapper>
-            <img src={comment} alt='myDiary' />
-            <div>아직 작성한 댓글이 없습니다.</div>
-          </MyPageImgWrapper>
         )}
       </DiaryMain.DiaryMainContainer>
       <MypagePagination

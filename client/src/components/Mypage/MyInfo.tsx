@@ -417,7 +417,7 @@ function MyInfo({ list, getUserData }: UserDataProps) {
             )}
           </NicknameInputWrapper>
         </NicknameWrapper>
-        <WarningText>나만의 작은 음악 다이어리에서 사용되는 이름입니다.</WarningText>
+        <WarningText>Mariple에서 사용되는 이름입니다.</WarningText>
       </NicknameContainer>
       <PasswordContainer>
         <div className='passwordTitle'>비밀번호</div>
