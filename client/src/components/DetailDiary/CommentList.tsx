@@ -4,6 +4,7 @@ import { CommentData } from "../../util/Type";
 import { TOKEN_API } from "../../util/API";
 import { MyContext } from "../../util/MyContext";
 import mainIcon from "../../assets/images/mainIcon.png";
+import Modal from "../common/Modal";
 
 export const CommentListContainer = styled.li`
   display: flex;
@@ -105,81 +106,6 @@ const ButtonArea = styled.div`
   }
 `;
 
-const DeleteModalBack = styled.div`
-  position: fixed;
-  z-index: 999;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  right: 0;
-  background-color: rgba(0, 0, 0, 0.4);
-  display: grid;
-  place-items: center;
-`;
-
-const DeleteModalView = styled.div`
-  text-align: center;
-  border-radius: 4px;
-  background-color: ${(props) => props.theme.color.background};
-  width: 80%;
-  max-width: 400px;
-  height: 200px;
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.19), 0 10px 10px rgba(0, 0, 0, 0.1);
-
-  > .deleteModalTitle {
-    color: ${(props) => props.theme.color.mainText};
-    font-size: ${(props) => props.theme.font.diarySubTitleSize}px;
-    font-weight: ${(props) => props.theme.font.titleWeight};
-    text-align: center;
-    margin: 30px 15px 35px 15px;
-  }
-
-  > .warningText {
-    color: ${(props) => props.theme.color.subText};
-    font-size: ${(props) => props.theme.font.diaryContentSize}px;
-    font-weight: ${(props) => props.theme.font.contentWeight};
-    margin: 0 15px 43px 15px;
-  }
-
-  > button {
-    font-size: ${(props) => props.theme.font.diaryContentSize}px;
-    font-weight: ${(props) => props.theme.font.titleWeight};
-    width: 50%;
-    height: 50px;
-    border: none;
-    text-decoration: none;
-    cursor: pointer;
-
-    &:hover {
-      text-decoration: none;
-    }
-  }
-
-  > .deleteCancelButton {
-    color: ${(props) => props.theme.color.subText};
-    background-color: transparent;
-    border-top: 1px solid ${(props) => props.theme.color.borderLine};
-    border-right: 0.5px solid ${(props) => props.theme.color.borderLine};
-    border-bottom-left-radius: 4px;
-
-    &:hover {
-      background-color: ${(props) => props.theme.color.buttonHover};
-    }
-  }
-
-  > .deleteButton {
-    color: #ec1d36;
-    background-color: transparent;
-    border-top: 1px solid ${(props) => props.theme.color.borderLine};
-    border-left: 0.5px solid ${(props) => props.theme.color.borderLine};
-    border-bottom-right-radius: 4px;
-
-    &:hover {
-      background-color: ${(props) => props.theme.color.buttonHover};
-    }
-  }
-`;
-
 interface CommentDataProps {
   list: CommentData;
   getDetailData: React.Dispatch<React.SetStateAction<object>>;
@@ -273,24 +199,13 @@ function CommentList({ list, getDetailData }: CommentDataProps) {
               </>
             ) : null}
             {deleteCommentModal ? (
-              <DeleteModalBack>
-                <DeleteModalView>
-                  <div className='deleteModalTitle'>댓글을 삭제 하시겠습니까?</div>
-                  <div className='warningText'>삭제한 댓글은 복구되지 않습니다.</div>
-                  <button className='deleteCancelButton' onClick={closeDeleteModalHandler}>
-                    취소
-                  </button>
-                  <button
-                    className='deleteButton'
-                    onClick={() => {
-                      commentDelete();
-                      closeDeleteModalHandler();
-                    }}
-                  >
-                    삭제
-                  </button>
-                </DeleteModalView>
-              </DeleteModalBack>
+              <Modal
+                title={"댓글을 삭제 하시겠습니까?"}
+                text={"삭제한 댓글은 복구되지 않습니다."}
+                confirmText={"삭제"}
+                cancelHandler={closeDeleteModalHandler}
+                confirmHandler={commentDelete}
+              />
             ) : null}
           </ButtonArea>
         </NameArea>
