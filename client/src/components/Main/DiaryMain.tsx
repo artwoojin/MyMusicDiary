@@ -91,11 +91,13 @@ function DiaryMain() {
   // 로컬스토리지에 현재 탭 번호 저장
   useEffect(() => {
     window.localStorage.setItem("mainCurrentTab", JSON.stringify(mainCurrentTab));
+    localStorage.removeItem("myCurrentTab");
   }, [mainCurrentTab]);
 
   // 로컬스토리지에 현재 페이지 번호 저장
   useEffect(() => {
     window.localStorage.setItem("mainCurrentPage", JSON.stringify(mainCurrentPage));
+    localStorage.removeItem("myCurrentPage");
   }, [mainCurrentPage]);
 
   const LIMIT_COUNT: number = 20;

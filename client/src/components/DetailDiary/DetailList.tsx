@@ -183,7 +183,7 @@ const TagArea = styled.ul`
   flex-wrap: wrap;
   font-size: 12px;
   gap: 5px;
-  color: ${(props) => props.theme.color.subText};
+  color: ${(props) => props.theme.color.tagText};
   list-style: none;
   margin-top: 5px;
 

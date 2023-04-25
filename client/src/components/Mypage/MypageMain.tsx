@@ -110,6 +110,10 @@ function MypageMain() {
     () => JSON.parse(window.localStorage.getItem("myCurrentPage")!) || 1
   );
 
+  const LIMIT_COUNT: number = 20;
+  const offset: number = (myCurrentPage - 1) * LIMIT_COUNT;
+  const { currentUser }: any = useContext(MyContext);
+
   useEffect(() => {
     window.localStorage.setItem("myCurrentTab", JSON.stringify(myCurrentTab));
   }, [myCurrentTab]);
@@ -117,10 +121,6 @@ function MypageMain() {
   useEffect(() => {
     window.localStorage.setItem("myCurrentPage", JSON.stringify(myCurrentPage));
   }, [myCurrentPage]);
-
-  const LIMIT_COUNT: number = 20;
-  const offset: number = (myCurrentPage - 1) * LIMIT_COUNT;
-  const { currentUser }: any = useContext(MyContext);
 
   // Tab 1(MyInfo) : 나의 유저 정보만 불러오는 get 요청
   const getUserData = async () => {
@@ -193,6 +193,8 @@ function MypageMain() {
     setMyCurrentTab(index);
   };
 
+  // console.log(window.location.href);
+
   return (
     <>
       <ListTab>
@@ -227,7 +229,7 @@ function MypageMain() {
             </MyPageImgWrapper>
           )
         ) : myCurrentTab === 2 ? (
-          myLikeDiaryData.length !== 0 ? (
+          myDiaryData.length !== 0 ? (
             <DiaryMain.DiaryMainWrapper>
               {myLikeDiaryData.slice(offset, offset + LIMIT_COUNT).map((value) => {
                 return <MyLikeDiary list={value} key={value.diaryId} />;

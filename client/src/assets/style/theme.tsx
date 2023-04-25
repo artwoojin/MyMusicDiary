@@ -1,5 +1,7 @@
 import { DefaultTheme } from "styled-components";
 
+// #ffefd5
+
 export const lightMode: DefaultTheme = {
   color: {
     logo: `#22262c`,

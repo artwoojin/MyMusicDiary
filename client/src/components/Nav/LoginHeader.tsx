@@ -7,6 +7,11 @@ import { BsFillSunFill, BsFillMoonStarsFill } from "react-icons/bs";
 import { FiLogOut, FiEdit3, FiUser } from "react-icons/fi";
 import { MyContext } from "../../util/MyContext";
 import defaultProfile from "../../assets/images/defaultProfile.png";
+import four from "../../assets/images/004.png";
+import five from "../../assets/images/005.png";
+import six from "../../assets/images/006.png";
+import seven from "../../assets/images/007.png";
+import eight from "../../assets/images/008.png";
 
 export const HeaderContainer = styled.header`
   display: flex;
@@ -23,20 +28,11 @@ export const HeaderWrapper = styled.div`
   justify-content: space-between;
 `;
 
-export const Logo = styled.div`
-  > a {
-    font-size: 18px;
-    font-weight: ${(props) => props.theme.font.logoWeight};
-    color: ${(props) => props.theme.color.logo};
-    text-decoration: none;
-
-    > img {
-      margin-right: 10px;
-      width: 40px;
-      height: 40px;
-      margin-bottom: 4px;
-    }
-  }
+export const Logo = styled.img`
+  width: 200px;
+  height: 75px;
+  object-fit: contain;
+  /* border: 1px solid red; */
 `;
 
 const ButtonArea = styled.div`
@@ -246,9 +242,13 @@ function LoginHeader() {
   return (
     <HeaderContainer>
       <HeaderWrapper>
-        <Logo>
-          <Link to='/'>나만의 작은 음악 다이어리</Link>
-        </Logo>
+        <Link to='/'>
+          {/* <Logo src={four} /> */}
+          {/* <Logo src={five} /> */}
+          <Logo src={six} />
+          {/* <Logo src={seven} /> */}
+          {/* <Logo src={eight} /> */}
+        </Link>
         <ButtonArea>
           <ModeButton onClick={changeMode}>
             {isChange === "dark" ? (
