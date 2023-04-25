@@ -411,12 +411,16 @@ function DetailList({ list, getDetailData }: DiaryDataProps) {
   // 좋아요 post/delete 요청
   const plusLikeCount = async () => {
     try {
-      const newLike = {
-        userId: currentUser.userId,
-        diaryId: diaryId,
-      };
-      const res = await TOKEN_API.post(`/likes/${diaryId}`, newLike);
-      getDetailData(res.data);
+      if (isLogin) {
+        const newLike = {
+          userId: currentUser.userId,
+          diaryId: diaryId,
+        };
+        const res = await TOKEN_API.post(`/likes/${diaryId}`, newLike);
+        getDetailData(res.data);
+      } else {
+        toast.error("로그인 후 이용해 주세요.");
+      }
     } catch (err: any) {
       if (err.response?.status === 500) {
         const res = await TOKEN_API.delete(`/likes/${diaryId}`);

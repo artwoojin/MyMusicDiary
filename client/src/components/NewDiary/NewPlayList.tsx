@@ -23,7 +23,7 @@ export const ContentArea = styled.div`
   > .thumbnail {
     width: 50px;
     height: 50px;
-    margin-right: 20px;
+    margin-right: 15px;
     border-radius: 4px;
     object-fit: cover;
     background-color: ${(props) => props.theme.color.background};
