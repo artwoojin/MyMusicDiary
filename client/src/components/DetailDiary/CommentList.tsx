@@ -135,6 +135,9 @@ function CommentList({ list, getDetailData }: CommentDataProps) {
   const commentDelete = async () => {
     const res = await TOKEN_API.delete(`/comment/${list.commentId}`);
     getDetailData(res.data);
+    const scrollY = document.body.style.top;
+    document.body.style.cssText = "";
+    window.scrollTo(0, parseInt(scrollY || "0", 10) * -1);
   };
 
   // 댓글 변경 클릭 이벤트
