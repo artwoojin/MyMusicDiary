@@ -6,6 +6,10 @@ import { FaRegCommentDots } from "react-icons/fa";
 import mainIcon from "../../assets/images/mainIcon.png";
 
 function MyDiary({ list }: DiaryDataProps) {
+  const replaceImg = (e: any) => {
+    e.target.src = mainIcon;
+  };
+
   return (
     <DiaryList.DiaryListContainer>
       <Link to={`/DetailDiary/${list.diaryId}`}>
@@ -24,7 +28,11 @@ function MyDiary({ list }: DiaryDataProps) {
         </DiaryList.InfoArea>
         <DiaryList.UserArea>
           <DiaryList.ByUsername>
-            <DiaryList.Profile src={mainIcon} alt='프로필 이미지' />
+            <DiaryList.Profile
+              src={list?.imageUrl ? list?.imageUrl : mainIcon}
+              alt='프로필 이미지'
+              onError={replaceImg}
+            />
             <div className='by'>by</div>
             {list.userNickname}
           </DiaryList.ByUsername>

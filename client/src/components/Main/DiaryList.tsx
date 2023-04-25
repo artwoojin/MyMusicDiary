@@ -143,7 +143,11 @@ function DiaryList({ list }: DiaryDataProps) {
         </InfoArea>
         <UserArea>
           <ByUsername>
-            <Profile src={mainIcon} alt='프로필 이미지' />
+            <Profile
+              src={list?.imageUrl ? list?.imageUrl : mainIcon}
+              alt='프로필 이미지'
+              onError={replaceImg}
+            />
             <div className='by'>by</div>
             <div className='userNickname'>{list.userNickname}</div>
           </ByUsername>

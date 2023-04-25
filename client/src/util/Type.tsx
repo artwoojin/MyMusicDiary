@@ -10,6 +10,7 @@ export interface DiaryData {
   comments: CommentData[];
   playlists: PlaylistData[];
   tags: any;
+  imageUrl: string;
 }
 
 export interface DiaryDataProps {
@@ -34,6 +35,7 @@ export interface CommentData {
   createdAt: string;
   modifiedAt: string;
   userNickname: string;
+  imageUrl: string;
 }
 
 export interface CommentDataProps {

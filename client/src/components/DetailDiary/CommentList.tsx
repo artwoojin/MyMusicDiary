@@ -3,6 +3,7 @@ import { useState, useContext } from "react";
 import { CommentData } from "../../util/Type";
 import { TOKEN_API } from "../../util/API";
 import { MyContext } from "../../util/MyContext";
+import mainIcon from "../../assets/images/mainIcon.png";
 
 export const CommentListContainer = styled.li`
   display: flex;
@@ -43,6 +44,7 @@ const NameArea = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin-bottom: 10px;
 `;
 
 const EditCommentArea = styled.input`
@@ -57,6 +59,20 @@ const EditCommentArea = styled.input`
   &:focus {
     outline: none;
   }
+`;
+
+export const UserInfoArea = styled.div`
+  display: flex;
+  align-items: center;
+`;
+
+export const Profile = styled.img`
+  width: 30px;
+  height: 30px;
+  margin-right: 8px;
+  border-radius: 50%;
+  object-fit: cover;
+  background-color: ${(props) => props.theme.color.inputBackground};
 `;
 
 const ButtonArea = styled.div`
@@ -223,11 +239,22 @@ function CommentList({ list, getDetailData }: CommentDataProps) {
     window.scrollTo(0, parseInt(scrollY || "0", 10) * -1);
   };
 
+  const replaceImg = (e: any) => {
+    e.target.src = mainIcon;
+  };
+
   return (
     <CommentListContainer>
       <CommentListWrapper>
         <NameArea>
-          <div className='name'>{list.userNickname}</div>
+          <UserInfoArea>
+            <Profile
+              src={list?.imageUrl ? list?.imageUrl : mainIcon}
+              alt='프로필 이미지'
+              onError={replaceImg}
+            />
+            <div className='name'>{list.userNickname}</div>
+          </UserInfoArea>
           <ButtonArea>
             {myComment === true ? (
               <>
