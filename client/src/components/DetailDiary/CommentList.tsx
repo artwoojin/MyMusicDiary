@@ -86,23 +86,12 @@ const ButtonArea = styled.div`
     font-size: 13px;
     padding: 5px;
     background-color: transparent;
+    color: ${(props) => props.theme.color.subText};
+    font-weight: ${(props) => props.theme.font.titleWeight};
+    width: 40px;
+    border: none;
+    text-decoration: underline;
     cursor: pointer;
-  }
-
-  > .edit {
-    width: 40px;
-    color: ${(props) => props.theme.color.mainText};
-    border: none;
-    text-decoration: underline;
-    font-weight: ${(props) => props.theme.font.titleWeight};
-  }
-
-  > .delete {
-    width: 40px;
-    color: ${(props) => props.theme.color.mainText};
-    border: none;
-    text-decoration: underline;
-    font-weight: ${(props) => props.theme.font.titleWeight};
   }
 `;
 

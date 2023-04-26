@@ -37,7 +37,7 @@ export const ContentArea = styled.div`
 
   > .delete {
     width: 50px;
-    color: ${(props) => props.theme.color.mainText};
+    color: ${(props) => props.theme.color.subText};
     border: none;
     text-decoration: underline;
     font-weight: ${(props) => props.theme.font.titleWeight};

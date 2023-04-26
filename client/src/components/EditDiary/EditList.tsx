@@ -28,21 +28,35 @@ function EditList({ list }: DiaryDataProps) {
 
   // 다이어리 patch 요청
   const submitHandler = async () => {
-    if (editTitle.length <= 100 && editTitle.length !== 0 && editPlayList.length !== 0) {
-      const editDiary = {
-        title: editTitle,
-        tags: editTag,
-        body: editBody,
-        playlists: editPlayList,
-      };
-      await TOKEN_API.patch(`/diary/${diaryId}`, editDiary);
-      navigate(`/DetailDiary/${diaryId}`);
-    } else if (editTitle.length === 0 && editTitle.length === 0) {
-      toast.error("제목을 입력해 주세요.");
-    } else if (editTitle.length > 100) {
-      toast.error("제목의 길이를 줄여주세요.");
-    } else {
-      toast.error("플레이리스트를 등록해 주세요.");
+    try {
+      if (
+        editTitle.length <= 50 &&
+        editTitle.length !== 0 &&
+        editTag.length !== 0 &&
+        editBody.length !== 0 &&
+        editPlayList.length !== 0
+      ) {
+        const editDiary = {
+          title: editTitle,
+          tags: editTag,
+          body: editBody,
+          playlists: editPlayList,
+        };
+        await TOKEN_API.patch(`/diary/${diaryId}`, editDiary);
+        navigate(`/DetailDiary/${diaryId}`);
+      } else if (editTitle.length === 0) {
+        toast.error("제목을 입력해 주세요.");
+      } else if (editTitle.length > 50) {
+        toast.error("제목은 50글자 이하로 작성해주세요.");
+      } else if (editTag.length === 0) {
+        toast.error("태그를 1개 이상 선택해주세요.");
+      } else if (editBody.length === 0) {
+        toast.error("다어어리 소개글을 작성해주세요.");
+      } else if (editPlayList.length === 0) {
+        toast.error("플레이리스트를 등록해 주세요.");
+      }
+    } catch (err) {
+      console.error(err);
     }
   };
 
@@ -193,7 +207,7 @@ function EditList({ list }: DiaryDataProps) {
             className='inputTitle'
             type='text'
             value={editTitle}
-            placeholder='제목을 입력하세요'
+            placeholder='제목을 작성해 주세요'
             onChange={changeEditTitle}
           />
         </NewMain.TitleArea>

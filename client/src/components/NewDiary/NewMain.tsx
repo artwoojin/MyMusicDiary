@@ -359,31 +359,35 @@ function NewMain() {
 
   // 다이어리 post 요청
   const submitHandler = async () => {
-    if (
-      newTitle.length <= 50 &&
-      newTitle.length !== 0 &&
-      newTag.length !== 0 &&
-      newBody.length !== 0 &&
-      newPlayList.length !== 0
-    ) {
-      const newDiary = {
-        title: newTitle,
-        tags: newTag,
-        body: newBody,
-        playlists: newPlayList,
-      };
-      await TOKEN_API.post(`/diary`, newDiary);
-      navigate(`/`);
-    } else if (newTitle.length === 0) {
-      toast.error("제목을 입력해 주세요.");
-    } else if (newTitle.length > 50) {
-      toast.error("제목의 길이는 50글자 이하로 작성해주세요.");
-    } else if (newTag.length === 0) {
-      toast.error("태그를 1개 이상 선택해주세요.");
-    } else if (newBody.length === 0) {
-      toast.error("다어어리 소개글을 작성해주세요.");
-    } else if (newPlayList.length === 0) {
-      toast.error("플레이리스트를 등록해 주세요.");
+    try {
+      if (
+        newTitle.length <= 50 &&
+        newTitle.length !== 0 &&
+        newTag.length !== 0 &&
+        newBody.length !== 0 &&
+        newPlayList.length !== 0
+      ) {
+        const newDiary = {
+          title: newTitle,
+          tags: newTag,
+          body: newBody,
+          playlists: newPlayList,
+        };
+        await TOKEN_API.post(`/diary`, newDiary);
+        navigate(`/`);
+      } else if (newTitle.length === 0) {
+        toast.error("제목을 입력해 주세요.");
+      } else if (newTitle.length > 50) {
+        toast.error("제목은 50글자 이하로 작성해주세요.");
+      } else if (newTag.length === 0) {
+        toast.error("태그를 1개 이상 선택해주세요.");
+      } else if (newBody.length === 0) {
+        toast.error("다어어리 소개글을 작성해주세요.");
+      } else if (newPlayList.length === 0) {
+        toast.error("플레이리스트를 등록해 주세요.");
+      }
+    } catch (err) {
+      console.error(err);
     }
   };
 
@@ -533,7 +537,7 @@ function NewMain() {
           <input
             className='inputTitle'
             type='text'
-            placeholder='제목을 입력하세요'
+            placeholder='제목을 작성해 주세요'
             onChange={changeNewTitle}
           />
         </TitleArea>
