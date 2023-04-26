@@ -13,6 +13,7 @@ import { FiPlus } from "react-icons/fi";
 import { IoIosClose } from "react-icons/io";
 import { AiFillYoutube } from "react-icons/ai";
 import mainIcon from "../../assets/images/mainIcon.png";
+import Modal from "../common/Modal";
 
 export const MainContainer = styled.div`
   display: flex;
@@ -30,17 +31,15 @@ export const TitleArea = styled.div`
   height: 75px;
   display: flex;
   white-space: normal;
-  justify-content: space-between;
   align-items: center;
   border-bottom: 1px solid ${(props) => props.theme.color.borderLine};
   padding: 0 5px 0 5px;
 
   > .inputTitle {
-    width: 700px;
+    width: 100%;
     font-size: ${(props) => props.theme.font.diaryMainTitleSize}px;
     font-weight: ${(props) => props.theme.font.titleWeight};
     color: ${(props) => props.theme.color.mainText};
-    margin-right: 10px;
     padding: 10px 8px 10px 8px;
     border-radius: 4px;
     border: none;
@@ -54,23 +53,6 @@ export const TitleArea = styled.div`
     @media screen and (max-width: 721px) {
       font-size: 19px;
     }
-  }
-`;
-
-export const SubmitButton = styled.button`
-  font-size: 14px;
-  color: ${(props) => props.theme.color.signatureText};
-  font-weight: ${(props) => props.theme.font.titleWeight};
-  background-color: ${(props) => props.theme.color.signature};
-  border: none;
-  width: 100px;
-  min-width: 60px;
-  height: 35px;
-  border-radius: 4px;
-  cursor: pointer;
-
-  &:hover {
-    background-color: ${(props) => props.theme.color.signatureHover};
   }
 `;
 
@@ -97,7 +79,6 @@ export const CoverImg = styled.img`
 
 export const InfoArea = styled.div`
   width: 650px;
-  /* border: 1px solid red; */
 `;
 
 export const UserInfo = styled.div`
@@ -225,8 +206,9 @@ export const AlbumInfoArea = styled.div`
 `;
 
 export const PlayListArea = styled.div`
-  padding: 30px 5px 100px 5px;
+  padding: 30px 5px 30px 5px;
   border-top: 1px solid ${(props) => props.theme.color.borderLine};
+  border-bottom: 1px solid ${(props) => props.theme.color.borderLine};
 `;
 
 export const PlayTitleArea = styled.div`
@@ -298,12 +280,78 @@ export const UrlInput = styled.div`
   }
 `;
 
+export const EmptyPlayListText = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-top: 15px;
+  font-size: ${(props) => props.theme.font.diaryContentSize}px;
+  color: ${(props) => props.theme.color.subText};
+`;
+
+export const SubmitArea = styled.div`
+  display: flex;
+  justify-content: center;
+  padding: 30px 5px 50px 5px;
+
+  > button {
+    font-size: ${(props) => props.theme.font.diaryContentSize}px;
+    color: ${(props) => props.theme.color.signatureText};
+    font-weight: ${(props) => props.theme.font.titleWeight};
+    border: none;
+    width: 100px;
+    min-width: 60px;
+    height: 35px;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+
+  > .cancelButton {
+    margin-right: 8px;
+    color: ${(props) => props.theme.color.subText};
+    border: 1px solid ${(props) => props.theme.color.borderLine};
+    background-color: transparent;
+
+    &:hover {
+      background-color: ${(props) => props.theme.color.buttonHover};
+    }
+  }
+
+  > .submitButton {
+    margin-left: 8px;
+    color: ${(props) => props.theme.color.signatureText};
+    background-color: ${(props) => props.theme.color.signature};
+
+    &:hover {
+      background-color: ${(props) => props.theme.color.signatureHover};
+    }
+  }
+`;
+
+export const SubmitButton = styled.button`
+  font-size: 14px;
+  color: ${(props) => props.theme.color.signatureText};
+  font-weight: ${(props) => props.theme.font.titleWeight};
+  background-color: ${(props) => props.theme.color.signature};
+  border: none;
+  width: 100px;
+  min-width: 60px;
+  height: 35px;
+  border-radius: 4px;
+  cursor: pointer;
+
+  &:hover {
+    background-color: ${(props) => props.theme.color.signatureHover};
+  }
+`;
+
 function NewMain() {
   const [newTitle, setNewTitle] = useState<string>("");
   const [newTag, setNewTag] = useState<any>([]);
   const [newBody, setNewBody] = useState<string>("");
   const [newPlayList, setNewPlayList] = useState<PlaylistData[]>([]);
   const [newUrl, setNewUrl] = useState<string>("");
+  const [postCancelModalOpen, setPostCancelModalOpen] = useState<boolean>(false);
 
   const navigate = useNavigate();
   const { currentUser }: any = useContext(MyContext);
@@ -312,7 +360,7 @@ function NewMain() {
   // 다이어리 post 요청
   const submitHandler = async () => {
     if (
-      newTitle.length <= 100 &&
+      newTitle.length <= 50 &&
       newTitle.length !== 0 &&
       newTag.length !== 0 &&
       newBody.length !== 0 &&
@@ -328,8 +376,8 @@ function NewMain() {
       navigate(`/`);
     } else if (newTitle.length === 0) {
       toast.error("제목을 입력해 주세요.");
-    } else if (newTitle.length > 100) {
-      toast.error("제목의 길이를 줄여주세요.");
+    } else if (newTitle.length > 50) {
+      toast.error("제목의 길이는 50글자 이하로 작성해주세요.");
     } else if (newTag.length === 0) {
       toast.error("태그를 1개 이상 선택해주세요.");
     } else if (newBody.length === 0) {
@@ -452,6 +500,32 @@ function NewMain() {
     };
   }, []);
 
+  // 다이어리 등록 취소 모달 오픈 이벤트 핸들러
+  const openModalHandler = () => {
+    setPostCancelModalOpen(!postCancelModalOpen);
+    document.body.style.cssText = `
+      position: fixed;
+      top: -${window.scrollY}px;
+      overflow-y: scroll;
+      width: 100%;`;
+  };
+
+  // 다이어리 등록 취소 모달 클로즈 이벤트 핸들러
+  const closeModalHandler = () => {
+    setPostCancelModalOpen(!postCancelModalOpen);
+    const scrollY = document.body.style.top;
+    document.body.style.cssText = "";
+    window.scrollTo(0, parseInt(scrollY || "0", 10) * -1);
+  };
+
+  // 다이어리 등록 페이지 나기기 이벤트 핸들러
+  const backPage = () => {
+    navigate(-1);
+    const scrollY = document.body.style.top;
+    document.body.style.cssText = "";
+    window.scrollTo(0, parseInt(scrollY || "0", 10) * -1);
+  };
+
   return (
     <MainContainer>
       <MainWrapper>
@@ -462,7 +536,6 @@ function NewMain() {
             placeholder='제목을 입력하세요'
             onChange={changeNewTitle}
           />
-          <SubmitButton onClick={submitHandler}>등록하기</SubmitButton>
         </TitleArea>
         <AlbumCoverArea>
           <CoverImg
@@ -538,17 +611,40 @@ function NewMain() {
               <FiPlus size={25} />
             </button>
           </UrlInput>
-          {newPlayList?.map((value, index) => {
-            return (
-              <NewPlayList
-                list={value}
-                key={index}
-                newPlayList={newPlayList}
-                setNewPlayList={setNewPlayList}
-              />
-            );
-          })}
+          {newPlayList.length >= 1 ? (
+            <>
+              {newPlayList?.map((value, index) => {
+                return (
+                  <NewPlayList
+                    list={value}
+                    key={index}
+                    newPlayList={newPlayList}
+                    setNewPlayList={setNewPlayList}
+                  />
+                );
+              })}
+            </>
+          ) : (
+            <EmptyPlayListText>추가한 플레이리스트가 없습니다.</EmptyPlayListText>
+          )}
         </PlayListArea>
+        <SubmitArea>
+          <button className='cancelButton' onClick={openModalHandler}>
+            나가기
+          </button>
+          {postCancelModalOpen ? (
+            <Modal
+              title={"작성 페이지를 나가시겠습니까?"}
+              text={"작성 중인 내용은 저장되지 않습니다."}
+              confirmText={"나가기"}
+              cancelHandler={closeModalHandler}
+              confirmHandler={backPage}
+            />
+          ) : null}
+          <button className='submitButton' onClick={submitHandler}>
+            등록
+          </button>
+        </SubmitArea>
       </MainWrapper>
     </MainContainer>
   );

@@ -13,6 +13,7 @@ import { FiPlus } from "react-icons/fi";
 import { IoIosClose } from "react-icons/io";
 import { AiFillYoutube } from "react-icons/ai";
 import mainIcon from "../../assets/images/mainIcon.png";
+import Modal from "../common/Modal";
 
 function EditList({ list }: DiaryDataProps) {
   const [editTitle, setEditTitle] = useState<string>(list.title);
@@ -20,6 +21,7 @@ function EditList({ list }: DiaryDataProps) {
   const [editBody, setEditBody] = useState<string>(list.body);
   const [editPlayList, setEditPlayList] = useState<PlaylistData[]>(list.playlists);
   const [editUrl, setEditUrl] = useState<string>("");
+  const [editCancelModalOpen, setEditCancelModalOpen] = useState<boolean>(false);
 
   const navigate = useNavigate();
   const { diaryId } = useParams();
@@ -157,6 +159,32 @@ function EditList({ list }: DiaryDataProps) {
     };
   }, []);
 
+  // 다이어리 등록 취소 모달 오픈 이벤트 핸들러
+  const openModalHandler = () => {
+    setEditCancelModalOpen(!editCancelModalOpen);
+    document.body.style.cssText = `
+        position: fixed;
+        top: -${window.scrollY}px;
+        overflow-y: scroll;
+        width: 100%;`;
+  };
+
+  // 다이어리 등록 취소 모달 클로즈 이벤트 핸들러
+  const closeModalHandler = () => {
+    setEditCancelModalOpen(!editCancelModalOpen);
+    const scrollY = document.body.style.top;
+    document.body.style.cssText = "";
+    window.scrollTo(0, parseInt(scrollY || "0", 10) * -1);
+  };
+
+  // 다이어리 등록 페이지 나기기 이벤트 핸들러
+  const backPage = () => {
+    navigate(-1);
+    const scrollY = document.body.style.top;
+    document.body.style.cssText = "";
+    window.scrollTo(0, parseInt(scrollY || "0", 10) * -1);
+  };
+
   return (
     <NewMain.MainContainer>
       <NewMain.MainWrapper>
@@ -168,7 +196,6 @@ function EditList({ list }: DiaryDataProps) {
             placeholder='제목을 입력하세요'
             onChange={changeEditTitle}
           />
-          <NewMain.SubmitButton onClick={submitHandler}>수정하기</NewMain.SubmitButton>
         </NewMain.TitleArea>
         <NewMain.AlbumCoverArea>
           <NewMain.CoverImg
@@ -245,17 +272,40 @@ function EditList({ list }: DiaryDataProps) {
               <FiPlus size={25} />
             </button>
           </NewMain.UrlInput>
-          {editPlayList?.map((value, index) => {
-            return (
-              <EditPlayList
-                list={value}
-                key={index}
-                editPlayList={editPlayList}
-                setEditPlayList={setEditPlayList}
-              />
-            );
-          })}
+          {editPlayList.length >= 1 ? (
+            <>
+              {editPlayList?.map((value, index) => {
+                return (
+                  <EditPlayList
+                    list={value}
+                    key={index}
+                    editPlayList={editPlayList}
+                    setEditPlayList={setEditPlayList}
+                  />
+                );
+              })}
+            </>
+          ) : (
+            <NewMain.EmptyPlayListText>추가한 플레이리스트가 없습니다.</NewMain.EmptyPlayListText>
+          )}
         </NewMain.PlayListArea>
+        <NewMain.SubmitArea>
+          <button className='cancelButton' onClick={openModalHandler}>
+            나가기
+          </button>
+          {editCancelModalOpen ? (
+            <Modal
+              title={"수정 페이지를 나가시겠습니까?"}
+              text={"작성 중인 내용은 저장되지 않습니다."}
+              confirmText={"나가기"}
+              cancelHandler={closeModalHandler}
+              confirmHandler={backPage}
+            />
+          ) : null}
+          <button className='submitButton' onClick={submitHandler}>
+            등록
+          </button>
+        </NewMain.SubmitArea>
       </NewMain.MainWrapper>
     </NewMain.MainContainer>
   );
