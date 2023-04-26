@@ -34,6 +34,7 @@ function EditList({ list }: DiaryDataProps) {
         editTitle.length !== 0 &&
         editTag.length !== 0 &&
         editBody.length !== 0 &&
+        editBody.length !== 11 &&
         editPlayList.length !== 0
       ) {
         const editDiary = {
@@ -50,7 +51,7 @@ function EditList({ list }: DiaryDataProps) {
         toast.error("제목은 50글자 이하로 작성해주세요.");
       } else if (editTag.length === 0) {
         toast.error("태그를 1개 이상 선택해주세요.");
-      } else if (editBody.length === 0) {
+      } else if (editBody.length === 0 || editBody.length === 11) {
         toast.error("다어어리 소개글을 작성해주세요.");
       } else if (editPlayList.length === 0) {
         toast.error("플레이리스트를 등록해 주세요.");

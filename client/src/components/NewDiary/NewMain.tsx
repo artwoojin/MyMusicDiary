@@ -365,6 +365,7 @@ function NewMain() {
         newTitle.length !== 0 &&
         newTag.length !== 0 &&
         newBody.length !== 0 &&
+        newBody.length !== 11 &&
         newPlayList.length !== 0
       ) {
         const newDiary = {
@@ -381,7 +382,7 @@ function NewMain() {
         toast.error("제목은 50글자 이하로 작성해주세요.");
       } else if (newTag.length === 0) {
         toast.error("태그를 1개 이상 선택해주세요.");
-      } else if (newBody.length === 0) {
+      } else if (newBody.length === 0 || newBody.length === 11) {
         toast.error("다어어리 소개글을 작성해주세요.");
       } else if (newPlayList.length === 0) {
         toast.error("플레이리스트를 등록해 주세요.");
@@ -529,6 +530,9 @@ function NewMain() {
     document.body.style.cssText = "";
     window.scrollTo(0, parseInt(scrollY || "0", 10) * -1);
   };
+
+  console.log(newBody);
+  console.log(newBody.length);
 
   return (
     <MainContainer>
