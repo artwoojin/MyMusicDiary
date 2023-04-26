@@ -7,11 +7,8 @@ import { BsFillSunFill, BsFillMoonStarsFill } from "react-icons/bs";
 import { FiLogOut, FiEdit3, FiUser } from "react-icons/fi";
 import { MyContext } from "../../util/MyContext";
 import defaultProfile from "../../assets/images/defaultProfile.png";
-import four from "../../assets/images/004.png";
-import five from "../../assets/images/005.png";
-import six from "../../assets/images/006.png";
-import seven from "../../assets/images/007.png";
-import eight from "../../assets/images/008.png";
+import logo_black from "../../assets/images/logo_black.png";
+import logo_white from "../../assets/images/logo_white.png";
 
 export const HeaderContainer = styled.nav`
   display: flex;
@@ -29,10 +26,15 @@ export const HeaderWrapper = styled.div`
 `;
 
 export const Logo = styled.img`
-  width: 200px;
-  height: 75px;
+  width: 150px;
+  height: 70px;
+  margin-left: -20px;
   object-fit: contain;
-  /* border: 1px solid red; */
+
+  // 721px 이하에서 로고 크기 축소
+  @media screen and (max-width: 721px) {
+    width: 130px;
+  }
 `;
 
 const ButtonArea = styled.div`
@@ -243,11 +245,7 @@ function LoginHeader() {
     <HeaderContainer>
       <HeaderWrapper>
         <Link to='/'>
-          {/* <Logo src={four} /> */}
-          {/* <Logo src={five} /> */}
-          <Logo src={six} />
-          {/* <Logo src={seven} /> */}
-          {/* <Logo src={eight} /> */}
+          {isChange === "dark" ? <Logo src={logo_white} /> : <Logo src={logo_black} />}
         </Link>
         <ButtonArea>
           <ModeButton onClick={changeMode}>

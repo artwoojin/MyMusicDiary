@@ -4,7 +4,8 @@ import { Link } from "react-router-dom";
 import { BsFillSunFill, BsFillMoonStarsFill } from "react-icons/bs";
 import { useContext } from "react";
 import { MyContext } from "../../util/MyContext";
-import six from "../../assets/images/006.png";
+import logo_black from "../../assets/images/logo_black.png";
+import logo_white from "../../assets/images/logo_white.png";
 
 const ButtonArea = styled.div`
   display: flex;
@@ -31,7 +32,11 @@ function LogoutHeader() {
     <LoginHeader.HeaderContainer>
       <LoginHeader.HeaderWrapper>
         <Link to='/'>
-          <LoginHeader.Logo src={six} />
+          {isChange === "dark" ? (
+            <LoginHeader.Logo src={logo_white} />
+          ) : (
+            <LoginHeader.Logo src={logo_black} />
+          )}
         </Link>
         <ButtonArea>
           <LoginHeader.ModeButton onClick={changeMode}>

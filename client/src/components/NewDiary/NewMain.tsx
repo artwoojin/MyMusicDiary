@@ -531,9 +531,6 @@ function NewMain() {
     window.scrollTo(0, parseInt(scrollY || "0", 10) * -1);
   };
 
-  console.log(newBody);
-  console.log(newBody.length);
-
   return (
     <MainContainer>
       <MainWrapper>
