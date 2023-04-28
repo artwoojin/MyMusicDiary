@@ -89,7 +89,7 @@ function DiaryMain() {
     () => JSON.parse(window.localStorage.getItem("mainCurrentPageBlock")!) || 0
   ); // 현재 페이지네이션 블록 index
 
-  const LIMIT_COUNT: number = 20;
+  const LIMIT_COUNT: number = 2;
   const offset: number = (mainCurrentPage - 1) * LIMIT_COUNT; // 각 페이지에서 첫 데이터의 위치(index) 계산
   const { isLoading, setIsLoading }: any = useContext(MyContext);
 

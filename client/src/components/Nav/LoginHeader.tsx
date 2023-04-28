@@ -231,8 +231,7 @@ function LoginHeader() {
     localStorage.removeItem("CURRENT_USER");
     localStorage.removeItem("mainCurrentTab");
     localStorage.removeItem("mainCurrentPage");
-    localStorage.removeItem("myCurrentTab");
-    localStorage.removeItem("myCurrentPage");
+    localStorage.removeItem("mainCurrentPageBlock");
     navigate("/");
     window.location.reload();
   };
