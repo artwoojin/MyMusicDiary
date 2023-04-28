@@ -106,18 +106,29 @@ function MypageMain() {
   const [myCurrentPage, setMyCurrentPage] = useState<number>(
     () => JSON.parse(window.localStorage.getItem("myCurrentPage")!) || 1
   );
+  const [blockNum, setBlockNum] = useState<number>(
+    () => JSON.parse(window.localStorage.getItem("myCurrentPageBlock")!) || 0
+  ); // 현재 페이지네이션 블록 index
 
-  const LIMIT_COUNT: number = 20;
+  const LIMIT_COUNT: number = 2;
   const offset: number = (myCurrentPage - 1) * LIMIT_COUNT;
   const { currentUser }: any = useContext(MyContext);
 
   useEffect(() => {
     window.localStorage.setItem("myCurrentTab", JSON.stringify(myCurrentTab));
+    setMyCurrentPage(1);
+    setBlockNum(0);
   }, [myCurrentTab]);
 
   useEffect(() => {
     window.localStorage.setItem("myCurrentPage", JSON.stringify(myCurrentPage));
+    setMyCurrentPage(myCurrentPage);
+    setBlockNum(blockNum);
   }, [myCurrentPage]);
+
+  useEffect(() => {
+    window.localStorage.setItem("myCurrentPageBlock", JSON.stringify(blockNum));
+  }, [blockNum]);
 
   // Tab 1(MyInfo) : 나의 유저 정보만 불러오는 get 요청
   const getUserData = async () => {
@@ -242,6 +253,8 @@ function MypageMain() {
         myCurrentPage={myCurrentPage}
         setMyCurrentPage={setMyCurrentPage}
         myCurrentTab={myCurrentTab}
+        blockNum={blockNum}
+        setBlockNum={setBlockNum}
       />
     </>
   );

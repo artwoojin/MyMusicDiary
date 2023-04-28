@@ -90,7 +90,7 @@ function Pagination({
 PaginationProps) {
   const [blockNum, setBlockNum] = useState<number>(0); // 페이지 당 표시할 페이지네이션 수
 
-  const PAGE_COUNT: number = 10; // 페이지 당 표시할 페이지네이션 수 (기본값 : 10개의 페이지네이션 노출)
+  const PAGE_COUNT: number = 5; // 페이지 당 표시할 페이지네이션 수 (기본값 : 10개의 페이지네이션 노출)
   const blockArea: number = blockNum * PAGE_COUNT; // 각 페이지에서 첫 페이지네이션의 위치 계산
 
   const numAllPages: number = Math.ceil(allPageLength / LIMIT_COUNT); // 필요한 페이지 개수

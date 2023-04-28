@@ -40,7 +40,7 @@ const ListTab = styled.ul`
   }
 
   .focused {
-    border: 1px solid ${(props) => props.theme.color.signature};
+    border: 2px solid ${(props) => props.theme.color.signature};
     background-color: ${(props) => props.theme.color.signature};
 
     > .el {
@@ -81,7 +81,7 @@ function DiaryMain() {
   const [diaryData, setDiaryData] = useState<DiaryData[]>([]); // 전체 diary 데이터
   const [mainCurrentTab, setMainCurrentTab] = useState<number>(
     () => JSON.parse(window.localStorage.getItem("mainCurrentTab")!) || 0
-  ); // 현재 탭 번호 (기본값: 전체 다이어리 노출)
+  ); // 현재 탭 index
   const [mainCurrentPage, setMainCurrentPage] = useState<number>(
     () => JSON.parse(window.localStorage.getItem("mainCurrentPage")!) || 1 // 현재 페이지 번호 (기본값: 1페이지부터 노출)
   );
@@ -155,18 +155,18 @@ function DiaryMain() {
         <Skeleton />
       ) : (
         <DiaryMainContainer>
-          <DiaryMainWrapper>
+          {/* <DiaryMainWrapper>
             {diaryData.slice(offset, offset + LIMIT_COUNT).map((value) => {
               return <DiaryList list={value} key={value.diaryId} />;
             })}
-          </DiaryMainWrapper>
-          {/* {currentTab === 0 ? (
+          </DiaryMainWrapper> */}
+          {mainCurrentTab === 0 ? (
             <DiaryMainWrapper>
               {diaryData.slice(offset, offset + LIMIT_COUNT).map((value) => {
                 return <DiaryList list={value} key={value.diaryId} />;
               })}
             </DiaryMainWrapper>
-          ) : currentTab === 1 ? (
+          ) : mainCurrentTab === 1 ? (
             <DiaryMainWrapper>
               {diaryData
                 .filter((value) => value.tags.includes(tagArr[1].feel))
@@ -175,7 +175,7 @@ function DiaryMain() {
                   return <DiaryList list={value} key={value.diaryId} />;
                 })}
             </DiaryMainWrapper>
-          ) : currentTab === 2 ? (
+          ) : mainCurrentTab === 2 ? (
             <DiaryMainWrapper>
               {diaryData
                 .filter((value) => value.tags.includes(tagArr[2].feel))
@@ -184,7 +184,7 @@ function DiaryMain() {
                   return <DiaryList list={value} key={value.diaryId} />;
                 })}
             </DiaryMainWrapper>
-          ) : currentTab === 3 ? (
+          ) : mainCurrentTab === 3 ? (
             <DiaryMainWrapper>
               {diaryData
                 .filter((value) => value.tags.includes(tagArr[3].feel))
@@ -193,7 +193,7 @@ function DiaryMain() {
                   return <DiaryList list={value} key={value.diaryId} />;
                 })}
             </DiaryMainWrapper>
-          ) : currentTab === 4 ? (
+          ) : mainCurrentTab === 4 ? (
             <DiaryMainWrapper>
               {diaryData
                 .filter((value) => value.tags.includes(tagArr[4].feel))
@@ -202,7 +202,7 @@ function DiaryMain() {
                   return <DiaryList list={value} key={value.diaryId} />;
                 })}
             </DiaryMainWrapper>
-          ) : currentTab === 5 ? (
+          ) : mainCurrentTab === 5 ? (
             <DiaryMainWrapper>
               {diaryData
                 .filter((value) => value.tags.includes(tagArr[5].feel))
@@ -211,7 +211,7 @@ function DiaryMain() {
                   return <DiaryList list={value} key={value.diaryId} />;
                 })}
             </DiaryMainWrapper>
-          ) : currentTab === 6 ? (
+          ) : mainCurrentTab === 6 ? (
             <DiaryMainWrapper>
               {diaryData
                 .filter((value) => value.tags.includes(tagArr[6].feel))
@@ -220,7 +220,7 @@ function DiaryMain() {
                   return <DiaryList list={value} key={value.diaryId} />;
                 })}
             </DiaryMainWrapper>
-          ) : currentTab === 7 ? (
+          ) : mainCurrentTab === 7 ? (
             <DiaryMainWrapper>
               {diaryData
                 .filter((value) => value.tags.includes(tagArr[7].feel))
@@ -238,7 +238,7 @@ function DiaryMain() {
                   return <DiaryList list={value} key={value.diaryId} />;
                 })}
             </DiaryMainWrapper>
-          )} */}
+          )}
         </DiaryMainContainer>
       )}
       <Pagination

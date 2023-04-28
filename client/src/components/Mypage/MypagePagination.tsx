@@ -1,5 +1,4 @@
 import * as Pagination from "../Main/Pagination";
-import { useState } from "react";
 import { BiArrowToLeft, BiArrowToRight, BiLeftArrowAlt, BiRightArrowAlt } from "react-icons/bi";
 
 interface PaginationProps {
@@ -10,20 +9,22 @@ interface PaginationProps {
   myCurrentPage: number;
   setMyCurrentPage: React.Dispatch<React.SetStateAction<number>>;
   myCurrentTab: number;
+  blockNum: number;
+  setBlockNum: React.Dispatch<React.SetStateAction<number>>;
 }
 
 function MypagePagination({
+  myPageLength,
+  myLikePageLength,
+  myCommentPageLength,
   LIMIT_COUNT,
   myCurrentPage,
   setMyCurrentPage,
   myCurrentTab,
-  myPageLength,
-  myLikePageLength,
-  myCommentPageLength,
+  blockNum,
+  setBlockNum,
 }: PaginationProps) {
-  const [blockNum, setBlockNum] = useState<number>(0); // 페이지 당 표시할 페이지네이션 수
-
-  const PAGE_COUNT: number = 10; // 페이지 당 표시할 페이지네이션 수 (기본값 : 10개의 페이지네이션 노출)
+  const PAGE_COUNT: number = 5; // 페이지 당 표시할 페이지네이션 수 (기본값 : 5개의 페이지네이션 노출)
   const blockArea: number = blockNum * PAGE_COUNT; // 각 페이지에서 첫 페이지네이션의 위치 계산
 
   const numMyPages: number = Math.ceil(myPageLength / LIMIT_COUNT); // 나의 다이어리 페이지 개수
@@ -49,10 +50,24 @@ function MypagePagination({
     window.scrollTo(0, parseInt(document.body.style.top || "0", 10) * -1);
   };
 
-  // 제일 마지막 페이지로 이동하는 버튼 이벤트 핸들러
-  const lastPageHandler = () => {
+  // 나의 다이어리에서 제일 마지막 페이지로 이동하는 버튼 이벤트 핸들러
+  const diaryLastPageHandler = () => {
     setMyCurrentPage(numMyPages);
     setBlockNum(Math.ceil(numMyPages / PAGE_COUNT) - 1);
+    window.scrollTo(0, parseInt(document.body.style.top || "0", 10) * -1);
+  };
+
+  // 좋아한 다이어리에서 제일 마지막 페이지로 이동하는 버튼 이벤트 핸들러
+  const likeLastPageHandler = () => {
+    setMyCurrentPage(numMyLikePages);
+    setBlockNum(Math.ceil(numMyLikePages / PAGE_COUNT) - 1);
+    window.scrollTo(0, parseInt(document.body.style.top || "0", 10) * -1);
+  };
+
+  // 작성한 댓글에서 제일 마지막 페이지로 이동하는 버튼 이벤트 핸들러
+  const commentLastPageHandler = () => {
+    setMyCurrentPage(numCommentPages);
+    setBlockNum(Math.ceil(numCommentPages / PAGE_COUNT) - 1);
     window.scrollTo(0, parseInt(document.body.style.top || "0", 10) * -1);
   };
 
@@ -114,7 +129,7 @@ function MypagePagination({
             </button>
             <button
               className='rightHandle'
-              onClick={lastPageHandler}
+              onClick={diaryLastPageHandler}
               disabled={myCurrentPage === numMyPages}
             >
               <BiArrowToRight size={20} />
@@ -149,14 +164,14 @@ function MypagePagination({
             <button
               className='rightHandle'
               onClick={nextPageHandler}
-              disabled={myCurrentPage === numMyPages}
+              disabled={myCurrentPage === numMyLikePages}
             >
               <BiRightArrowAlt size={19} />
             </button>
             <button
               className='rightHandle'
-              onClick={lastPageHandler}
-              disabled={myCurrentPage === numMyPages}
+              onClick={likeLastPageHandler}
+              disabled={myCurrentPage === numMyLikePages}
             >
               <BiArrowToRight size={20} />
             </button>
@@ -190,14 +205,14 @@ function MypagePagination({
             <button
               className='rightHandle'
               onClick={nextPageHandler}
-              disabled={myCurrentPage === numMyPages}
+              disabled={myCurrentPage === numCommentPages}
             >
               <BiRightArrowAlt size={19} />
             </button>
             <button
               className='rightHandle'
-              onClick={lastPageHandler}
-              disabled={myCurrentPage === numMyPages}
+              onClick={commentLastPageHandler}
+              disabled={myCurrentPage === numCommentPages}
             >
               <BiArrowToRight size={20} />
             </button>
