@@ -186,8 +186,8 @@ function DiaryMain() {
           ) : mainCurrentTab === 1 ? (
             <DiaryMainWrapper>
               {diaryData
-                // .filter((value) => value.tags.includes(tagArr[1].feel))
-                .filter((value) => value.tags[0]?.tagName === tagArr[1].feel)
+                .filter((value) => value.tags.includes(tagArr[1].feel))
+                // .filter((value) => value.tags[0]?.tagName === tagArr[1].feel)
                 .slice(offset, offset + LIMIT_COUNT)
                 .map((value) => {
                   return <DiaryList list={value} key={value.diaryId} />;
@@ -261,10 +261,10 @@ function DiaryMain() {
       )}
       <Pagination
         allPageLength={diaryData.length}
-        // tagOnePageLength={diaryData.filter((value) => value.tags.includes(tagArr[1].feel)).length}
-        tagOnePageLength={
-          diaryData.filter((value) => value.tags[0]?.tagName === tagArr[1].feel).length
-        }
+        tagOnePageLength={diaryData.filter((value) => value.tags.includes(tagArr[1].feel)).length}
+        // tagOnePageLength={
+        //   diaryData.filter((value) => value.tags[0]?.tagName === tagArr[1].feel).length
+        // }
         tagTwoPageLength={diaryData.filter((value) => value.tags.includes(tagArr[2].feel)).length}
         tagThreePageLength={diaryData.filter((value) => value.tags.includes(tagArr[3].feel)).length}
         tagFourPageLength={diaryData.filter((value) => value.tags.includes(tagArr[4].feel)).length}

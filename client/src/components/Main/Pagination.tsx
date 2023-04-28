@@ -253,318 +253,366 @@ function Pagination({
       </PageNum> */}
 
       {mainCurrentTab === 0 ? (
-        <PageNum>
-          <button
-            className='leftHandle'
-            onClick={firstPageHandler}
-            disabled={mainCurrentPage === 1}
-          >
-            <BiArrowToLeft size={20} />
-          </button>
-          <button className='leftHandle' onClick={prevPageHandler} disabled={mainCurrentPage === 1}>
-            <BiLeftArrowAlt size={19} />
-          </button>
-          {allArr.slice(blockArea, PAGE_COUNT + blockArea).map((n) => (
+        allArr.length !== 0 ? (
+          <PageNum>
             <button
-              className={mainCurrentPage === n ? "pageTab pageFocused" : "pageTab"}
-              key={n}
-              onClick={() => {
-                setMainCurrentPage(n);
-                window.scrollTo(0, parseInt(document.body.style.top || "0", 10) * -1);
-              }}
+              className='leftHandle'
+              onClick={firstPageHandler}
+              disabled={mainCurrentPage === 1}
             >
-              {n}
+              <BiArrowToLeft size={20} />
             </button>
-          ))}
-          <button
-            className='rightHandle'
-            onClick={nextPageHandler}
-            disabled={mainCurrentPage === numAllPages}
-          >
-            <BiRightArrowAlt size={19} />
-          </button>
-          <button
-            className='rightHandle'
-            onClick={allLastPageHandler}
-            disabled={mainCurrentPage === numAllPages}
-          >
-            <BiArrowToRight size={20} />
-          </button>
-        </PageNum>
+            <button
+              className='leftHandle'
+              onClick={prevPageHandler}
+              disabled={mainCurrentPage === 1}
+            >
+              <BiLeftArrowAlt size={19} />
+            </button>
+            {allArr.slice(blockArea, PAGE_COUNT + blockArea).map((n) => (
+              <button
+                className={mainCurrentPage === n ? "pageTab pageFocused" : "pageTab"}
+                key={n}
+                onClick={() => {
+                  setMainCurrentPage(n);
+                  window.scrollTo(0, parseInt(document.body.style.top || "0", 10) * -1);
+                }}
+              >
+                {n}
+              </button>
+            ))}
+            <button
+              className='rightHandle'
+              onClick={nextPageHandler}
+              disabled={mainCurrentPage === numAllPages}
+            >
+              <BiRightArrowAlt size={19} />
+            </button>
+            <button
+              className='rightHandle'
+              onClick={allLastPageHandler}
+              disabled={mainCurrentPage === numAllPages}
+            >
+              <BiArrowToRight size={20} />
+            </button>
+          </PageNum>
+        ) : null
       ) : mainCurrentTab === 1 ? (
-        <PageNum>
-          <button
-            className='leftHandle'
-            onClick={firstPageHandler}
-            disabled={mainCurrentPage === 1}
-          >
-            <BiArrowToLeft size={20} />
-          </button>
-          <button className='leftHandle' onClick={prevPageHandler} disabled={mainCurrentPage === 1}>
-            <BiLeftArrowAlt size={19} />
-          </button>
-          {tagOneArr.slice(blockArea, PAGE_COUNT + blockArea).map((n) => (
+        tagOneArr.length !== 0 ? (
+          <PageNum>
             <button
-              className={mainCurrentPage === n ? "pageTab pageFocused" : "pageTab"}
-              key={n}
-              onClick={() => {
-                setMainCurrentPage(n);
-                window.scrollTo(0, parseInt(document.body.style.top || "0", 10) * -1);
-              }}
+              className='leftHandle'
+              onClick={firstPageHandler}
+              disabled={mainCurrentPage === 1}
             >
-              {n}
+              <BiArrowToLeft size={20} />
             </button>
-          ))}
-          <button
-            className='rightHandle'
-            onClick={nextPageHandler}
-            disabled={mainCurrentPage === numTagOnePages}
-          >
-            <BiRightArrowAlt size={19} />
-          </button>
-          <button
-            className='rightHandle'
-            onClick={tagOneLastPageHandler}
-            disabled={mainCurrentPage === numTagOnePages}
-          >
-            <BiArrowToRight size={20} />
-          </button>
-        </PageNum>
+            <button
+              className='leftHandle'
+              onClick={prevPageHandler}
+              disabled={mainCurrentPage === 1}
+            >
+              <BiLeftArrowAlt size={19} />
+            </button>
+            {tagOneArr.slice(blockArea, PAGE_COUNT + blockArea).map((n) => (
+              <button
+                className={mainCurrentPage === n ? "pageTab pageFocused" : "pageTab"}
+                key={n}
+                onClick={() => {
+                  setMainCurrentPage(n);
+                  window.scrollTo(0, parseInt(document.body.style.top || "0", 10) * -1);
+                }}
+              >
+                {n}
+              </button>
+            ))}
+            <button
+              className='rightHandle'
+              onClick={nextPageHandler}
+              disabled={mainCurrentPage === numTagOnePages}
+            >
+              <BiRightArrowAlt size={19} />
+            </button>
+            <button
+              className='rightHandle'
+              onClick={tagOneLastPageHandler}
+              disabled={mainCurrentPage === numTagOnePages}
+            >
+              <BiArrowToRight size={20} />
+            </button>
+          </PageNum>
+        ) : null
       ) : mainCurrentTab === 2 ? (
-        <PageNum>
-          <button
-            className='leftHandle'
-            onClick={firstPageHandler}
-            disabled={mainCurrentPage === 1}
-          >
-            <BiArrowToLeft size={20} />
-          </button>
-          <button className='leftHandle' onClick={prevPageHandler} disabled={mainCurrentPage === 1}>
-            <BiLeftArrowAlt size={19} />
-          </button>
-          {tagTwoArr.slice(blockArea, PAGE_COUNT + blockArea).map((n) => (
+        tagTwoArr.length !== 0 ? (
+          <PageNum>
             <button
-              className={mainCurrentPage === n ? "pageTab pageFocused" : "pageTab"}
-              key={n}
-              onClick={() => {
-                setMainCurrentPage(n);
-                window.scrollTo(0, parseInt(document.body.style.top || "0", 10) * -1);
-              }}
+              className='leftHandle'
+              onClick={firstPageHandler}
+              disabled={mainCurrentPage === 1}
             >
-              {n}
+              <BiArrowToLeft size={20} />
             </button>
-          ))}
-          <button
-            className='rightHandle'
-            onClick={nextPageHandler}
-            disabled={mainCurrentPage === numTagTwoPages}
-          >
-            <BiRightArrowAlt size={19} />
-          </button>
-          <button
-            className='rightHandle'
-            onClick={tagTwoLastPageHandler}
-            disabled={mainCurrentPage === numTagTwoPages}
-          >
-            <BiArrowToRight size={20} />
-          </button>
-        </PageNum>
+            <button
+              className='leftHandle'
+              onClick={prevPageHandler}
+              disabled={mainCurrentPage === 1}
+            >
+              <BiLeftArrowAlt size={19} />
+            </button>
+            {tagTwoArr.slice(blockArea, PAGE_COUNT + blockArea).map((n) => (
+              <button
+                className={mainCurrentPage === n ? "pageTab pageFocused" : "pageTab"}
+                key={n}
+                onClick={() => {
+                  setMainCurrentPage(n);
+                  window.scrollTo(0, parseInt(document.body.style.top || "0", 10) * -1);
+                }}
+              >
+                {n}
+              </button>
+            ))}
+            <button
+              className='rightHandle'
+              onClick={nextPageHandler}
+              disabled={mainCurrentPage === numTagTwoPages}
+            >
+              <BiRightArrowAlt size={19} />
+            </button>
+            <button
+              className='rightHandle'
+              onClick={tagTwoLastPageHandler}
+              disabled={mainCurrentPage === numTagTwoPages}
+            >
+              <BiArrowToRight size={20} />
+            </button>
+          </PageNum>
+        ) : null
       ) : mainCurrentTab === 3 ? (
-        <PageNum>
-          <button
-            className='leftHandle'
-            onClick={firstPageHandler}
-            disabled={mainCurrentPage === 1}
-          >
-            <BiArrowToLeft size={20} />
-          </button>
-          <button className='leftHandle' onClick={prevPageHandler} disabled={mainCurrentPage === 1}>
-            <BiLeftArrowAlt size={19} />
-          </button>
-          {tagThreeArr.slice(blockArea, PAGE_COUNT + blockArea).map((n) => (
+        tagThreeArr.length !== 0 ? (
+          <PageNum>
             <button
-              className={mainCurrentPage === n ? "pageTab pageFocused" : "pageTab"}
-              key={n}
-              onClick={() => {
-                setMainCurrentPage(n);
-                window.scrollTo(0, parseInt(document.body.style.top || "0", 10) * -1);
-              }}
+              className='leftHandle'
+              onClick={firstPageHandler}
+              disabled={mainCurrentPage === 1}
             >
-              {n}
+              <BiArrowToLeft size={20} />
             </button>
-          ))}
-          <button
-            className='rightHandle'
-            onClick={nextPageHandler}
-            disabled={mainCurrentPage === numTagThreePages}
-          >
-            <BiRightArrowAlt size={19} />
-          </button>
-          <button
-            className='rightHandle'
-            onClick={tagThreeLastPageHandler}
-            disabled={mainCurrentPage === numTagThreePages}
-          >
-            <BiArrowToRight size={20} />
-          </button>
-        </PageNum>
+            <button
+              className='leftHandle'
+              onClick={prevPageHandler}
+              disabled={mainCurrentPage === 1}
+            >
+              <BiLeftArrowAlt size={19} />
+            </button>
+            {tagThreeArr.slice(blockArea, PAGE_COUNT + blockArea).map((n) => (
+              <button
+                className={mainCurrentPage === n ? "pageTab pageFocused" : "pageTab"}
+                key={n}
+                onClick={() => {
+                  setMainCurrentPage(n);
+                  window.scrollTo(0, parseInt(document.body.style.top || "0", 10) * -1);
+                }}
+              >
+                {n}
+              </button>
+            ))}
+            <button
+              className='rightHandle'
+              onClick={nextPageHandler}
+              disabled={mainCurrentPage === numTagThreePages}
+            >
+              <BiRightArrowAlt size={19} />
+            </button>
+            <button
+              className='rightHandle'
+              onClick={tagThreeLastPageHandler}
+              disabled={mainCurrentPage === numTagThreePages}
+            >
+              <BiArrowToRight size={20} />
+            </button>
+          </PageNum>
+        ) : null
       ) : mainCurrentTab === 4 ? (
-        <PageNum>
-          <button
-            className='leftHandle'
-            onClick={firstPageHandler}
-            disabled={mainCurrentPage === 1}
-          >
-            <BiArrowToLeft size={20} />
-          </button>
-          <button className='leftHandle' onClick={prevPageHandler} disabled={mainCurrentPage === 1}>
-            <BiLeftArrowAlt size={19} />
-          </button>
-          {tagFourArr.slice(blockArea, PAGE_COUNT + blockArea).map((n) => (
+        tagFourArr.length !== 0 ? (
+          <PageNum>
             <button
-              className={mainCurrentPage === n ? "pageTab pageFocused" : "pageTab"}
-              key={n}
-              onClick={() => {
-                setMainCurrentPage(n);
-                window.scrollTo(0, parseInt(document.body.style.top || "0", 10) * -1);
-              }}
+              className='leftHandle'
+              onClick={firstPageHandler}
+              disabled={mainCurrentPage === 1}
             >
-              {n}
+              <BiArrowToLeft size={20} />
             </button>
-          ))}
-          <button
-            className='rightHandle'
-            onClick={nextPageHandler}
-            disabled={mainCurrentPage === numTagFourPages}
-          >
-            <BiRightArrowAlt size={19} />
-          </button>
-          <button
-            className='rightHandle'
-            onClick={tagFourLastPageHandler}
-            disabled={mainCurrentPage === numTagFourPages}
-          >
-            <BiArrowToRight size={20} />
-          </button>
-        </PageNum>
+            <button
+              className='leftHandle'
+              onClick={prevPageHandler}
+              disabled={mainCurrentPage === 1}
+            >
+              <BiLeftArrowAlt size={19} />
+            </button>
+            {tagFourArr.slice(blockArea, PAGE_COUNT + blockArea).map((n) => (
+              <button
+                className={mainCurrentPage === n ? "pageTab pageFocused" : "pageTab"}
+                key={n}
+                onClick={() => {
+                  setMainCurrentPage(n);
+                  window.scrollTo(0, parseInt(document.body.style.top || "0", 10) * -1);
+                }}
+              >
+                {n}
+              </button>
+            ))}
+            <button
+              className='rightHandle'
+              onClick={nextPageHandler}
+              disabled={mainCurrentPage === numTagFourPages}
+            >
+              <BiRightArrowAlt size={19} />
+            </button>
+            <button
+              className='rightHandle'
+              onClick={tagFourLastPageHandler}
+              disabled={mainCurrentPage === numTagFourPages}
+            >
+              <BiArrowToRight size={20} />
+            </button>
+          </PageNum>
+        ) : null
       ) : mainCurrentTab === 5 ? (
-        <PageNum>
-          <button
-            className='leftHandle'
-            onClick={firstPageHandler}
-            disabled={mainCurrentPage === 1}
-          >
-            <BiArrowToLeft size={20} />
-          </button>
-          <button className='leftHandle' onClick={prevPageHandler} disabled={mainCurrentPage === 1}>
-            <BiLeftArrowAlt size={19} />
-          </button>
-          {tagFiveArr.slice(blockArea, PAGE_COUNT + blockArea).map((n) => (
+        tagFiveArr.length !== 0 ? (
+          <PageNum>
             <button
-              className={mainCurrentPage === n ? "pageTab pageFocused" : "pageTab"}
-              key={n}
-              onClick={() => {
-                setMainCurrentPage(n);
-                window.scrollTo(0, parseInt(document.body.style.top || "0", 10) * -1);
-              }}
+              className='leftHandle'
+              onClick={firstPageHandler}
+              disabled={mainCurrentPage === 1}
             >
-              {n}
+              <BiArrowToLeft size={20} />
             </button>
-          ))}
-          <button
-            className='rightHandle'
-            onClick={nextPageHandler}
-            disabled={mainCurrentPage === numTagFivePages}
-          >
-            <BiRightArrowAlt size={19} />
-          </button>
-          <button
-            className='rightHandle'
-            onClick={tagFiveLastPageHandler}
-            disabled={mainCurrentPage === numTagFivePages}
-          >
-            <BiArrowToRight size={20} />
-          </button>
-        </PageNum>
+            <button
+              className='leftHandle'
+              onClick={prevPageHandler}
+              disabled={mainCurrentPage === 1}
+            >
+              <BiLeftArrowAlt size={19} />
+            </button>
+            {tagFiveArr.slice(blockArea, PAGE_COUNT + blockArea).map((n) => (
+              <button
+                className={mainCurrentPage === n ? "pageTab pageFocused" : "pageTab"}
+                key={n}
+                onClick={() => {
+                  setMainCurrentPage(n);
+                  window.scrollTo(0, parseInt(document.body.style.top || "0", 10) * -1);
+                }}
+              >
+                {n}
+              </button>
+            ))}
+            <button
+              className='rightHandle'
+              onClick={nextPageHandler}
+              disabled={mainCurrentPage === numTagFivePages}
+            >
+              <BiRightArrowAlt size={19} />
+            </button>
+            <button
+              className='rightHandle'
+              onClick={tagFiveLastPageHandler}
+              disabled={mainCurrentPage === numTagFivePages}
+            >
+              <BiArrowToRight size={20} />
+            </button>
+          </PageNum>
+        ) : null
       ) : mainCurrentTab === 6 ? (
-        <PageNum>
-          <button
-            className='leftHandle'
-            onClick={firstPageHandler}
-            disabled={mainCurrentPage === 1}
-          >
-            <BiArrowToLeft size={20} />
-          </button>
-          <button className='leftHandle' onClick={prevPageHandler} disabled={mainCurrentPage === 1}>
-            <BiLeftArrowAlt size={19} />
-          </button>
-          {tagSixArr.slice(blockArea, PAGE_COUNT + blockArea).map((n) => (
+        tagSixArr.length !== 0 ? (
+          <PageNum>
             <button
-              className={mainCurrentPage === n ? "pageTab pageFocused" : "pageTab"}
-              key={n}
-              onClick={() => {
-                setMainCurrentPage(n);
-                window.scrollTo(0, parseInt(document.body.style.top || "0", 10) * -1);
-              }}
+              className='leftHandle'
+              onClick={firstPageHandler}
+              disabled={mainCurrentPage === 1}
             >
-              {n}
+              <BiArrowToLeft size={20} />
             </button>
-          ))}
-          <button
-            className='rightHandle'
-            onClick={nextPageHandler}
-            disabled={mainCurrentPage === numTagSixPages}
-          >
-            <BiRightArrowAlt size={19} />
-          </button>
-          <button
-            className='rightHandle'
-            onClick={tagSixLastPageHandler}
-            disabled={mainCurrentPage === numTagSixPages}
-          >
-            <BiArrowToRight size={20} />
-          </button>
-        </PageNum>
+            <button
+              className='leftHandle'
+              onClick={prevPageHandler}
+              disabled={mainCurrentPage === 1}
+            >
+              <BiLeftArrowAlt size={19} />
+            </button>
+            {tagSixArr.slice(blockArea, PAGE_COUNT + blockArea).map((n) => (
+              <button
+                className={mainCurrentPage === n ? "pageTab pageFocused" : "pageTab"}
+                key={n}
+                onClick={() => {
+                  setMainCurrentPage(n);
+                  window.scrollTo(0, parseInt(document.body.style.top || "0", 10) * -1);
+                }}
+              >
+                {n}
+              </button>
+            ))}
+            <button
+              className='rightHandle'
+              onClick={nextPageHandler}
+              disabled={mainCurrentPage === numTagSixPages}
+            >
+              <BiRightArrowAlt size={19} />
+            </button>
+            <button
+              className='rightHandle'
+              onClick={tagSixLastPageHandler}
+              disabled={mainCurrentPage === numTagSixPages}
+            >
+              <BiArrowToRight size={20} />
+            </button>
+          </PageNum>
+        ) : null
       ) : mainCurrentTab === 7 ? (
-        <PageNum>
-          <button
-            className='leftHandle'
-            onClick={firstPageHandler}
-            disabled={mainCurrentPage === 1}
-          >
-            <BiArrowToLeft size={20} />
-          </button>
-          <button className='leftHandle' onClick={prevPageHandler} disabled={mainCurrentPage === 1}>
-            <BiLeftArrowAlt size={19} />
-          </button>
-          {tagSevenArr.slice(blockArea, PAGE_COUNT + blockArea).map((n) => (
+        tagSevenArr.length !== 0 ? (
+          <PageNum>
             <button
-              className={mainCurrentPage === n ? "pageTab pageFocused" : "pageTab"}
-              key={n}
-              onClick={() => {
-                setMainCurrentPage(n);
-                window.scrollTo(0, parseInt(document.body.style.top || "0", 10) * -1);
-              }}
+              className='leftHandle'
+              onClick={firstPageHandler}
+              disabled={mainCurrentPage === 1}
             >
-              {n}
+              <BiArrowToLeft size={20} />
             </button>
-          ))}
-          <button
-            className='rightHandle'
-            onClick={nextPageHandler}
-            disabled={mainCurrentPage === numTagSevenPages}
-          >
-            <BiRightArrowAlt size={19} />
-          </button>
-          <button
-            className='rightHandle'
-            onClick={tagSevenLastPageHandler}
-            disabled={mainCurrentPage === numTagSevenPages}
-          >
-            <BiArrowToRight size={20} />
-          </button>
-        </PageNum>
-      ) : (
+            <button
+              className='leftHandle'
+              onClick={prevPageHandler}
+              disabled={mainCurrentPage === 1}
+            >
+              <BiLeftArrowAlt size={19} />
+            </button>
+            {tagSevenArr.slice(blockArea, PAGE_COUNT + blockArea).map((n) => (
+              <button
+                className={mainCurrentPage === n ? "pageTab pageFocused" : "pageTab"}
+                key={n}
+                onClick={() => {
+                  setMainCurrentPage(n);
+                  window.scrollTo(0, parseInt(document.body.style.top || "0", 10) * -1);
+                }}
+              >
+                {n}
+              </button>
+            ))}
+            <button
+              className='rightHandle'
+              onClick={nextPageHandler}
+              disabled={mainCurrentPage === numTagSevenPages}
+            >
+              <BiRightArrowAlt size={19} />
+            </button>
+            <button
+              className='rightHandle'
+              onClick={tagSevenLastPageHandler}
+              disabled={mainCurrentPage === numTagSevenPages}
+            >
+              <BiArrowToRight size={20} />
+            </button>
+          </PageNum>
+        ) : null
+      ) : tagEightArr.length !== 0 ? (
         <PageNum>
           <button
             className='leftHandle'
@@ -603,7 +651,7 @@ function Pagination({
             <BiArrowToRight size={20} />
           </button>
         </PageNum>
-      )}
+      ) : null}
     </>
   );
 }
