@@ -110,7 +110,7 @@ function MypageMain() {
     () => JSON.parse(window.localStorage.getItem("myCurrentPageBlock")!) || 0
   ); // 현재 페이지네이션 블록 index
 
-  const LIMIT_COUNT: number = 2;
+  const LIMIT_COUNT: number = 20;
   const offset: number = (myCurrentPage - 1) * LIMIT_COUNT;
   const { currentUser }: any = useContext(MyContext);
 

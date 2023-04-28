@@ -22,7 +22,7 @@ function DetailMain() {
     getDetailData();
   }, []);
 
-  return <>{detailData && <DetailList list={detailData} getDetailData={getDetailData} />};</>;
+  return <>{detailData && <DetailList list={detailData} getDetailData={getDetailData} />}</>;
 }
 
 export default DetailMain;
