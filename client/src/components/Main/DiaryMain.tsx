@@ -7,19 +7,25 @@ import { BASE_API } from "../../util/API";
 import { MyContext } from "../../util/MyContext";
 import Skeleton from "../common/Skeleton";
 
-const ListTab = styled.ul`
+const Test = styled.div`
   display: flex;
   justify-content: center;
-  flex-wrap: wrap;
-  margin-bottom: 50px;
-  padding: 0 15px 0 15px;
+  height: 55px;
+  margin-bottom: 35px;
+`;
+
+const ListTab = styled.ul`
+  display: flex;
+  margin: 0 10px 0 10px;
+  padding: 0 5px 0 5px;
   gap: 10px;
+  overflow-x: auto;
 
   .tab {
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 100px;
+    min-width: 100px;
     height: 40px;
     border-radius: 50px;
     text-align: center;
@@ -48,6 +54,15 @@ const ListTab = styled.ul`
       color: ${(props) => props.theme.color.signatureText};
       font-weight: ${(props) => props.theme.font.titleWeight};
     }
+  }
+
+  &::-webkit-scrollbar {
+    height: 5px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: ${(props) => props.theme.color.borderLine};
+    border-radius: 50px;
   }
 `;
 
@@ -89,7 +104,7 @@ function DiaryMain() {
     () => JSON.parse(window.localStorage.getItem("mainCurrentPageBlock")!) || 0
   ); // 현재 페이지네이션 블록 index
 
-  const LIMIT_COUNT: number = 2;
+  const LIMIT_COUNT: number = 20;
   const offset: number = (mainCurrentPage - 1) * LIMIT_COUNT; // 각 페이지에서 첫 데이터의 위치(index) 계산
   const { isLoading, setIsLoading }: any = useContext(MyContext);
 
@@ -154,19 +169,21 @@ function DiaryMain() {
 
   return (
     <>
-      <ListTab>
-        {tagArr.map((tab, index) => {
-          return (
-            <li
-              key={index}
-              className={mainCurrentTab === index ? "tab focused" : "tab"}
-              onClick={() => selectTagHandler(index)}
-            >
-              <div className='el'>{tab.feel}</div>
-            </li>
-          );
-        })}
-      </ListTab>
+      <Test>
+        <ListTab>
+          {tagArr.map((tab, index) => {
+            return (
+              <li
+                key={index}
+                className={mainCurrentTab === index ? "tab focused" : "tab"}
+                onClick={() => selectTagHandler(index)}
+              >
+                <div className='el'>{tab.feel}</div>
+              </li>
+            );
+          })}
+        </ListTab>
+      </Test>
       {isLoading ? (
         <Skeleton />
       ) : (

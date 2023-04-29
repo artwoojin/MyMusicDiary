@@ -14,7 +14,7 @@ import "react-toastify/dist/ReactToastify.min.css";
 
 const ToastAlert = styled(ToastContainer)`
   .Toastify__toast {
-    font-size: 15px;
+    font-size: ${(props) => props.theme.font.diaryContentSize}px;
     color: ${(props) => props.theme.color.mainText};
     background-color: ${(props) => props.theme.color.inputBackground};
   }
@@ -32,11 +32,11 @@ const EditDiary = lazy(() => import("./pages/EditDiary"));
 function App() {
   const [isLoading, setIsLoading] = useState<boolean>(true);
 
-  const isLogin = localStorage.getItem("accessToken");
-  const currentUser = JSON.parse(localStorage.getItem("CURRENT_USER")!);
+  const isLogin: string | null = localStorage.getItem("accessToken");
+  const currentUser: object = JSON.parse(localStorage.getItem("CURRENT_USER")!);
 
-  const LocalTheme = localStorage.getItem("theme");
-  const [isChange, setIsChange] = useState(LocalTheme);
+  const LocalTheme: string | null = localStorage.getItem("theme");
+  const [isChange, setIsChange] = useState<string | null>(LocalTheme);
 
   const changeMode = () => {
     const changeTheme = isChange === "light" ? "dark" : "light";

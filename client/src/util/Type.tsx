@@ -52,7 +52,7 @@ export interface UserData {
 }
 
 export interface FormValue {
-  nickname: string;
+  nickname?: string;
   email: string;
   password: string;
 }

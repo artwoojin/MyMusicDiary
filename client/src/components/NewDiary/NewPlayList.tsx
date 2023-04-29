@@ -50,8 +50,8 @@ export const ContentArea = styled.div`
 
 interface PlaylistDataProps {
   list: PlaylistData;
-  newPlayList: object[];
-  setNewPlayList: Function;
+  newPlayList: PlaylistData[];
+  setNewPlayList: React.Dispatch<React.SetStateAction<PlaylistData[]>>;
 }
 
 function NewPlayList({ list, newPlayList, setNewPlayList }: PlaylistDataProps) {
