@@ -53,6 +53,7 @@ function Login() {
         localStorage.setItem("CURRENT_USER", JSON.stringify(res.data));
         localStorage.removeItem("mainCurrentTab");
         localStorage.removeItem("mainCurrentPage");
+        localStorage.removeItem("mainCurrentPageBlock");
       }
       navigate("/");
       window.location.reload();

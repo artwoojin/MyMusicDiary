@@ -4,7 +4,7 @@ import Main from "./pages/Main";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import Spinner from "./components/common/Spinner";
-import { useState, lazy, Suspense } from "react";
+import { useState, lazy, Suspense, useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
 import { ThemeProvider } from "styled-components";
 import { lightMode, darkMode } from "./assets/style/theme";
@@ -43,6 +43,21 @@ function App() {
     setIsChange(changeTheme);
     localStorage.setItem("theme", changeTheme);
   };
+
+  // 브라우저 종료 시 메인페이지 탭, 페이지, 블록 로컬스토리지 초기화
+  const removeMainLocal = () => {
+    localStorage.removeItem("mainCurrentTab");
+    localStorage.removeItem("mainCurrentPage");
+    localStorage.removeItem("mainCurrentPageBlock");
+  };
+  useEffect(() => {
+    (() => {
+      window.addEventListener("unload", removeMainLocal);
+    })();
+    return () => {
+      window.removeEventListener("unload", removeMainLocal);
+    };
+  }, []);
 
   return (
     <MyContext.Provider
