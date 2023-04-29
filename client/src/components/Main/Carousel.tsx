@@ -8,6 +8,7 @@ import secondcarousel from "../../assets/images/secondcarousel.png";
 const StyledSlider = styled(Slider)`
   height: 325px;
   margin-bottom: 70px;
+  /* border: 1px solid red; */
 
   @media screen and (max-width: 525px) {
     height: 245px;

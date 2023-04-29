@@ -7,17 +7,19 @@ import { BASE_API } from "../../util/API";
 import { MyContext } from "../../util/MyContext";
 import Skeleton from "../common/Skeleton";
 
-const Test = styled.div`
+const Test = styled.section`
   display: flex;
   justify-content: center;
-  height: 55px;
-  margin-bottom: 35px;
+  align-items: center;
+  height: 50px;
+  margin-bottom: 40px;
 `;
 
 const ListTab = styled.ul`
   display: flex;
+  align-items: center;
   margin: 0 10px 0 10px;
-  padding: 0 5px 0 5px;
+  padding: 5px;
   gap: 10px;
   overflow-x: auto;
 
@@ -41,7 +43,7 @@ const ListTab = styled.ul`
     }
 
     &:hover {
-      transform: scale(1.03);
+      transform: scale(1.04);
     }
   }
 
