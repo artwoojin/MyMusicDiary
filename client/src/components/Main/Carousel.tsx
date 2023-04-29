@@ -2,13 +2,11 @@ import styled from "styled-components";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import firstcarousel from "../../assets/images/firstcarousel.png";
-import secondcarousel from "../../assets/images/secondcarousel.png";
+import firstCarousel from "../../assets/images/firstCarousel.png";
+import secondCarousel from "../../assets/images/secondCarousel.png";
 
 const StyledSlider = styled(Slider)`
   height: 325px;
-  margin-bottom: 70px;
-  /* border: 1px solid red; */
 
   @media screen and (max-width: 525px) {
     height: 245px;
@@ -16,7 +14,7 @@ const StyledSlider = styled(Slider)`
 `;
 
 const FirstSlide = styled.div`
-  background-color: #ffdab9;
+  background-color: #ffedd3;
   height: 310px;
   padding: 0 15px 0 15px;
 
@@ -26,7 +24,8 @@ const FirstSlide = styled.div`
 `;
 
 const SecondSlide = styled.div`
-  background-color: #faeac7;
+  background-color: #ffe6e6;
+
   height: 310px;
   padding: 0 15px 0 15px;
 
@@ -48,13 +47,14 @@ const ContentArea = styled.div`
 
 const PromotionTitle = styled.div`
   > .mainTitle {
+    max-width: 500px;
     font-size: 31px;
     font-weight: 800;
     margin-bottom: 10px;
+    word-break: keep-all;
 
     @media screen and (max-width: 1084px) {
       font-size: 28px;
-      margin-right: 50px;
     }
 
     @media screen and (max-width: 721px) {
@@ -114,26 +114,24 @@ function Carousel() {
       <FirstSlide>
         <ContentArea>
           <PromotionTitle>
-            <div className='mainTitle'>혼자 듣기 아까운 숨은 명곡들</div>
-            <div className='subTitle'>이제 마리플에서 같이 들어요 🎵</div>
+            <div className='mainTitle'>
+              평범한 플레이리스트가 아닌 추억이 담긴 나만의 음악 다이어리
+            </div>
+            <div className='subTitle'>소중했던 순간을 남겨보세요 ✏️</div>
           </PromotionTitle>
           <PromotionImg>
-            <img src={firstcarousel} alt='listen music' />
+            <img src={firstCarousel} alt='listen music' />
           </PromotionImg>
         </ContentArea>
       </FirstSlide>
       <SecondSlide>
         <ContentArea>
           <PromotionTitle>
-            <div className='mainTitle'>
-              평범한 플레이리스트가 아닌 추억이 담긴
-              <br />
-              나만의 음악 다이어리
-            </div>
-            <div className='subTitle'>소중했던 순간을 남겨보세요 ✏️</div>
+            <div className='mainTitle'>다른 사람들은 어떤 음악을 좋아할까?</div>
+            <div className='subTitle'>이제 마리플에서 같이 들어요 🎵</div>
           </PromotionTitle>
           <PromotionImg>
-            <img src={secondcarousel} alt='love music' />
+            <img src={secondCarousel} alt='love music' />
           </PromotionImg>
         </ContentArea>
       </SecondSlide>

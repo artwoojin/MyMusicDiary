@@ -10,14 +10,12 @@ import Skeleton from "../common/Skeleton";
 const Test = styled.section`
   display: flex;
   justify-content: center;
-  align-items: center;
-  height: 50px;
-  margin-bottom: 40px;
+  height: 60px;
+  margin: 70px 0 40px 0;
 `;
 
 const ListTab = styled.ul`
   display: flex;
-  align-items: center;
   margin: 0 10px 0 10px;
   padding: 5px;
   gap: 10px;
