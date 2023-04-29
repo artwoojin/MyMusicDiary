@@ -1,42 +1,34 @@
 package com.seb42.main30.seb42_main_030.tag.entity;
 
-import com.seb42.main30.seb42_main_030.diary.entity.Diary;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import org.springframework.stereotype.Component;
-
-import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
-import java.util.ArrayList;
-import java.util.List;
 
-@Getter
-@Builder
-@NoArgsConstructor
-@AllArgsConstructor
 @Entity
-@Component
 public class Tag {
 
     @Id
-    private String tagName;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-    @Column
-    private long tagId;
+    private String name;
 
-    @ManyToMany(mappedBy = "tags")
-    private List<Diary> diaries = new ArrayList<>();
+    public Tag() {}
 
-    public Tag(long tagId, String tagName) {
-        this.tagId = tagId;
-        this.tagName = tagName;
+    public Tag(String name) {
+        this.name = name;
     }
 
-    public void updateDiaries(Diary diary){
-        this.diaries.add(diary);
+    public Long getId() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }

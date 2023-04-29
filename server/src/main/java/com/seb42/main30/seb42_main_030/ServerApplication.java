@@ -18,7 +18,7 @@ import java.util.List;
 @SpringBootApplication
 @RequiredArgsConstructor
 @EnableAsync
-public class ServerApplication implements CommandLineRunner {
+public class ServerApplication  {
 
 	private final TagRepository tagRepository;
 
@@ -26,24 +26,5 @@ public class ServerApplication implements CommandLineRunner {
 		SpringApplication.run(ServerApplication.class, args);
 	}
 
-	@Override
-	public void run(String[] args) {
-		final List<Tag> tags = Arrays.asList(
-				new Tag(0, "#신나는"),
-				new Tag(1, "#감성적인"),
-				new Tag(2, "#잔잔한"),
-				new Tag(3, "#애절한"),
-				new Tag(4, "#그루브한"),
-				new Tag(5, "#몽환적인"),
-				new Tag(6,"#어쿠스틱한"),
-				new Tag(7,"#청량한")
-
-		);
-		for (Tag tag : tags){
-			if (tagRepository.findByTagName(tag.getTagName()).isEmpty()){
-				tagRepository.save(tag);
-			}
-		}
 	}
 
-}

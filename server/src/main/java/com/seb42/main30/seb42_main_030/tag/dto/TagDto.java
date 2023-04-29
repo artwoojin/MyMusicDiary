@@ -1,19 +1,22 @@
 package com.seb42.main30.seb42_main_030.tag.dto;
 
-import lombok.Builder;
-import lombok.Getter;
-
-
-@Getter
-@Builder
 public class TagDto {
 
-    String tagName;
+    private String name;
 
-    @Getter
-    @Builder
-    public static class Response {
-        private Long tagId;
-        private String tagName;
+    public TagDto() {}
+
+    public TagDto(String name) {
+        this.name = name;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }
+
+
