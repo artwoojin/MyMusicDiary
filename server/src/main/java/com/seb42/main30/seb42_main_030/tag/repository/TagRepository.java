@@ -7,11 +7,18 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 import java.util.Optional;
 
-@Repository
+//@Repository
+//public interface TagRepository extends JpaRepository<Tag, String> {
+//    Optional<Tag> findByTagName(String tagName);
+//
+//    List<Tag> findAllByTagNameIn(List<String> tagNames);
+//
+//
+//}
+
 public interface TagRepository extends JpaRepository<Tag, String> {
-    Optional<Tag> findByTagName(String tagName);
 
-    List<Tag> findAllByTagNameIn(List<String> tagNames);
+    List<Tag> findByName(String name);
 
-
+    //List<Tag> findAll(List<String> tagNames);
 }

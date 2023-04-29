@@ -5,8 +5,6 @@ import com.seb42.main30.seb42_main_030.audit.Auditable;
 import com.seb42.main30.seb42_main_030.comment.entity.Comment;
 import com.seb42.main30.seb42_main_030.like.entity.Like;
 import com.seb42.main30.seb42_main_030.playlist.entity.Playlist;
-import com.seb42.main30.seb42_main_030.tag.dto.TagDto;
-import com.seb42.main30.seb42_main_030.tag.entity.Tag;
 import com.seb42.main30.seb42_main_030.user.entity.User;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -17,6 +15,7 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 
@@ -67,30 +66,19 @@ public class Diary extends Auditable {
     @OneToMany(mappedBy = "diary", cascade = CascadeType.ALL)
     private List<Like> likeDiariesList = new ArrayList<>();
 
+//
+    @Column
+    private String tags;
 
-    @ManyToMany
-    @JoinTable(name = "diaryTag")
-    private List<Tag> tags = new ArrayList<Tag>();
+        public List<String> getTags() {
+            if (tags == null || tags.isEmpty()) {
+                return new ArrayList<>();
+            }
+            return Arrays.asList(tags.split(","));
+        }
 
-    public void setTags(List<Tag> tags) {
-        this.tags = tags;
-    }
-
-//    public TagDto.Response getTagDto() {
-//
-//        List<Long> moods = new ArrayList<>();
-//
-//        for (Tag tag : this.tags) {
-//
-//             moods.add(tag.getTagId());
-//            }
-//
-//
-//        TagDto.Response response = TagDto.Response.builder()
-//                .moodTag(moods)
-//                .build();
-//
-//        return response;
-//    }
+        public void setTags(String tagList) {
+            this.tags = String.join(",", tagList);
+        }
 
 }
