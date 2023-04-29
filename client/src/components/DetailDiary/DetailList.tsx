@@ -570,8 +570,8 @@ function DetailList({ list, getDetailData }: DiaryDataProps) {
               </NewMain.User>
             </UserInfo>
             <TagArea>
-              {tagData.map((value: any, index: number) => {
-                return <li key={index}>{value.tagName}</li>;
+              {tagData.map((value: string, index: number) => {
+                return <li key={index}>{value}</li>;
               })}
             </TagArea>
           </NewMain.InfoArea>

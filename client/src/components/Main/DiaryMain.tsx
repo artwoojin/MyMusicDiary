@@ -188,12 +188,6 @@ function DiaryMain() {
         <Skeleton />
       ) : (
         <DiaryMainContainer>
-          {/* <DiaryMainWrapper>
-            {diaryData.slice(offset, offset + LIMIT_COUNT).map((value) => {
-              return <DiaryList list={value} key={value.diaryId} />;
-            })}
-          </DiaryMainWrapper> */}
-
           {mainCurrentTab === 0 ? (
             <DiaryMainWrapper>
               {diaryData.slice(offset, offset + LIMIT_COUNT).map((value) => {
@@ -204,7 +198,6 @@ function DiaryMain() {
             <DiaryMainWrapper>
               {diaryData
                 .filter((value) => value.tags.includes(tagArr[1].feel))
-                // .filter((value) => value.tags[0]?.tagName === tagArr[1].feel)
                 .slice(offset, offset + LIMIT_COUNT)
                 .map((value) => {
                   return <DiaryList list={value} key={value.diaryId} />;

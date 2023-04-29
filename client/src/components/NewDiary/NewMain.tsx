@@ -530,9 +530,6 @@ function NewMain() {
     window.scrollTo(0, parseInt(scrollY || "0", 10) * -1);
   };
 
-  // console.log(newBody);
-  // console.log(newBody.length);
-
   return (
     <MainContainer>
       <MainWrapper>
@@ -580,7 +577,7 @@ function NewMain() {
               <option value='#청량한'>청량한</option>
             </select>
             <Tag>
-              {newTag.map((value: any, index: any) => (
+              {newTag.map((value: string, index: number) => (
                 <li key={index}>
                   <div className='tagTitle'>{value}</div>
                   <div className='tagcloseBtn' onClick={() => removeTags(index)}>

@@ -138,8 +138,8 @@ function DiaryList({ list }: DiaryDataProps) {
           <div className='infoTitle'>{list.title}</div>
           <div className='infoDate'>{list.createdAt.substring(0, 10)}</div>
           <TagArea>
-            {list.tags.map((value: any, index: number) => {
-              return <li key={index}>{value.tagName}</li>;
+            {list.tags.map((value: string, index: number) => {
+              return <li key={index}>{value}</li>;
             })}
           </TagArea>
         </InfoArea>

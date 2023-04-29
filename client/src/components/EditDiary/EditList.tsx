@@ -247,9 +247,9 @@ function EditList({ list }: DiaryDataProps) {
               <option value='#청량한'>청량한</option>
             </select>
             <NewMain.Tag>
-              {editTag.map((value: any, index: any) => (
+              {editTag.map((value: string, index: number) => (
                 <li key={index}>
-                  <div className='tagTitle'>{value.tagName}</div>
+                  <div className='tagTitle'>{value}</div>
                   <div className='tagcloseBtn' onClick={() => removeTags(index)}>
                     <IoIosClose size={20} />
                   </div>
