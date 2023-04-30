@@ -12,7 +12,7 @@ const TagContainer = styled.section`
   display: flex;
   justify-content: center;
   height: 60px;
-  margin: 70px 0 40px 0;
+  margin: 70px 0 35px 0;
 `;
 
 const ListTab = styled.ul`

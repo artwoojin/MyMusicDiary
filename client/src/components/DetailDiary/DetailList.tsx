@@ -377,7 +377,7 @@ interface DiaryDataProps {
 }
 
 function DetailList({ list, getDetailData }: DiaryDataProps) {
-  const [checkLike, setCheckLike] = useState<boolean>(false);
+  // const [checkLike, setCheckLike] = useState<boolean>(false);
   const [commentBody, setCommentBody] = useState<string>("");
   const [withDrawalModalOpen, setWithdrawalModalOpen] = useState<boolean>(false);
   const [ruleModal, setRuleModal] = useState<boolean>(false);
@@ -498,6 +498,24 @@ function DetailList({ list, getDetailData }: DiaryDataProps) {
     e.target.src = mainIcon;
   };
 
+  // 좋아요 클릭 시 빨간색 하트로 변경(임시) ---------------------------------------
+  const [myLikeDiaryData, setMyLikeDiaryData] = useState<DiaryData[]>([]);
+
+  const getLikeData = async () => {
+    try {
+      const res = await TOKEN_API.get(`/users/${currentUser.userId}`);
+      setMyLikeDiaryData(res.data.likeDiaries);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+  useEffect(() => {
+    getLikeData();
+  }, [list.likeCount]);
+
+  const likeDataFind = myLikeDiaryData.filter((value) => value.title === list.title).length;
+  // 좋아요 클릭 시 빨간색 하트로 변경(임시) ---------------------------------------
+
   return (
     <NewMain.MainContainer>
       <NewMain.MainWrapper>
@@ -555,7 +573,7 @@ function DetailList({ list, getDetailData }: DiaryDataProps) {
                 {list.userNickname}
               </NewMain.User>
               <LikeButton onClick={plusLikeCount}>
-                {checkLike === true ? (
+                {likeDataFind === 1 ? (
                   <AiFillHeart className='likeIcon' size={17} />
                 ) : (
                   <AiOutlineHeart className='unLikeIcon' size={17} />
