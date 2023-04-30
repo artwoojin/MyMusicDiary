@@ -66,8 +66,8 @@
 + [API 명세서]()
 + [화면 정의서](https://docs.google.com/presentation/d/1Gfus68FyAZnhMIuU5-JqXjbk_7E2LmNb7CePtcMEWnw/edit?usp=sharing)
 + [Figma Wireframe](https://www.figma.com/proto/6MVNPekesz9vhabLmQr5vp/30FE-main?page-id=0%3A1&node-id=83-3352&viewport=6952%2C-513%2C0.47&scaling=contain&starting-point-node-id=110%3A836&show-proto-sidebar=1)
-+ [개발자 테스트]()
-+ [서비스 메뉴얼]()
+//+ [개발자 테스트]()
+//+ [서비스 메뉴얼]()
 <br/>
 
 ## :pencil2: 커밋 & 코드 컨벤션
