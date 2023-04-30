@@ -16,12 +16,6 @@
 - **`팀원` :**  유우진(팀장), 김덕림, 김동구
 - **`링크` :** [Mariple 홈페이지](http://mylittlemusicdiary.s3-website.ap-northeast-2.amazonaws.com/)
 
-<br/>
-
-## :bulb: Intro
-<h3>title</h3>
-
-<br/>
 
 ## :family: 팀원 소개
 
