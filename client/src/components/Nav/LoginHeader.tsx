@@ -1,15 +1,16 @@
 import styled from "styled-components";
 import { Link, useNavigate } from "react-router-dom";
-import { useState, useEffect, useRef } from "react";
-import { BASE_API } from "../util/API";
+import { useState, useEffect, useRef, useContext } from "react";
+import { BASE_API } from "../../util/API";
 import { GoTriangleDown } from "react-icons/go";
 import { BsFillSunFill, BsFillMoonStarsFill } from "react-icons/bs";
 import { FiLogOut, FiEdit3, FiUser } from "react-icons/fi";
-import { useContext } from "react";
-import { MyContext } from "../theme";
-import defaultProfile from "../util/img/defaultProfile.png";
+import { MyContext } from "../../util/MyContext";
+import defaultProfile from "../../assets/images/defaultProfile.png";
+import logo_black from "../../assets/images/logo_black.png";
+import logo_white from "../../assets/images/logo_white.png";
 
-export const HeaderContainer = styled.header`
+export const HeaderContainer = styled.nav`
   display: flex;
   justify-content: center;
 `;
@@ -24,19 +25,15 @@ export const HeaderWrapper = styled.div`
   justify-content: space-between;
 `;
 
-export const Logo = styled.div`
-  > a {
-    font-size: 18px;
-    font-weight: ${(props) => props.theme.font.logoWeight};
-    color: ${(props) => props.theme.color.logo};
-    text-decoration: none;
+export const Logo = styled.img`
+  width: 150px;
+  height: 70px;
+  margin-left: -20px;
+  object-fit: contain;
 
-    > img {
-      margin-right: 10px;
-      width: 40px;
-      height: 40px;
-      margin-bottom: 4px;
-    }
+  // 721px 이하에서 로고 크기 축소
+  @media screen and (max-width: 721px) {
+    width: 130px;
   }
 `;
 
@@ -232,8 +229,9 @@ function LoginHeader() {
   const logOut = () => {
     localStorage.removeItem("accessToken");
     localStorage.removeItem("CURRENT_USER");
-    localStorage.removeItem("currentPage");
-    localStorage.removeItem("myCurrentTab");
+    localStorage.removeItem("mainCurrentTab");
+    localStorage.removeItem("mainCurrentPage");
+    localStorage.removeItem("mainCurrentPageBlock");
     navigate("/");
     window.location.reload();
   };
@@ -242,14 +240,12 @@ function LoginHeader() {
     e.target.src = defaultProfile;
   };
 
-  // console.log(imageData.data);
-
   return (
     <HeaderContainer>
       <HeaderWrapper>
-        <Logo>
-          <Link to='/'>나만의 작은 음악 다이어리</Link>
-        </Logo>
+        <Link to='/'>
+          {isChange === "dark" ? <Logo src={logo_white} /> : <Logo src={logo_black} />}
+        </Link>
         <ButtonArea>
           <ModeButton onClick={changeMode}>
             {isChange === "dark" ? (
@@ -263,7 +259,7 @@ function LoginHeader() {
           </Link>
           <ProfileButton onClick={openDropdown}>
             <Profile
-              src={imageData?.imageUrl ? imageData?.imageUrl : defaultProfile}
+              src={imageData.imageUrl ? imageData.imageUrl : defaultProfile}
               alt='헤더 프로필 이미지'
               onError={replaceImg}
             />

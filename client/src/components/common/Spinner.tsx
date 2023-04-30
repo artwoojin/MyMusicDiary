@@ -1,11 +1,13 @@
 import styled from "styled-components";
-import MainIcon from "../../util/img/mainIcon.png";
+import MainIcon from "../../assets/images/mainIcon.png";
 
 const LoadingContainer = styled.div`
+  margin: -8px;
   height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
+  background-color: ${(props) => props.theme.color.background};
 `;
 
 const MainIconImg = styled.img`

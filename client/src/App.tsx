@@ -1,35 +1,20 @@
+import styled from "styled-components";
+import GlobalStyle from "./assets/style/GlobalStyle";
 import Main from "./pages/Main";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
-import styled from "styled-components";
-import { useState } from "react";
-import { Routes, Route, Link } from "react-router-dom";
-import { createGlobalStyle, ThemeProvider } from "styled-components";
-import { MyContext, lightMode, darkMode } from "./theme";
+import Spinner from "./components/common/Spinner";
+import { useState, lazy, Suspense, useEffect } from "react";
+import { Routes, Route } from "react-router-dom";
+import { ThemeProvider } from "styled-components";
+import { lightMode, darkMode } from "./assets/style/theme";
+import { MyContext } from "./util/MyContext";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.min.css";
-import Spinner from "./components/Loading/Spinner";
-import { lazy, Suspense } from "react";
-
-const GlobalStyle = createGlobalStyle`
-  * {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-    -webkit-font-smoothing: antialiased;
-  }
-
-  body {
-    background-color: ${(props) => props.theme.color.background};
-}
-`;
 
 const ToastAlert = styled(ToastContainer)`
   .Toastify__toast {
-    font-size: 15px;
+    font-size: ${(props) => props.theme.font.diaryContentSize}px;
     color: ${(props) => props.theme.color.mainText};
     background-color: ${(props) => props.theme.color.inputBackground};
   }
@@ -47,11 +32,11 @@ const EditDiary = lazy(() => import("./pages/EditDiary"));
 function App() {
   const [isLoading, setIsLoading] = useState<boolean>(true);
 
-  const isLogin = localStorage.getItem("accessToken");
-  const currentUser = JSON.parse(localStorage.getItem("CURRENT_USER")!);
+  const isLogin: string | null = localStorage.getItem("accessToken");
+  const currentUser: object = JSON.parse(localStorage.getItem("CURRENT_USER")!);
 
-  const LocalTheme = localStorage.getItem("theme");
-  const [isChange, setIsChange] = useState(LocalTheme);
+  const LocalTheme: string | null = localStorage.getItem("theme");
+  const [isChange, setIsChange] = useState<string | null>(LocalTheme);
 
   const changeMode = () => {
     const changeTheme = isChange === "light" ? "dark" : "light";
@@ -59,16 +44,38 @@ function App() {
     localStorage.setItem("theme", changeTheme);
   };
 
+  // 브라우저 종료/새로고침 시 메인/마이 페이지 탭, 페이지, 블록 로컬스토리지 초기화
+  const removeLocalStorage = () => {
+    localStorage.removeItem("mainCurrentTab");
+    localStorage.removeItem("mainCurrentPage");
+    localStorage.removeItem("mainCurrentPageBlock");
+    localStorage.removeItem("myCurrentTab");
+    localStorage.removeItem("myCurrentPage");
+    localStorage.removeItem("myCurrentPageBlock");
+  };
+  useEffect(() => {
+    (() => {
+      window.addEventListener("unload", removeLocalStorage);
+    })();
+    return () => {
+      window.removeEventListener("unload", removeLocalStorage);
+    };
+  }, []);
+
   return (
     <MyContext.Provider
-      value={{ isLogin, currentUser, isChange, changeMode, isLoading, setIsLoading }}
+      value={{
+        isLogin,
+        currentUser,
+        isChange,
+        changeMode,
+        isLoading,
+        setIsLoading,
+      }}
     >
       <ThemeProvider theme={isChange === "dark" ? darkMode : lightMode}>
         <Suspense fallback={<Spinner />}>
           <div className='App'>
-            {/* <Link to='/Loading'>
-              <div>Loading</div>
-            </Link> */}
             <GlobalStyle />
             <Routes>
               <Route path='/' element={<Main />} />
@@ -78,7 +85,6 @@ function App() {
               <Route path='/Signup' element={<Signup />} />
               <Route path='/DetailDiary/:diaryId' element={<DetailDiary />} />
               <Route path='/EditDiary/:diaryId' element={<EditDiary />} />
-              <Route path='/Loading' element={<Spinner />} />
             </Routes>
             <ToastAlert hideProgressBar={false} autoClose={2000} pauseOnFocusLoss={true} />
           </div>

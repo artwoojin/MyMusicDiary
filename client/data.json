@@ -2,7 +2,24 @@
   "diary": [
     {
       "title": "제목",
-      "tags": ["#신나는", "#감성적인", "#어쿠스틱한", "#청량한"],
+      "tags": [
+        {
+          "tagId": 1,
+          "tagName": "#신나는"
+        },
+        {
+          "tagId": 2,
+          "tagName": "#즐거운"
+        },
+        {
+          "tagId": 3,
+          "tagName": "#감성적인"
+        },
+        {
+          "tagId": 4,
+          "tagName": "#어쿠스틱한"
+        }
+      ],
       "body": "<p>본문</p>",
       "likeCount": [],
       "playlists": [

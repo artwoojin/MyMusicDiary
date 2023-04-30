@@ -1,7 +1,6 @@
-import { createContext } from "react";
 import { DefaultTheme } from "styled-components";
 
-export const MyContext: any = createContext(null);
+// #ffefd5
 
 export const lightMode: DefaultTheme = {
   color: {
@@ -11,6 +10,7 @@ export const lightMode: DefaultTheme = {
     mainText: `#22262c`,
     subText: `#495057`,
     thirdText: `#9aa1a8`,
+    tagText: `#495057`,
 
     signature: `#ffefd5`,
     signatureHover: `#ffdeb7`,
@@ -46,6 +46,7 @@ export const darkMode: DefaultTheme = {
     mainText: `#ececec`,
     subText: `#a6a6a6`,
     thirdText: `#9aa1a8`,
+    tagText: `#d4d4d4`,
 
     signature: `#ffefd5`,
     signatureHover: `#ffdeb7`,

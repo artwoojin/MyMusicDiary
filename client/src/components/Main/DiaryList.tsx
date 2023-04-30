@@ -3,7 +3,8 @@ import { Link } from "react-router-dom";
 import { DiaryDataProps } from "../../util/Type";
 import { AiFillHeart } from "react-icons/ai";
 import { FaRegCommentDots } from "react-icons/fa";
-import mainIcon from "../../util/img/mainIcon.png";
+import mainIcon from "../../assets/images/mainIcon.png";
+import defaultProfile from "../../assets/images/defaultProfile.png";
 
 export const DiaryListContainer = styled.li`
   box-shadow: rgba(0, 0, 0, 0.04) 0px 4px 16px 0px;
@@ -35,6 +36,7 @@ export const Thumbnail = styled.img`
 
 export const InfoArea = styled.div`
   padding: 15px;
+  /* border: 1px solid red; */
 
   > .infoTitle {
     color: ${(props) => props.theme.color.mainText};
@@ -48,32 +50,33 @@ export const InfoArea = styled.div`
   > .infoDate {
     font-size: 12px;
     color: ${(props) => props.theme.color.thirdText};
-    margin-bottom: 15px;
+    margin-bottom: 14px;
   }
 `;
 
-// export const Tag = styled.ul`
-//   display: flex;
-//   font-size: 12px;
-//   color: #757170;
-//   list-style: none;
+export const TagArea = styled.ul`
+  display: flex;
+  align-items: center;
+  font-size: 12px;
+  gap: 4px;
+  color: ${(props) => props.theme.color.tagText};
+  list-style: none;
+  margin: 0 -2px 0 -2px;
 
-//   > li {
-//     margin-right: 5px;
-//     padding: 3px 6px 3px 6px;
-//     border: 1px solid #d1d1d1;
-//     border-radius: 50px;
-//   }
-// `;
+  > li {
+    height: 25px;
+    padding: 4px 7px 4px 7px;
+    border: 1px solid ${(props) => props.theme.color.borderLine};
+    border-radius: 50px;
+  }
+`;
 
 export const UserArea = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 8px 15px 8px 15px;
+  padding: 5.5px 15px 5px 15px;
   border-top: 1px solid ${(props) => props.theme.color.userAreaLine};
-  /* 태그 미구현으로 인한 임시로 위치 내림 */
-  margin-top: 21px;
 `;
 
 export const ByUsername = styled.div`
@@ -88,11 +91,7 @@ export const ByUsername = styled.div`
     font-size: 12px;
     font-weight: 400;
     color: ${(props) => props.theme.color.thirdText};
-    margin: 0 5px 2px 0;
-  }
-
-  > .userNickname {
-    padding-bottom: 2px;
+    margin-right: 5px;
   }
 `;
 
@@ -131,29 +130,33 @@ function DiaryList({ list }: DiaryDataProps) {
     <DiaryListContainer>
       <Link to={`/DetailDiary/${list.diaryId}`}>
         <Thumbnail
-          src={list.playlists[0].thumbnail ? list.playlists[0].thumbnail : mainIcon}
+          src={list.playlists[0]?.thumbnail ? list.playlists[0]?.thumbnail : mainIcon}
           alt='첫번째 앨범 커버'
           onError={replaceImg}
         />
         <InfoArea>
           <div className='infoTitle'>{list.title}</div>
           <div className='infoDate'>{list.createdAt.substring(0, 10)}</div>
-          {/* <Tag>
-          {list.tag.map((value: string, index: number) => {
-            return <li key={index}>{value}</li>;
-          })}
-        </Tag> */}
+          <TagArea>
+            {list.tags.map((value: string, index: number) => {
+              return <li key={index}>{value}</li>;
+            })}
+          </TagArea>
         </InfoArea>
         <UserArea>
           <ByUsername>
-            <Profile src={mainIcon} alt='프로필 이미지' />
+            <Profile
+              src={list?.imageUrl ? list?.imageUrl : defaultProfile}
+              alt='프로필 이미지'
+              onError={replaceImg}
+            />
             <div className='by'>by</div>
             <div className='userNickname'>{list.userNickname}</div>
           </ByUsername>
           <LikeAndComment>
-            <AiFillHeart className='likeIcon' size={16} />
+            <AiFillHeart className='likeIcon' size={15} />
             {list.likeCount}
-            <FaRegCommentDots className='commentIcon' size={15} />
+            <FaRegCommentDots className='commentIcon' size={14} />
             {list.comments.length}
           </LikeAndComment>
         </UserArea>

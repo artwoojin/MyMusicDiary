@@ -3,9 +3,9 @@ import { useNavigate } from "react-router-dom";
 import { useState, useRef, useContext } from "react";
 import { UserData } from "../../util/Type";
 import { TOKEN_API } from "../../util/API";
-import { MyContext } from "../../theme";
-import defaultProfile from "../../util/img/defaultProfile.png";
-import axios from "axios";
+import { MyContext } from "../../util/MyContext";
+import defaultProfile from "../../assets/images/defaultProfile.png";
+import Modal from "../common/Modal";
 
 const MyInfoContainer = styled.div`
   display: flex;
@@ -24,11 +24,6 @@ const ProfileImg = styled.img`
   height: 150px;
   border-radius: 100%;
   margin-bottom: 20px;
-  cursor: pointer;
-
-  &:hover {
-    outline: 5px solid ${(props) => props.theme.color.signature};
-  }
 
   // 721px 이하에서 프로필 이미지 크기 축소
   @media screen and (max-width: 721px) {
@@ -156,7 +151,6 @@ const EditNicknameBtn = styled.button`
 
 const PasswordContainer = styled.div`
   border-bottom: 1px solid ${(props) => props.theme.color.borderLine};
-  /* font-size: ${(props) => props.theme.font.diaryContentSize}; */
   padding: 0 5px 0 5px;
 
   > .passwordTitle {
@@ -270,83 +264,8 @@ const MyWithdrawalWrapper = styled.div`
     }
   }
 
-  /* @media screen and (max-width: 721px) {
+  @media screen and (max-width: 721px) {
     justify-content: space-between;
-  } */
-`;
-
-const WithdrawalModalBack = styled.div`
-  position: fixed;
-  z-index: 999;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  right: 0;
-  background-color: rgba(0, 0, 0, 0.4);
-  display: grid;
-  place-items: center;
-`;
-
-const WithdrawalModalView = styled.div`
-  text-align: center;
-  border-radius: 5px;
-  background-color: ${(props) => props.theme.color.background};
-  width: 80vw;
-  max-width: 400px;
-  height: 200px;
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.19), 0 10px 10px rgba(0, 0, 0, 0.1);
-
-  > .deleteModalTitle {
-    color: ${(props) => props.theme.color.mainText};
-    font-size: ${(props) => props.theme.font.diarySubTitleSize}px;
-    font-weight: ${(props) => props.theme.font.titleWeight};
-    text-align: center;
-    margin: 30px 15px 30px 15px;
-  }
-
-  > .warningText {
-    color: ${(props) => props.theme.color.subText};
-    font-size: ${(props) => props.theme.font.diaryContentSize}px;
-    font-weight: ${(props) => props.theme.font.contentWeight};
-    margin: 0 15px 29px 15px;
-  }
-
-  > button {
-    font-size: ${(props) => props.theme.font.diaryContentSize}px;
-    font-weight: ${(props) => props.theme.font.titleWeight};
-    width: 50%;
-    height: 50px;
-    border: none;
-    text-decoration: none;
-    cursor: pointer;
-
-    &:hover {
-      text-decoration: none;
-    }
-  }
-
-  > .deleteCancelButton {
-    color: ${(props) => props.theme.color.subText};
-    background-color: transparent;
-    border-top: 1px solid ${(props) => props.theme.color.borderLine};
-    border-right: 0.5px solid ${(props) => props.theme.color.borderLine};
-    border-bottom-left-radius: 4px;
-
-    &:hover {
-      background-color: ${(props) => props.theme.color.buttonHover};
-    }
-  }
-
-  > .deleteButton {
-    color: #ec1d36;
-    background-color: transparent;
-    border-top: 1px solid ${(props) => props.theme.color.borderLine};
-    border-left: 0.5px solid ${(props) => props.theme.color.borderLine};
-    border-bottom-right-radius: 4px;
-
-    &:hover {
-      background-color: ${(props) => props.theme.color.buttonHover};
-    }
   }
 `;
 
@@ -354,6 +273,7 @@ const WarningText = styled.div`
   font-size: 13px;
   color: ${(props) => props.theme.color.thirdText};
   margin-bottom: 15px;
+  word-break: keep-all;
 `;
 
 export interface UserDataProps {
@@ -362,7 +282,6 @@ export interface UserDataProps {
 }
 
 function MyInfo({ list, getUserData }: UserDataProps) {
-  const [image, setImage] = useState(list.imageUrl);
   const [nickname, setNickname] = useState<string>(list.nickname);
   const [editNickname, setEditNickname] = useState<boolean>(false);
   const [password, setPassword] = useState<string>(list.password);
@@ -373,53 +292,23 @@ function MyInfo({ list, getUserData }: UserDataProps) {
   const navigate = useNavigate();
   const { currentUser }: any = useContext(MyContext);
 
-  const TOKEN = localStorage.getItem("accessToken");
-
-  // 프로필 이미지 클릭 시 input으로 연결되는 이벤트
-  const clickProfile = () => {
+  // 프로필 이미지 등록 버튼 클릭 시 ImgInput으로 연결되는 이벤트
+  const imageInput = () => {
     fileInput.current?.click();
   };
 
-  // 선택한 이미지 미리보기 이벤트
-  // const saveImage = async (e: any) => {
-  //   setImage(URL.createObjectURL(e.target.files[0]));
-  // };
-
-  const saveImage = async (e: any) => {
-    const image = e.target.files[0];
-    console.log(e.target.files[0]);
-
+  // 프로필 이미지 등록 이벤트 핸들러
+  const uploadImage = async (e: any) => {
+    const img = e.target.files[0];
     const formData = new FormData();
-    formData.append("file", image);
-
-    console.log(formData);
-
-    // const newImg = {
-    //   file: formData,
-    // };
-    await axios.post(`/users/${list.userId}/image`, formData);
-    // window.location.reload();
-  };
-
-  // 선택한 이미지 patch 요청
-  const changeImage = async () => {
-    const newImg = {
-      imageUrl: image,
-      nickname: list.nickname,
-      password: list.password,
-    };
-    await TOKEN_API.patch(`/users/${list.userId}`, newImg);
+    formData.append("file", img);
+    await TOKEN_API.post(`/users/${list.userId}/image`, formData);
     window.location.reload();
   };
 
   // 기본 이미지로 patch 요청
   const deleteImage = async () => {
-    const newImg = {
-      imageUrl: defaultProfile,
-      nickname: list.nickname,
-      password: list.password,
-    };
-    await TOKEN_API.patch(`/users/${list.userId}`, newImg);
+    await TOKEN_API.delete(`/users/${list.userId}/image`);
     window.location.reload();
   };
 
@@ -492,13 +381,12 @@ function MyInfo({ list, getUserData }: UserDataProps) {
       <MyInfoContainer>
         <ProfileImgWrapper>
           <ProfileImg
-            src={image ? image : defaultProfile}
+            src={list.imageUrl ? list.imageUrl : defaultProfile}
             alt='프로필 이미지'
             onError={replaceImg}
-            onClick={clickProfile}
           />
-          <ImgInput type='file' accept='image/*' onChange={saveImage} ref={fileInput} />
-          <ImgSubmitBtn onClick={changeImage}>프로필 이미지 저장</ImgSubmitBtn>
+          <ImgInput type='file' accept='image/*' onChange={uploadImage} ref={fileInput} />
+          <ImgSubmitBtn onClick={imageInput}>프로필 이미지 등록</ImgSubmitBtn>
           <ImgDeleteBtn onClick={deleteImage}>프로필 이미지 제거</ImgDeleteBtn>
         </ProfileImgWrapper>
       </MyInfoContainer>
@@ -524,7 +412,7 @@ function MyInfo({ list, getUserData }: UserDataProps) {
             )}
           </NicknameInputWrapper>
         </NicknameWrapper>
-        <WarningText>나만의 작은 음악 다이어리에서 사용되는 이름입니다.</WarningText>
+        <WarningText>Mariple에서 사용되는 이름입니다.</WarningText>
       </NicknameContainer>
       <PasswordContainer>
         <div className='passwordTitle'>비밀번호</div>
@@ -557,22 +445,13 @@ function MyInfo({ list, getUserData }: UserDataProps) {
             회원 탈퇴
           </button>
           {withDrawalModalOpen ? (
-            <WithdrawalModalBack>
-              <WithdrawalModalView>
-                <div className='deleteModalTitle'>정말 탈퇴 하시겠습니까?</div>
-                <div className='warningText'>
-                  탈퇴 시 작성하신 다이어리 및 댓글이
-                  <br />
-                  모두 삭제되며 복구되지 않습니다.
-                </div>
-                <button className='deleteCancelButton' onClick={openModalHandler}>
-                  취소
-                </button>
-                <button className='deleteButton' onClick={withDrawal}>
-                  탈퇴
-                </button>
-              </WithdrawalModalView>
-            </WithdrawalModalBack>
+            <Modal
+              title={"정말 탈퇴 하시겠습니까?"}
+              text={`탈퇴 시 ${nickname}님이 작성한 다이어리 및 댓글이 모두 삭제되며 복구되지 않습니다.`}
+              confirmText={"탈퇴"}
+              cancelHandler={openModalHandler}
+              confirmHandler={withDrawal}
+            />
           ) : null}
         </MyWithdrawalWrapper>
         <WarningText>

@@ -1,6 +1,6 @@
 import * as NewPlayList from "../NewDiary/NewPlayList";
 import { PlaylistData } from "../../util/Type";
-import mainIcon from "../../util/img/mainIcon.png";
+import mainIcon from "../../assets/images/mainIcon.png";
 
 interface PlaylistDataProps {
   list: PlaylistData;

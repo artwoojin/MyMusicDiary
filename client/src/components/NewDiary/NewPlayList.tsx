@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { PlaylistData } from "../../util/Type";
-import mainIcon from "../../util/img/mainIcon.png";
+import mainIcon from "../../assets/images/mainIcon.png";
 
 export const PlayListContainer = styled.li`
   display: flex;
@@ -23,7 +23,7 @@ export const ContentArea = styled.div`
   > .thumbnail {
     width: 50px;
     height: 50px;
-    margin-right: 20px;
+    margin-right: 15px;
     border-radius: 4px;
     object-fit: cover;
     background-color: ${(props) => props.theme.color.background};
@@ -37,7 +37,7 @@ export const ContentArea = styled.div`
 
   > .delete {
     width: 50px;
-    color: ${(props) => props.theme.color.mainText};
+    color: ${(props) => props.theme.color.subText};
     border: none;
     text-decoration: underline;
     font-weight: ${(props) => props.theme.font.titleWeight};
@@ -50,8 +50,8 @@ export const ContentArea = styled.div`
 
 interface PlaylistDataProps {
   list: PlaylistData;
-  newPlayList: object[];
-  setNewPlayList: Function;
+  newPlayList: PlaylistData[];
+  setNewPlayList: React.Dispatch<React.SetStateAction<PlaylistData[]>>;
 }
 
 function NewPlayList({ list, newPlayList, setNewPlayList }: PlaylistDataProps) {
