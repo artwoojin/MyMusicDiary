@@ -64,7 +64,7 @@
 ## :file_folder: 문서함
 + [사용자 요구사항 정의서]()
 + [API 명세서]()
-+ [화면 정의서]()
++ [화면 정의서](https://docs.google.com/presentation/d/1Gfus68FyAZnhMIuU5-JqXjbk_7E2LmNb7CePtcMEWnw/edit?usp=sharing)
 + [개발자 테스트]()
 + [서비스 메뉴얼]()
 <br/>
