@@ -12,13 +12,14 @@
 - **`팀 이름` :** **중요한 건 꺾이지 않는 마음**
 - **`프로젝트 명` :** Mariple(나만의 작은 음악 다이어리)
 - **`프로젝트 기간` :** 2023.03.03. - 2023.04.30.
+- **`프로젝트 소개` :** Mariple은 사용자가 유튜브 또는 유튜브 뮤직의 url을 입력하는 방식으로 플레이리스트를 추가하고 다이어리를 작성하는 블로그+플레이리스트가 결합된 서비스입니다.
 - **`팀원` :**  유우진(팀장), 김덕림, 김동구
 - **`링크` :** [Mariple 홈페이지](http://mylittlemusicdiary.s3-website.ap-northeast-2.amazonaws.com/)
 
 <br/>
 
 ## :bulb: Intro
-<h4>Mariple은 사용자가 유튜브 또는 유튜브 뮤직의 url을 입력하는 방식으로 플레이리스트를 추가하고 다이어리를 작성하는 블로그 + 플레이리스트가 결합된 서비스입니다.</h4>
+<h3>title</h3>
 
 <br/>
 
@@ -61,12 +62,10 @@
 |<img width="360px" src="https://user-images.githubusercontent.com/115632555/235357022-41c78b01-276f-43ed-b13d-06b79c33f23a.gif"/>|<img width="360px" src="https://user-images.githubusercontent.com/115632555/235357107-5e9f8293-8fe6-4d4e-8e06-65ff86bae865.gif"/>|
 
 ## :file_folder: 문서함
-+ [사용자 요구사항 정의서]()
-+ [API 명세서]()
++ [사용자 요구사항 정의서](https://docs.google.com/spreadsheets/d/153_ai6GDBJg-27FtsVWuoYXmLJgbkPunSy3rcv6PI70/edit#gid=1432785522)
++ [API 명세서](https://docs.google.com/spreadsheets/d/153_ai6GDBJg-27FtsVWuoYXmLJgbkPunSy3rcv6PI70/edit#gid=449181220)
 + [화면 정의서](https://docs.google.com/presentation/d/1Gfus68FyAZnhMIuU5-JqXjbk_7E2LmNb7CePtcMEWnw/edit?usp=sharing)
 + [Figma Wireframe](https://www.figma.com/proto/6MVNPekesz9vhabLmQr5vp/30FE-main?page-id=0%3A1&node-id=83-3352&viewport=6952%2C-513%2C0.47&scaling=contain&starting-point-node-id=110%3A836&show-proto-sidebar=1)
-//+ [개발자 테스트]()
-//+ [서비스 메뉴얼]()
 <br/>
 
 ## :pencil2: 커밋 & 코드 컨벤션
