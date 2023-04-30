@@ -47,19 +47,19 @@
 ## 시연 영상
 |**회원가입**|**로그인**|
 |:---:|:---:|
-|<img width="360px" src="#"/>|<img width="360px" src="#"/>|
+|<img width="470px" src="https://user-images.githubusercontent.com/115632555/235355425-02b8922c-911e-4142-8f7b-705cccb2231b.gif"/>|<img width="470px" src="https://user-images.githubusercontent.com/115632555/235355579-6df996d3-04e9-4d93-834d-e22eab250100.gif"/>|
 |**다이어리 등록**|**다이어리 수정 및 삭제**|
-|<img width="360px" src="#"/>|<img width="360px" src="#"/>|
+|<img width="470px" src="#"/>|<img width="470px" src="#"/>|
 |**태그**|**좋아요**|
-|<img width="360px" src="#"/>|<img width="360px" src="#"/>|
+|<img width="470px" src="#"/>|<img width="470px" src="#"/>|
 |**댓글 등록**|**댓글 수정 및 삭제**|
-|<img width="360px" src="#"/>|<img width="360px" src="#"/>|
+|<img width="470px" src="#"/>|<img width="470px" src="#"/>|
 |**프로필 이미지 등록 및 제거**|**닉네임/비밀번호 수정**|
-|<img width="360px" src="#"/>|<img width="360px" src="#"/>|
+|<img width="470px" src="#"/>|<img width="470px" src="#"/>|
 |**회원탈퇴**|**나의 다이어리/좋아한 다이어리/나의 댓글**|
-|<img width="360px" src="#"/>|<img width="360px" src="#"/>|
+|<img width="470px" src="#"/>|<img width="470px" src="#"/>|
 |**로그아웃**|**다크모드**|
-|<img width="360px" src="#"/>|<img width="360px" src="#"/>|
+|<img width="470px" src="#"/>|<img width="470px" src="#"/>|
 
 ## :file_folder: 문서함
 + [사용자 요구사항 정의서]()
