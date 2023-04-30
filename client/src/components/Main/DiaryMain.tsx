@@ -1,11 +1,12 @@
 import DiaryList from "./DiaryList";
 import Pagination from "./Pagination";
+import Skeleton from "../common/Skeleton";
+import ScrollTopButton from "../common/scrollTopButton";
 import styled from "styled-components";
 import { useState, useEffect, useContext } from "react";
 import { DiaryData } from "../../util/Type";
 import { BASE_API } from "../../util/API";
 import { MyContext } from "../../util/MyContext";
-import Skeleton from "../common/Skeleton";
 
 const Test = styled.section`
   display: flex;
@@ -269,12 +270,10 @@ function DiaryMain() {
           )}
         </DiaryMainContainer>
       )}
+      <ScrollTopButton />
       <Pagination
         allPageLength={diaryData.length}
         tagOnePageLength={diaryData.filter((value) => value.tags.includes(tagArr[1].feel)).length}
-        // tagOnePageLength={
-        //   diaryData.filter((value) => value.tags[0]?.tagName === tagArr[1].feel).length
-        // }
         tagTwoPageLength={diaryData.filter((value) => value.tags.includes(tagArr[2].feel)).length}
         tagThreePageLength={diaryData.filter((value) => value.tags.includes(tagArr[3].feel)).length}
         tagFourPageLength={diaryData.filter((value) => value.tags.includes(tagArr[4].feel)).length}

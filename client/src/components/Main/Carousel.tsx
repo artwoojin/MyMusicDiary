@@ -24,7 +24,7 @@ const FirstSlide = styled.div`
 `;
 
 const SecondSlide = styled.div`
-  background-color: #ffe6e6;
+  background-color: #ecf2ff;
 
   height: 310px;
   padding: 0 15px 0 15px;

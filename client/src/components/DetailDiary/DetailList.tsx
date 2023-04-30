@@ -603,7 +603,7 @@ function DetailList({ list, getDetailData }: DiaryDataProps) {
             {ruleModal ? (
               <DeleteModalBack>
                 <RuleModalView>
-                  <div className='ruleModalTitle'>나만의 작은 음악 다이어리 댓글 운영 원칙</div>
+                  <div className='ruleModalTitle'>Mariple 댓글 운영 원칙</div>
                   <div className='warningText'>
                     <div>1. 욕설 및 비방 글을 등록하지 말아 주세요</div>
                     <div>2. 동일한 내용의 글을 반복해서 등록하지 말아 주세요.</div>

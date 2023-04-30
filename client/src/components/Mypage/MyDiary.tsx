@@ -22,8 +22,8 @@ function MyDiary({ list }: DiaryDataProps) {
           <div className='infoTitle'>{list.title}</div>
           <div className='infoDate'>{list.createdAt.substring(0, 10)}</div>
           <DiaryList.TagArea>
-            {list.tags.map((value: any, index: any) => {
-              return <li key={index}>{value.tagName}</li>;
+            {list.tags.map((value: string, index: number) => {
+              return <li key={index}>{value}</li>;
             })}
           </DiaryList.TagArea>
         </DiaryList.InfoArea>

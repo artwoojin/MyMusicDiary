@@ -5,6 +5,7 @@ import MypagePagination from "./MypagePagination";
 import MyLikeDiary from "./MyLikeDiary";
 import MyComment from "./MyComment";
 import MyInfo from "./MyInfo";
+import ScrollTopButton from "../common/scrollTopButton";
 import { useState, useEffect, useContext } from "react";
 import { DiaryData } from "../../util/Type";
 import { CommentData } from "../../util/Type";
@@ -76,24 +77,6 @@ const CommentInfo = styled.div`
     font-weight: ${(props) => props.theme.font.contentWeight};
   }
 `;
-
-// const MyPageImgWrapper = styled.div`
-//   display: flex;
-//   flex-direction: column;
-//   align-items: center;
-
-//   > img {
-//     width: 500px;
-//     height: 340px;
-//     margin-bottom: 20px;
-//   }
-
-//   > div {
-//     color: ${(props) => props.theme.color.subText};
-//     font-size: 25px;
-//     font-weight: ${(props) => props.theme.font.titleWeight};
-//   }
-// `;
 
 function MypageMain() {
   const [myUserData, setMyUserData] = useState<UserData>();
@@ -245,6 +228,7 @@ function MypageMain() {
           </MypageWrapper>
         )}
       </DiaryMain.DiaryMainContainer>
+      <ScrollTopButton />
       <MypagePagination
         myPageLength={myDiaryData.length}
         myLikePageLength={myLikeDiaryData.length}

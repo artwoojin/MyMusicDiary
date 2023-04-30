@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import { useState } from "react";
 import { BiArrowToLeft, BiArrowToRight, BiLeftArrowAlt, BiRightArrowAlt } from "react-icons/bi";
 
 export const PageNum = styled.div`
@@ -217,41 +216,6 @@ function Pagination({
 
   return (
     <>
-      {/* <PageNum>
-        <button className='leftHandle' onClick={firstPageHandler} disabled={mainCurrentPage === 1}>
-          <BiArrowToLeft size={20} />
-        </button>
-        <button className='leftHandle' onClick={prevPageHandler} disabled={mainCurrentPage === 1}>
-          <BiLeftArrowAlt size={19} />
-        </button>
-        {allArr.slice(blockArea, PAGE_COUNT + blockArea).map((n) => (
-          <button
-            className={mainCurrentPage === n ? "pageTab pageFocused" : "pageTab"}
-            key={n}
-            onClick={() => {
-              setMainCurrentPage(n);
-              window.scrollTo(0, parseInt(document.body.style.top || "0", 10) * -1);
-            }}
-          >
-            {n}
-          </button>
-        ))}
-        <button
-          className='rightHandle'
-          onClick={nextPageHandler}
-          disabled={mainCurrentPage === numAllPages}
-        >
-          <BiRightArrowAlt size={19} />
-        </button>
-        <button
-          className='rightHandle'
-          onClick={allLastPageHandler}
-          disabled={mainCurrentPage === numAllPages}
-        >
-          <BiArrowToRight size={20} />
-        </button>
-      </PageNum> */}
-
       {mainCurrentTab === 0 ? (
         allArr.length !== 0 ? (
           <PageNum>
