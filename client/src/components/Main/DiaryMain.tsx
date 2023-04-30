@@ -8,7 +8,7 @@ import { DiaryData } from "../../util/Type";
 import { BASE_API } from "../../util/API";
 import { MyContext } from "../../util/MyContext";
 
-const Test = styled.section`
+const TagContainer = styled.section`
   display: flex;
   justify-content: center;
   height: 60px;
@@ -101,7 +101,7 @@ function DiaryMain() {
   const [mainCurrentPage, setMainCurrentPage] = useState<number>(
     () => JSON.parse(window.localStorage.getItem("mainCurrentPage")!) || 1 // 현재 페이지 번호 (기본값: 1페이지부터 노출)
   );
-  const [blockNum, setBlockNum] = useState<number>(
+  const [mainBlockNum, setMainBlockNum] = useState<number>(
     () => JSON.parse(window.localStorage.getItem("mainCurrentPageBlock")!) || 0
   ); // 현재 페이지네이션 블록 index
 
@@ -113,20 +113,20 @@ function DiaryMain() {
   useEffect(() => {
     window.localStorage.setItem("mainCurrentTab", JSON.stringify(mainCurrentTab));
     setMainCurrentPage(1);
-    setBlockNum(0);
+    setMainBlockNum(0);
   }, [mainCurrentTab]);
 
   // 로컬스토리지에 현재 페이지 번호 저장
   useEffect(() => {
     window.localStorage.setItem("mainCurrentPage", JSON.stringify(mainCurrentPage));
     setMainCurrentPage(mainCurrentPage);
-    setBlockNum(blockNum);
-  }, [mainCurrentPage]);
+    setMainBlockNum(mainBlockNum);
+  }, [mainCurrentPage, mainBlockNum]);
 
   // 로컬스토리지에 페이지 블록 번호 저장
   useEffect(() => {
-    window.localStorage.setItem("mainCurrentPageBlock", JSON.stringify(blockNum));
-  }, [blockNum]);
+    window.localStorage.setItem("mainCurrentPageBlock", JSON.stringify(mainBlockNum));
+  }, [mainBlockNum]);
 
   // 마이페이지 탭, 페이지, 블록 상태 초기화
   useEffect(() => {
@@ -170,7 +170,7 @@ function DiaryMain() {
 
   return (
     <>
-      <Test>
+      <TagContainer>
         <ListTab>
           {tagArr.map((tab, index) => {
             return (
@@ -184,7 +184,7 @@ function DiaryMain() {
             );
           })}
         </ListTab>
-      </Test>
+      </TagContainer>
       {isLoading ? (
         <Skeleton />
       ) : (
@@ -285,8 +285,8 @@ function DiaryMain() {
         mainCurrentPage={mainCurrentPage}
         setMainCurrentPage={setMainCurrentPage}
         mainCurrentTab={mainCurrentTab}
-        blockNum={blockNum}
-        setBlockNum={setBlockNum}
+        mainBlockNum={mainBlockNum}
+        setMainBlockNum={setMainBlockNum}
       />
     </>
   );

@@ -70,8 +70,8 @@ interface PaginationProps {
   tagSixPageLength: number;
   tagSevenPageLength: number;
   tagEightPageLength: number;
-  blockNum: number;
-  setBlockNum: React.Dispatch<React.SetStateAction<number>>;
+  mainBlockNum: number;
+  setMainBlockNum: React.Dispatch<React.SetStateAction<number>>;
 }
 
 function Pagination({
@@ -88,11 +88,11 @@ function Pagination({
   tagSixPageLength,
   tagSevenPageLength,
   tagEightPageLength,
-  blockNum,
-  setBlockNum,
+  mainBlockNum,
+  setMainBlockNum,
 }: PaginationProps) {
   const PAGE_COUNT: number = 5; // 페이지 당 표시할 페이지네이션 수 (기본값 : 10개의 페이지네이션 노출)
-  const blockArea: number = blockNum * PAGE_COUNT; // 각 페이지에서 첫 페이지네이션의 위치 계산
+  const blockArea: number = mainBlockNum * PAGE_COUNT; // 각 페이지에서 첫 페이지네이션의 위치 계산
 
   const numAllPages: number = Math.ceil(allPageLength / LIMIT_COUNT); // 필요한 페이지 개수
   const numTagOnePages: number = Math.ceil(tagOnePageLength / LIMIT_COUNT);
@@ -125,70 +125,70 @@ function Pagination({
   // 제일 처음 페이지로 이동하는 버튼 이벤트 핸들러
   const firstPageHandler = () => {
     setMainCurrentPage(1);
-    setBlockNum(0);
+    setMainBlockNum(0);
     window.scrollTo(0, parseInt(document.body.style.top || "0", 10) * -1);
   };
 
   // 전체 데이터에서 제일 마지막 페이지로 이동하는 버튼 이벤트 핸들러
   const allLastPageHandler = () => {
     setMainCurrentPage(numAllPages);
-    setBlockNum(Math.ceil(numAllPages / PAGE_COUNT) - 1);
+    setMainBlockNum(Math.ceil(numAllPages / PAGE_COUNT) - 1);
     window.scrollTo(0, parseInt(document.body.style.top || "0", 10) * -1);
   };
 
   // #신나는 태그에서 제일 마지막 페이지로 이동하는 버튼 이벤트 핸들러
   const tagOneLastPageHandler = () => {
     setMainCurrentPage(numTagOnePages);
-    setBlockNum(Math.ceil(numTagOnePages / PAGE_COUNT) - 1);
+    setMainBlockNum(Math.ceil(numTagOnePages / PAGE_COUNT) - 1);
     window.scrollTo(0, parseInt(document.body.style.top || "0", 10) * -1);
   };
 
   // #감성적인 태그에서 제일 마지막 페이지로 이동하는 버튼 이벤트 핸들러
   const tagTwoLastPageHandler = () => {
     setMainCurrentPage(numTagTwoPages);
-    setBlockNum(Math.ceil(numTagTwoPages / PAGE_COUNT) - 1);
+    setMainBlockNum(Math.ceil(numTagTwoPages / PAGE_COUNT) - 1);
     window.scrollTo(0, parseInt(document.body.style.top || "0", 10) * -1);
   };
 
   // #잔잔한 태그에서 제일 마지막 페이지로 이동하는 버튼 이벤트 핸들러
   const tagThreeLastPageHandler = () => {
     setMainCurrentPage(numTagThreePages);
-    setBlockNum(Math.ceil(numTagThreePages / PAGE_COUNT) - 1);
+    setMainBlockNum(Math.ceil(numTagThreePages / PAGE_COUNT) - 1);
     window.scrollTo(0, parseInt(document.body.style.top || "0", 10) * -1);
   };
 
   // #애절한 태그에서 제일 마지막 페이지로 이동하는 버튼 이벤트 핸들러
   const tagFourLastPageHandler = () => {
     setMainCurrentPage(numTagFourPages);
-    setBlockNum(Math.ceil(numTagFourPages / PAGE_COUNT) - 1);
+    setMainBlockNum(Math.ceil(numTagFourPages / PAGE_COUNT) - 1);
     window.scrollTo(0, parseInt(document.body.style.top || "0", 10) * -1);
   };
 
   // #그루브한 태그에서 제일 마지막 페이지로 이동하는 버튼 이벤트 핸들러
   const tagFiveLastPageHandler = () => {
     setMainCurrentPage(numTagFivePages);
-    setBlockNum(Math.ceil(numTagFivePages / PAGE_COUNT) - 1);
+    setMainBlockNum(Math.ceil(numTagFivePages / PAGE_COUNT) - 1);
     window.scrollTo(0, parseInt(document.body.style.top || "0", 10) * -1);
   };
 
   // #몽환적인 태그에서 제일 마지막 페이지로 이동하는 버튼 이벤트 핸들러
   const tagSixLastPageHandler = () => {
     setMainCurrentPage(numTagSixPages);
-    setBlockNum(Math.ceil(numTagSixPages / PAGE_COUNT) - 1);
+    setMainBlockNum(Math.ceil(numTagSixPages / PAGE_COUNT) - 1);
     window.scrollTo(0, parseInt(document.body.style.top || "0", 10) * -1);
   };
 
   // #어쿠스틱한 태그에서 제일 마지막 페이지로 이동하는 버튼 이벤트 핸들러
   const tagSevenLastPageHandler = () => {
     setMainCurrentPage(numTagSevenPages);
-    setBlockNum(Math.ceil(numTagSevenPages / PAGE_COUNT) - 1);
+    setMainBlockNum(Math.ceil(numTagSevenPages / PAGE_COUNT) - 1);
     window.scrollTo(0, parseInt(document.body.style.top || "0", 10) * -1);
   };
 
   // #청량한한 태그에서 제일 마지막 페이지로 이동하는 버튼 이벤트 핸들러
   const tagEigthLastPageHandler = () => {
     setMainCurrentPage(numTagEightPages);
-    setBlockNum(Math.ceil(numTagEightPages / PAGE_COUNT) - 1);
+    setMainBlockNum(Math.ceil(numTagEightPages / PAGE_COUNT) - 1);
     window.scrollTo(0, parseInt(document.body.style.top || "0", 10) * -1);
   };
 
@@ -196,8 +196,8 @@ function Pagination({
   const prevPageHandler = () => {
     if (mainCurrentPage <= 1) {
       return;
-    } else if (mainCurrentPage - 1 <= PAGE_COUNT * blockNum) {
-      setBlockNum((n: number) => n - 1);
+    } else if (mainCurrentPage - 1 <= PAGE_COUNT * mainBlockNum) {
+      setMainBlockNum((n: number) => n - 1);
     }
     setMainCurrentPage((n: number) => n - 1);
     window.scrollTo(0, parseInt(document.body.style.top || "0", 10) * -1);
@@ -207,8 +207,8 @@ function Pagination({
   const nextPageHandler = () => {
     if (mainCurrentPage >= numAllPages) {
       return;
-    } else if (PAGE_COUNT * (blockNum + 1) < mainCurrentPage + 1) {
-      setBlockNum((n: number) => n + 1);
+    } else if (PAGE_COUNT * (mainBlockNum + 1) < mainCurrentPage + 1) {
+      setMainBlockNum((n: number) => n + 1);
     }
     setMainCurrentPage((n: number) => n + 1);
     window.scrollTo(0, parseInt(document.body.style.top || "0", 10) * -1);

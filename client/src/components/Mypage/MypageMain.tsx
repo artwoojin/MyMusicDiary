@@ -107,7 +107,7 @@ function MypageMain() {
     window.localStorage.setItem("myCurrentPage", JSON.stringify(myCurrentPage));
     setMyCurrentPage(myCurrentPage);
     setBlockNum(blockNum);
-  }, [myCurrentPage]);
+  }, [myCurrentPage, blockNum]);
 
   useEffect(() => {
     window.localStorage.setItem("myCurrentPageBlock", JSON.stringify(blockNum));

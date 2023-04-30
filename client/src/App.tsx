@@ -44,18 +44,21 @@ function App() {
     localStorage.setItem("theme", changeTheme);
   };
 
-  // 브라우저 종료 시 메인페이지 탭, 페이지, 블록 로컬스토리지 초기화
-  const removeMainLocal = () => {
+  // 브라우저 종료/새로고침 시 메인/마이 페이지 탭, 페이지, 블록 로컬스토리지 초기화
+  const removeLocalStorage = () => {
     localStorage.removeItem("mainCurrentTab");
     localStorage.removeItem("mainCurrentPage");
     localStorage.removeItem("mainCurrentPageBlock");
+    localStorage.removeItem("myCurrentTab");
+    localStorage.removeItem("myCurrentPage");
+    localStorage.removeItem("myCurrentPageBlock");
   };
   useEffect(() => {
     (() => {
-      window.addEventListener("unload", removeMainLocal);
+      window.addEventListener("unload", removeLocalStorage);
     })();
     return () => {
-      window.removeEventListener("unload", removeMainLocal);
+      window.removeEventListener("unload", removeLocalStorage);
     };
   }, []);
 
