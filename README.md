@@ -28,7 +28,7 @@
 | [유우진<br>(BE, 팀장)](https://github.com/artwoojin) | [김덕림<br>(BE)](https://github.com/vxy2715) | [김동구<br>(FE)](https://github.com/kimdonggu42) |
 | :---: | :---: | :---: |
   | <img alt="유우진" src="https://user-images.githubusercontent.com/115632555/234250563-0aa03899-97a9-42bc-8cac-9c01df190646.png" height="150"> | <img alt="김덕림" src="https://user-images.githubusercontent.com/115632555/234252617-540a3de6-99cf-4644-86c1-2189cd59f961.png" height="150"> | <img alt="김동구" src="https://user-images.githubusercontent.com/115632555/234249002-72fbe9e4-8808-4b01-bc9c-53bd6fd7793f.jpg" height="150" style=""> |
-| <p align="left">- #<br/>- #<br/>- #<br/>- #<br/>- #<br/>- #<br/></p> | <p align="left">- #<br/>- #<br/>- #<br/>- #<br/>- #<br/></p> | <p align="left">- #<br/>- #<br/>- #<br/> </p>|
+| <p align="left">- 플레이리스트 CRUD<br/>- 다이어리/댓글 CRUD<br/>- 페이지네이션<br/>- 다크모드<br/>- #<br/>- #<br/></p> | <p align="left">- #<br/>- #<br/>- #<br/>- #<br/>- #<br/></p> | <p align="left">- #<br/>- #<br/>- #<br/> </p>|
 <br/>
 
 ## :computer: 기술 스택
