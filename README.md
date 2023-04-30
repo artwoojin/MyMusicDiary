@@ -42,20 +42,20 @@
 ### Etc
 <img src="https://img.shields.io/badge/Git-F05032?style=for-the-badge&logo=Git&logoColor=white"> <img src="https://img.shields.io/badge/Github-181717?style=for-the-badge&logo=Github&logoColor=white"> <img src="https://img.shields.io/badge/Discord-5865F2?style=for-the-badge&logo=Discord&logoColor=white"> <img src="https://img.shields.io/badge/Notion-000000?style=for-the-badge&logo=Notion&logoColor=white"> <img src="https://img.shields.io/badge/Figma-F24E1E?style=for-the-badge&logo=Figma&logoColor=white">
 
-<br/>   
+<br/>
 
 ## 시연 영상
 |**회원가입**|**로그인**|
 |:---:|:---:|
 |<img width="470px" src="https://user-images.githubusercontent.com/115632555/235355425-02b8922c-911e-4142-8f7b-705cccb2231b.gif"/>|<img width="470px" src="https://user-images.githubusercontent.com/115632555/235355579-6df996d3-04e9-4d93-834d-e22eab250100.gif"/>|
 |**다이어리 등록**|**다이어리 수정 및 삭제**|
-|<img width="470px" src="#"/>|<img width="470px" src="#"/>|
+|<img width="470px" src="https://user-images.githubusercontent.com/115632555/235355813-a92c18fe-4e6f-4546-a57f-c368c8cd483f.gif"/>|<img width="470px" src="https://user-images.githubusercontent.com/115632555/235355910-1bed73c0-1016-430e-bb71-20441dc96006.gif"/>|
 |**태그**|**좋아요**|
-|<img width="470px" src="#"/>|<img width="470px" src="#"/>|
+|<img width="470px" src="https://user-images.githubusercontent.com/115632555/235356292-162636dc-e789-4136-b03e-0be47379063b.gif"/>|<img width="470px" src="https://user-images.githubusercontent.com/115632555/235356368-19215cdd-4f53-4a8c-83a3-d36a00a7e45d.gif"/>|
 |**댓글 등록**|**댓글 수정 및 삭제**|
-|<img width="470px" src="#"/>|<img width="470px" src="#"/>|
+|<img width="470px" src="https://user-images.githubusercontent.com/115632555/235356431-2e05042a-fec8-48d9-a15c-de9bde1f2231.gif"/>|<img width="470px" src="https://user-images.githubusercontent.com/115632555/235356493-0240458d-1af1-41ec-bd2a-69a25443d934.gif"/>|
 |**프로필 이미지 등록 및 제거**|**닉네임/비밀번호 수정**|
-|<img width="470px" src="#"/>|<img width="470px" src="#"/>|
+|<img width="470px" src="https://user-images.githubusercontent.com/115632555/235356631-49149fb4-0721-4e49-84e5-7514267f82bd.gif"/>|<img width="470px" src="https://user-images.githubusercontent.com/115632555/235356687-4ae97885-37e7-4535-8514-19b5761deaca.gif"/>|
 |**회원탈퇴**|**나의 다이어리/좋아한 다이어리/나의 댓글**|
 |<img width="470px" src="#"/>|<img width="470px" src="#"/>|
 |**로그아웃**|**다크모드**|
