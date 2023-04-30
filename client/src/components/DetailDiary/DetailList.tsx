@@ -507,8 +507,10 @@ function DetailList({ list, getDetailData }: DiaryDataProps) {
 
   const getLikeData = async () => {
     try {
-      const res = await TOKEN_API.get(`/users/${currentUser.userId}`);
-      setMyLikeDiaryData(res.data.likeDiaries);
+      if (currentUser) {
+        const res = await TOKEN_API.get(`/users/${currentUser.userId}`);
+        setMyLikeDiaryData(res.data.likeDiaries);
+      }
     } catch (err) {
       console.error(err);
     }
