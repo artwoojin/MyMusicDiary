@@ -1,6 +1,6 @@
 import * as NewMain from "../NewDiary/NewMain";
 import { useState, useEffect } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, Link } from "react-router-dom";
 import { DiaryDataProps } from "../../util/Type";
 import { TOKEN_API } from "../../util/API";
 import ReactQuill from "react-quill";
@@ -11,34 +11,52 @@ import { PlaylistData } from "../../util/Type";
 import { toast } from "react-toastify";
 import { FiPlus } from "react-icons/fi";
 import { IoIosClose } from "react-icons/io";
-import mainIcon from "../../util/img/mainIcon.png";
+import { AiFillYoutube } from "react-icons/ai";
+import mainIcon from "../../assets/images/mainIcon.png";
+import Modal from "../common/Modal";
 
 function EditList({ list }: DiaryDataProps) {
   const [editTitle, setEditTitle] = useState<string>(list.title);
-  const [editTag, setEditTag] = useState<any>([]);
+  const [editTag, setEditTag] = useState<any>(list.tags);
   const [editBody, setEditBody] = useState<string>(list.body);
   const [editPlayList, setEditPlayList] = useState<PlaylistData[]>(list.playlists);
   const [editUrl, setEditUrl] = useState<string>("");
+  const [editCancelModalOpen, setEditCancelModalOpen] = useState<boolean>(false);
 
   const navigate = useNavigate();
   const { diaryId } = useParams();
 
   // 다이어리 patch 요청
   const submitHandler = async () => {
-    if (editTitle.length <= 100 && editTitle.length !== 0 && editPlayList.length !== 0) {
-      const editDiary = {
-        title: editTitle,
-        body: editBody,
-        playlists: editPlayList,
-      };
-      await TOKEN_API.patch(`/diary/${diaryId}`, editDiary);
-      navigate(`/DetailDiary/${diaryId}`);
-    } else if (editTitle.length === 0 && editTitle.length === 0) {
-      toast.error("제목을 입력해 주세요.");
-    } else if (editTitle.length > 100) {
-      toast.error("제목의 길이를 줄여주세요.");
-    } else {
-      toast.error("플레이리스트를 등록해 주세요.");
+    try {
+      if (
+        editTitle.length <= 50 &&
+        editTitle.length !== 0 &&
+        editTag.length !== 0 &&
+        editBody.length !== 0 &&
+        editPlayList.length !== 0
+      ) {
+        const editDiary = {
+          title: editTitle,
+          tags: editTag,
+          body: editBody,
+          playlists: editPlayList,
+        };
+        await TOKEN_API.patch(`/diary/${diaryId}`, editDiary);
+        navigate(`/DetailDiary/${diaryId}`);
+      } else if (editTitle.length === 0) {
+        toast.error("제목을 입력해 주세요.");
+      } else if (editTitle.length > 50) {
+        toast.error("제목은 50글자 이하로 작성해주세요.");
+      } else if (editTag.length === 0) {
+        toast.error("태그를 1개 이상 선택해주세요.");
+      } else if (editBody.length === 0) {
+        toast.error("다어어리 소개글을 작성해주세요.");
+      } else if (editPlayList.length === 0) {
+        toast.error("플레이리스트를 등록해 주세요.");
+      }
+    } catch (err) {
+      console.error(err);
     }
   };
 
@@ -128,7 +146,6 @@ function EditList({ list }: DiaryDataProps) {
     if (value !== "") {
       if (editTag.length <= 3 && !editTag.includes(value)) {
         setEditTag([...editTag, value]);
-        console.log(editTag);
       } else if (editTag.length === 4) {
         toast.error("태그는 4개까지만 추가할 수 있습니다.");
       } else if (editTag.includes(value)) {
@@ -140,7 +157,6 @@ function EditList({ list }: DiaryDataProps) {
   // 태그 삭제 이벤트 핸들러
   const removeTags = (deleteIndex: any) => {
     setEditTag(editTag.filter((value: any) => value !== editTag[deleteIndex]));
-    console.log(editTag);
   };
 
   // 새로고침 & 페이지 닫기 방지
@@ -157,6 +173,32 @@ function EditList({ list }: DiaryDataProps) {
     };
   }, []);
 
+  // 다이어리 등록 취소 모달 오픈 이벤트 핸들러
+  const openModalHandler = () => {
+    setEditCancelModalOpen(!editCancelModalOpen);
+    document.body.style.cssText = `
+        position: fixed;
+        top: -${window.scrollY}px;
+        overflow-y: scroll;
+        width: 100%;`;
+  };
+
+  // 다이어리 등록 취소 모달 클로즈 이벤트 핸들러
+  const closeModalHandler = () => {
+    setEditCancelModalOpen(!editCancelModalOpen);
+    const scrollY = document.body.style.top;
+    document.body.style.cssText = "";
+    window.scrollTo(0, parseInt(scrollY || "0", 10) * -1);
+  };
+
+  // 다이어리 등록 페이지 나기기 이벤트 핸들러
+  const backPage = () => {
+    navigate(-1);
+    const scrollY = document.body.style.top;
+    document.body.style.cssText = "";
+    window.scrollTo(0, parseInt(scrollY || "0", 10) * -1);
+  };
+
   return (
     <NewMain.MainContainer>
       <NewMain.MainWrapper>
@@ -165,10 +207,9 @@ function EditList({ list }: DiaryDataProps) {
             className='inputTitle'
             type='text'
             value={editTitle}
-            placeholder='제목을 입력하세요'
+            placeholder='제목을 작성해 주세요'
             onChange={changeEditTitle}
           />
-          <NewMain.SubmitButton onClick={submitHandler}>수정하기</NewMain.SubmitButton>
         </NewMain.TitleArea>
         <NewMain.AlbumCoverArea>
           <NewMain.CoverImg
@@ -206,7 +247,7 @@ function EditList({ list }: DiaryDataProps) {
               <option value='#청량한'>청량한</option>
             </select>
             <NewMain.Tag>
-              {editTag.map((value: any, index: any) => (
+              {editTag.map((value: string, index: number) => (
                 <li key={index}>
                   <div className='tagTitle'>{value}</div>
                   <div className='tagcloseBtn' onClick={() => removeTags(index)}>
@@ -227,9 +268,14 @@ function EditList({ list }: DiaryDataProps) {
           />
         </NewMain.AlbumInfoArea>
         <NewMain.PlayListArea>
-          <div className='playTitle'>
-            다이어리 수록곡 <span className='playCount'>({editPlayList.length})</span>
-          </div>
+          <NewMain.PlayTitleArea>
+            <div className='playTitle'>
+              다이어리 수록곡 <span className='playCount'>({editPlayList.length})</span>
+            </div>
+            <Link to='https://www.youtube.com/' target='_blank'>
+              <AiFillYoutube className='youtubeIcon' size={30} />
+            </Link>
+          </NewMain.PlayTitleArea>
           <NewMain.UrlInput>
             <input
               value={editUrl}
@@ -240,17 +286,40 @@ function EditList({ list }: DiaryDataProps) {
               <FiPlus size={25} />
             </button>
           </NewMain.UrlInput>
-          {editPlayList?.map((value, index) => {
-            return (
-              <EditPlayList
-                list={value}
-                key={index}
-                editPlayList={editPlayList}
-                setEditPlayList={setEditPlayList}
-              />
-            );
-          })}
+          {editPlayList.length >= 1 ? (
+            <>
+              {editPlayList?.map((value, index) => {
+                return (
+                  <EditPlayList
+                    list={value}
+                    key={index}
+                    editPlayList={editPlayList}
+                    setEditPlayList={setEditPlayList}
+                  />
+                );
+              })}
+            </>
+          ) : (
+            <NewMain.EmptyPlayListText>추가한 플레이리스트가 없습니다.</NewMain.EmptyPlayListText>
+          )}
         </NewMain.PlayListArea>
+        <NewMain.SubmitArea>
+          <button className='cancelButton' onClick={openModalHandler}>
+            나가기
+          </button>
+          {editCancelModalOpen ? (
+            <Modal
+              title={"수정 페이지를 나가시겠습니까?"}
+              text={"작성 중인 내용은 저장되지 않습니다."}
+              confirmText={"나가기"}
+              cancelHandler={closeModalHandler}
+              confirmHandler={backPage}
+            />
+          ) : null}
+          <button className='submitButton' onClick={submitHandler}>
+            등록
+          </button>
+        </NewMain.SubmitArea>
       </NewMain.MainWrapper>
     </NewMain.MainContainer>
   );

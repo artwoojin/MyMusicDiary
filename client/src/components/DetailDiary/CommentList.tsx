@@ -2,7 +2,9 @@ import styled from "styled-components";
 import { useState, useContext } from "react";
 import { CommentData } from "../../util/Type";
 import { TOKEN_API } from "../../util/API";
-import { MyContext } from "../../theme";
+import { MyContext } from "../../util/MyContext";
+import defaultProfile from "../../assets/images/defaultProfile.png";
+import Modal from "../common/Modal";
 
 export const CommentListContainer = styled.li`
   display: flex;
@@ -43,6 +45,7 @@ const NameArea = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin-bottom: 10px;
 `;
 
 const EditCommentArea = styled.input`
@@ -59,6 +62,20 @@ const EditCommentArea = styled.input`
   }
 `;
 
+export const UserInfoArea = styled.div`
+  display: flex;
+  align-items: center;
+`;
+
+export const Profile = styled.img`
+  width: 30px;
+  height: 30px;
+  margin-right: 8px;
+  border-radius: 50%;
+  object-fit: cover;
+  background-color: ${(props) => props.theme.color.inputBackground};
+`;
+
 const ButtonArea = styled.div`
   display: flex;
 
@@ -69,98 +86,12 @@ const ButtonArea = styled.div`
     font-size: 13px;
     padding: 5px;
     background-color: transparent;
-    cursor: pointer;
-  }
-
-  > .edit {
+    color: ${(props) => props.theme.color.subText};
+    font-weight: ${(props) => props.theme.font.titleWeight};
     width: 40px;
-    color: ${(props) => props.theme.color.mainText};
     border: none;
     text-decoration: underline;
-    font-weight: ${(props) => props.theme.font.titleWeight};
-  }
-
-  > .delete {
-    width: 40px;
-    color: ${(props) => props.theme.color.mainText};
-    border: none;
-    text-decoration: underline;
-    font-weight: ${(props) => props.theme.font.titleWeight};
-  }
-`;
-
-const DeleteModalBack = styled.div`
-  position: fixed;
-  z-index: 999;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  right: 0;
-  background-color: rgba(0, 0, 0, 0.4);
-  display: grid;
-  place-items: center;
-`;
-
-const DeleteModalView = styled.div`
-  text-align: center;
-  border-radius: 4px;
-  background-color: ${(props) => props.theme.color.background};
-  width: 80%;
-  max-width: 400px;
-  height: 200px;
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.19), 0 10px 10px rgba(0, 0, 0, 0.1);
-
-  > .deleteModalTitle {
-    color: ${(props) => props.theme.color.mainText};
-    font-size: ${(props) => props.theme.font.diarySubTitleSize}px;
-    font-weight: ${(props) => props.theme.font.titleWeight};
-    text-align: center;
-    margin: 30px 15px 35px 15px;
-  }
-
-  > .warningText {
-    color: ${(props) => props.theme.color.subText};
-    font-size: ${(props) => props.theme.font.diaryContentSize}px;
-    font-weight: ${(props) => props.theme.font.contentWeight};
-    margin: 0 15px 43px 15px;
-  }
-
-  > button {
-    font-size: ${(props) => props.theme.font.diaryContentSize}px;
-    font-weight: ${(props) => props.theme.font.titleWeight};
-    width: 50%;
-    height: 50px;
-    border: none;
-    text-decoration: none;
     cursor: pointer;
-
-    &:hover {
-      text-decoration: none;
-    }
-  }
-
-  > .deleteCancelButton {
-    color: ${(props) => props.theme.color.subText};
-    background-color: transparent;
-    border-top: 1px solid ${(props) => props.theme.color.borderLine};
-    border-right: 0.5px solid ${(props) => props.theme.color.borderLine};
-    border-bottom-left-radius: 4px;
-
-    &:hover {
-      background-color: ${(props) => props.theme.color.buttonHover};
-    }
-  }
-
-  > .deleteButton {
-    color: #ec1d36;
-    background-color: transparent;
-    border-top: 1px solid ${(props) => props.theme.color.borderLine};
-    border-left: 0.5px solid ${(props) => props.theme.color.borderLine};
-    border-bottom-right-radius: 4px;
-
-    &:hover {
-      background-color: ${(props) => props.theme.color.buttonHover};
-    }
   }
 `;
 
@@ -193,6 +124,9 @@ function CommentList({ list, getDetailData }: CommentDataProps) {
   const commentDelete = async () => {
     const res = await TOKEN_API.delete(`/comment/${list.commentId}`);
     getDetailData(res.data);
+    const scrollY = document.body.style.top;
+    document.body.style.cssText = "";
+    window.scrollTo(0, parseInt(scrollY || "0", 10) * -1);
   };
 
   // 댓글 변경 클릭 이벤트
@@ -223,11 +157,22 @@ function CommentList({ list, getDetailData }: CommentDataProps) {
     window.scrollTo(0, parseInt(scrollY || "0", 10) * -1);
   };
 
+  const replaceImg = (e: any) => {
+    e.target.src = defaultProfile;
+  };
+
   return (
     <CommentListContainer>
       <CommentListWrapper>
         <NameArea>
-          <div className='name'>{list.userNickname}</div>
+          <UserInfoArea>
+            <Profile
+              src={list?.imageUrl ? list?.imageUrl : defaultProfile}
+              alt='프로필 이미지'
+              onError={replaceImg}
+            />
+            <div className='name'>{list.userNickname}</div>
+          </UserInfoArea>
           <ButtonArea>
             {myComment === true ? (
               <>
@@ -246,24 +191,13 @@ function CommentList({ list, getDetailData }: CommentDataProps) {
               </>
             ) : null}
             {deleteCommentModal ? (
-              <DeleteModalBack>
-                <DeleteModalView>
-                  <div className='deleteModalTitle'>댓글을 삭제 하시겠습니까?</div>
-                  <div className='warningText'>삭제한 댓글은 복구되지 않습니다.</div>
-                  <button className='deleteCancelButton' onClick={closeDeleteModalHandler}>
-                    취소
-                  </button>
-                  <button
-                    className='deleteButton'
-                    onClick={() => {
-                      commentDelete();
-                      closeDeleteModalHandler();
-                    }}
-                  >
-                    삭제
-                  </button>
-                </DeleteModalView>
-              </DeleteModalBack>
+              <Modal
+                title={"댓글을 삭제 하시겠습니까?"}
+                text={"삭제한 댓글은 복구되지 않습니다."}
+                confirmText={"삭제"}
+                cancelHandler={closeDeleteModalHandler}
+                confirmHandler={commentDelete}
+              />
             ) : null}
           </ButtonArea>
         </NameArea>

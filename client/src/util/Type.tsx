@@ -9,7 +9,8 @@ export interface DiaryData {
   userNickname: string;
   comments: CommentData[];
   playlists: PlaylistData[];
-  tag: string[];
+  tags: string[];
+  imageUrl: string;
 }
 
 export interface DiaryDataProps {
@@ -34,6 +35,7 @@ export interface CommentData {
   createdAt: string;
   modifiedAt: string;
   userNickname: string;
+  imageUrl: string;
 }
 
 export interface CommentDataProps {
@@ -50,7 +52,7 @@ export interface UserData {
 }
 
 export interface FormValue {
-  nickname: string;
+  nickname?: string;
   email: string;
   password: string;
 }

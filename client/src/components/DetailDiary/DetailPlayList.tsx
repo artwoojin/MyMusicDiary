@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { PlaylistDataProps } from "../../util/Type";
-import mainIcon from "../../util/img/mainIcon.png";
+import mainIcon from "../../assets/images/mainIcon.png";
 
 const PlayListContainer = styled.li`
   display: flex;
@@ -27,7 +27,7 @@ const ContentArea = styled.div`
   > .thumbnail {
     width: 50px;
     height: 50px;
-    margin-right: 20px;
+    margin-right: 15px;
     border-radius: 4px;
     object-fit: cover;
     background-color: ${(props) => props.theme.color.background};
@@ -43,6 +43,10 @@ const ContentArea = styled.div`
   &:hover {
     border-radius: 4px;
     background-color: ${(props) => props.theme.color.buttonHover};
+
+    .thumbnail {
+      background-color: red;
+    }
   }
 `;
 

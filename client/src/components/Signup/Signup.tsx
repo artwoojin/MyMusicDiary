@@ -1,9 +1,13 @@
 import styled from "styled-components";
+import { useContext } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { BASE_API } from "../../util/API";
 import { toast } from "react-toastify";
 import { FormValue } from "../../util/Type";
+import { MyContext } from "../../util/MyContext";
+import logo_black from "../../assets/images/logo_black.png";
+import logo_white from "../../assets/images/logo_white.png";
 
 export const SignContainer = styled.div`
   height: 100vh;
@@ -13,15 +17,9 @@ export const SignContainer = styled.div`
   flex-direction: column;
 `;
 
-export const Logo = styled.div`
-  font-weight: ${(props) => props.theme.font.logoWeight};
-  font-size: 25px;
-  margin: 0 15px 30px 15px;
-
-  a {
-    color: ${(props) => props.theme.color.logo};
-    text-decoration: none;
-  }
+export const Logo = styled.img`
+  width: 200px;
+  height: 100px;
 `;
 
 const FormContainer = styled.form`
@@ -112,6 +110,7 @@ export const SubmitButton = styled.button`
 export const MovePageButton = styled.button`
   font-size: ${(props) => props.theme.font.diaryContentSize}px;
   margin-top: 20px;
+  margin-bottom: 50px;
   width: 90vw;
   max-width: 400px;
   height: 60px;
@@ -147,6 +146,7 @@ function Signup() {
     formState: { errors },
   } = useForm<FormValue>();
 
+  const { isChange }: any = useContext(MyContext);
   const navigate = useNavigate();
 
   const onSubmit: SubmitHandler<FormValue> = async (data) => {
@@ -168,9 +168,9 @@ function Signup() {
 
   return (
     <SignContainer>
-      <Logo>
-        <Link to='/'>나만의 작은 음악 다이어리</Link>
-      </Logo>
+      <Link to='/'>
+        {isChange === "dark" ? <Logo src={logo_white} /> : <Logo src={logo_black} />}
+      </Link>
       <FormContainer>
         <NicknameInput placeholder='닉네임' {...register("nickname")} />
         <EmailInput

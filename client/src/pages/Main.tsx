@@ -1,10 +1,10 @@
 import styled from "styled-components";
 import Carousel from "../components/Main/Carousel";
 import DiaryMain from "../components/Main/DiaryMain";
-import LoginHeader from "../components/LoginHeader";
-import LogoutHeader from "../components/LogoutHeader";
+import LoginHeader from "../components/Nav/LoginHeader";
+import LogoutHeader from "../components/Nav/LogoutHeader";
 import { useContext } from "react";
-import { MyContext } from "../theme";
+import { MyContext } from "../util/MyContext";
 
 export const Page = styled.div`
   background-color: ${(props) => props.theme.color.background};

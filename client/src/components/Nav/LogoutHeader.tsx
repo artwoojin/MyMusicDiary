@@ -3,7 +3,9 @@ import * as LoginHeader from "./LoginHeader";
 import { Link } from "react-router-dom";
 import { BsFillSunFill, BsFillMoonStarsFill } from "react-icons/bs";
 import { useContext } from "react";
-import { MyContext } from "../theme";
+import { MyContext } from "../../util/MyContext";
+import logo_black from "../../assets/images/logo_black.png";
+import logo_white from "../../assets/images/logo_white.png";
 
 const ButtonArea = styled.div`
   display: flex;
@@ -29,9 +31,13 @@ function LogoutHeader() {
   return (
     <LoginHeader.HeaderContainer>
       <LoginHeader.HeaderWrapper>
-        <LoginHeader.Logo>
-          <Link to='/'>나만의 작은 음악 다이어리</Link>
-        </LoginHeader.Logo>
+        <Link to='/'>
+          {isChange === "dark" ? (
+            <LoginHeader.Logo src={logo_white} />
+          ) : (
+            <LoginHeader.Logo src={logo_black} />
+          )}
+        </Link>
         <ButtonArea>
           <LoginHeader.ModeButton onClick={changeMode}>
             {isChange === "dark" ? (

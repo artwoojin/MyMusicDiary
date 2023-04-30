@@ -9,6 +9,7 @@ declare module "styled-components" {
       mainText: string;
       subText: string;
       thirdText: string;
+      tagText: string;
 
       signature: string;
       signatureHover: string;

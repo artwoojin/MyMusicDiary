@@ -5,21 +5,19 @@ import MypagePagination from "./MypagePagination";
 import MyLikeDiary from "./MyLikeDiary";
 import MyComment from "./MyComment";
 import MyInfo from "./MyInfo";
+import ScrollTopButton from "../common/scrollTopButton";
 import { useState, useEffect, useContext } from "react";
 import { DiaryData } from "../../util/Type";
 import { CommentData } from "../../util/Type";
 import { UserData } from "../../util/Type";
 import { BASE_API } from "../../util/API";
-import { MyContext } from "../../theme";
-import diary from "../../util/img/diary.png";
-import like from "../../util/img/like.png";
-import comment from "../../util/img/comment.png";
+import { MyContext } from "../../util/MyContext";
 
 const ListTab = styled.ul`
   display: flex;
   justify-content: center;
   font-size: 16px;
-  margin: 50px 0 50px 0;
+  margin: 50px 0 45px 0;
   padding: 0 15px 0 15px;
   gap: 10px;
   word-break: keep-all;
@@ -58,7 +56,6 @@ const MypageWrapper = styled.div`
   width: 100vw;
   max-width: 850px;
   padding: 0 10px 0 10px;
-  /* border: 1px solid red; */
 `;
 
 const CommentCountWrapper = styled.div`
@@ -81,41 +78,40 @@ const CommentInfo = styled.div`
   }
 `;
 
-const MyPageImgWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-
-  > img {
-    width: 500px;
-    height: 340px;
-    margin-bottom: 20px;
-  }
-
-  > div {
-    color: ${(props) => props.theme.color.subText};
-    font-size: 25px;
-    font-weight: ${(props) => props.theme.font.titleWeight};
-  }
-`;
-
 function MypageMain() {
   const [myUserData, setMyUserData] = useState<UserData>();
   const [myDiaryData, setMyDiaryData] = useState<DiaryData[]>([]);
-  const [myLikeDiaryData, setLikeDiaryData] = useState<DiaryData[]>([]);
+  const [myLikeDiaryData, setMyLikeDiaryData] = useState<DiaryData[]>([]);
   const [myCommentData, setMyCommentData] = useState<CommentData[]>([]);
-  const [currentTab, setCurrentTab] = useState<number>(
+  const [myCurrentTab, setMyCurrentTab] = useState<number>(
     () => JSON.parse(window.localStorage.getItem("myCurrentTab")!) || 0
   );
-  const [page, setPage] = useState<number>(1);
-
-  useEffect(() => {
-    window.localStorage.setItem("myCurrentTab", JSON.stringify(currentTab));
-  }, [currentTab]);
+  const [myCurrentPage, setMyCurrentPage] = useState<number>(
+    () => JSON.parse(window.localStorage.getItem("myCurrentPage")!) || 1
+  );
+  const [blockNum, setBlockNum] = useState<number>(
+    () => JSON.parse(window.localStorage.getItem("myCurrentPageBlock")!) || 0
+  ); // 현재 페이지네이션 블록 index
 
   const LIMIT_COUNT: number = 20;
-  const offset: number = (page - 1) * LIMIT_COUNT;
+  const offset: number = (myCurrentPage - 1) * LIMIT_COUNT;
   const { currentUser }: any = useContext(MyContext);
+
+  useEffect(() => {
+    window.localStorage.setItem("myCurrentTab", JSON.stringify(myCurrentTab));
+    setMyCurrentPage(1);
+    setBlockNum(0);
+  }, [myCurrentTab]);
+
+  useEffect(() => {
+    window.localStorage.setItem("myCurrentPage", JSON.stringify(myCurrentPage));
+    setMyCurrentPage(myCurrentPage);
+    setBlockNum(blockNum);
+  }, [myCurrentPage, blockNum]);
+
+  useEffect(() => {
+    window.localStorage.setItem("myCurrentPageBlock", JSON.stringify(blockNum));
+  }, [blockNum]);
 
   // Tab 1(MyInfo) : 나의 유저 정보만 불러오는 get 요청
   const getUserData = async () => {
@@ -149,7 +145,7 @@ function MypageMain() {
   const getLikeData = async () => {
     try {
       const res = await BASE_API.get(`/users/${currentUser.userId}`);
-      setLikeDiaryData(res.data.likeDiaries);
+      setMyLikeDiaryData(res.data.likeDiaries);
     } catch (err) {
       console.error(err);
     }
@@ -183,7 +179,7 @@ function MypageMain() {
 
   // 탭 선택 이벤트 핸들러
   const selectTabHandler = (index: number) => {
-    setCurrentTab(index);
+    setMyCurrentTab(index);
   };
 
   return (
@@ -193,7 +189,7 @@ function MypageMain() {
           return (
             <li
               key={index}
-              className={currentTab === index ? "tab focused" : "tab"}
+              className={myCurrentTab === index ? "tab focused" : "tab"}
               onClick={() => selectTabHandler(index)}
             >
               <div className='el'>{tab.feel}</div>
@@ -202,37 +198,23 @@ function MypageMain() {
         })}
       </ListTab>
       <DiaryMain.DiaryMainContainer>
-        {currentTab === 0 ? (
+        {myCurrentTab === 0 ? (
           <MypageWrapper>
             {myUserData && <MyInfo list={myUserData} getUserData={getUserData} />}
           </MypageWrapper>
-        ) : currentTab === 1 ? (
-          myDiaryData.length !== 0 ? (
-            <DiaryMain.DiaryMainWrapper>
-              {myDiaryData.slice(offset, offset + LIMIT_COUNT).map((value) => {
-                return <MyDiary list={value} key={value.diaryId} />;
-              })}
-            </DiaryMain.DiaryMainWrapper>
-          ) : (
-            <MyPageImgWrapper>
-              <img src={diary} alt='myDiary' />
-              <div>아직 작성한 다이어리가 없습니다.</div>
-            </MyPageImgWrapper>
-          )
-        ) : currentTab === 2 ? (
-          myLikeDiaryData.length !== 0 ? (
-            <DiaryMain.DiaryMainWrapper>
-              {myLikeDiaryData?.slice(offset, offset + LIMIT_COUNT).map((value) => {
-                return <MyLikeDiary list={value} key={value.diaryId} />;
-              })}
-            </DiaryMain.DiaryMainWrapper>
-          ) : (
-            <MyPageImgWrapper>
-              <img src={like} alt='myDiary' />
-              <div>아직 좋아한 다이어리가 없습니다.</div>
-            </MyPageImgWrapper>
-          )
-        ) : myCommentData.length !== 0 ? (
+        ) : myCurrentTab === 1 ? (
+          <DiaryMain.DiaryMainWrapper>
+            {myDiaryData.slice(offset, offset + LIMIT_COUNT).map((value) => {
+              return <MyDiary list={value} key={value.diaryId} />;
+            })}
+          </DiaryMain.DiaryMainWrapper>
+        ) : myCurrentTab === 2 ? (
+          <DiaryMain.DiaryMainWrapper>
+            {myLikeDiaryData.slice(offset, offset + LIMIT_COUNT).map((value) => {
+              return <MyLikeDiary list={value} key={value.diaryId} />;
+            })}
+          </DiaryMain.DiaryMainWrapper>
+        ) : (
           <MypageWrapper>
             <CommentCountWrapper>
               <CommentInfo>
@@ -244,21 +226,19 @@ function MypageMain() {
               return <MyComment list={value} key={value.commentId} />;
             })}
           </MypageWrapper>
-        ) : (
-          <MyPageImgWrapper>
-            <img src={comment} alt='myDiary' />
-            <div>아직 작성한 댓글이 없습니다.</div>
-          </MyPageImgWrapper>
         )}
       </DiaryMain.DiaryMainContainer>
+      <ScrollTopButton />
       <MypagePagination
         myPageLength={myDiaryData.length}
         myLikePageLength={myLikeDiaryData.length}
         myCommentPageLength={myCommentData.length}
         LIMIT_COUNT={LIMIT_COUNT}
-        page={page}
-        setPage={setPage}
-        currentTab={currentTab}
+        myCurrentPage={myCurrentPage}
+        setMyCurrentPage={setMyCurrentPage}
+        myCurrentTab={myCurrentTab}
+        blockNum={blockNum}
+        setBlockNum={setBlockNum}
       />
     </>
   );

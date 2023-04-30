@@ -6,13 +6,14 @@ import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import axios from "axios";
 import NewPlayList from "./NewPlayList";
-import { MyContext } from "../../theme";
+import { MyContext } from "../../util/MyContext";
 import { PlaylistData } from "../../util/Type";
 import { toast } from "react-toastify";
 import { FiPlus } from "react-icons/fi";
 import { IoIosClose } from "react-icons/io";
-import { AiOutlineYoutube } from "react-icons/ai";
-import mainIcon from "../../util/img/mainIcon.png";
+import { AiFillYoutube } from "react-icons/ai";
+import mainIcon from "../../assets/images/mainIcon.png";
+import Modal from "../common/Modal";
 
 export const MainContainer = styled.div`
   display: flex;
@@ -30,17 +31,15 @@ export const TitleArea = styled.div`
   height: 75px;
   display: flex;
   white-space: normal;
-  justify-content: space-between;
   align-items: center;
   border-bottom: 1px solid ${(props) => props.theme.color.borderLine};
   padding: 0 5px 0 5px;
 
   > .inputTitle {
-    width: 700px;
+    width: 100%;
     font-size: ${(props) => props.theme.font.diaryMainTitleSize}px;
     font-weight: ${(props) => props.theme.font.titleWeight};
     color: ${(props) => props.theme.color.mainText};
-    margin-right: 10px;
     padding: 10px 8px 10px 8px;
     border-radius: 4px;
     border: none;
@@ -54,23 +53,6 @@ export const TitleArea = styled.div`
     @media screen and (max-width: 721px) {
       font-size: 19px;
     }
-  }
-`;
-
-export const SubmitButton = styled.button`
-  font-size: 14px;
-  color: ${(props) => props.theme.color.signatureText};
-  font-weight: ${(props) => props.theme.font.titleWeight};
-  background-color: ${(props) => props.theme.color.signature};
-  border: none;
-  width: 100px;
-  min-width: 60px;
-  height: 35px;
-  border-radius: 4px;
-  cursor: pointer;
-
-  &:hover {
-    background-color: ${(props) => props.theme.color.signatureHover};
   }
 `;
 
@@ -89,8 +71,8 @@ export const CoverImg = styled.img`
   background-color: ${(props) => props.theme.color.background};
 
   @media screen and (max-width: 721px) {
-    width: 100px;
-    height: 100px;
+    width: 120px;
+    height: 120px;
     margin-right: 20px;
   }
 `;
@@ -107,7 +89,7 @@ export const UserInfo = styled.div`
 `;
 
 export const User = styled.div`
-  font-size: 14px;
+  font-size: 13px;
 
   > .text {
     font-size: 13px;
@@ -115,7 +97,7 @@ export const User = styled.div`
     color: ${(props) => props.theme.color.subText};
 
     @media screen and (max-width: 721px) {
-      margin-right: 20px;
+      display: none;
     }
   }
 `;
@@ -164,7 +146,7 @@ export const Tag = styled.ul`
   flex-wrap: wrap;
   font-size: 13px;
   gap: 5px;
-  font-weight: ${(props) => props.theme.font.contentWeight};
+  padding: 5px 0 5px 0;
   color: ${(props) => props.theme.color.mainText};
 
   > li {
@@ -224,8 +206,14 @@ export const AlbumInfoArea = styled.div`
 `;
 
 export const PlayListArea = styled.div`
-  padding: 30px 5px 100px 5px;
+  padding: 30px 5px 30px 5px;
   border-top: 1px solid ${(props) => props.theme.color.borderLine};
+  border-bottom: 1px solid ${(props) => props.theme.color.borderLine};
+`;
+
+export const PlayTitleArea = styled.div`
+  display: flex;
+  align-items: flex-start;
 
   > .playTitle {
     display: flex;
@@ -241,6 +229,16 @@ export const PlayListArea = styled.div`
       color: ${(props) => props.theme.color.subText};
     }
   }
+
+  > a {
+    margin: -3px 0 0 10px;
+    color: ${(props) => props.theme.color.subText};
+    cursor: pointer;
+
+    &:hover {
+      color: #ff0000;
+    }
+  }
 `;
 
 export const UrlInput = styled.div`
@@ -248,12 +246,6 @@ export const UrlInput = styled.div`
   margin-bottom: 20px;
   align-items: center;
   position: relative;
-
-  > a {
-    margin-right: 5px;
-    color: ${(props) => props.theme.color.subText};
-    cursor: pointer;
-  }
 
   > input {
     font-size: 14px;
@@ -288,12 +280,78 @@ export const UrlInput = styled.div`
   }
 `;
 
+export const EmptyPlayListText = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-top: 15px;
+  font-size: ${(props) => props.theme.font.diaryContentSize}px;
+  color: ${(props) => props.theme.color.subText};
+`;
+
+export const SubmitArea = styled.div`
+  display: flex;
+  justify-content: center;
+  padding: 30px 5px 50px 5px;
+
+  > button {
+    font-size: ${(props) => props.theme.font.diaryContentSize}px;
+    color: ${(props) => props.theme.color.signatureText};
+    font-weight: ${(props) => props.theme.font.titleWeight};
+    border: none;
+    width: 100px;
+    min-width: 60px;
+    height: 35px;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+
+  > .cancelButton {
+    margin-right: 8px;
+    color: ${(props) => props.theme.color.subText};
+    border: 1px solid ${(props) => props.theme.color.borderLine};
+    background-color: transparent;
+
+    &:hover {
+      background-color: ${(props) => props.theme.color.buttonHover};
+    }
+  }
+
+  > .submitButton {
+    margin-left: 8px;
+    color: ${(props) => props.theme.color.signatureText};
+    background-color: ${(props) => props.theme.color.signature};
+
+    &:hover {
+      background-color: ${(props) => props.theme.color.signatureHover};
+    }
+  }
+`;
+
+export const SubmitButton = styled.button`
+  font-size: 14px;
+  color: ${(props) => props.theme.color.signatureText};
+  font-weight: ${(props) => props.theme.font.titleWeight};
+  background-color: ${(props) => props.theme.color.signature};
+  border: none;
+  width: 100px;
+  min-width: 60px;
+  height: 35px;
+  border-radius: 4px;
+  cursor: pointer;
+
+  &:hover {
+    background-color: ${(props) => props.theme.color.signatureHover};
+  }
+`;
+
 function NewMain() {
   const [newTitle, setNewTitle] = useState<string>("");
   const [newTag, setNewTag] = useState<any>([]);
   const [newBody, setNewBody] = useState<string>("");
   const [newPlayList, setNewPlayList] = useState<PlaylistData[]>([]);
   const [newUrl, setNewUrl] = useState<string>("");
+  const [postCancelModalOpen, setPostCancelModalOpen] = useState<boolean>(false);
 
   const navigate = useNavigate();
   const { currentUser }: any = useContext(MyContext);
@@ -301,21 +359,35 @@ function NewMain() {
 
   // 다이어리 post 요청
   const submitHandler = async () => {
-    if (newTitle.length <= 100 && newTitle.length !== 0 && newPlayList.length !== 0) {
-      const newDiary = {
-        title: newTitle,
-        // tags: newTag,
-        body: newBody,
-        playlists: newPlayList,
-      };
-      await TOKEN_API.post(`/diary`, newDiary);
-      navigate(`/`);
-    } else if (newTitle.length === 0 && newTitle.length === 0) {
-      toast.error("제목을 입력해 주세요.");
-    } else if (newTitle.length > 100) {
-      toast.error("제목의 길이를 줄여주세요.");
-    } else {
-      toast.error("플레이리스트를 등록해 주세요.");
+    try {
+      if (
+        newTitle.length <= 50 &&
+        newTitle.length !== 0 &&
+        newTag.length !== 0 &&
+        newBody.length !== 0 &&
+        newPlayList.length !== 0
+      ) {
+        const newDiary = {
+          title: newTitle,
+          tags: newTag,
+          body: newBody,
+          playlists: newPlayList,
+        };
+        await TOKEN_API.post(`/diary`, newDiary);
+        navigate(`/`);
+      } else if (newTitle.length === 0) {
+        toast.error("제목을 입력해 주세요.");
+      } else if (newTitle.length > 50) {
+        toast.error("제목은 50글자 이하로 작성해주세요.");
+      } else if (newTag.length === 0) {
+        toast.error("태그를 1개 이상 선택해주세요.");
+      } else if (newBody.length === 0) {
+        toast.error("다어어리 소개글을 작성해주세요.");
+      } else if (newPlayList.length === 0) {
+        toast.error("플레이리스트를 등록해 주세요.");
+      }
+    } catch (err) {
+      console.error(err);
     }
   };
 
@@ -343,7 +415,7 @@ function NewMain() {
   };
 
   // input에 등록한 Url 정보 불러옴
-  const getYoutubeData = async (id: any) => {
+  const getYoutubeData = async (id: string | undefined) => {
     try {
       const res =
         await axios.get(`https://www.googleapis.com/youtube/v3/videos?id=${id}&key=${process.env.REACT_APP_YOUTUBE_API_KEY}
@@ -405,7 +477,6 @@ function NewMain() {
     if (value !== "") {
       if (newTag.length <= 3 && !newTag.includes(value)) {
         setNewTag([...newTag, value]);
-        // console.log(newTag);
       } else if (newTag.length === 4) {
         toast.error("태그는 4개까지만 추가할 수 있습니다.");
       } else if (newTag.includes(value)) {
@@ -417,7 +488,6 @@ function NewMain() {
   // 태그 삭제 이벤트 핸들러
   const removeTags = (deleteIndex: any) => {
     setNewTag(newTag.filter((value: any) => value !== newTag[deleteIndex]));
-    // console.log(newTag);
   };
 
   // 새로고침 & 페이지 닫기 방지
@@ -434,6 +504,32 @@ function NewMain() {
     };
   }, []);
 
+  // 다이어리 등록 취소 모달 오픈 이벤트 핸들러
+  const openModalHandler = () => {
+    setPostCancelModalOpen(!postCancelModalOpen);
+    document.body.style.cssText = `
+      position: fixed;
+      top: -${window.scrollY}px;
+      overflow-y: scroll;
+      width: 100%;`;
+  };
+
+  // 다이어리 등록 취소 모달 클로즈 이벤트 핸들러
+  const closeModalHandler = () => {
+    setPostCancelModalOpen(!postCancelModalOpen);
+    const scrollY = document.body.style.top;
+    document.body.style.cssText = "";
+    window.scrollTo(0, parseInt(scrollY || "0", 10) * -1);
+  };
+
+  // 다이어리 등록 페이지 나기기 이벤트 핸들러
+  const backPage = () => {
+    navigate(-1);
+    const scrollY = document.body.style.top;
+    document.body.style.cssText = "";
+    window.scrollTo(0, parseInt(scrollY || "0", 10) * -1);
+  };
+
   return (
     <MainContainer>
       <MainWrapper>
@@ -441,10 +537,9 @@ function NewMain() {
           <input
             className='inputTitle'
             type='text'
-            placeholder='제목을 입력하세요'
+            placeholder='제목을 작성해 주세요'
             onChange={changeNewTitle}
           />
-          <SubmitButton onClick={submitHandler}>등록하기</SubmitButton>
         </TitleArea>
         <AlbumCoverArea>
           <CoverImg
@@ -482,7 +577,7 @@ function NewMain() {
               <option value='#청량한'>청량한</option>
             </select>
             <Tag>
-              {newTag.map((value: any, index: any) => (
+              {newTag.map((value: string, index: number) => (
                 <li key={index}>
                   <div className='tagTitle'>{value}</div>
                   <div className='tagcloseBtn' onClick={() => removeTags(index)}>
@@ -502,13 +597,15 @@ function NewMain() {
           />
         </AlbumInfoArea>
         <PlayListArea>
-          <div className='playTitle'>
-            다이어리 수록곡 <span className='playCount'>({newPlayList.length})</span>
-          </div>
-          <UrlInput>
+          <PlayTitleArea>
+            <div className='playTitle'>
+              다이어리 수록곡 <span className='playCount'>({newPlayList.length})</span>
+            </div>
             <Link to='https://www.youtube.com/' target='_blank'>
-              <AiOutlineYoutube className='youtubeIcon' size={35} />
+              <AiFillYoutube className='youtubeIcon' size={30} />
             </Link>
+          </PlayTitleArea>
+          <UrlInput>
             <input
               value={newUrl}
               placeholder='유튜브 url을 추가해 주세요'
@@ -518,17 +615,40 @@ function NewMain() {
               <FiPlus size={25} />
             </button>
           </UrlInput>
-          {newPlayList?.map((value, index) => {
-            return (
-              <NewPlayList
-                list={value}
-                key={index}
-                newPlayList={newPlayList}
-                setNewPlayList={setNewPlayList}
-              />
-            );
-          })}
+          {newPlayList.length >= 1 ? (
+            <>
+              {newPlayList?.map((value, index) => {
+                return (
+                  <NewPlayList
+                    list={value}
+                    key={index}
+                    newPlayList={newPlayList}
+                    setNewPlayList={setNewPlayList}
+                  />
+                );
+              })}
+            </>
+          ) : (
+            <EmptyPlayListText>추가한 플레이리스트가 없습니다.</EmptyPlayListText>
+          )}
         </PlayListArea>
+        <SubmitArea>
+          <button className='cancelButton' onClick={openModalHandler}>
+            나가기
+          </button>
+          {postCancelModalOpen ? (
+            <Modal
+              title={"작성 페이지를 나가시겠습니까?"}
+              text={"작성 중인 내용은 저장되지 않습니다."}
+              confirmText={"나가기"}
+              cancelHandler={closeModalHandler}
+              confirmHandler={backPage}
+            />
+          ) : null}
+          <button className='submitButton' onClick={submitHandler}>
+            등록
+          </button>
+        </SubmitArea>
       </MainWrapper>
     </MainContainer>
   );

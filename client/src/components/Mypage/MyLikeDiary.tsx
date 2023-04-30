@@ -3,28 +3,37 @@ import { Link } from "react-router-dom";
 import { DiaryDataProps } from "../../util/Type";
 import { AiFillHeart } from "react-icons/ai";
 import { FaRegCommentDots } from "react-icons/fa";
-import defaultProfile from "../../util/img/mainIcon.png";
+import mainIcon from "../../assets/images/mainIcon.png";
+import defaultProfile from "../../assets/images/defaultProfile.png";
 
 function MyLikeDiary({ list }: DiaryDataProps) {
+  const replaceImg = (e: any) => {
+    e.target.src = mainIcon;
+  };
+
   return (
     <DiaryList.DiaryListContainer>
       <Link to={`/DetailDiary/${list.diaryId}`}>
         <DiaryList.Thumbnail
-          src={list.playlists[0].thumbnail ? list.playlists[0].thumbnail : defaultProfile}
+          src={list.playlists[0].thumbnail ? list.playlists[0].thumbnail : mainIcon}
           alt='첫번째 앨범 커버'
         />
         <DiaryList.InfoArea>
           <div className='infoTitle'>{list.title}</div>
           <div className='infoDate'>{list.createdAt.substring(0, 10)}</div>
-          {/* <DiaryList.Tag>
-          {list.tag.map((value, index) => {
-            return <li key={index}>{value}</li>;
-          })}
-        </DiaryList.Tag> */}
+          <DiaryList.TagArea>
+            {list.tags.map((value: string, index: number) => {
+              return <li key={index}>{value}</li>;
+            })}
+          </DiaryList.TagArea>
         </DiaryList.InfoArea>
         <DiaryList.UserArea>
           <DiaryList.ByUsername>
-            <DiaryList.Profile src={defaultProfile} alt='프로필 이미지' />
+            <DiaryList.Profile
+              src={list?.imageUrl ? list?.imageUrl : defaultProfile}
+              alt='프로필 이미지'
+              onError={replaceImg}
+            />
             <div className='by'>by</div>
             {list.userNickname}
           </DiaryList.ByUsername>
