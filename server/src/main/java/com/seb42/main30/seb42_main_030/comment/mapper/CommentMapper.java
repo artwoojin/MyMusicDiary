@@ -19,6 +19,7 @@ public interface CommentMapper {
 
     @Mapping(source = "diary.diaryId", target = "diaryId")
     @Mapping(source = "user.nickname", target = "userNickname")
+    @Mapping(source = "user.imageUrl", target = "imageUrl")
     CommentDto.Response commentToCommentDto(Comment comment);
 
     List<CommentDto.Response> commentsToResponses (List<Comment> comments);

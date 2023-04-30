@@ -9,15 +9,13 @@ import com.seb42.main30.seb42_main_030.user.entity.User;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.hibernate.mapping.Array;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 
@@ -43,7 +41,7 @@ public class Diary extends Auditable {
     private int viewCount;
 
     private int likeCount;
-    private boolean likeCheck;
+    //private boolean likeCheck;
 
 //    @Column(name = "createdAt", insertable = false, updatable = false)
 //    private LocalDateTime createdAt;
@@ -67,5 +65,20 @@ public class Diary extends Auditable {
     // Like 1:N
     @OneToMany(mappedBy = "diary", cascade = CascadeType.ALL)
     private List<Like> likeDiariesList = new ArrayList<>();
+
+//
+    @Column
+    private String tags;
+
+        public List<String> getTags() {
+            if (tags == null || tags.isEmpty()) {
+                return new ArrayList<>();
+            }
+            return Arrays.asList(tags.split(","));
+        }
+
+        public void setTags(String tagList) {
+            this.tags = String.join(",", tagList);
+        }
 
 }

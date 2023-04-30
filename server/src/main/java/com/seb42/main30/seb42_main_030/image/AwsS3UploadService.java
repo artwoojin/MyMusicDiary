@@ -2,6 +2,7 @@ package com.seb42.main30.seb42_main_030.image;
 
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.model.CannedAccessControlList;
+import com.amazonaws.services.s3.model.DeleteObjectRequest;
 import com.amazonaws.services.s3.model.ObjectMetadata;
 import com.amazonaws.services.s3.model.PutObjectRequest;
 import lombok.RequiredArgsConstructor;
@@ -18,17 +19,17 @@ public class AwsS3UploadService implements UploadService {
     private final S3Component component;
 
     @Override
-    public  void  uploadFile(InputStream inputStream, ObjectMetadata objectMeTadata, String fileName){
-        amazonS3.putObject(new PutObjectRequest(component.getBucket(),fileName,inputStream,objectMeTadata).withCannedAcl(CannedAccessControlList.PublicRead));
+    public void uploadFile(InputStream inputStream, ObjectMetadata objectMetadata, String fileName) {
+        amazonS3.putObject(new PutObjectRequest(component.getBucket(), fileName, inputStream, objectMetadata).withCannedAcl(CannedAccessControlList.PublicRead));
     }
 
     @Override
-    public  String getFileUrl(String fileName){
-        return amazonS3.getUrl(component.getBucket(),fileName).toString();
+    public String getFileUrl(String fileName) {
+        return amazonS3.getUrl(component.getBucket(), fileName).toString();
     }
 
-//    @Override
-//    public void deleteFile(String fileName) {
-//        amazonS3.deleteObject(component.getBucket(), fileName);
-//    }
+    @Override
+    public void deleteFile(String fileName) {
+        amazonS3.deleteObject(new DeleteObjectRequest(component.getBucket(), fileName));
+    }
 }

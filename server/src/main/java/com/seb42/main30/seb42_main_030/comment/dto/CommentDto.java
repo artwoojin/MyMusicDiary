@@ -47,6 +47,7 @@ public class CommentDto {
         private LocalDateTime modifiedAt;
         //        user랑 연결하면 user의 nickname 가져옴
         private String userNickname;
+        private String imageUrl;
 
     }
 

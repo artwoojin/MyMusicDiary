@@ -7,6 +7,7 @@ import com.seb42.main30.seb42_main_030.diary.dto.DiaryDto;
 import com.seb42.main30.seb42_main_030.diary.entity.Diary;
 import com.seb42.main30.seb42_main_030.playlist.dto.PlaylistResponseDto;
 import com.seb42.main30.seb42_main_030.playlist.entity.Playlist;
+import com.seb42.main30.seb42_main_030.tag.entity.Tag;
 import com.seb42.main30.seb42_main_030.user.entity.User;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -27,10 +28,11 @@ public interface DiaryMapper {
             Diary diary = new Diary();
             diary.setTitle(post.getTitle());
             diary.setBody(post.getBody());
-
+            diary.setTags(List.of().toString());
             return diary;
         }
     }
+    
     default Diary diaryPatchToDiary (DiaryDto.Patch patch) {
         if (patch == null) {
             return null;
@@ -38,7 +40,7 @@ public interface DiaryMapper {
             Diary diary = new Diary();
             diary.setTitle(patch.getTitle());
             diary.setBody(patch.getBody());
-
+            diary.setTags(List.of().toString());
             return diary;
         }
     }
@@ -67,7 +69,9 @@ public interface DiaryMapper {
             diaryDto.modifiedAt(diary.getModifiedAt());
             diaryDto.viewCount(diary.getViewCount());
             diaryDto.likeCount(diary.getLikeCount());
-            //diaryDto.likeCheck(diary.getLikeCheck());
+            diaryDto.imageUrl(diary.getUser().getImageUrl());
+            diaryDto.tags(diary.getTags());
+
             Optional<User> user = Optional.ofNullable(diary.getUser());
             user.ifPresent(u -> diaryDto.userNickname(u.getNickname()));
 
@@ -115,9 +119,19 @@ public interface DiaryMapper {
                         .createdAt(comment.getCreatedAt())
                         .modifiedAt(comment.getModifiedAt())
                         .userNickname(comment.getUser().getNickname())
+                        .imageUrl(comment.getUser().getImageUrl())
                         .build())
                 .collect(Collectors.toList());
     }
 
     List<DiaryDto.Response> diariesToDtos(List<Diary> likeDiaryList);
+
+
+    default String tagToString(Tag tag) {
+        if (tag == null) {
+            return null;
+        }
+        return tag.getName();
+    }
+
 }
