@@ -57,9 +57,9 @@
 |**프로필 이미지 등록 및 제거**|**닉네임/비밀번호 수정**|
 |<img width="470px" src="https://user-images.githubusercontent.com/115632555/235356631-49149fb4-0721-4e49-84e5-7514267f82bd.gif"/>|<img width="470px" src="https://user-images.githubusercontent.com/115632555/235356687-4ae97885-37e7-4535-8514-19b5761deaca.gif"/>|
 |**회원탈퇴**|**나의 다이어리/좋아한 다이어리/나의 댓글**|
-|<img width="470px" src="#"/>|<img width="470px" src="#"/>|
+|<img width="470px" src="https://user-images.githubusercontent.com/115632555/235356793-45a03868-95f3-4a13-948c-a5d3c3c3453c.gif"/>|<img width="470px" src="https://user-images.githubusercontent.com/115632555/235356960-cef09415-4230-4d28-bb42-f0562dfd524f.gif"/>|
 |**로그아웃**|**다크모드**|
-|<img width="470px" src="#"/>|<img width="470px" src="#"/>|
+|<img width="470px" src="https://user-images.githubusercontent.com/115632555/235357022-41c78b01-276f-43ed-b13d-06b79c33f23a.gif"/>|<img width="470px" src="https://user-images.githubusercontent.com/115632555/235357107-5e9f8293-8fe6-4d4e-8e06-65ff86bae865.gif"/>|
 
 ## :file_folder: 문서함
 + [사용자 요구사항 정의서]()
