@@ -103,6 +103,10 @@ const LikeButton = styled.button`
     background-color: ${(props) => props.theme.color.buttonHover};
   }
 
+  &:active {
+    transform: scale(1.04);
+  }
+
   // 721px 이하에서 UserInfo의 좋아요 버튼 크기 축소
   @media screen and (max-width: 721px) {
     width: 65px;
