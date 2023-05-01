@@ -83,12 +83,6 @@ const SortedListTab = styled.div`
   padding: 0 20px 0 20px;
   word-break: keep-all;
 
-  > .tagTitle {
-    color: ${(props) => props.theme.color.mainText};
-    font-size: 20px;
-    font-weight: ${(props) => props.theme.font.titleWeight};
-  }
-
   @media screen and (max-width: 1449px) {
     max-width: 1070px;
   }
@@ -99,6 +93,28 @@ const SortedListTab = styled.div`
 
   @media screen and (max-width: 721px) {
     max-width: 340px;
+  }
+`;
+
+const TagTitle = styled.div`
+  display: flex;
+  align-items: center;
+  color: ${(props) => props.theme.color.mainText};
+  font-size: 19px;
+  font-weight: ${(props) => props.theme.font.titleWeight};
+
+  > .numCount {
+    font-size: 16px;
+    margin: 0 0 3px 5px;
+    color: ${(props) => props.theme.color.subText};
+
+    @media screen and (max-width: 721px) {
+      font-size: 15px;
+    }
+  }
+
+  @media screen and (max-width: 721px) {
+    font-size: 18px;
   }
 `;
 
@@ -173,6 +189,45 @@ function DiaryMain() {
   const LIMIT_COUNT: number = 20;
   const offset: number = (mainCurrentPage - 1) * LIMIT_COUNT; // 각 페이지에서 첫 데이터의 위치(index) 계산
   const { isLoading, setIsLoading }: any = useContext(MyContext);
+  const tagArr = [
+    { feel: "전체" },
+    { feel: "#신나는" },
+    { feel: "#감성적인" },
+    { feel: "#잔잔한" },
+    { feel: "#애절한" },
+    { feel: "#그루브한" },
+    { feel: "#몽환적인" },
+    { feel: "#어쿠스틱한" },
+    { feel: "#청량한" },
+  ]; // 태그 리스트
+  const sortedArr = [{ sorting: "최신순" }, { sorting: "인기순" }]; // 정렬 리스트
+
+  // 좋아요 순으로 정렬된 diaryData
+  const sortedDiaryData = [...diaryData].sort((a, b) => b.likeCount - a.likeCount);
+
+  const tagOneData = diaryData.filter((value) => value.tags.includes(tagArr[1].feel));
+  const tagTwoData = diaryData.filter((value) => value.tags.includes(tagArr[2].feel));
+  const tagThreeData = diaryData.filter((value) => value.tags.includes(tagArr[3].feel));
+  const tagFourData = diaryData.filter((value) => value.tags.includes(tagArr[4].feel));
+  const tagFiveData = diaryData.filter((value) => value.tags.includes(tagArr[5].feel));
+  const tagSixData = diaryData.filter((value) => value.tags.includes(tagArr[6].feel));
+  const tagSevenData = diaryData.filter((value) => value.tags.includes(tagArr[7].feel));
+  const tagEightData = diaryData.filter((value) => value.tags.includes(tagArr[8].feel));
+
+  // 전체 diary 데이터 get 요청
+  const getDiaryData = async () => {
+    try {
+      const res = await BASE_API.get(`/diary`);
+      setIsLoading(false);
+      setDiaryData(res.data);
+    } catch (err) {
+      setIsLoading(false);
+      console.error(err);
+    }
+  };
+  useEffect(() => {
+    getDiaryData();
+  }, []);
 
   // 로컬스토리지에 현재 탭 번호 저장
   useEffect(() => {
@@ -207,49 +262,15 @@ function DiaryMain() {
     localStorage.removeItem("myCurrentPageBlock");
   }, []);
 
-  // 전체 diary 데이터 get 요청
-  const getDiaryData = async () => {
-    try {
-      const res = await BASE_API.get(`/diary`);
-      setIsLoading(false);
-      setDiaryData(res.data);
-    } catch (err) {
-      setIsLoading(false);
-      console.error(err);
-    }
-  };
-  useEffect(() => {
-    getDiaryData();
-  }, []);
-
-  // 태그 리스트
-  const tagArr = [
-    { feel: "전체" },
-    { feel: "#신나는" },
-    { feel: "#감성적인" },
-    { feel: "#잔잔한" },
-    { feel: "#애절한" },
-    { feel: "#그루브한" },
-    { feel: "#몽환적인" },
-    { feel: "#어쿠스틱한" },
-    { feel: "#청량한" },
-  ];
-
   // 태그 선택 이벤트 핸들러
   const selectTagHandler = (index: number) => {
     setMainCurrentTab(index);
   };
 
-  // 정렬 리스트
-  const sortedArr = [{ sorting: "최신순" }, { sorting: "인기순" }];
-
   // 정렬 선택 이벤트 핸들러
   const selectSortedHandler = (index: number) => {
     setSortedCurrentTab(index);
   };
-
-  // 좋아요 순으로 정렬된 diaryData
-  const sortedDiaryData = [...diaryData].sort((a, b) => b.likeCount - a.likeCount);
 
   return (
     <>
@@ -271,23 +292,50 @@ function DiaryMain() {
       <SortedTagContainer>
         <SortedListTab>
           {mainCurrentTab === 0 ? (
-            <div className='tagTitle'>{tagArr[0].feel}</div>
+            <TagTitle>
+              {tagArr[0].feel}
+              <span className='numCount'>({diaryData.length})</span>
+            </TagTitle>
           ) : mainCurrentTab === 1 ? (
-            <div className='tagTitle'>{tagArr[1].feel}</div>
+            <TagTitle>
+              {tagArr[1].feel}
+              <span className='numCount'>({tagOneData.length})</span>
+            </TagTitle>
           ) : mainCurrentTab === 2 ? (
-            <div className='tagTitle'>{tagArr[2].feel}</div>
+            <TagTitle>
+              {tagArr[2].feel}
+              <span className='numCount'>({tagTwoData.length})</span>
+            </TagTitle>
           ) : mainCurrentTab === 3 ? (
-            <div className='tagTitle'>{tagArr[3].feel}</div>
+            <TagTitle>
+              {tagArr[3].feel}
+              <span className='numCount'>({tagThreeData.length})</span>
+            </TagTitle>
           ) : mainCurrentTab === 4 ? (
-            <div className='tagTitle'>{tagArr[4].feel}</div>
+            <TagTitle>
+              {tagArr[4].feel}
+              <span className='numCount'>({tagFourData.length})</span>
+            </TagTitle>
           ) : mainCurrentTab === 5 ? (
-            <div className='tagTitle'>{tagArr[5].feel}</div>
+            <TagTitle>
+              {tagArr[5].feel}
+              <span className='numCount'>({tagFiveData.length})</span>
+            </TagTitle>
           ) : mainCurrentTab === 6 ? (
-            <div className='tagTitle'>{tagArr[6].feel}</div>
+            <TagTitle>
+              {tagArr[6].feel}
+              <span className='numCount'>({tagSixData.length})</span>
+            </TagTitle>
           ) : mainCurrentTab === 7 ? (
-            <div className='tagTitle'>{tagArr[7].feel}</div>
+            <TagTitle>
+              {tagArr[7].feel}
+              <span className='numCount'>({tagSevenData.length})</span>
+            </TagTitle>
           ) : (
-            <div className='tagTitle'>{tagArr[8].feel}</div>
+            <TagTitle>
+              {tagArr[8].feel}
+              <span className='numCount'>({tagEightData.length})</span>
+            </TagTitle>
           )}
           <SortedButtonArea>
             {sortedArr.map((tab, index) => {
@@ -506,14 +554,14 @@ function DiaryMain() {
       <ScrollTopButton />
       <Pagination
         allPageLength={diaryData.length}
-        tagOnePageLength={diaryData.filter((value) => value.tags.includes(tagArr[1].feel)).length}
-        tagTwoPageLength={diaryData.filter((value) => value.tags.includes(tagArr[2].feel)).length}
-        tagThreePageLength={diaryData.filter((value) => value.tags.includes(tagArr[3].feel)).length}
-        tagFourPageLength={diaryData.filter((value) => value.tags.includes(tagArr[4].feel)).length}
-        tagFivePageLength={diaryData.filter((value) => value.tags.includes(tagArr[5].feel)).length}
-        tagSixPageLength={diaryData.filter((value) => value.tags.includes(tagArr[6].feel)).length}
-        tagSevenPageLength={diaryData.filter((value) => value.tags.includes(tagArr[7].feel)).length}
-        tagEightPageLength={diaryData.filter((value) => value.tags.includes(tagArr[8].feel)).length}
+        tagOnePageLength={tagOneData.length}
+        tagTwoPageLength={tagTwoData.length}
+        tagThreePageLength={tagThreeData.length}
+        tagFourPageLength={tagFourData.length}
+        tagFivePageLength={tagFiveData.length}
+        tagSixPageLength={tagSixData.length}
+        tagSevenPageLength={tagSevenData.length}
+        tagEightPageLength={tagEightData.length}
         LIMIT_COUNT={LIMIT_COUNT}
         mainCurrentPage={mainCurrentPage}
         setMainCurrentPage={setMainCurrentPage}
