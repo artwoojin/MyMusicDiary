@@ -8,6 +8,8 @@ import com.seb42.main30.seb42_main_030.user.entity.User;
 import com.seb42.main30.seb42_main_030.user.repository.UserRepository;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -27,15 +29,6 @@ public class UserService {
     private final PasswordEncoder passwordEncoder;
     private final CustomAuthorityUtils authorityUtils;
     private final UploadService s3Service;
-
-//    public UserService(UserRepository memberRepository,
-//                         ApplicationEventPublisher publisher,
-//                         PasswordEncoder passwordEncoder,
-//                         CustomAuthorityUtils authorityUtils) {
-//        this.userRepository = memberRepository;
-//        this.publisher = publisher;
-//        this.passwordEncoder = passwordEncoder;
-//        this.authorityUtils = authorityUtils;
 
     // (1) user 등록(자체 회원 가입)
     public User createUser(User user) {
@@ -105,7 +98,7 @@ public class UserService {
         return null;
     }
 
-    // Login 한 Member 를 가져오는 로직
+    // Login 한 User를 가져오는 로직
     public User getLoginUser() {
         return  userRepository.findById(Long.valueOf(GetAuthUserUtils.getAuthUser().getName()))
                 .orElseThrow(()
@@ -117,14 +110,6 @@ public class UserService {
     public User findUserByEmail(String email) {
         return userRepository.findUserByEmail(email);
     }
-//    public User findUserById(long userId) {
-//        User findUser = userRepository.findById(userId);
-//
-//        if (findUser == null) {
-//            throw new BusinessException(ExceptionCode.USER_NOT_FOUND);
-//        }
-//        return findUser;
-//    }
 
 
 //    public void deleteUserImage(Long userId) {
@@ -156,6 +141,18 @@ public class UserService {
             return null;
         }
         return url.substring(pos + 1);
+    }
+
+    public User getAuthenticatedUser() {
+
+        // SecurityContextHolder를 통해 현재 인증된 사용자의 정보를 가져옴
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+        // 인증된 사용자의 이름을 가져와서 이를 userId로 변환
+        long userId = Long.parseLong(authentication.getName());
+
+        // userId를 통해 사용자 정보를 찾아 반환
+        return findVerifiedUser(userId);
     }
 }
 

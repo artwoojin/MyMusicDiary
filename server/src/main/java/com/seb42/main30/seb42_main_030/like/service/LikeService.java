@@ -24,34 +24,31 @@ public class LikeService {
 
     private final LikeRepository likeRepository;
     private final DiaryService diaryService;
-    private final DiaryRepository diaryRepository;
-    private final Diary diary;
     private final UserRepository userRepository;
 
     public List<Diary> getLikeDiariesByUserId(long userId) {
-        List<Like> likeDiaries = likeRepository.findAllByUserId(userId);
+        User user = userRepository.findById(userId).orElseThrow(() -> new BusinessException(ExceptionCode.USER_NOT_FOUND));
+        List<Like> likeDiaries = likeRepository.findAllByUser(user);
 
-        List<Diary> diaries = likeDiaries.stream()
-                .map(like -> {
-                    return like.getDiary();
-                }).collect(Collectors.toList());
-
-        return diaries;
+        return likeDiaries.stream()
+                .map(Like::getDiary)
+                .collect(Collectors.toList());
     }
 
     public void updateLike(long userId, long diaryId) {
+        User user = userRepository.findById(userId).orElseThrow(() -> new BusinessException(ExceptionCode.USER_NOT_FOUND));
         Diary findDiary = diaryService.existDiary(diaryId);
-        verifyCanLike(userId, findDiary);
+        verifyCanLike(user, findDiary);
 
-        Like like = new Like(findDiary, userId);
+        Like like = new Like(findDiary, user);
         findDiary.setLikeCount(findDiary.getLikeCount() + 1);
 
         likeRepository.save(like);
     }
 
-    public void verifyCanLike(long userId, Diary diary) {
+    public void verifyCanLike(User user, Diary diary) {
         Optional<Like> findLike =
-                likeRepository.findLikeByUserIdAndDiary(userId, diary);
+                likeRepository.findLikeByUserAndDiary(user, diary);
 
         if (findLike.isPresent()) {
             throw new BusinessException(ExceptionCode.LIKE_ALREADY_EXISTS);
@@ -59,47 +56,18 @@ public class LikeService {
     }
 
     public void deleteLike(long userId, long diaryId) {
+        User user = userRepository.findById(userId).orElseThrow(() -> new BusinessException(ExceptionCode.USER_NOT_FOUND));
         Diary findDiary = diaryService.existDiary(diaryId);
-        Like like = findVerifyCanLike(userId, findDiary);
+        Like like = findVerifyCanLike(user, findDiary);
         findDiary.setLikeCount(findDiary.getLikeCount() - 1);
 
         likeRepository.delete(like);
     }
 
-    public Like findVerifyCanLike(long userId, Diary diary) {
-        Optional<Like> findLike = likeRepository.findLikeByUserIdAndDiary(userId, diary);
+    public Like findVerifyCanLike(User user, Diary diary) {
 
-        return findLike.orElseThrow(() -> new BusinessException(ExceptionCode.LIKE_NOT_FOUND));
+        return likeRepository.findLikeByUserAndDiary(user, diary)
+                .orElseThrow(() -> new BusinessException(ExceptionCode.LIKE_NOT_FOUND));
     }
 
-//    public boolean hasUserLikedDiary(Long userId, Diary diary) {
-//        return likeRepository.existsByUserIdAndDiary(userId, diary);
-//    }
-
-    public List<User> getLikedUserByLikeDiaries(long userId) {
-    List<Like> likedUsers = likeRepository.findAllByUserId(userId);
-
-    List<User> users = likedUsers.stream()
-            .map(like -> {
-                return like.getUser();
-            }).collect(Collectors.toList());
-
-        return users;
-    }
-
-
-//    public Boolean getDiaryLike(Long userId, Diary diary) {
-//        Like like = likeRepository.findLikeByUserIdAndDiary(userId, diary)
-//                .orElse(null);
-//        boolean status = false;
-//
-//        if (like != null) {
-//            status = true;
-//        }
-//        return status;
-//    }
-
-    public Like findLike(Long userId, Diary diary){
-        return likeRepository.findLikeByUserIdAndDiary(userId, diary).orElse(null);
-    }
 }

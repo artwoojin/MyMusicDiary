@@ -50,7 +50,6 @@ public class UserDto {
 
     @Getter
     @Setter
-    //@AllArgsConstructor
     public static class Response {
 
         private long userId;
