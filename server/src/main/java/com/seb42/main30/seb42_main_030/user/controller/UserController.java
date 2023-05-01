@@ -33,14 +33,8 @@ public class UserController {
     private final UserMapperImpl userMapper;
     private final LikeService likeService;
     private final DiaryMapper diaryMapper;
-
     private final FileUploadService fileUploadService;
 
-    // UserMapper DI
-//    public UserController(UserService userService, Usermapper usermapper) {
-//        this.userService = userService;
-//        this.mapper = mapper;
-//    }
 
     // (1) user 등록(자체 회원 가입)
     @PostMapping("/sign-up")
@@ -67,8 +61,6 @@ public class UserController {
         List<DiaryDto.Response> myLike = diaryMapper.diariesToDtos(likeDiaryList);
         myPage.setLikeDiaries(myLike);
 
-//        return new ResponseEntity<>(
-//                new SingleResponseDto<>(userMapper.userToUserResponse(user)), HttpStatus.OK);
         return new ResponseEntity(myPage, HttpStatus.OK);
     }
 

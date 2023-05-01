@@ -25,19 +25,14 @@ public class Like {
     @JoinColumn(name = "diaryId")
     private Diary diary;
 
-    private long userId;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    //@JoinColumn(name = "userId")
+    @JoinColumn(name = "userId")
     private User user;
 
-    public Like(Diary diary, long userId) {
+    public Like(Diary diary, User user) {
         this.diary = diary;
-        this.userId = userId;
+        this.user = user;
     }
 
-//    // user 맵핑(한 like:한 user)
-//    @OneToOne(mappedBy = "like")
-//    @JoinColumn(name = "userId")
-//    private User user ;
 }
