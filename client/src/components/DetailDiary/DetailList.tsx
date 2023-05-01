@@ -503,13 +503,13 @@ function DetailList({ list, getDetailData }: DiaryDataProps) {
   };
 
   // 좋아요 클릭 시 빨간색 하트로 변경(임시) ---------------------------------------
-  const [myLikeDiaryData, setMyLikeDiaryData] = useState<DiaryData[]>([]);
+  const [likeCheck, setLikeCheck] = useState<DiaryData[]>([]);
 
   const getLikeData = async () => {
     try {
       if (currentUser) {
         const res = await TOKEN_API.get(`/users/${currentUser.userId}`);
-        setMyLikeDiaryData(res.data.likeDiaries);
+        setLikeCheck(res.data.likeDiaries);
       }
     } catch (err) {
       console.error(err);
@@ -519,7 +519,7 @@ function DetailList({ list, getDetailData }: DiaryDataProps) {
     getLikeData();
   }, [list.likeCount]);
 
-  const likeDataFind = myLikeDiaryData.filter((value) => value.title === list.title).length;
+  const isLikeCheck = likeCheck.filter((value) => value.diaryId === list.diaryId).length;
   // 좋아요 클릭 시 빨간색 하트로 변경(임시) ---------------------------------------
 
   return (
@@ -579,7 +579,7 @@ function DetailList({ list, getDetailData }: DiaryDataProps) {
                 {list.userNickname}
               </NewMain.User>
               <LikeButton onClick={plusLikeCount}>
-                {likeDataFind === 1 ? (
+                {isLikeCheck === 1 ? (
                   <AiFillHeart className='likeIcon' size={17} />
                 ) : (
                   <AiOutlineHeart className='unLikeIcon' size={17} />
