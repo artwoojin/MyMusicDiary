@@ -14,7 +14,7 @@
 - **`프로젝트 기간` :** 2023.03.03. - 2023.04.30.
 - **`프로젝트 소개` :** Mariple은 사용자가 유튜브 또는 유튜브 뮤직의 url을 입력하는 방식으로 플레이리스트를 추가하고 다이어리를 작성하는 블로그+플레이리스트가 결합된 서비스입니다.
 - **`팀원` :**  유우진(팀장), 김덕림, 김동구
-- **`링크` :** [Mariple 홈페이지](http://mylittlemusicdiary.s3-website.ap-northeast-2.amazonaws.com/)
+- **`링크` :** [Mariple 홈페이지](https://www.mariple.com/)
 </br>
 
 
