@@ -25,7 +25,7 @@ public class LikeController {
 
     @PostMapping("/{diaryId}")
     public ResponseEntity plusLike(@PathVariable(name = "diaryId") long diaryId) {
-        User user = userService.getAuthenticatedUser();
+        User user = userService.getLoginUser();
         likeService.updateLike(user.getUserId(), diaryId);
 
         return ResponseEntity.ok().build();
@@ -34,7 +34,7 @@ public class LikeController {
     @DeleteMapping("/{diaryId}")
     public ResponseEntity deleteLike(@PathVariable(name = "diaryId") long diaryId) {
 
-        User user = userService.getAuthenticatedUser();
+        User user = userService.getLoginUser();
 
         Diary diary = diaryService.existDiary(diaryId);
         likeService.findVerifyCanLike(user, diary);
