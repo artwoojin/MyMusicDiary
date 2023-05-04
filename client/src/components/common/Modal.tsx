@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { ModalValue } from "../../util/Type";
 
 const ModalBack = styled.div`
   position: fixed;
@@ -69,7 +70,7 @@ const ModalView = styled.div`
   }
 `;
 
-function Modal({ title, text, confirmText, cancelHandler, confirmHandler }: any) {
+function Modal({ title, text, confirmText, cancelHandler, confirmHandler }: ModalValue) {
   return (
     <ModalBack>
       <ModalView>

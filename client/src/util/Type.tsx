@@ -56,3 +56,11 @@ export interface FormValue {
   email: string;
   password: string;
 }
+
+export interface ModalValue {
+  title: string;
+  text: string;
+  confirmText: string;
+  cancelHandler: () => void;
+  confirmHandler: () => void;
+}
