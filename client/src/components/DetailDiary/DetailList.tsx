@@ -326,8 +326,8 @@ const RuleModalView = styled.div`
   text-align: center;
   border-radius: 4px;
   background-color: ${(props) => props.theme.color.background};
-  width: 80vw;
-  max-width: 500px;
+  width: 85vw;
+  max-width: 450px;
   height: 300px;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.19), 0 10px 10px rgba(0, 0, 0, 0.1);
 
