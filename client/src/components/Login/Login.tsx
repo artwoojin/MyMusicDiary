@@ -51,9 +51,6 @@ function Login() {
       if (res.headers.authorization) {
         localStorage.setItem("accessToken", res.headers.authorization);
         localStorage.setItem("CURRENT_USER", JSON.stringify(res.data));
-        localStorage.removeItem("mainCurrentTab");
-        localStorage.removeItem("mainCurrentPage");
-        localStorage.removeItem("mainCurrentPageBlock");
       }
       navigate("/");
       window.location.reload();

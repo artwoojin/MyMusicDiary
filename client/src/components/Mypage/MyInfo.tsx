@@ -284,7 +284,7 @@ export interface UserDataProps {
 function MyInfo({ list, getUserData }: UserDataProps) {
   const [nickname, setNickname] = useState<string>(list.nickname);
   const [editNickname, setEditNickname] = useState<boolean>(false);
-  const [password, setPassword] = useState<string>(list.password);
+  const [password, setPassword] = useState<string>("");
   const [editPassword, setEditPassword] = useState<boolean>(false);
   const [withDrawalModalOpen, setWithdrawalModalOpen] = useState<boolean>(false);
 
@@ -317,7 +317,7 @@ function MyInfo({ list, getUserData }: UserDataProps) {
     const newNickname = {
       userId: list.userId,
       nickname: nickname,
-      password: list.password,
+      // password: list.password,
     };
     const res = await TOKEN_API.patch(`/users/${list.userId}`, newNickname);
     getUserData(res.data);
