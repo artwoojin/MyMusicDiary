@@ -9,7 +9,7 @@ function DetailMain() {
   const [detailData, setDetailData] = useState<DiaryData>();
 
   const { diaryId } = useParams();
-  const { setIsLoading, isLoading }: any = useContext(MyContext);
+  const { setIsLoading }: any = useContext(MyContext);
 
   // 선택한 다이어리 get 요청
   const getDetailData = async () => {

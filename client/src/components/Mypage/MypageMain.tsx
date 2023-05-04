@@ -95,7 +95,7 @@ function MypageMain() {
 
   const LIMIT_COUNT: number = 20;
   const offset: number = (myCurrentPage - 1) * LIMIT_COUNT;
-  const { currentUser }: any = useContext(MyContext);
+  const { currentUser, setIsLoading }: any = useContext(MyContext);
 
   useEffect(() => {
     window.localStorage.setItem("myCurrentTab", JSON.stringify(myCurrentTab));
@@ -117,8 +117,10 @@ function MypageMain() {
   const getUserData = async () => {
     try {
       const res = await BASE_API.get(`/users/${currentUser.userId}`);
+      setIsLoading(true);
       setMyUserData(res.data);
     } catch (err) {
+      setIsLoading(true);
       console.error(err);
     }
   };

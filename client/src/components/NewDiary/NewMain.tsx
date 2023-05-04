@@ -354,8 +354,13 @@ function NewMain() {
   const [postCancelModalOpen, setPostCancelModalOpen] = useState<boolean>(false);
 
   const navigate = useNavigate();
-  const { currentUser }: any = useContext(MyContext);
+  const { currentUser, setIsLoading, isLoading }: any = useContext(MyContext);
   const today: string = new Date().toISOString().substring(0, 10);
+
+  // 새 다이어리 작성 페이지 진입 시 Skeleton 상태 변경
+  useEffect(() => {
+    setIsLoading(true);
+  }, []);
 
   // 다이어리 post 요청
   const submitHandler = async () => {
