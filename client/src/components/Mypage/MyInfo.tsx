@@ -7,6 +7,9 @@ import { MyContext } from "../../util/MyContext";
 import defaultProfile from "../../assets/images/defaultProfile.png";
 import Modal from "../common/Modal";
 import EditPasswordMoald from "./EditPasswordMoadl";
+import { VscSignOut } from "react-icons/vsc";
+import { FiUserCheck } from "react-icons/fi";
+import { AiOutlineLock } from "react-icons/ai";
 
 const MyInfoContainer = styled.div`
   display: flex;
@@ -96,7 +99,14 @@ const NicknameContainer = styled.div`
 const NicknameWrapper = styled.div`
   display: flex;
   align-items: center;
+  justify-content: center;
   height: 50px;
+
+  > .nicknameIcon {
+    margin-left: 4px;
+    margin-right: 9px;
+    color: ${(props) => props.theme.color.mainText};
+  }
 `;
 
 const NicknameInputWrapper = styled.div`
@@ -107,7 +117,7 @@ const NicknameInputWrapper = styled.div`
   /* border: 1px solid green; */
 
   > .editNicknameArea {
-    max-width: 200px;
+    width: 220px;
     color: ${(props) => props.theme.color.mainText};
     border-radius: 4px;
     padding: 10px 8px 10px 8px;
@@ -123,7 +133,7 @@ const NicknameInputWrapper = styled.div`
   > .nicknameArea {
     display: flex;
     align-items: center;
-    max-width: 200px;
+    width: 220px;
     height: 30px;
     color: ${(props) => props.theme.color.mainText};
     font-weight: ${(props) => props.theme.font.titleWeight};
@@ -158,15 +168,6 @@ const PasswordWrapper = styled.div`
   align-items: center;
   height: 50px;
 
-  > .passwordTitle {
-    display: flex;
-    align-items: center;
-    color: ${(props) => props.theme.color.mainText};
-    min-width: 185px;
-    height: 30px;
-    font-weight: ${(props) => props.theme.font.titleWeight};
-  }
-
   > .editPasswordBtn {
     width: 60px;
     height: 30px;
@@ -180,6 +181,26 @@ const PasswordWrapper = styled.div`
     &:hover {
       background-color: ${(props) => props.theme.color.signatureHover};
     }
+  }
+`;
+
+const PasswordTitle = styled.div`
+  display: flex;
+  align-items: center;
+
+  > .passwordTitle {
+    font-size: 15px;
+    display: flex;
+    align-items: center;
+    color: ${(props) => props.theme.color.mainText};
+    min-width: 185px;
+    height: 30px;
+    font-weight: ${(props) => props.theme.font.titleWeight};
+  }
+
+  > .passwordIcon {
+    margin-right: 12px;
+    color: ${(props) => props.theme.color.mainText};
   }
 `;
 
@@ -204,7 +225,7 @@ const MyWithdrawalWrapper = styled.div`
   }
 
   > .withdrawalBtn {
-    width: 100px;
+    width: 90px;
     height: 30px;
     border: none;
     border-radius: 4px;
@@ -216,6 +237,25 @@ const MyWithdrawalWrapper = styled.div`
     &:hover {
       background-color: #ec1d36;
     }
+  }
+`;
+
+const WithdrawalTitle = styled.div`
+  display: flex;
+  align-items: center;
+
+  > .withdrawalTitle {
+    display: flex;
+    align-items: center;
+    color: ${(props) => props.theme.color.mainText};
+    min-width: 185px;
+    height: 30px;
+    font-weight: ${(props) => props.theme.font.titleWeight};
+  }
+
+  > .withdrawalIcon {
+    margin-right: 12px;
+    color: ${(props) => props.theme.color.mainText};
   }
 `;
 
@@ -351,6 +391,7 @@ function MyInfo({ list, getUserData }: UserDataProps) {
       <MyEditContainer>
         <NicknameContainer>
           <NicknameWrapper>
+            <FiUserCheck className='nicknameIcon' size={20} />
             <NicknameInputWrapper>
               {editNickname ? (
                 <input
@@ -373,7 +414,10 @@ function MyInfo({ list, getUserData }: UserDataProps) {
         </NicknameContainer>
         <PasswordContainer>
           <PasswordWrapper>
-            <div className='passwordTitle'>비밀번호</div>
+            <PasswordTitle>
+              <AiOutlineLock className='passwordIcon' size={20} />
+              <div className='passwordTitle'>비밀번호</div>
+            </PasswordTitle>
             <button className='editPasswordBtn' onClick={openPasswordModalHandler}>
               수정
             </button>
@@ -388,9 +432,12 @@ function MyInfo({ list, getUserData }: UserDataProps) {
         </PasswordContainer>
         <MyWithdrawalContainer>
           <MyWithdrawalWrapper>
-            <div className='withdrawalTitle'>회원 탈퇴</div>
+            <WithdrawalTitle>
+              <VscSignOut className='withdrawalIcon' size={20} />
+              <div className='withdrawalTitle'>회원탈퇴</div>
+            </WithdrawalTitle>
             <button className='withdrawalBtn' onClick={openWithdrawalModalHandler}>
-              회원 탈퇴
+              회원탈퇴
             </button>
             {withDrawalModalOpen ? (
               <Modal

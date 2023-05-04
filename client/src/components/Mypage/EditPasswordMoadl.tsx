@@ -21,7 +21,7 @@ const EditPasswordModalView = styled.div`
   background-color: ${(props) => props.theme.color.background};
   width: 85vw;
   max-width: 400px;
-  height: 408px;
+  height: 400px;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.19), 0 10px 10px rgba(0, 0, 0, 0.1);
 
   > .passwordModalTitle {
@@ -78,7 +78,7 @@ const EditPasswordModalView = styled.div`
 `;
 
 const PasswordInputWrapper = styled.div`
-  margin: 30px 0 35px 0;
+  margin: 30px 0 27px 0;
 
   > .editPasswordInput {
     font-size: 14px;
