@@ -119,6 +119,7 @@ function EditList({ list }: DiaryDataProps) {
     let check = false;
     const res = await getYoutubeData(urlId);
     if (res) {
+      console.log(res);
       check = true;
       musicInfo.channelId = res.channelId;
       if (res.thumbnails.maxres) {
@@ -128,6 +129,11 @@ function EditList({ list }: DiaryDataProps) {
       }
       musicInfo.title = res.title;
       musicInfo.url = editUrl;
+      if (res.channelTitle.includes("Topic")) {
+        musicInfo.channelId = res.channelTitle.substring(0, res.channelTitle.indexOf(" - Topic"));
+      } else {
+        musicInfo.channelId = res.channelTitle;
+      }
     } else {
       return toast.error("url을 다시 확인해 주세요.");
     }

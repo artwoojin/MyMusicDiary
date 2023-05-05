@@ -9,7 +9,7 @@ import Modal from "../common/Modal";
 import EditPasswordMoald from "./EditPasswordMoadl";
 import { VscSignOut } from "react-icons/vsc";
 import { FiUserCheck } from "react-icons/fi";
-import { AiOutlineLock } from "react-icons/ai";
+import { HiOutlineLockClosed } from "react-icons/hi";
 
 const MyInfoContainer = styled.div`
   display: flex;
@@ -119,6 +119,7 @@ const NicknameInputWrapper = styled.div`
   > .editNicknameArea {
     width: 220px;
     color: ${(props) => props.theme.color.mainText};
+    font-weight: ${(props) => props.theme.font.contentWeight};
     border-radius: 4px;
     padding: 10px 8px 10px 8px;
     border: none;
@@ -415,7 +416,7 @@ function MyInfo({ list, getUserData }: UserDataProps) {
         <PasswordContainer>
           <PasswordWrapper>
             <PasswordTitle>
-              <AiOutlineLock className='passwordIcon' size={20} />
+              <HiOutlineLockClosed className='passwordIcon' size={20} />
               <div className='passwordTitle'>비밀번호</div>
             </PasswordTitle>
             <button className='editPasswordBtn' onClick={openPasswordModalHandler}>

@@ -22,6 +22,7 @@ export interface PlaylistData {
   title?: number;
   thumbnail?: string;
   url?: string;
+  channelTitle?: string;
 }
 
 export interface PlaylistDataProps {

@@ -217,10 +217,11 @@ const AlbumInfoArea = styled.div`
 `;
 
 const PlayListArea = styled.div`
-  padding: 30px 5px 30px 5px;
+  padding: 30px 0 30px 0;
   border-top: 1px solid ${(props) => props.theme.color.borderLine};
 
   > .playTitle {
+    padding: 0 5px 0 5px;
     display: flex;
     align-items: center;
     font-size: ${(props) => props.theme.font.diarySubTitleSize}px;
@@ -517,10 +518,6 @@ function DetailList({ list, getDetailData }: DiaryDataProps) {
   const replaceImg = (e: any) => {
     e.target.src = mainIcon;
   };
-
-  // 좋아요 클릭 시 빨간색 하트로 변경(임시) ---------------------------------------
-
-  // 좋아요 클릭 시 빨간색 하트로 변경(임시) ---------------------------------------
 
   return (
     <NewMain.MainContainer>
