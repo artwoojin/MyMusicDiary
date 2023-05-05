@@ -13,6 +13,7 @@ const GlobalStyle = createGlobalStyle`
 
   body {
     background-color: ${(props) => props.theme.color.background};
+    overflow-y: scroll;
   }
 `;
 

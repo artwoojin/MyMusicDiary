@@ -7,8 +7,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.*;
 import java.util.List;
 
 public class UserDto {
@@ -41,23 +40,24 @@ public class UserDto {
         @NotBlank(message = "닉네임은 공백이 아니어야 합니다.")
         private String nickname;
 
-        @NotBlank(message = "비밀번호는 공백이 아니어야 합니다.")
+        @NotEmpty(message = "비밀번호는 비어있을 수 없습니다.")
         private String password;
 
         private String imageUrl;
 
+        @NotNull
+        @Size(min = 8, max = 50)
+        private String currentPassword;
     }
 
     @Getter
     @Setter
-    //@AllArgsConstructor
     public static class Response {
 
         private long userId;
 
         private String nickname;
         private String email;
-        private String password;
         private String imageUrl;
 
     }
@@ -70,7 +70,6 @@ public class UserDto {
 
         private String nickname;
         private String email;
-        private String password;
         private String imageUrl;
 
         // 좋아요한 다이어리

@@ -103,6 +103,10 @@ const LikeButton = styled.button`
     background-color: ${(props) => props.theme.color.buttonHover};
   }
 
+  &:active {
+    transform: scale(1.04);
+  }
+
   // 721px 이하에서 UserInfo의 좋아요 버튼 크기 축소
   @media screen and (max-width: 721px) {
     width: 65px;
@@ -377,11 +381,11 @@ interface DiaryDataProps {
 }
 
 function DetailList({ list, getDetailData }: DiaryDataProps) {
-  const [checkLike, setCheckLike] = useState<boolean>(false);
   const [commentBody, setCommentBody] = useState<string>("");
   const [withDrawalModalOpen, setWithdrawalModalOpen] = useState<boolean>(false);
   const [ruleModal, setRuleModal] = useState<boolean>(false);
   const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [likeCheck, setLikeCheck] = useState<DiaryData[]>([]);
 
   const commentData = list.comments; // 선택한 다이어리의 댓글 데이터
   const playlistData = list.playlists; // 선택한 플레이리스트 데이터
@@ -392,6 +396,7 @@ function DetailList({ list, getDetailData }: DiaryDataProps) {
   const dropMenuRef = useRef<HTMLDivElement | null>(null);
   const { isLogin, currentUser }: any = useContext(MyContext);
   const myDiary: boolean = list.userNickname === currentUser?.nickname;
+  const isLikeCheck = likeCheck.filter((value) => value.diaryId === list.diaryId).length;
 
   // 드롬다운 오픈 이벤트 핸들러
   const openDropdown = (e: any) => {
@@ -407,6 +412,21 @@ function DetailList({ list, getDetailData }: DiaryDataProps) {
     document.addEventListener("click", handleOutsideClose);
     return () => document.removeEventListener("click", handleOutsideClose);
   }, [isOpen]);
+
+  // likeDiaries get 요청
+  const getLikeData = async () => {
+    try {
+      if (currentUser) {
+        const res = await TOKEN_API.get(`/users/${currentUser.userId}`);
+        setLikeCheck(res.data.likeDiaries);
+      }
+    } catch (err) {
+      console.error(err);
+    }
+  };
+  useEffect(() => {
+    getLikeData();
+  }, [list.likeCount]);
 
   // 좋아요 post/delete 요청
   const plusLikeCount = async () => {
@@ -498,6 +518,10 @@ function DetailList({ list, getDetailData }: DiaryDataProps) {
     e.target.src = mainIcon;
   };
 
+  // 좋아요 클릭 시 빨간색 하트로 변경(임시) ---------------------------------------
+
+  // 좋아요 클릭 시 빨간색 하트로 변경(임시) ---------------------------------------
+
   return (
     <NewMain.MainContainer>
       <NewMain.MainWrapper>
@@ -555,7 +579,7 @@ function DetailList({ list, getDetailData }: DiaryDataProps) {
                 {list.userNickname}
               </NewMain.User>
               <LikeButton onClick={plusLikeCount}>
-                {checkLike === true ? (
+                {isLikeCheck === 1 ? (
                   <AiFillHeart className='likeIcon' size={17} />
                 ) : (
                   <AiOutlineHeart className='unLikeIcon' size={17} />

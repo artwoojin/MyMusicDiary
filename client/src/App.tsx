@@ -49,6 +49,7 @@ function App() {
     localStorage.removeItem("mainCurrentTab");
     localStorage.removeItem("mainCurrentPage");
     localStorage.removeItem("mainCurrentPageBlock");
+    localStorage.removeItem("mainCurrentSortedTab");
     localStorage.removeItem("myCurrentTab");
     localStorage.removeItem("myCurrentPage");
     localStorage.removeItem("myCurrentPageBlock");

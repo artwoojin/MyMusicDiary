@@ -14,21 +14,18 @@
 - **`프로젝트 기간` :** 2023.03.03. - 2023.04.30.
 - **`프로젝트 소개` :** Mariple은 사용자가 유튜브 또는 유튜브 뮤직의 url을 입력하는 방식으로 플레이리스트를 추가하고 다이어리를 작성하는 블로그+플레이리스트가 결합된 서비스입니다.
 - **`팀원` :**  유우진(팀장), 김덕림, 김동구
-- **`링크` :** [Mariple 홈페이지](http://mylittlemusicdiary.s3-website.ap-northeast-2.amazonaws.com/)
+- **`링크` :** [Mariple 홈페이지](https://www.mariple.com/)
+</br>
 
-<br/>
 
-## :bulb: Intro
-<h3>title</h3>
 
-<br/>
 
 ## :family: 팀원 소개
 
 | [유우진<br>(BE, 팀장)](https://github.com/artwoojin) | [김덕림<br>(BE)](https://github.com/vxy2715) | [김동구<br>(FE)](https://github.com/kimdonggu42) |
 | :---: | :---: | :---: |
   | <img alt="유우진" src="https://user-images.githubusercontent.com/115632555/234250563-0aa03899-97a9-42bc-8cac-9c01df190646.png" height="150"> | <img alt="김덕림" src="https://user-images.githubusercontent.com/115632555/234252617-540a3de6-99cf-4644-86c1-2189cd59f961.png" height="150"> | <img alt="김동구" src="https://user-images.githubusercontent.com/115632555/234249002-72fbe9e4-8808-4b01-bc9c-53bd6fd7793f.jpg" height="150" style=""> |
-| <p align="left">- <br/>- <br/>- <br/>- <br/></p> | <p align="left">- #<br/>- #<br/>- #<br/>- #<br/>- #<br/></p> | <p align="left">- 플레이리스트 CRUD<br/>- 다이어리/댓글 CRUD<br/>- UX 사용성 개선<br/>- 페이지네이션<br/>- 다크모드</p>|
+| <p align="left">- 유저 CRUD <br/>- JWT 이용 로그인 <br/> - 좋아요, 태그 <br/>- AWS EC2 배포 <br/>- AWS RDS,MySQL 데이터베이스 <br/></p> | <p align="left">- 다이어리 CRUD <br/>- 댓글 CRUD <br/>- 플레이리스트 CRUD <br/>- AWS EC2 배포 <br/>- AWS RDS,MySQL 데이터베이스 <br/></p> | <p align="left">- 플레이리스트 CRUD<br/>- 다이어리/댓글 CRUD<br/>- UX 사용성 개선<br/>- 페이지네이션<br/>- 다크모드</p>|
 <br/>
 
 ## :computer: 기술 스택
@@ -42,31 +39,30 @@
 ### Etc
 <img src="https://img.shields.io/badge/Git-F05032?style=for-the-badge&logo=Git&logoColor=white"> <img src="https://img.shields.io/badge/Github-181717?style=for-the-badge&logo=Github&logoColor=white"> <img src="https://img.shields.io/badge/Discord-5865F2?style=for-the-badge&logo=Discord&logoColor=white"> <img src="https://img.shields.io/badge/Notion-000000?style=for-the-badge&logo=Notion&logoColor=white"> <img src="https://img.shields.io/badge/Figma-F24E1E?style=for-the-badge&logo=Figma&logoColor=white">
 
-<br/>   
+<br/>
 
 ## 시연 영상
 |**회원가입**|**로그인**|
 |:---:|:---:|
-|<img width="360px" src="#"/>|<img width="360px" src="#"/>|
+|<img width="360px" src="https://user-images.githubusercontent.com/115632555/235355425-02b8922c-911e-4142-8f7b-705cccb2231b.gif"/>|<img width="360px" src="https://user-images.githubusercontent.com/115632555/235355579-6df996d3-04e9-4d93-834d-e22eab250100.gif"/>|
 |**다이어리 등록**|**다이어리 수정 및 삭제**|
-|<img width="360px" src="#"/>|<img width="360px" src="#"/>|
+|<img width="360px" src="https://user-images.githubusercontent.com/115632555/235355813-a92c18fe-4e6f-4546-a57f-c368c8cd483f.gif"/>|<img width="360px" src="https://user-images.githubusercontent.com/115632555/235355910-1bed73c0-1016-430e-bb71-20441dc96006.gif"/>|
 |**태그**|**좋아요**|
-|<img width="360px" src="#"/>|<img width="360px" src="#"/>|
+|<img width="360px" src="https://user-images.githubusercontent.com/115632555/235356292-162636dc-e789-4136-b03e-0be47379063b.gif"/>|<img width="360px" src="https://user-images.githubusercontent.com/115632555/235356368-19215cdd-4f53-4a8c-83a3-d36a00a7e45d.gif"/>|
 |**댓글 등록**|**댓글 수정 및 삭제**|
-|<img width="360px" src="#"/>|<img width="360px" src="#"/>|
+|<img width="360px" src="https://user-images.githubusercontent.com/115632555/235356431-2e05042a-fec8-48d9-a15c-de9bde1f2231.gif"/>|<img width="360px" src="https://user-images.githubusercontent.com/115632555/235356493-0240458d-1af1-41ec-bd2a-69a25443d934.gif"/>|
 |**프로필 이미지 등록 및 제거**|**닉네임/비밀번호 수정**|
-|<img width="360px" src="#"/>|<img width="360px" src="#"/>|
+|<img width="360px" src="https://user-images.githubusercontent.com/115632555/235356631-49149fb4-0721-4e49-84e5-7514267f82bd.gif"/>|<img width="360px" src="https://user-images.githubusercontent.com/115632555/235356687-4ae97885-37e7-4535-8514-19b5761deaca.gif"/>|
 |**회원탈퇴**|**나의 다이어리/좋아한 다이어리/나의 댓글**|
-|<img width="360px" src="#"/>|<img width="360px" src="#"/>|
+|<img width="360px" src="https://user-images.githubusercontent.com/115632555/235356793-45a03868-95f3-4a13-948c-a5d3c3c3453c.gif"/>|<img width="360px" src="https://user-images.githubusercontent.com/115632555/235356960-cef09415-4230-4d28-bb42-f0562dfd524f.gif"/>|
 |**로그아웃**|**다크모드**|
-|<img width="360px" src="#"/>|<img width="360px" src="#"/>|
+|<img width="360px" src="https://user-images.githubusercontent.com/115632555/235357022-41c78b01-276f-43ed-b13d-06b79c33f23a.gif"/>|<img width="360px" src="https://user-images.githubusercontent.com/115632555/235357107-5e9f8293-8fe6-4d4e-8e06-65ff86bae865.gif"/>|
 
 ## :file_folder: 문서함
-+ [사용자 요구사항 정의서]()
-+ [API 명세서]()
-+ [화면 정의서]()
-+ [개발자 테스트]()
-+ [서비스 메뉴얼]()
++ [사용자 요구사항 정의서](https://docs.google.com/spreadsheets/d/153_ai6GDBJg-27FtsVWuoYXmLJgbkPunSy3rcv6PI70/edit#gid=1432785522)
++ [API 명세서](https://docs.google.com/spreadsheets/d/153_ai6GDBJg-27FtsVWuoYXmLJgbkPunSy3rcv6PI70/edit#gid=449181220)
++ [화면 정의서](https://docs.google.com/presentation/d/1Gfus68FyAZnhMIuU5-JqXjbk_7E2LmNb7CePtcMEWnw/edit?usp=sharing)
++ [Figma Wireframe](https://www.figma.com/proto/6MVNPekesz9vhabLmQr5vp/30FE-main?page-id=0%3A1&node-id=83-3352&viewport=6952%2C-513%2C0.47&scaling=contain&starting-point-node-id=110%3A836&show-proto-sidebar=1)
 <br/>
 
 ## :pencil2: 커밋 & 코드 컨벤션

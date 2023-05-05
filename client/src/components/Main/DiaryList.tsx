@@ -41,10 +41,12 @@ export const InfoArea = styled.div`
   > .infoTitle {
     color: ${(props) => props.theme.color.mainText};
     font-weight: ${(props) => props.theme.font.titleWeight};
+    height: 20px;
     margin-bottom: 10px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    /* border: 1px solid red; */
   }
 
   > .infoDate {
@@ -75,7 +77,7 @@ export const UserArea = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 5.5px 15px 5px 15px;
+  padding: 6px 15px 5px 15px;
   border-top: 1px solid ${(props) => props.theme.color.userAreaLine};
 `;
 

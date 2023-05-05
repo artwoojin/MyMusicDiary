@@ -7,11 +7,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-<<<<<<< HEAD
-    date = "2023-04-19T17:53:11+0900",
-=======
-    date = "2023-04-29T15:09:59+0900",
->>>>>>> origin/main
+    date = "2023-05-02T23:47:01+0900",
     comments = "version: 1.5.1.Final, compiler: javac, environment: Java 11.0.17 (Azul Systems, Inc.)"
 )
 @Component
@@ -28,7 +24,6 @@ public class LikeMapperImpl implements LikeMapper {
         if ( findLike.getLikeId() != null ) {
             response.likeId( findLike.getLikeId() );
         }
-        response.userId( findLike.getUserId() );
 
         return response.build();
     }

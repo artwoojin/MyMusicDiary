@@ -2,6 +2,7 @@ package com.seb42.main30.seb42_main_030.like.repository;
 
 import com.seb42.main30.seb42_main_030.diary.entity.Diary;
 import com.seb42.main30.seb42_main_030.like.entity.Like;
+import com.seb42.main30.seb42_main_030.user.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -11,9 +12,8 @@ import java.util.Optional;
 @Repository
 public interface LikeRepository extends JpaRepository<Like, Long> {
 
-    List<Like> findAllByUserId(long userId);
+    List<Like> findAllByUser(User user);
 
-    Optional<Like> findLikeByUserIdAndDiary(long userId, Diary diary);
+    Optional<Like> findLikeByUserAndDiary(User user, Diary diary);
 
-//    List<Like> existsByUserIdAndDiaryId(Long userId, Long diaryId);
 }

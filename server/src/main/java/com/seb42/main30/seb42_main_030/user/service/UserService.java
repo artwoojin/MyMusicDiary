@@ -28,22 +28,13 @@ public class UserService {
     private final CustomAuthorityUtils authorityUtils;
     private final UploadService s3Service;
 
-//    public UserService(UserRepository memberRepository,
-//                         ApplicationEventPublisher publisher,
-//                         PasswordEncoder passwordEncoder,
-//                         CustomAuthorityUtils authorityUtils) {
-//        this.userRepository = memberRepository;
-//        this.publisher = publisher;
-//        this.passwordEncoder = passwordEncoder;
-//        this.authorityUtils = authorityUtils;
-
     // (1) user 등록(자체 회원 가입)
     public User createUser(User user) {
 
         // 이미 등록된 이메일인지 검증
         verifyExistsEmail(user.getEmail());
 
-        // password 암호화
+        // 비밀번호 암호화
         String encryptedPassword = passwordEncoder.encode(user.getPassword());
         user.setPassword(encryptedPassword);
 
@@ -57,18 +48,27 @@ public class UserService {
     }
 
     // (2) user 정보 수정
-    public User updateUser(User user) throws Exception{
+    public User updateUser(User user, String currentPassword) throws Exception{
 
         // 유저가 존재한다면 해당 유저의 아이디를 가져옴
         User findUser = findVerifiedUser(user.getUserId());
 
+        // 비밀번호 수정 요청이 있을 경우
+        if (user.getPassword() != null) {
+            // 현재 비밀번호 검증
+            if (!passwordEncoder.matches(currentPassword, findUser.getPassword())) {
+                throw new IllegalArgumentException("현재 비밀번호가 일치하지 않습니다.");
+            }
+            // 새로운 비밀번호 암호화
+            String encryptedPassword = passwordEncoder.encode(user.getPassword());
+            findUser.setPassword(encryptedPassword);
+        }
+
         // 회원정보 업데이트
         Optional.ofNullable(user.getNickname())
-                .ifPresent(name -> findUser.setNickname(name));
-        Optional.ofNullable(user.getPassword())
-                .ifPresent(password -> findUser.setPassword(password));
+                .ifPresent(findUser::setNickname);
         Optional.ofNullable(user.getImageUrl())
-                .ifPresent(url -> findUser.setImageUrl(url));
+                .ifPresent(findUser::setImageUrl);
 
         // 회원정보 수정 저장
         return userRepository.save(findUser);
@@ -87,16 +87,7 @@ public class UserService {
 
     }
 
-    // (5) 이미 존재하는 유저인지 검증
-    public User findVerifiedUser(long userId) {
-        Optional<User> optionalUser = userRepository.findById(userId);
-        User findUser = optionalUser.orElseThrow(() ->
-                new BusinessException(ExceptionCode.USER_NOT_FOUND));
-
-        return findUser;
-    }
-
-    // (6) 이미 등록된 이메일인지 검증
+    // (5) 이미 존재하는 유저인지 검증(이메일)
     public User verifyExistsEmail(String email) {
         Optional<User> user = userRepository.findByEmail(email);
 
@@ -105,7 +96,14 @@ public class UserService {
         return null;
     }
 
-    // Login 한 Member 를 가져오는 로직
+    // (6) 유저 정보 찾기
+    public User findVerifiedUser(long userId) {
+        return userRepository.findById(userId)
+                .orElseThrow(()
+                        -> new BusinessException(ExceptionCode.USER_NOT_FOUND));
+    }
+
+    // (7) Login 한 User를 가져오는 로직
     public User getLoginUser() {
         return  userRepository.findById(Long.valueOf(GetAuthUserUtils.getAuthUser().getName()))
                 .orElseThrow(()
@@ -117,14 +115,6 @@ public class UserService {
     public User findUserByEmail(String email) {
         return userRepository.findUserByEmail(email);
     }
-//    public User findUserById(long userId) {
-//        User findUser = userRepository.findById(userId);
-//
-//        if (findUser == null) {
-//            throw new BusinessException(ExceptionCode.USER_NOT_FOUND);
-//        }
-//        return findUser;
-//    }
 
 
 //    public void deleteUserImage(Long userId) {
@@ -157,5 +147,5 @@ public class UserService {
         }
         return url.substring(pos + 1);
     }
-}
 
+}

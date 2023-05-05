@@ -62,8 +62,4 @@ public class User {
     private List<Like> likes = new ArrayList<>();
 
 
-//    // like 맵핑(한 like:한 user)
-//    @OneToOne(mappedBy = "user")
-//    @JoinColumn(name = "userId")
-//    private User user;
 }
