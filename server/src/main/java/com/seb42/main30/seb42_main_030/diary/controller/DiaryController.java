@@ -37,16 +37,12 @@ public class DiaryController {
     private final DiaryService diaryService;
     private final DiaryMapper diaryMapper;
     private final CommentService commentService;
-//    private final PlaylistService playlistService;
-    //private final LikeService likeService;
+
 
     // 게시물 등록
     @PostMapping
     public ResponseEntity postDiary(@Valid @RequestBody DiaryDto.Post post){
-//        Diary diary = diaryService.createDiary(diaryMapper.diaryPostToDiary(post));
-//
-//        DiaryDto.Response response = diaryMapper.diaryToResponse(diary);
-//        return new ResponseEntity<>(response, HttpStatus.CREATED);
+
 
         Diary diary = diaryMapper.diaryPostToDiary(post);
         Diary savedDiary = diaryService.createDiary(diary, post);
@@ -68,14 +64,6 @@ public class DiaryController {
         }
     }
 
-    // 게시물 '전체'조회
-//    @GetMapping
-//    public ResponseEntity getDiary(){
-//        List<Diary> diaries = diaryService.readDiarys();
-//        List<DiaryDto.Response> responsess = diaryMapper.diaryToResponses(diaries);
-//
-//        return new ResponseEntity(responsess, HttpStatus.OK);
-//    }
 
     //메인페이지 전체 게시글 조회 + 페이지네이션
     @GetMapping
@@ -126,13 +114,7 @@ public class DiaryController {
     @PatchMapping("/{diary-id}")
     public ResponseEntity patchDiary (@PathVariable("diary-id") long diaryId,
                                       @Valid @RequestBody DiaryDto.Patch patch) throws BusinessException {
-//        try {
-//            Diary diary = diaryService.updateDiary(diaryId, diaryMapper.diaryPatchToDiary(patch));
-//            DiaryDto.Response response = diaryMapper.diaryToResponse(diary);
-//            return new ResponseEntity<>(response, HttpStatus.OK);
-//        } catch (BusinessException e){
-//            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
-//        }
+
 
         Diary diary = diaryMapper.diaryPatchToDiary(patch);
         Diary savedDiary = diaryService.updateDiary(diaryId, diary, patch);

@@ -11,6 +11,6 @@ public class PlaylistResponseDto {
     private String title;
     private String thumbnail;
     private String url;
-    private String channelId;
+    private String channelTitle;
 
 }

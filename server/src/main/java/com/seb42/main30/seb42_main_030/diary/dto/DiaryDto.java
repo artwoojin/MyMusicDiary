@@ -74,7 +74,6 @@ public class DiaryDto {
         private String imageUrl;
 
         private List<CommentDto.Response> comments;
-//        private List<PlaylistDto.Response> playlists;
         private List<PlaylistResponseDto> playlists;
         private List<String> tags;
         public void setLikedUsers(List<UserDto.Response> likedUsers) {
