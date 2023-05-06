@@ -347,7 +347,7 @@ export const SubmitButton = styled.button`
 
 function NewMain() {
   const [newTitle, setNewTitle] = useState<string>("");
-  const [newTag, setNewTag] = useState<any>([]);
+  const [newTag, setNewTag] = useState<string[]>([]);
   const [newBody, setNewBody] = useState<string>("");
   const [newPlayList, setNewPlayList] = useState<PlaylistData[]>([]);
   const [newUrl, setNewUrl] = useState<string>("");

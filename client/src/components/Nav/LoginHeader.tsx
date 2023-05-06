@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { UserData } from "../../util/Type";
 import { Link, useNavigate } from "react-router-dom";
 import { useState, useEffect, useRef, useContext } from "react";
 import { BASE_API } from "../../util/API";
@@ -190,7 +191,7 @@ const DropdownLogoutButton = styled.button`
 `;
 
 function LoginHeader() {
-  const [imageData, setImageData] = useState<any>([]);
+  const [imageData, setImageData] = useState<string>("");
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
   const { currentUser, isChange, changeMode }: any = useContext(MyContext);
@@ -201,7 +202,7 @@ function LoginHeader() {
   const getImageData = async () => {
     try {
       const res = await BASE_API.get(`/users/${currentUser.userId}`);
-      setImageData(res.data);
+      setImageData(res.data.imageUrl);
     } catch (err) {
       console.error(err);
     }
@@ -256,7 +257,7 @@ function LoginHeader() {
           </Link>
           <ProfileButton onClick={openDropdown}>
             <Profile
-              src={imageData.imageUrl ? imageData.imageUrl : defaultProfile}
+              src={imageData ? imageData : defaultProfile}
               alt='헤더 프로필 이미지'
               onError={replaceImg}
             />

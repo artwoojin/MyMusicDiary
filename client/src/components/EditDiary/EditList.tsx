@@ -84,7 +84,7 @@ function EditList({ list }: DiaryDataProps) {
   };
 
   // input에 등록한 Url 정보 불러옴
-  const getYoutubeData = async (id: any) => {
+  const getYoutubeData = async (id: string | undefined) => {
     try {
       const res =
         await axios.get(`https://www.googleapis.com/youtube/v3/videos?id=${id}&key=${process.env.REACT_APP_YOUTUBE_API_KEY}
