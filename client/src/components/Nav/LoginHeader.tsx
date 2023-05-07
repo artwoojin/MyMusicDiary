@@ -5,7 +5,7 @@ import { useState, useEffect, useRef, useContext } from "react";
 import { BASE_API } from "../../util/API";
 import { GoTriangleDown } from "react-icons/go";
 import { BsFillSunFill, BsFillMoonStarsFill } from "react-icons/bs";
-import { FiLogOut, FiEdit3, FiUser } from "react-icons/fi";
+import { FiLogOut, FiEdit3, FiUser, FiSearch } from "react-icons/fi";
 import { MyContext } from "../../util/MyContext";
 import defaultProfile from "../../assets/images/defaultProfile.png";
 import logo_black from "../../assets/images/logo_black.png";
@@ -42,14 +42,28 @@ const ButtonArea = styled.div`
   display: flex;
   align-items: center;
   position: relative;
+  column-gap: 10px;
+
+  // 721px 이하에서 각 버튼 간격 축소
+  @media screen and (max-width: 721px) {
+    column-gap: 7px;
+  }
+`;
+
+export const SearchButton = styled.button`
+  padding-top: 4px;
+  width: 35px;
+  border: none;
+  background-color: transparent;
+  color: ${(props) => props.theme.color.mainText};
+  cursor: pointer;
 `;
 
 export const ModeButton = styled.button`
   padding-top: 3px;
-  width: 40px;
+  width: 35px;
   border: none;
   background-color: transparent;
-  margin-right: 2px;
   cursor: pointer;
 
   > .lightIcon {
@@ -62,7 +76,7 @@ export const ModeButton = styled.button`
 `;
 
 export const NewPost = styled.button`
-  width: 140px;
+  width: 130px;
   height: 35px;
   border: none;
   background-color: transparent;
@@ -78,9 +92,10 @@ export const NewPost = styled.button`
 `;
 
 const ProfileButton = styled.div`
+  width: 80px;
   display: flex;
   align-items: center;
-  margin-left: 2px;
+  margin-right: -20px;
   cursor: pointer;
 
   > .triangleDown {
@@ -97,7 +112,7 @@ const ProfileButton = styled.div`
 const Profile = styled.img`
   width: 40px;
   height: 40px;
-  margin: 0 10px 0 10px;
+  margin-right: 10px;
   border-radius: 50%;
   box-shadow: rgba(0, 0, 0, 0.086) 0px 0px 8px;
 `;
@@ -245,6 +260,11 @@ function LoginHeader() {
           {isChange === "dark" ? <Logo src={logo_white} /> : <Logo src={logo_black} />}
         </Link>
         <ButtonArea>
+          <Link to='/Search'>
+            <SearchButton>
+              <FiSearch size={22} />
+            </SearchButton>
+          </Link>
           <ModeButton onClick={changeMode}>
             {isChange === "dark" ? (
               <BsFillMoonStarsFill className='darkIcon' size={20} />

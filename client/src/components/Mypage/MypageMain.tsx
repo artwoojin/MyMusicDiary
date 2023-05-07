@@ -59,7 +59,7 @@ const MypageWrapper = styled.div`
 `;
 
 const CommentCountWrapper = styled.div`
-  font-size: 15px;
+  font-size: 16px;
   height: 33px;
   padding: 0 5px 0 5px;
   border-bottom: 1px solid ${(props) => props.theme.color.borderLine};

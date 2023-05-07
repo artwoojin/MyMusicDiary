@@ -11,6 +11,7 @@ import { lightMode, darkMode } from "./assets/style/theme";
 import { MyContext } from "./util/MyContext";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.min.css";
+import SearchDiary from "./pages/Search";
 
 const ToastAlert = styled(ToastContainer)`
   .Toastify__toast {
@@ -86,6 +87,7 @@ function App() {
               <Route path='/Signup' element={<Signup />} />
               <Route path='/DetailDiary/:diaryId' element={<DetailDiary />} />
               <Route path='/EditDiary/:diaryId' element={<EditDiary />} />
+              <Route path='/Search' element={<SearchDiary />} />
             </Routes>
             <ToastAlert hideProgressBar={false} autoClose={2000} pauseOnFocusLoss={true} />
           </div>

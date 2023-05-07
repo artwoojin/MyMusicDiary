@@ -16,6 +16,7 @@ import { MyContext } from "../../util/MyContext";
 import { toast } from "react-toastify";
 import mainIcon from "../../assets/images/mainIcon.png";
 import Modal from "../common/Modal";
+import useFetch from "../../hooks/useFetch";
 
 const TitleArea = styled.div`
   height: 75px;
