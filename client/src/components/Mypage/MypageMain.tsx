@@ -16,7 +16,7 @@ import { MyContext } from "../../util/MyContext";
 const ListTab = styled.ul`
   display: flex;
   justify-content: center;
-  font-size: 16px;
+  font-size: 17px;
   margin: 50px 0 45px 0;
   padding: 0 15px 0 15px;
   gap: 10px;
@@ -59,7 +59,7 @@ const MypageWrapper = styled.div`
 `;
 
 const CommentCountWrapper = styled.div`
-  font-size: 15px;
+  font-size: 17px;
   height: 33px;
   padding: 0 5px 0 5px;
   border-bottom: 1px solid ${(props) => props.theme.color.borderLine};
@@ -67,14 +67,15 @@ const CommentCountWrapper = styled.div`
 
 const CommentInfo = styled.div`
   display: flex;
-  color: ${(props) => props.theme.color.mainText};
 
   > .countNum {
     font-weight: ${(props) => props.theme.font.titleWeight};
+    color: ${(props) => props.theme.color.mainText};
   }
 
   > .countText {
     font-weight: ${(props) => props.theme.font.contentWeight};
+    color: ${(props) => props.theme.color.subText};
   }
 `;
 
@@ -95,7 +96,7 @@ function MypageMain() {
 
   const LIMIT_COUNT: number = 20;
   const offset: number = (myCurrentPage - 1) * LIMIT_COUNT;
-  const { currentUser }: any = useContext(MyContext);
+  const { currentUser, setIsLoading }: any = useContext(MyContext);
 
   useEffect(() => {
     window.localStorage.setItem("myCurrentTab", JSON.stringify(myCurrentTab));
@@ -117,8 +118,10 @@ function MypageMain() {
   const getUserData = async () => {
     try {
       const res = await BASE_API.get(`/users/${currentUser.userId}`);
+      setIsLoading(true);
       setMyUserData(res.data);
     } catch (err) {
+      setIsLoading(true);
       console.error(err);
     }
   };
@@ -218,8 +221,8 @@ function MypageMain() {
           <MypageWrapper>
             <CommentCountWrapper>
               <CommentInfo>
-                <div className='countNum'>{myCommentData.length}</div>
-                <div className='countText'>개의 작성한 댓글이 있습니다.</div>
+                <div className='countNum'>{myCommentData.length}개</div>
+                <div className='countText'>의 작성한 댓글이 있습니다.</div>
               </CommentInfo>
             </CommentCountWrapper>
             {myCommentData.slice(offset, offset + LIMIT_COUNT).map((value) => {

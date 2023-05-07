@@ -5,7 +5,7 @@ import mainIcon from "../../assets/images/mainIcon.png";
 export const PlayListContainer = styled.li`
   display: flex;
   justify-content: center;
-  margin-top: 10px;
+  margin-top: 12px;
 `;
 
 export const PlayListWrapper = styled.div`
@@ -30,13 +30,38 @@ export const ContentArea = styled.div`
   }
 
   > .listTitle {
+    flex: 7;
     font-size: ${(props) => props.theme.font.diaryContentSize}px;
-    font-weight: ${(props) => props.theme.font.contentWeight};
     width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    word-break: keep-all;
+    -webkit-line-clamp: 2;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    line-height: 1.35;
+    /* border: 1px solid red; */
+  }
+
+  > .listChannelTitle {
+    flex: 3;
+    margin-left: 60px;
+    min-width: 130px;
+    font-size: 14px;
+    color: ${(props) => props.theme.color.subText};
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    /* border: 1px solid red; */
+
+    @media screen and (max-width: 721px) {
+      margin-left: 20px;
+      min-width: 80px;
+    }
   }
 
   > .delete {
-    width: 50px;
+    min-width: 50px;
     color: ${(props) => props.theme.color.subText};
     border: none;
     text-decoration: underline;
@@ -45,6 +70,7 @@ export const ContentArea = styled.div`
     margin: 5px;
     background-color: transparent;
     cursor: pointer;
+    /* border: 1px solid red; */
   }
 `;
 
@@ -74,6 +100,7 @@ function NewPlayList({ list, newPlayList, setNewPlayList }: PlaylistDataProps) {
             onError={replaceImg}
           />
           <div className='listTitle'>{list.title}</div>
+          <div className='listChannelTitle'>{list.channelTitle}</div>
           <button className='delete' onClick={() => deleteList(list.url)}>
             삭제
           </button>

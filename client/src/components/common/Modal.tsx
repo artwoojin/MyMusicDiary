@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { ModalValue } from "../../util/Type";
 
 const ModalBack = styled.div`
   position: fixed;
@@ -13,12 +14,15 @@ const ModalBack = styled.div`
 `;
 
 const ModalView = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   text-align: center;
   border-radius: 4px;
   background-color: ${(props) => props.theme.color.background};
   width: 85vw;
   max-width: 400px;
-  height: 200px;
+  height: 210px;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.19), 0 10px 10px rgba(0, 0, 0, 0.1);
 
   > .ModalTitle {
@@ -26,17 +30,30 @@ const ModalView = styled.div`
     font-size: ${(props) => props.theme.font.diarySubTitleSize}px;
     font-weight: ${(props) => props.theme.font.titleWeight};
     text-align: center;
-    margin: 30px 15px 30px 15px;
+    margin: 35px 15px 6px 15px;
   }
 
-  > .ModalText {
-    height: 45px;
-    color: ${(props) => props.theme.color.subText};
-    font-size: ${(props) => props.theme.font.diaryContentSize}px;
-    font-weight: ${(props) => props.theme.font.contentWeight};
-    margin: 0 15px 22px 15px;
-    word-break: keep-all;
+  > .ModalTextBody {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 90px;
+    margin-bottom: 6px;
+    /* border: 1px solid red; */
+
+    > .ModalText {
+      color: ${(props) => props.theme.color.subText};
+      font-size: ${(props) => props.theme.font.diaryContentSize}px;
+      font-weight: ${(props) => props.theme.font.contentWeight};
+      padding: 0 10px 0 10px;
+      word-break: keep-all;
+      /* border: 1px solid red; */
+    }
   }
+`;
+
+const ButtonArea = styled.div`
+  display: flex;
 
   > button {
     font-size: ${(props) => props.theme.font.diaryContentSize}px;
@@ -49,6 +66,7 @@ const ModalView = styled.div`
 
     &:hover {
       background-color: ${(props) => props.theme.color.buttonHover};
+      /* background-color: red; */
     }
   }
 
@@ -69,18 +87,22 @@ const ModalView = styled.div`
   }
 `;
 
-function Modal({ title, text, confirmText, cancelHandler, confirmHandler }: any) {
+function Modal({ title, text, confirmText, cancelHandler, confirmHandler }: ModalValue) {
   return (
     <ModalBack>
       <ModalView>
         <div className='ModalTitle'>{title}</div>
-        <div className='ModalText'>{text}</div>
-        <button className='CancelButton' onClick={cancelHandler}>
-          취소
-        </button>
-        <button className='ConfirmButton' onClick={confirmHandler}>
-          {confirmText}
-        </button>
+        <div className='ModalTextBody'>
+          <div className='ModalText'>{text}</div>
+        </div>
+        <ButtonArea>
+          <button className='CancelButton' onClick={cancelHandler}>
+            취소
+          </button>
+          <button className='ConfirmButton' onClick={confirmHandler}>
+            {confirmText}
+          </button>
+        </ButtonArea>
       </ModalView>
     </ModalBack>
   );
