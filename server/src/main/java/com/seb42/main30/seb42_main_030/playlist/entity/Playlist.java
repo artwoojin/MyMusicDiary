@@ -28,14 +28,10 @@ public class Playlist {
     private String url;
 
     @Column
-    private String channelId;
+    private String channelTitle;
 
 
-//    //    유저랑 다이어리 연결
-//    @ManyToOne
-//    @JoinColumn(name = "user_id")
-//    private User user;
-    //
+
     @ManyToOne(targetEntity = Diary.class, cascade = CascadeType.PERSIST)
     @JoinColumn(name = "diary_id")
     private Diary diary;

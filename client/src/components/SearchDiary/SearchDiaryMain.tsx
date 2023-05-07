@@ -157,6 +157,8 @@ function SearchDiaryMain() {
   // 검색어 로컬스토리지에 저장
   useEffect(() => {
     window.localStorage.setItem("searchText", JSON.stringify(userInput));
+    setSearchCurrentPage(1);
+    setSearchBlockNum(0);
   }, [userInput]);
 
   // 로컬스토리지에 현재 페이지 번호 저장

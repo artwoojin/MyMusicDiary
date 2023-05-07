@@ -48,13 +48,7 @@ public interface DiaryMapper {
 
 
 
-//    @Named("playlistToPlaylistDto")
-//    @Mapping(source = "diary.diaryId", target = "diaryId")
-//    PlaylistDto.Response playlistToPlaylistDto(Playlist playlist);
 
-    //    @Mapping(source = "playlists", target = "playlists", qualifiedByName = "playlistToPlaylistDto")
-//    @Mapping(source = "user.nickname", target = "userNickname")
-//    @Mapping(source = "comments", target = "comments", qualifiedByName = "commentToCommentDto")
     default DiaryDto.Response diaryToResponse(Diary diary) {
         if (diary == null) {
             return null;
@@ -89,20 +83,12 @@ public interface DiaryMapper {
                         .url(playlist.getUrl())
                         .title(playlist.getTitle())
                         .thumbnail(playlist.getThumbnail())
-                        .channelId(playlist.getChannelId())
+                        .channelTitle(playlist.getChannelTitle())
                         .build())
                 .collect(Collectors.toList());
     }
 
-//    @Mapping(source = "comments", target = "comments", qualifiedByName = "commentToCommentDto")
-//    List<DiaryDto.Response> diaryToResponses(List<Diary> diaries);
 
-
-
-
-
-//    @Mapping(source = "playlists", target = "playlists", qualifiedByName = "playlistToPlaylistDto")
-//    @Mapping(source = "comments", target = "comments", qualifiedByName = "commentToCommentDto")
     List<DiaryDto.Response> diaryToResponses(Page<Diary> diaries);
 
     @Named("commentToCommentDto")

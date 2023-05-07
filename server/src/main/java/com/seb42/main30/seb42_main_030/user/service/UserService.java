@@ -8,8 +8,6 @@ import com.seb42.main30.seb42_main_030.user.entity.User;
 import com.seb42.main30.seb42_main_030.user.repository.UserRepository;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -36,7 +34,7 @@ public class UserService {
         // 이미 등록된 이메일인지 검증
         verifyExistsEmail(user.getEmail());
 
-        // password 암호화
+        // 비밀번호 암호화
         String encryptedPassword = passwordEncoder.encode(user.getPassword());
         user.setPassword(encryptedPassword);
 
@@ -50,18 +48,27 @@ public class UserService {
     }
 
     // (2) user 정보 수정
-    public User updateUser(User user) throws Exception{
+    public User updateUser(User user, String currentPassword) throws Exception{
 
         // 유저가 존재한다면 해당 유저의 아이디를 가져옴
         User findUser = findVerifiedUser(user.getUserId());
 
+        // 비밀번호 수정 요청이 있을 경우
+        if (user.getPassword() != null) {
+            // 현재 비밀번호 검증
+            if (!passwordEncoder.matches(currentPassword, findUser.getPassword())) {
+                throw new IllegalArgumentException("현재 비밀번호가 일치하지 않습니다.");
+            }
+            // 새로운 비밀번호 암호화
+            String encryptedPassword = passwordEncoder.encode(user.getPassword());
+            findUser.setPassword(encryptedPassword);
+        }
+
         // 회원정보 업데이트
         Optional.ofNullable(user.getNickname())
-                .ifPresent(name -> findUser.setNickname(name));
-        Optional.ofNullable(user.getPassword())
-                .ifPresent(password -> findUser.setPassword(password));
+                .ifPresent(findUser::setNickname);
         Optional.ofNullable(user.getImageUrl())
-                .ifPresent(url -> findUser.setImageUrl(url));
+                .ifPresent(findUser::setImageUrl);
 
         // 회원정보 수정 저장
         return userRepository.save(findUser);
@@ -80,16 +87,7 @@ public class UserService {
 
     }
 
-    // (5) 이미 존재하는 유저인지 검증
-    public User findVerifiedUser(long userId) {
-        Optional<User> optionalUser = userRepository.findById(userId);
-        User findUser = optionalUser.orElseThrow(() ->
-                new BusinessException(ExceptionCode.USER_NOT_FOUND));
-
-        return findUser;
-    }
-
-    // (6) 이미 등록된 이메일인지 검증
+    // (5) 이미 존재하는 유저인지 검증(이메일)
     public User verifyExistsEmail(String email) {
         Optional<User> user = userRepository.findByEmail(email);
 
@@ -98,7 +96,14 @@ public class UserService {
         return null;
     }
 
-    // Login 한 User를 가져오는 로직
+    // (6) 유저 정보 찾기
+    public User findVerifiedUser(long userId) {
+        return userRepository.findById(userId)
+                .orElseThrow(()
+                        -> new BusinessException(ExceptionCode.USER_NOT_FOUND));
+    }
+
+    // (7) Login 한 User를 가져오는 로직
     public User getLoginUser() {
         return  userRepository.findById(Long.valueOf(GetAuthUserUtils.getAuthUser().getName()))
                 .orElseThrow(()
@@ -143,16 +148,4 @@ public class UserService {
         return url.substring(pos + 1);
     }
 
-    public User getAuthenticatedUser() {
-
-        // SecurityContextHolder를 통해 현재 인증된 사용자의 정보를 가져옴
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-
-        // 인증된 사용자의 이름을 가져와서 이를 userId로 변환
-        long userId = Long.parseLong(authentication.getName());
-
-        // userId를 통해 사용자 정보를 찾아 반환
-        return findVerifiedUser(userId);
-    }
 }
-

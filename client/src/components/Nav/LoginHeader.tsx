@@ -252,6 +252,7 @@ function LoginHeader() {
     e.target.src = defaultProfile;
   };
 
+  // 검색 페이지 이동
   const moveSearch = () => {
     navigate("/Search");
     localStorage.removeItem("searchText");

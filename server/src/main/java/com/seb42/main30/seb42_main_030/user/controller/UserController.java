@@ -8,11 +8,13 @@ import com.seb42.main30.seb42_main_030.like.service.LikeService;
 import com.seb42.main30.seb42_main_030.response.SingleResponseDto;
 import com.seb42.main30.seb42_main_030.user.dto.UserDto;
 import com.seb42.main30.seb42_main_030.user.entity.User;
+import com.seb42.main30.seb42_main_030.user.mapper.UserMapper;
 import com.seb42.main30.seb42_main_030.user.mapper.UserMapperImpl;
 import com.seb42.main30.seb42_main_030.user.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -30,10 +32,11 @@ import java.util.List;
 public class UserController {
 
     private final UserService userService;
-    private final UserMapperImpl userMapper;
+    private final UserMapper userMapper;
     private final LikeService likeService;
     private final DiaryMapper diaryMapper;
     private final FileUploadService fileUploadService;
+    private final PasswordEncoder passwordEncoder;
 
 
     // (1) user 등록(자체 회원 가입)
@@ -68,11 +71,18 @@ public class UserController {
     // (3) user 정보 수정
     @PatchMapping("/{user-id}")
     public ResponseEntity patchUser(@PathVariable("user-id") @Positive long userId,
-                                    @Valid @RequestBody UserDto.Patch patch) throws Exception {
+                                    @Valid @RequestBody UserDto.Patch patch,
+                                    @RequestParam("currentPassword") String currentPassword) throws Exception {
 
         patch.setUserId(userId);
 
-        User updateUser = userService.updateUser(userMapper.userPatchToUser(patch));
+        // 현재 비밀번호 검증
+        User user = userService.findVerifiedUser(userId);
+        if (!passwordEncoder.matches(patch.getCurrentPassword(), user.getPassword())) {
+            throw new Exception("비밀번호가 일치하지 않습니다.");
+        }
+
+        User updateUser = userService.updateUser(userMapper.userPatchToUser(patch), currentPassword);
 
         return new ResponseEntity<>(
                 new SingleResponseDto<>(userMapper.userToUserResponse(updateUser)), HttpStatus.OK);
