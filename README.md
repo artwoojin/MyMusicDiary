@@ -25,7 +25,7 @@
 | [유우진<br>(BE, 팀장)](https://github.com/artwoojin) |                                                 [김덕림<br>(BE)](https://github.com/vxy2715)                                                 | [김동구<br>(FE)](https://github.com/kimdonggu42) |
 | :---: |:-----------------------------------------------------------------------------------------------------------------------------------------:| :---: |
   | <img alt="유우진" src="https://user-images.githubusercontent.com/115632555/234250563-0aa03899-97a9-42bc-8cac-9c01df190646.png" height="150"> | <img alt="김덕림" src="https://user-images.githubusercontent.com/115632555/234252617-540a3de6-99cf-4644-86c1-2189cd59f961.png" height="150"> | <img alt="김동구" src="https://user-images.githubusercontent.com/115632555/234249002-72fbe9e4-8808-4b01-bc9c-53bd6fd7793f.jpg" height="150" style=""> |
-| <p align="left">- 유저 CRUD <br/>- JWT 이용 로그인 <br/> - 좋아요, 태그 <br/>- AWS EC2 배포 <br/>- AWS RDS,MySQL 데이터베이스 <br/></p> |      <p align="left">- 다이어리 CRUD <br/>- 댓글 CRUD <br/>- 플레이리스트 CRUD <br/>- AWS EC2 배포, https 적용 <br/>- AWS RDS,MySQL 데이터베이스 <br/></p>       | <p align="left">- 플레이리스트 CRUD<br/>- 다이어리/댓글 CRUD<br/>- UX 사용성 개선<br/>- 다이어리 필터링<br/>- 페이지네이션<br/>- 다크모드</p>|
+| <p align="left">- 유저 CRUD <br/>- JWT 이용 로그인 <br/> - 좋아요, 태그 <br/>- AWS EC2 배포 <br/>- AWS RDS,MySQL 데이터베이스 <br/></p> |      <p align="left">- 다이어리 CRUD <br/>- 댓글 CRUD <br/>- 플레이리스트 CRUD <br/>- AWS EC2 배포, https 적용 <br/>- AWS RDS,MySQL 데이터베이스 <br/></p>       | <p align="left">- 플레이리스트 CRUD<br/>- 다이어리/댓글 CRUD<br/>- 페이지네이션<br/>- 다크모드<br/>- 다이어리 검색 & 필터링<br/>- UX 사용성 개선</p>|
 <br/>
 
 ## :computer: 기술 스택
