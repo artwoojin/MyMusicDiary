@@ -252,6 +252,11 @@ function LoginHeader() {
     e.target.src = defaultProfile;
   };
 
+  const moveSearch = () => {
+    navigate("/Search");
+    localStorage.removeItem("searchText");
+  };
+
   return (
     <HeaderContainer>
       <HeaderWrapper>
@@ -259,11 +264,9 @@ function LoginHeader() {
           {isChange === "dark" ? <Logo src={logo_white} /> : <Logo src={logo_black} />}
         </Link>
         <ButtonArea>
-          <Link to='/Search'>
-            <SearchButton>
-              <FiSearch size={22} />
-            </SearchButton>
-          </Link>
+          <SearchButton onClick={moveSearch}>
+            <FiSearch size={22} />
+          </SearchButton>
           <ModeButton onClick={changeMode}>
             {isChange === "dark" ? (
               <BsFillMoonStarsFill className='darkIcon' size={20} />

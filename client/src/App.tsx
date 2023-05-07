@@ -45,7 +45,7 @@ function App() {
     localStorage.setItem("theme", changeTheme);
   };
 
-  // 브라우저 종료/새로고침 시 메인/마이 페이지 탭, 페이지, 블록 로컬스토리지 초기화
+  // 브라우저 종료/새로고침 시 메인/마이 페이지 탭, 페이지, 블록, 검색어 로컬스토리지 초기화
   const removeLocalStorage = () => {
     localStorage.removeItem("mainCurrentTab");
     localStorage.removeItem("mainCurrentPage");
@@ -54,6 +54,7 @@ function App() {
     localStorage.removeItem("myCurrentTab");
     localStorage.removeItem("myCurrentPage");
     localStorage.removeItem("myCurrentPageBlock");
+    localStorage.removeItem("searchText");
   };
   useEffect(() => {
     (() => {

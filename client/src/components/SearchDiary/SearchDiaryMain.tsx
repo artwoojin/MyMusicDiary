@@ -14,7 +14,6 @@ const SearchbarContainer = styled.div`
   flex-direction: column;
   margin: 40px 0 45px 0;
   padding: 0 15px 0 15px;
-  /* border: 1px solid red; */
 `;
 
 const Searchbar = styled.div`
@@ -75,7 +74,6 @@ const SearchInfo = styled.div`
   width: 100%;
   max-width: 675px;
   font-size: ${(props) => props.theme.font.diarySubTitleSize}px;
-  /* border: 1px solid blue; */
 
   > .countNum {
     color: ${(props) => props.theme.color.mainText};
@@ -97,13 +95,11 @@ const NoDiary = styled.div`
   max-width: 675px;
   margin-top: 30px;
   font-size: 21px;
-  /* border: 1px solid red; */
 
   > img {
     width: 600px;
     height: 400px;
     margin-bottom: 10px;
-    /* border: 1px solid red; */
 
     @media screen and (max-width: 721px) {
       width: 375px;
@@ -115,7 +111,6 @@ const NoDiary = styled.div`
     font-size: 25px;
     color: ${(props) => props.theme.color.mainText};
     font-weight: ${(props) => props.theme.font.logoWeight};
-    /* border: 1px solid red; */
 
     @media screen and (max-width: 721px) {
       font-size: 22px;
@@ -161,7 +156,7 @@ function SearchDiaryMain() {
     localStorage.removeItem("myCurrentPageBlock");
   }, []);
 
-  const inputChange = (e: any) => {
+  const inputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setUserInput(e.target.value);
   };
 
