@@ -3,51 +3,119 @@ import styled from "styled-components";
 import * as DiaryMain from "../Main/DiaryMain";
 import { DiaryData } from "../../util/Type";
 import { BASE_API } from "../../util/API";
+import { FiSearch } from "react-icons/fi";
 import { useState, useEffect, useRef } from "react";
+import noDiary from "../../assets/images/noDiary.png";
 
 const SearchbarContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  margin: 50px 0 45px 0;
+  margin: 40px 0 45px 0;
   padding: 0 15px 0 15px;
   /* border: 1px solid red; */
 `;
 
-const Searchbar = styled.input`
+const Searchbar = styled.div`
+  display: flex;
+  align-items: center;
+  position: relative;
   width: 100%;
-  max-width: 600px;
-  height: 50px;
-  margin-bottom: 15px;
-  font-size: ${(props) => props.theme.font.diaryMainTitleSize}px;
-  color: ${(props) => props.theme.color.mainText};
-  padding: 10px 8px 10px 8px;
-  border-radius: 4px;
-  border: none;
-  border: 1px solid ${(props) => props.theme.color.borderLine};
-  background-color: ${(props) => props.theme.color.inputBackground};
+  max-width: 675px;
 
-  &:focus {
+  > input {
+    width: 100%;
+    height: 50px;
+    margin-bottom: 15px;
+    font-size: ${(props) => props.theme.font.diaryMainTitleSize}px;
+    color: ${(props) => props.theme.color.mainText};
+    padding: 15px;
+    border-radius: 4px;
+    border: none;
     border: 1px solid ${(props) => props.theme.color.thirdText};
-    outline: none;
+    background-color: ${(props) => props.theme.color.inputBackground};
+
+    &:focus {
+      border: 1px solid ${(props) => props.theme.color.mainText};
+      outline: none;
+    }
+
+    @media screen and (max-width: 721px) {
+      height: 40px;
+      font-size: 19px;
+      padding: 15px 10px 15px 10px;
+      font-size: 19px;
+    }
+  }
+
+  > button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    width: 45px;
+    height: 40px;
+    right: 0;
+    top: 5px;
+    margin-right: 10px;
+    border: none;
+    color: ${(props) => props.theme.color.mainText};
+    border-radius: 4px;
+    background-color: transparent;
+
+    @media screen and (max-width: 721px) {
+      top: 0;
+    }
   }
 `;
 
 const SearchInfo = styled.div`
   display: flex;
   width: 100%;
-  max-width: 600px;
-  font-size: 16px;
-  color: ${(props) => props.theme.color.mainText};
+  max-width: 675px;
+  font-size: ${(props) => props.theme.font.diarySubTitleSize}px;
   /* border: 1px solid blue; */
 
   > .countNum {
+    color: ${(props) => props.theme.color.mainText};
     font-weight: ${(props) => props.theme.font.titleWeight};
   }
 
   > .countText {
+    color: ${(props) => props.theme.color.subText};
     font-weight: ${(props) => props.theme.font.contentWeight};
+  }
+
+  > img {
+    width: 400px;
+    height: 400px;
+  }
+`;
+
+const NoDiary = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 100%;
+  max-width: 675px;
+  margin-top: 30px;
+  font-size: 21px;
+  /* border: 1px solid red; */
+
+  > img {
+    width: 600px;
+    height: 400px;
+    margin-bottom: 10px;
+    /* border: 1px solid red; */
+  }
+
+  > .noDiaryText {
+    font-size: 25px;
+    color: ${(props) => props.theme.color.mainText};
+    font-weight: ${(props) => props.theme.font.logoWeight};
+    /* border: 1px solid red; */
   }
 `;
 
@@ -85,22 +153,32 @@ function SearchDiaryMain() {
     (value) => value.title.includes(userInput) || value.body.includes(userInput)
   );
 
-  console.log(searchDiaryList);
-  console.log(searchDiaryList.length);
+  // console.log(searchDiaryList);
+  // console.log(searchDiaryList.length);
 
   return (
     <>
       <SearchbarContainer>
-        <Searchbar placeholder='검색어를 입력해주세요' ref={inputText} onChange={inputChange} />
-        {searchDiaryList.length && userInput.length !== 0 ? (
+        <Searchbar>
+          <input placeholder='검색어를 입력해 주세요' ref={inputText} onChange={inputChange} />
+          <button>
+            <FiSearch size={25} />
+          </button>
+        </Searchbar>
+        {searchDiaryList.length !== 0 && userInput.length !== 0 ? (
           <SearchInfo>
-            <div className='countNum'>{searchDiaryList.length}</div>
-            <div className='countText'>개의 다이어리를 찾았습니다.</div>
+            <div className='countNum'>{searchDiaryList.length}개</div>
+            <div className='countText'>의 다이어리를 찾았습니다.</div>
           </SearchInfo>
+        ) : searchDiaryList.length === 0 && userInput.length !== 0 ? (
+          <NoDiary>
+            <img src={noDiary} alt='noDiaryImg' />
+            <div className='noDiaryText'>찾으시는 다이어리가 없어요!</div>
+          </NoDiary>
         ) : null}
       </SearchbarContainer>
       <DiaryMain.DiaryMainContainer>
-        {searchDiaryList.length && userInput.length !== 0 ? (
+        {searchDiaryList.length !== 0 && userInput.length !== 0 ? (
           <DiaryMain.DiaryMainWrapper>
             {searchDiaryList.map((value) => {
               return <SearchDiaryList list={value} key={value.diaryId} />;

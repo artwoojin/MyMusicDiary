@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import { UserData } from "../../util/Type";
 import { Link, useNavigate } from "react-router-dom";
 import { useState, useEffect, useRef, useContext } from "react";
 import { BASE_API } from "../../util/API";

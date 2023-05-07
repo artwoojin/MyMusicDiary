@@ -7,7 +7,6 @@ import { useState, useEffect, useContext } from "react";
 import { DiaryData } from "../../util/Type";
 import { BASE_API } from "../../util/API";
 import { MyContext } from "../../util/MyContext";
-import useFetch from "../../hooks/useFetch";
 
 const TagContainer = styled.section`
   display: flex;
