@@ -86,11 +86,6 @@ const SearchInfo = styled.div`
     color: ${(props) => props.theme.color.subText};
     font-weight: ${(props) => props.theme.font.contentWeight};
   }
-
-  > img {
-    width: 400px;
-    height: 400px;
-  }
 `;
 
 const NoDiary = styled.div`
@@ -109,6 +104,11 @@ const NoDiary = styled.div`
     height: 400px;
     margin-bottom: 10px;
     /* border: 1px solid red; */
+
+    @media screen and (max-width: 721px) {
+      width: 375px;
+      height: 250px;
+    }
   }
 
   > .noDiaryText {
@@ -116,25 +116,25 @@ const NoDiary = styled.div`
     color: ${(props) => props.theme.color.mainText};
     font-weight: ${(props) => props.theme.font.logoWeight};
     /* border: 1px solid red; */
+
+    @media screen and (max-width: 721px) {
+      font-size: 22px;
+    }
   }
 `;
 
 function SearchDiaryMain() {
-  const [diaryData, setDiaryData] = useState<DiaryData[]>([]); // 전체 diary 데이터
-  const [userInput, setUserInput] = useState<string>("");
+  const [diaryData, setDiaryData] = useState<DiaryData[]>([]);
+  const [userInput, setUserInput] = useState<string>(
+    () => JSON.parse(window.localStorage.getItem("searchText")!) || ""
+  );
 
   const inputText: any = useRef(null);
-
-  // 검색 페이지 진입 시 검색바에 자동 포커스
-  useEffect(() => {
-    inputText.current.focus();
-  }, []);
 
   // 전체 diary 데이터 get 요청
   const getDiaryData = async () => {
     try {
       const res = await BASE_API.get(`/diary`);
-
       setDiaryData(res.data);
     } catch (err) {
       console.error(err);
@@ -142,6 +142,23 @@ function SearchDiaryMain() {
   };
   useEffect(() => {
     getDiaryData();
+  }, []);
+
+  // 검색 페이지 진입 시 검색바에 자동 포커스
+  useEffect(() => {
+    inputText.current.focus();
+  }, []);
+
+  // 검색어 로컬스토리지에 저장
+  useEffect(() => {
+    window.localStorage.setItem("searchText", JSON.stringify(userInput));
+  }, [userInput]);
+
+  // 마이페이지 탭, 페이지, 블록 상태 초기화
+  useEffect(() => {
+    localStorage.removeItem("myCurrentTab");
+    localStorage.removeItem("myCurrentPage");
+    localStorage.removeItem("myCurrentPageBlock");
   }, []);
 
   const inputChange = (e: any) => {
@@ -160,7 +177,12 @@ function SearchDiaryMain() {
     <>
       <SearchbarContainer>
         <Searchbar>
-          <input placeholder='검색어를 입력해 주세요' ref={inputText} onChange={inputChange} />
+          <input
+            placeholder='검색어를 입력해 주세요'
+            ref={inputText}
+            onChange={inputChange}
+            value={userInput}
+          />
           <button>
             <FiSearch size={25} />
           </button>
@@ -170,7 +192,9 @@ function SearchDiaryMain() {
             <div className='countNum'>{searchDiaryList.length}개</div>
             <div className='countText'>의 다이어리를 찾았습니다.</div>
           </SearchInfo>
-        ) : searchDiaryList.length === 0 && userInput.length !== 0 ? (
+        ) : searchDiaryList.length === 0 &&
+          userInput.length !== 0 &&
+          JSON.parse(localStorage.getItem("searchText")!) === "" ? (
           <NoDiary>
             <img src={noDiary} alt='noDiaryImg' />
             <div className='noDiaryText'>찾으시는 다이어리가 없어요!</div>
