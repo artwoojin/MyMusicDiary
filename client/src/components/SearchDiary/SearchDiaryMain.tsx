@@ -1,4 +1,5 @@
 import SearchDiaryList from "./SearchDiaryList";
+import SearchPagination from "./SearchPagination";
 import styled from "styled-components";
 import * as DiaryMain from "../Main/DiaryMain";
 import { DiaryData } from "../../util/Type";
@@ -124,6 +125,15 @@ function SearchDiaryMain() {
     () => JSON.parse(window.localStorage.getItem("searchText")!) || ""
   );
 
+  const [searchCurrentPage, setSearchCurrentPage] = useState<number>(
+    () => JSON.parse(window.localStorage.getItem("searchCurrentPage")!) || 1 // 현재 페이지 번호 (기본값: 1페이지부터 노출)
+  );
+  const [searchBlockNum, setSearchBlockNum] = useState<number>(
+    () => JSON.parse(window.localStorage.getItem("searchCurrentPageBlock")!) || 0
+  ); // 현재 페이지네이션 블록 index
+
+  const LIMIT_COUNT: number = 20;
+  const offset: number = (searchCurrentPage - 1) * LIMIT_COUNT; // 각 페이지에서 첫 데이터의 위치(index) 계산
   const inputText: any = useRef(null);
 
   // 전체 diary 데이터 get 요청
@@ -149,6 +159,18 @@ function SearchDiaryMain() {
     window.localStorage.setItem("searchText", JSON.stringify(userInput));
   }, [userInput]);
 
+  // 로컬스토리지에 현재 페이지 번호 저장
+  useEffect(() => {
+    window.localStorage.setItem("searchCurrentPage", JSON.stringify(searchCurrentPage));
+    setSearchCurrentPage(searchCurrentPage);
+    setSearchBlockNum(searchBlockNum);
+  }, [searchCurrentPage, searchBlockNum]);
+
+  // 로컬스토리지에 페이지 블록 번호 저장
+  useEffect(() => {
+    window.localStorage.setItem("searchCurrentPageBlock", JSON.stringify(searchBlockNum));
+  }, [searchBlockNum]);
+
   // 마이페이지 탭, 페이지, 블록 상태 초기화
   useEffect(() => {
     localStorage.removeItem("myCurrentTab");
@@ -164,9 +186,6 @@ function SearchDiaryMain() {
   const searchDiaryList = diaryData.filter(
     (value) => value.title.includes(userInput) || value.body.includes(userInput)
   );
-
-  // console.log(searchDiaryList);
-  // console.log(searchDiaryList.length);
 
   return (
     <>
@@ -199,12 +218,21 @@ function SearchDiaryMain() {
       <DiaryMain.DiaryMainContainer>
         {searchDiaryList.length !== 0 && userInput.length !== 0 ? (
           <DiaryMain.DiaryMainWrapper>
-            {searchDiaryList.map((value) => {
+            {searchDiaryList.slice(offset, offset + LIMIT_COUNT).map((value) => {
               return <SearchDiaryList list={value} key={value.diaryId} />;
             })}
           </DiaryMain.DiaryMainWrapper>
         ) : null}
       </DiaryMain.DiaryMainContainer>
+      <SearchPagination
+        searchPageLength={searchDiaryList.length}
+        LIMIT_COUNT={LIMIT_COUNT}
+        searchCurrentPage={searchCurrentPage}
+        setSearchCurrentPage={setSearchCurrentPage}
+        searchBlockNum={searchBlockNum}
+        setSearchBlockNum={setSearchBlockNum}
+        userInputLength={userInput.length}
+      />
     </>
   );
 }
