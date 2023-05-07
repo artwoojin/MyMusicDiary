@@ -100,7 +100,7 @@ function NewPlayList({ list, newPlayList, setNewPlayList }: PlaylistDataProps) {
             onError={replaceImg}
           />
           <div className='listTitle'>{list.title}</div>
-          <div className='listChannelTitle'>{list.channelId}</div>
+          <div className='listChannelTitle'>{list.channelTitle}</div>
           <button className='delete' onClick={() => deleteList(list.url)}>
             삭제
           </button>

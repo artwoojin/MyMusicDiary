@@ -3,7 +3,7 @@ import styled from "styled-components";
 import * as DiaryMain from "../Main/DiaryMain";
 import { DiaryData } from "../../util/Type";
 import { BASE_API } from "../../util/API";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 
 const SearchbarContainer = styled.div`
   display: flex;
@@ -55,6 +55,13 @@ function SearchDiaryMain() {
   const [diaryData, setDiaryData] = useState<DiaryData[]>([]); // 전체 diary 데이터
   const [userInput, setUserInput] = useState<string>("");
 
+  const inputText: any = useRef(null);
+
+  // 검색 페이지 진입 시 검색바에 자동 포커스
+  useEffect(() => {
+    inputText.current.focus();
+  }, []);
+
   // 전체 diary 데이터 get 요청
   const getDiaryData = async () => {
     try {
@@ -73,6 +80,7 @@ function SearchDiaryMain() {
     setUserInput(e.target.value);
   };
 
+  // 다이어리 제목 또는 본문에 검색 내용이 포함되어 있는 다이어리만 필터링
   const searchDiaryList = diaryData.filter(
     (value) => value.title.includes(userInput) || value.body.includes(userInput)
   );
@@ -83,7 +91,7 @@ function SearchDiaryMain() {
   return (
     <>
       <SearchbarContainer>
-        <Searchbar placeholder='검색어를 입력해주세요' onChange={inputChange} />
+        <Searchbar placeholder='검색어를 입력해주세요' ref={inputText} onChange={inputChange} />
         {searchDiaryList.length && userInput.length !== 0 ? (
           <SearchInfo>
             <div className='countNum'>{searchDiaryList.length}</div>

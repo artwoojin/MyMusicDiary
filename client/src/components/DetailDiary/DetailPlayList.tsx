@@ -93,7 +93,7 @@ function DetailPlayList({ list }: PlaylistDataProps) {
               onError={replaceImg}
             />
             <div className='listTitle'>{list.title}</div>
-            <div className='listChannelTitle'>{list.channelId}</div>
+            <div className='listChannelTitle'>{list.channelTitle}</div>
           </ContentArea>
         </Link>
       </PlayListWrapper>

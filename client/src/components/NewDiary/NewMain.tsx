@@ -465,9 +465,12 @@ function NewMain() {
       musicInfo.title = res.title;
       musicInfo.url = newUrl;
       if (res.channelTitle.includes("Topic")) {
-        musicInfo.channelId = res.channelTitle.substring(0, res.channelTitle.indexOf(" - Topic"));
+        musicInfo.channelTitle = res.channelTitle.substring(
+          0,
+          res.channelTitle.indexOf(" - Topic")
+        );
       } else {
-        musicInfo.channelId = res.channelTitle;
+        musicInfo.channelTitle = res.channelTitle;
       }
     } else {
       return toast.error("url을 다시 확인해 주세요.");
