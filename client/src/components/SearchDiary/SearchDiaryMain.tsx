@@ -5,8 +5,10 @@ import * as DiaryMain from "../Main/DiaryMain";
 import { DiaryData } from "../../util/Type";
 import { BASE_API } from "../../util/API";
 import { FiSearch } from "react-icons/fi";
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useContext } from "react";
 import noDiary from "../../assets/images/noDiary.png";
+import { MyContext } from "../../util/MyContext";
+import Skeleton from "../common/Skeleton";
 
 const SearchbarContainer = styled.div`
   display: flex;
@@ -134,14 +136,17 @@ function SearchDiaryMain() {
 
   const LIMIT_COUNT: number = 20;
   const offset: number = (searchCurrentPage - 1) * LIMIT_COUNT; // 각 페이지에서 첫 데이터의 위치(index) 계산
+  const { isLoading, setIsLoading }: any = useContext(MyContext);
   const inputText: any = useRef(null);
 
   // 전체 diary 데이터 get 요청
   const getDiaryData = async () => {
     try {
       const res = await BASE_API.get(`/diary`);
+      setIsLoading(false);
       setDiaryData(res.data);
     } catch (err) {
+      setIsLoading(false);
       console.error(err);
     }
   };
@@ -217,15 +222,21 @@ function SearchDiaryMain() {
           </NoDiary>
         ) : null}
       </SearchbarContainer>
-      <DiaryMain.DiaryMainContainer>
-        {searchDiaryList.length !== 0 && userInput.length !== 0 ? (
-          <DiaryMain.DiaryMainWrapper>
-            {searchDiaryList.slice(offset, offset + LIMIT_COUNT).map((value) => {
-              return <SearchDiaryList list={value} key={value.diaryId} />;
-            })}
-          </DiaryMain.DiaryMainWrapper>
-        ) : null}
-      </DiaryMain.DiaryMainContainer>
+
+      {isLoading ? (
+        <Skeleton />
+      ) : (
+        <DiaryMain.DiaryMainContainer>
+          {searchDiaryList.length !== 0 && userInput.length !== 0 ? (
+            <DiaryMain.DiaryMainWrapper>
+              {searchDiaryList.slice(offset, offset + LIMIT_COUNT).map((value) => {
+                return <SearchDiaryList list={value} key={value.diaryId} />;
+              })}
+            </DiaryMain.DiaryMainWrapper>
+          ) : null}
+        </DiaryMain.DiaryMainContainer>
+      )}
+
       <SearchPagination
         searchPageLength={searchDiaryList.length}
         LIMIT_COUNT={LIMIT_COUNT}
