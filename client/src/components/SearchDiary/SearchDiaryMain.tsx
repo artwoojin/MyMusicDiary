@@ -195,6 +195,12 @@ function SearchDiaryMain() {
     (value) => value.title.includes(userInput) || value.body.includes(userInput)
   );
 
+  const test = JSON.parse(localStorage.getItem("searchText")!)?.length;
+
+  // console.log(`다이어리 길이 : ${searchDiaryList.length}`);
+  // console.log(`input 길이 : ${userInput.length}`);
+  // console.log(`로컬스토리지 : ${test}`);
+
   return (
     <>
       <SearchbarContainer>
@@ -214,9 +220,7 @@ function SearchDiaryMain() {
             <div className='countNum'>{searchDiaryList.length}개</div>
             <div className='countText'>의 다이어리를 찾았습니다.</div>
           </SearchInfo>
-        ) : searchDiaryList.length === 0 &&
-          userInput.length !== 0 &&
-          JSON.parse(localStorage.getItem("searchText")!) === "" ? (
+        ) : searchDiaryList.length === 0 && userInput.length !== 0 ? (
           <NoDiary>
             <img src={noDiary} alt='noDiaryImg' />
             <div className='noDiaryText'>찾으시는 다이어리가 없어요!</div>
