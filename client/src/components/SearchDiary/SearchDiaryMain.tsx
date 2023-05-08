@@ -8,6 +8,7 @@ import { FiSearch } from "react-icons/fi";
 import { useState, useEffect, useRef, useContext } from "react";
 import noDiary from "../../assets/images/noDiary.png";
 import { MyContext } from "../../util/MyContext";
+import ScrollTopButton from "../common/scrollTopButton";
 import Skeleton from "../common/Skeleton";
 
 const SearchbarContainer = styled.div`
@@ -222,7 +223,6 @@ function SearchDiaryMain() {
           </NoDiary>
         ) : null}
       </SearchbarContainer>
-
       {isLoading ? (
         <Skeleton />
       ) : (
@@ -236,7 +236,7 @@ function SearchDiaryMain() {
           ) : null}
         </DiaryMain.DiaryMainContainer>
       )}
-
+      <ScrollTopButton />
       <SearchPagination
         searchPageLength={searchDiaryList.length}
         LIMIT_COUNT={LIMIT_COUNT}
