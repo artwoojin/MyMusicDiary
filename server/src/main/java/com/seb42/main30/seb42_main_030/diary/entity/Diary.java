@@ -41,7 +41,6 @@ public class Diary extends Auditable {
     private int viewCount;
 
     private int likeCount;
-    //private boolean likeCheck;
 
 //    @Column(name = "createdAt", insertable = false, updatable = false)
 //    private LocalDateTime createdAt;
