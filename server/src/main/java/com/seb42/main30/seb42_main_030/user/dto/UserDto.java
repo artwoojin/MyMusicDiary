@@ -39,17 +39,8 @@ public class UserDto {
 
         private long userId;
 
-        @NotBlank(message = "닉네임은 공백이 아니어야 합니다.")
         private String nickname;
-
-        @NotEmpty(message = "비밀번호는 비어있을 수 없습니다.")
-        private String password;
-
         private String imageUrl;
-
-        @NotNull
-        @Size(min = 8)
-        private String currentPassword;
     }
 
     @Getter

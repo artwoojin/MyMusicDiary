@@ -6,6 +6,7 @@ import com.seb42.main30.seb42_main_030.diary.mapper.DiaryMapper;
 import com.seb42.main30.seb42_main_030.image.FileUploadService;
 import com.seb42.main30.seb42_main_030.like.service.LikeService;
 import com.seb42.main30.seb42_main_030.response.SingleResponseDto;
+import com.seb42.main30.seb42_main_030.user.dto.ChangePasswordRequest;
 import com.seb42.main30.seb42_main_030.user.dto.UserDto;
 import com.seb42.main30.seb42_main_030.user.entity.User;
 import com.seb42.main30.seb42_main_030.user.mapper.UserMapper;
@@ -23,6 +24,7 @@ import javax.transaction.Transactional;
 import javax.validation.Valid;
 import javax.validation.constraints.Positive;
 import java.io.IOException;
+import java.security.Principal;
 import java.util.List;
 
 @RestController
@@ -36,7 +38,6 @@ public class UserController {
     private final LikeService likeService;
     private final DiaryMapper diaryMapper;
     private final FileUploadService fileUploadService;
-    private final PasswordEncoder passwordEncoder;
 
 
     // (1) user 등록(자체 회원 가입)
@@ -68,19 +69,42 @@ public class UserController {
     }
 
 
-    // (3) user 정보 수정
+    // (3-1) user 정보 수정(닉네임)
     @PatchMapping("/{user-id}")
     public ResponseEntity patchUser(@PathVariable("user-id") @Positive long userId,
                                     @Valid @RequestBody UserDto.Patch patch,
-                                    @RequestParam("currentPassword") String currentPassword) throws Exception {
+                                    Principal principal) throws Exception {
+
+        // 요청한 사용자와 수정하려는 사용자가 동일한지 확인
+        if (!principal.getName().equals(String.valueOf(userId))) {
+            return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+        }
 
         patch.setUserId(userId);
 
-        User updateUser = userService.updateUser(userMapper.userPatchToUser(patch), patch, currentPassword);
+        User updateUser = userService.updateUser(userMapper.userPatchToUser(patch));
 
         return new ResponseEntity<>(
                 new SingleResponseDto<>(userMapper.userToUserResponse(updateUser)), HttpStatus.OK);
     }
+
+    // (3-2) user 정보 수정(비밀번호)
+    @PostMapping("/{user-id}/change-password")
+    public ResponseEntity changePassword(@PathVariable("user-id") @Positive long userId,
+                                         @Valid @RequestBody ChangePasswordRequest request,
+                                         Principal principal) {
+
+        // 요청한 사용자와 수정하려는 사용자가 동일한지 확인
+        if (!principal.getName().equals(String.valueOf(userId))) {
+            return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+        }
+
+        userService.changePassword(userId, request.getCurrentPassword(), request.getNewPassword());
+
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+
 
     // (4) user 탈퇴
     @DeleteMapping("/{user-id}")
