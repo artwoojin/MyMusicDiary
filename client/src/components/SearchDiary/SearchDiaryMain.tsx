@@ -195,12 +195,6 @@ function SearchDiaryMain() {
     (value) => value.title.includes(userInput) || value.body.includes(userInput)
   );
 
-  const test = JSON.parse(localStorage.getItem("searchText")!)?.length;
-
-  // console.log(`다이어리 길이 : ${searchDiaryList.length}`);
-  // console.log(`input 길이 : ${userInput.length}`);
-  // console.log(`로컬스토리지 : ${test}`);
-
   return (
     <>
       <SearchbarContainer>
