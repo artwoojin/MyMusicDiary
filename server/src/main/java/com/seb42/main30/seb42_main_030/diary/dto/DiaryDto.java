@@ -49,7 +49,6 @@ public class DiaryDto {
         private List<PlaylistDto> playlists;
 
         private long likeCount;
-        //private boolean likeCheck;
         private List<String> tags;
 
     }
@@ -65,7 +64,6 @@ public class DiaryDto {
         private String body;
         private int viewCount;
         private int likeCount;
-        //private boolean likeCheck;
         private LocalDateTime createdAt;
         private LocalDateTime modifiedAt;
 

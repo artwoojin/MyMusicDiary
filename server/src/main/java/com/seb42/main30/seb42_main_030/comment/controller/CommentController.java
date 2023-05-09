@@ -39,8 +39,8 @@ public class CommentController {
     }
 
     // 답글(각각) 조회
-    @GetMapping("/{comment-id}")
-    public ResponseEntity getComment (@PathVariable("comment-id") long commentId) throws BusinessException {
+    @GetMapping("/{commentId}")
+    public ResponseEntity getComment (@PathVariable("commentId") long commentId) throws BusinessException {
         try {
             Comment comment =commentService.readComment(commentId);
             CommentDto.Response response = mapper.commentToCommentDto(comment);
@@ -60,8 +60,8 @@ public class CommentController {
 
 
     //    댓글 수정
-    @PatchMapping("/{comment-id}")
-    public ResponseEntity patchComment (@PathVariable("comment-id") long commentId,
+    @PatchMapping("/{commentId}")
+    public ResponseEntity patchComment (@PathVariable("commentId") long commentId,
                                         @Valid @RequestBody CommentDto.Patch patch) throws BusinessException {
         try {
             Comment comment = commentService.updateComment(commentId, mapper.commentPatchToComment(patch));
@@ -73,8 +73,8 @@ public class CommentController {
     }
 
     //    댓글 삭제
-    @DeleteMapping("/{comment-id}")
-    public ResponseEntity deletComment (@PathVariable("comment-id") long commentId) throws BusinessException {
+    @DeleteMapping("/{commentId}")
+    public ResponseEntity deleteComment (@PathVariable("commentId") long commentId) throws BusinessException {
         try {
             commentService.deleteComment(commentId);
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);

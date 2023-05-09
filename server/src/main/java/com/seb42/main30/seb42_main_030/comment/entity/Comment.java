@@ -16,6 +16,7 @@ import java.time.temporal.ChronoUnit;
 @Getter
 @Setter
 @Entity
+@Table
 public class Comment extends Auditable {
 
     @Id
@@ -39,11 +40,11 @@ public class Comment extends Auditable {
 
 //    유저랑 다이어리 연결
     @ManyToOne
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "userId")
     private User user;
 //
     @ManyToOne
-    @JoinColumn(name = "diary_id")
+    @JoinColumn(name = "diaryId")
     private Diary diary;
 
 

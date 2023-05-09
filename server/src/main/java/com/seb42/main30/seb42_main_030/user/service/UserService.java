@@ -47,22 +47,11 @@ public class UserService {
         return userRepository.save(user);
     }
 
-    // (2) user 정보 수정
-    public User updateUser(User user, String currentPassword) throws Exception{
+    // (2-1) user 정보 수정(닉네임 등)
+    public User updateUser(User user) throws Exception{
 
         // 유저가 존재한다면 해당 유저의 아이디를 가져옴
         User findUser = findVerifiedUser(user.getUserId());
-
-        // 비밀번호 수정 요청이 있을 경우
-        if (user.getPassword() != null) {
-            // 현재 비밀번호 검증
-            if (!passwordEncoder.matches(currentPassword, findUser.getPassword())) {
-                throw new IllegalArgumentException("현재 비밀번호가 일치하지 않습니다.");
-            }
-            // 새로운 비밀번호 암호화
-            String encryptedPassword = passwordEncoder.encode(user.getPassword());
-            findUser.setPassword(encryptedPassword);
-        }
 
         // 회원정보 업데이트
         Optional.ofNullable(user.getNickname())
@@ -73,6 +62,26 @@ public class UserService {
         // 회원정보 수정 저장
         return userRepository.save(findUser);
     }
+
+
+    // (2-2) user 정보 수정(비밀번호)
+    public void changePassword(long userId, String currentPassword, String newPassword) {
+        User user = findVerifiedUser(userId);
+
+        // 현재 비밀번호 검증
+        if (!passwordEncoder.matches(currentPassword, user.getPassword())) {
+            throw new IllegalArgumentException("현재 비밀번호가 일치하지 않습니다.");
+        }
+
+        // 새로운 비밀번호 암호화
+        String encryptedPassword = passwordEncoder.encode(newPassword);
+        user.setPassword(encryptedPassword);
+
+        // 변경된 비밀번호 저장
+        userRepository.save(user);
+    }
+
+
 
     // (3) user 정보 조회
     public User findUser(long userId) {
