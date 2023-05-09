@@ -76,13 +76,7 @@ public class UserController {
 
         patch.setUserId(userId);
 
-        // 현재 비밀번호 검증
-        User user = userService.findVerifiedUser(userId);
-        if (!passwordEncoder.matches(patch.getCurrentPassword(), user.getPassword())) {
-            throw new Exception("비밀번호가 일치하지 않습니다.");
-        }
-
-        User updateUser = userService.updateUser(userMapper.userPatchToUser(patch), currentPassword);
+        User updateUser = userService.updateUser(userMapper.userPatchToUser(patch), patch, currentPassword);
 
         return new ResponseEntity<>(
                 new SingleResponseDto<>(userMapper.userToUserResponse(updateUser)), HttpStatus.OK);
