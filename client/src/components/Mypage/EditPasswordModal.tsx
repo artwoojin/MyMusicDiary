@@ -52,7 +52,7 @@ const EditPasswordModalView = styled.div`
     font-size: ${(props) => props.theme.font.diaryContentSize}px;
     font-weight: ${(props) => props.theme.font.titleWeight};
     width: 50%;
-    height: 50px;
+    height: 60px;
     border: none;
     text-decoration: none;
     cursor: pointer;
@@ -81,24 +81,6 @@ const EditPasswordModalView = styled.div`
 
 const PasswordInputWrapper = styled.div`
   margin: 30px 0 27px 0;
-
-  > .editPasswordInput {
-    font-size: 14px;
-    width: 75vw;
-    max-width: 350px;
-    height: 50px;
-    border-radius: 4px;
-    margin-bottom: 10px;
-    padding: 10px 8px 10px 8px;
-    color: ${(props) => props.theme.color.mainText};
-    border: none;
-    border: 1px solid ${(props) => props.theme.color.loginBorderLine};
-    background-color: ${(props) => props.theme.color.background};
-
-    &:focus {
-      outline: none;
-    }
-  }
 `;
 
 const CurrentPasswordInput = styled.input`
