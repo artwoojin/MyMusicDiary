@@ -6,7 +6,16 @@ import mainIcon from "../../assets/images/mainIcon.png";
 const PlayListContainer = styled.li`
   display: flex;
   justify-content: center;
-  margin-top: 10px;
+  padding: 0 5px 0 5px;
+
+  &:hover {
+    border-radius: 4px;
+    background-color: ${(props) => props.theme.color.buttonHover};
+
+    > .thumbnail {
+      border-radius: 50px;
+    }
+  }
 `;
 
 const PlayListWrapper = styled.div`
@@ -23,6 +32,7 @@ const PlayListWrapper = styled.div`
 const ContentArea = styled.div`
   display: flex;
   align-items: center;
+  padding: 6px 0 6px 0;
 
   > .thumbnail {
     width: 50px;
@@ -34,18 +44,34 @@ const ContentArea = styled.div`
   }
 
   > .listTitle {
+    flex: 7;
     font-size: ${(props) => props.theme.font.diaryContentSize}px;
-    font-weight: ${(props) => props.theme.font.contentWeight};
     width: 100%;
     color: ${(props) => props.theme.color.mainText};
+    overflow: hidden;
+    text-overflow: ellipsis;
+    word-break: keep-all;
+    -webkit-line-clamp: 2;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    line-height: 1.35;
+    /* border: 1px solid red; */
   }
 
-  &:hover {
-    border-radius: 4px;
-    background-color: ${(props) => props.theme.color.buttonHover};
+  > .listChannelTitle {
+    flex: 3;
+    margin-left: 60px;
+    min-width: 130px;
+    font-size: 14px;
+    color: ${(props) => props.theme.color.subText};
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    /* border: 1px solid red; */
 
-    .thumbnail {
-      background-color: red;
+    @media screen and (max-width: 721px) {
+      margin-left: 20px;
+      min-width: 100px;
     }
   }
 `;
@@ -67,6 +93,7 @@ function DetailPlayList({ list }: PlaylistDataProps) {
               onError={replaceImg}
             />
             <div className='listTitle'>{list.title}</div>
+            <div className='listChannelTitle'>{list.channelTitle}</div>
           </ContentArea>
         </Link>
       </PlayListWrapper>

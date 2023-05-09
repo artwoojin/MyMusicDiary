@@ -29,7 +29,7 @@ const FormContainer = styled.form`
   align-items: center;
   width: 90vw;
   max-width: 400px;
-  height: 305px;
+  min-height: 305px;
   border-radius: 4px;
   border: none;
   border: 1px solid ${(props) => props.theme.color.loginBorderLine};
@@ -43,7 +43,7 @@ const NicknameInput = styled.input`
   height: 50px;
   border-radius: 4px;
   padding: 10px 8px 10px 8px;
-  margin-bottom: 10px;
+  margin-top: 25px;
   color: ${(props) => props.theme.color.mainText};
   border: none;
   border: 1px solid ${(props) => props.theme.color.loginBorderLine};
@@ -54,13 +54,14 @@ const NicknameInput = styled.input`
   }
 `;
 
-export const EmailInput = styled.input`
+const EmailInput = styled.input`
   font-size: 14px;
   width: 80vw;
   max-width: 350px;
   height: 50px;
   border-radius: 4px;
   padding: 10px 8px 10px 8px;
+  margin-top: 10px;
   color: ${(props) => props.theme.color.mainText};
   border: none;
   border: 1px solid ${(props) => props.theme.color.loginBorderLine};
@@ -95,6 +96,7 @@ export const SubmitButton = styled.button`
   height: 45px;
   border: none;
   border-radius: 4px;
+  margin-bottom: 25px;
   color: ${(props) => props.theme.color.signatureText};
   font-size: ${(props) => props.theme.font.diaryContentSize}px;
   font-weight: ${(props) => props.theme.font.titleWeight};
@@ -109,7 +111,7 @@ export const SubmitButton = styled.button`
 
 export const MovePageButton = styled.button`
   font-size: ${(props) => props.theme.font.diaryContentSize}px;
-  margin-top: 20px;
+  margin-top: 25px;
   margin-bottom: 50px;
   width: 90vw;
   max-width: 400px;
@@ -172,7 +174,15 @@ function Signup() {
         {isChange === "dark" ? <Logo src={logo_white} /> : <Logo src={logo_black} />}
       </Link>
       <FormContainer>
-        <NicknameInput placeholder='닉네임' {...register("nickname")} />
+        <NicknameInput
+          type='text'
+          placeholder='닉네임'
+          {...register("nickname", {
+            required: "닉네임을 입력해 주세요.",
+            maxLength: { value: 10, message: "10자리 이하로 입력해 주세요." },
+          })}
+        />
+        {errors.nickname && <EmailErrormsg>{errors.nickname.message}</EmailErrormsg>}
         <EmailInput
           type='email'
           placeholder='이메일'

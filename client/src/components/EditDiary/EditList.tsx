@@ -84,7 +84,7 @@ function EditList({ list }: DiaryDataProps) {
   };
 
   // input에 등록한 Url 정보 불러옴
-  const getYoutubeData = async (id: any) => {
+  const getYoutubeData = async (id: string | undefined) => {
     try {
       const res =
         await axios.get(`https://www.googleapis.com/youtube/v3/videos?id=${id}&key=${process.env.REACT_APP_YOUTUBE_API_KEY}
@@ -119,6 +119,7 @@ function EditList({ list }: DiaryDataProps) {
     let check = false;
     const res = await getYoutubeData(urlId);
     if (res) {
+      console.log(res);
       check = true;
       musicInfo.channelId = res.channelId;
       if (res.thumbnails.maxres) {
@@ -128,6 +129,14 @@ function EditList({ list }: DiaryDataProps) {
       }
       musicInfo.title = res.title;
       musicInfo.url = editUrl;
+      if (res.channelTitle.includes("Topic")) {
+        musicInfo.channelTitle = res.channelTitle.substring(
+          0,
+          res.channelTitle.indexOf(" - Topic")
+        );
+      } else {
+        musicInfo.channelTitle = res.channelTitle;
+      }
     } else {
       return toast.error("url을 다시 확인해 주세요.");
     }

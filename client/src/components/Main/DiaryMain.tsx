@@ -250,7 +250,7 @@ function DiaryMain() {
     window.localStorage.setItem("mainCurrentPageBlock", JSON.stringify(mainBlockNum));
   }, [mainBlockNum]);
 
-  // 로컬스토리지에 페이지 블록 번호 저장
+  // 로컬스토리지에 정렬 버튼 index 저장
   useEffect(() => {
     window.localStorage.setItem("mainCurrentSortedTab", JSON.stringify(sortedCurrentTab));
   }, [sortedCurrentTab]);
@@ -271,6 +271,9 @@ function DiaryMain() {
   const selectSortedHandler = (index: number) => {
     setSortedCurrentTab(index);
   };
+
+  // const test = diaryData.map((value) => value.title);
+  // console.log(test.includes("asfd"));
 
   return (
     <>

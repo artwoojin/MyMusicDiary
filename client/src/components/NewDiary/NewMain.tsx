@@ -347,15 +347,20 @@ export const SubmitButton = styled.button`
 
 function NewMain() {
   const [newTitle, setNewTitle] = useState<string>("");
-  const [newTag, setNewTag] = useState<any>([]);
+  const [newTag, setNewTag] = useState<string[]>([]);
   const [newBody, setNewBody] = useState<string>("");
   const [newPlayList, setNewPlayList] = useState<PlaylistData[]>([]);
   const [newUrl, setNewUrl] = useState<string>("");
   const [postCancelModalOpen, setPostCancelModalOpen] = useState<boolean>(false);
 
   const navigate = useNavigate();
-  const { currentUser }: any = useContext(MyContext);
+  const { currentUser, setIsLoading }: any = useContext(MyContext);
   const today: string = new Date().toISOString().substring(0, 10);
+
+  // 새 다이어리 작성 페이지 진입 시 Skeleton 상태 변경
+  useEffect(() => {
+    setIsLoading(true);
+  }, []);
 
   // 다이어리 post 요청
   const submitHandler = async () => {
@@ -450,8 +455,8 @@ function NewMain() {
     let check = false;
     const res = await getYoutubeData(urlId);
     if (res) {
+      console.log(res);
       check = true;
-      musicInfo.channelId = res.channelId;
       if (res.thumbnails.maxres) {
         musicInfo.thumbnail = res.thumbnails.maxres.url;
       } else {
@@ -459,6 +464,14 @@ function NewMain() {
       }
       musicInfo.title = res.title;
       musicInfo.url = newUrl;
+      if (res.channelTitle.includes("Topic")) {
+        musicInfo.channelTitle = res.channelTitle.substring(
+          0,
+          res.channelTitle.indexOf(" - Topic")
+        );
+      } else {
+        musicInfo.channelTitle = res.channelTitle;
+      }
     } else {
       return toast.error("url을 다시 확인해 주세요.");
     }

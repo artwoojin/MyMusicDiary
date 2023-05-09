@@ -11,6 +11,7 @@ import { lightMode, darkMode } from "./assets/style/theme";
 import { MyContext } from "./util/MyContext";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.min.css";
+import SearchDiary from "./pages/Search";
 
 const ToastAlert = styled(ToastContainer)`
   .Toastify__toast {
@@ -44,7 +45,7 @@ function App() {
     localStorage.setItem("theme", changeTheme);
   };
 
-  // 브라우저 종료/새로고침 시 메인/마이 페이지 탭, 페이지, 블록 로컬스토리지 초기화
+  // 브라우저 종료/새로고침 시 메인/마이 페이지 탭, 페이지, 블록, 검색어 로컬스토리지 초기화
   const removeLocalStorage = () => {
     localStorage.removeItem("mainCurrentTab");
     localStorage.removeItem("mainCurrentPage");
@@ -53,6 +54,7 @@ function App() {
     localStorage.removeItem("myCurrentTab");
     localStorage.removeItem("myCurrentPage");
     localStorage.removeItem("myCurrentPageBlock");
+    localStorage.removeItem("searchText");
   };
   useEffect(() => {
     (() => {
@@ -86,6 +88,7 @@ function App() {
               <Route path='/Signup' element={<Signup />} />
               <Route path='/DetailDiary/:diaryId' element={<DetailDiary />} />
               <Route path='/EditDiary/:diaryId' element={<EditDiary />} />
+              <Route path='/Search' element={<SearchDiary />} />
             </Routes>
             <ToastAlert hideProgressBar={false} autoClose={2000} pauseOnFocusLoss={true} />
           </div>

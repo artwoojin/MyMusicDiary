@@ -51,7 +51,7 @@ public class DiaryService {
             playlist.setUrl(post.getPlaylists().get(i).getUrl());
             playlist.setTitle(post.getPlaylists().get(i).getTitle());
             playlist.setThumbnail(post.getPlaylists().get(i).getThumbnail());
-            playlist.setChannelId(post.getPlaylists().get(i).getChannelId());
+            playlist.setChannelTitle(post.getPlaylists().get(i).getChannelTitle());
             playlist.setDiary(diary);
             playlistList.add(playlist);
             playlistRepository.save(playlist);
@@ -109,7 +109,7 @@ public class DiaryService {
             playlist.setUrl(patch.getPlaylists().get(i).getUrl());
             playlist.setTitle(patch.getPlaylists().get(i).getTitle());
             playlist.setThumbnail(patch.getPlaylists().get(i).getThumbnail());
-            playlist.setChannelId(patch.getPlaylists().get(i).getChannelId());
+            playlist.setChannelTitle(patch.getPlaylists().get(i).getChannelTitle());
             playlist.setDiary(verifyDiary);
             playlistList.add(playlist);
             playlistRepository.save(playlist);

@@ -17,11 +17,29 @@ const FormContainer = styled.form`
   align-items: center;
   width: 90vw;
   max-width: 400px;
-  height: 250px;
+  min-height: 250px;
   border-radius: 4px;
   border: none;
   border: 1px solid ${(props) => props.theme.color.loginBorderLine};
   background-color: ${(props) => props.theme.color.inputBackground};
+`;
+
+const EmailInput = styled.input`
+  font-size: 14px;
+  width: 80vw;
+  max-width: 350px;
+  height: 50px;
+  border-radius: 4px;
+  padding: 10px 8px 10px 8px;
+  margin-top: 25px;
+  color: ${(props) => props.theme.color.mainText};
+  border: none;
+  border: 1px solid ${(props) => props.theme.color.loginBorderLine};
+  background-color: ${(props) => props.theme.color.background};
+
+  &:focus {
+    outline: none;
+  }
 `;
 
 // const PasswordFind = styled.div`
@@ -51,9 +69,6 @@ function Login() {
       if (res.headers.authorization) {
         localStorage.setItem("accessToken", res.headers.authorization);
         localStorage.setItem("CURRENT_USER", JSON.stringify(res.data));
-        localStorage.removeItem("mainCurrentTab");
-        localStorage.removeItem("mainCurrentPage");
-        localStorage.removeItem("mainCurrentPageBlock");
       }
       navigate("/");
       window.location.reload();
@@ -69,7 +84,7 @@ function Login() {
         {isChange === "dark" ? <Signup.Logo src={logo_white} /> : <Signup.Logo src={logo_black} />}
       </Link>
       <FormContainer>
-        <Signup.EmailInput
+        <EmailInput
           type='email'
           placeholder='이메일'
           {...register("email", {

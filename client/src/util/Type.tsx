@@ -22,6 +22,7 @@ export interface PlaylistData {
   title?: number;
   thumbnail?: string;
   url?: string;
+  channelTitle?: string;
 }
 
 export interface PlaylistDataProps {
@@ -55,4 +56,12 @@ export interface FormValue {
   nickname?: string;
   email: string;
   password: string;
+}
+
+export interface ModalValue {
+  title: string;
+  text: string;
+  confirmText: string;
+  cancelHandler: () => void;
+  confirmHandler: () => void;
 }
