@@ -6,7 +6,7 @@ import { TOKEN_API } from "../../util/API";
 import { MyContext } from "../../util/MyContext";
 import defaultProfile from "../../assets/images/defaultProfile.png";
 import Modal from "../common/Modal";
-import EditPasswordMoald from "./EditPasswordMoadl";
+import EditPasswordModal from "./EditPasswordModal";
 import { VscSignOut } from "react-icons/vsc";
 import { FiUserCheck } from "react-icons/fi";
 import { HiOutlineLockClosed } from "react-icons/hi";
@@ -307,7 +307,6 @@ function MyInfo({ list, getUserData }: UserDataProps) {
     const newNickname = {
       userId: list.userId,
       nickname: nickname,
-      // password: list.password,
     };
     const res = await TOKEN_API.patch(`/users/${list.userId}`, newNickname);
     getUserData(res.data);
@@ -423,7 +422,7 @@ function MyInfo({ list, getUserData }: UserDataProps) {
               수정
             </button>
             {editPasswordModalOpen ? (
-              <EditPasswordMoald
+              <EditPasswordModal
                 list={list}
                 closePasswordModalHandler={closePasswordModalHandler}
               />

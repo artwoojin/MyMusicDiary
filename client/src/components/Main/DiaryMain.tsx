@@ -272,9 +272,6 @@ function DiaryMain() {
     setSortedCurrentTab(index);
   };
 
-  // const test = diaryData.map((value) => value.title);
-  // console.log(test.includes("asfd"));
-
   return (
     <>
       <TagContainer>

@@ -58,6 +58,12 @@ export interface FormValue {
   password: string;
 }
 
+export interface PasswordValue {
+  currentPassword: string;
+  newPassword: string;
+  checkNewPassword: string;
+}
+
 export interface ModalValue {
   title: string;
   text: string;

@@ -5,8 +5,11 @@ import * as DiaryMain from "../Main/DiaryMain";
 import { DiaryData } from "../../util/Type";
 import { BASE_API } from "../../util/API";
 import { FiSearch } from "react-icons/fi";
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useContext } from "react";
 import noDiary from "../../assets/images/noDiary.png";
+import { MyContext } from "../../util/MyContext";
+import ScrollTopButton from "../common/scrollTopButton";
+import Skeleton from "../common/Skeleton";
 
 const SearchbarContainer = styled.div`
   display: flex;
@@ -134,14 +137,17 @@ function SearchDiaryMain() {
 
   const LIMIT_COUNT: number = 20;
   const offset: number = (searchCurrentPage - 1) * LIMIT_COUNT; // 각 페이지에서 첫 데이터의 위치(index) 계산
+  const { isLoading, setIsLoading }: any = useContext(MyContext);
   const inputText: any = useRef(null);
 
   // 전체 diary 데이터 get 요청
   const getDiaryData = async () => {
     try {
       const res = await BASE_API.get(`/diary`);
+      setIsLoading(false);
       setDiaryData(res.data);
     } catch (err) {
+      setIsLoading(false);
       console.error(err);
     }
   };
@@ -203,29 +209,38 @@ function SearchDiaryMain() {
             <FiSearch size={25} />
           </button>
         </Searchbar>
-        {searchDiaryList.length !== 0 && userInput.length !== 0 ? (
+        {userInput.length !== 0 ? (
           <SearchInfo>
             <div className='countNum'>{searchDiaryList.length}개</div>
             <div className='countText'>의 다이어리를 찾았습니다.</div>
           </SearchInfo>
-        ) : searchDiaryList.length === 0 &&
-          userInput.length !== 0 &&
-          JSON.parse(localStorage.getItem("searchText")!) === "" ? (
+        ) : null}
+        {/* {searchDiaryList.length !== 0 && userInput.length !== 0 ? (
+          <SearchIn
+            <div className='countNum'>{searchDiaryList.length}개</div>
+            <div className='countText'>의 다이어리를 찾았습니다.</div>
+          </SearchInfo>
+        ) : userInput.length !== 0 ? (
           <NoDiary>
             <img src={noDiary} alt='noDiaryImg' />
             <div className='noDiaryText'>찾으시는 다이어리가 없어요!</div>
           </NoDiary>
-        ) : null}
+        ) : null} */}
       </SearchbarContainer>
-      <DiaryMain.DiaryMainContainer>
-        {searchDiaryList.length !== 0 && userInput.length !== 0 ? (
-          <DiaryMain.DiaryMainWrapper>
-            {searchDiaryList.slice(offset, offset + LIMIT_COUNT).map((value) => {
-              return <SearchDiaryList list={value} key={value.diaryId} />;
-            })}
-          </DiaryMain.DiaryMainWrapper>
-        ) : null}
-      </DiaryMain.DiaryMainContainer>
+      {isLoading ? (
+        <Skeleton />
+      ) : (
+        <DiaryMain.DiaryMainContainer>
+          {userInput.length !== 0 ? (
+            <DiaryMain.DiaryMainWrapper>
+              {searchDiaryList.slice(offset, offset + LIMIT_COUNT).map((value) => {
+                return <SearchDiaryList list={value} key={value.diaryId} />;
+              })}
+            </DiaryMain.DiaryMainWrapper>
+          ) : null}
+        </DiaryMain.DiaryMainContainer>
+      )}
+      <ScrollTopButton />
       <SearchPagination
         searchPageLength={searchDiaryList.length}
         LIMIT_COUNT={LIMIT_COUNT}
