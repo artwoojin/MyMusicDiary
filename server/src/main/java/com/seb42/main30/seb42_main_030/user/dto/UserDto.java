@@ -24,6 +24,7 @@ public class UserDto {
         private String email;
 
         @NotBlank(message = "비밀번호는 공백이 아니어야 합니다.")
+        @Size(min = 8)
         private String password;
 
         private String imageUrl;
@@ -33,21 +34,13 @@ public class UserDto {
     @Getter
     @Setter
     @AllArgsConstructor
+    @NoArgsConstructor
     public static class Patch {
 
         private long userId;
 
-        @NotBlank(message = "닉네임은 공백이 아니어야 합니다.")
         private String nickname;
-
-        @NotEmpty(message = "비밀번호는 비어있을 수 없습니다.")
-        private String password;
-
         private String imageUrl;
-
-        @NotNull
-        @Size(min = 8, max = 50)
-        private String currentPassword;
     }
 
     @Getter
@@ -75,6 +68,4 @@ public class UserDto {
         // 좋아요한 다이어리
         private List<DiaryDto.Response> likeDiaries;
     }
-
-
 }

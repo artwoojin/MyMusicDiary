@@ -45,10 +45,6 @@ public interface DiaryMapper {
         }
     }
 
-
-
-
-
     default DiaryDto.Response diaryToResponse(Diary diary) {
         if (diary == null) {
             return null;

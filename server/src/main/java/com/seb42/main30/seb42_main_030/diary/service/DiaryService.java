@@ -34,9 +34,7 @@ public class DiaryService {
     private final UserService userService;
 
     private final PlaylistRepository playlistRepository;
-    //private final TagService tagService;
     private final DiaryDto diaryDto;
-    private final TagRepository tagRepository;
 
 
 //    create
@@ -67,7 +65,6 @@ public class DiaryService {
 
         return savedDiary;
 
-//        return diaryRepository.save(diary);
     }
 
     private User getUserFromId(long userId) {return userRepository.findById(userId).get();}

@@ -73,8 +73,6 @@ public class DiaryController {
         Page<Diary> list = diaryService.diaryList(pageable);
         List<DiaryDto.Response> responsess = diaryMapper.diaryToResponses(list);
 
-
-
         int nowPage = list.getPageable().getPageNumber() + 1;
         int startPage = Math.max(nowPage - 4, 1);
         int endPage = Math.min(nowPage + 5, list.getTotalPages());
@@ -85,27 +83,6 @@ public class DiaryController {
         model.addAttribute("endPage", endPage);
 
         model.addAttribute("list", diaryService.diaryList(pageable));
-
-
-        // 유저가 로그인한 상태라면 좋아요 누른 다이어리 id, title 조회
-//        List<DiaryDto.Short> likeDiaryList = new ArrayList<>();
-//
-//        try {
-//            Long userId = Long.valueOf(String.valueOf(SecurityContextHolder.getContext().getAuthentication().getPrincipal()));
-//            likeDiaryList = likeService.getLikeDiariesByUserId(userId)
-//                    .stream()
-//                    .map(diary -> {
-//                        DiaryDto.Short likeDiary = new DiaryDto.Short();
-//                        likeDiary.setTitle(diary.getTitle());
-//                        likeDiary.setDiaryId(diary.getDiaryId());
-//
-//                        return likeDiary;
-//
-//                    }).collect(Collectors.toList());
-//
-//        } catch (Exception e) {}
-//
-//            return new ResponseEntity<>(new MultiResponseDto<>(responsess, (PageInfo) likeDiaryList), HttpStatus.OK);
 
         return new ResponseEntity(responsess, HttpStatus.OK);
         }
