@@ -209,23 +209,29 @@ function SearchDiaryMain() {
             <FiSearch size={25} />
           </button>
         </Searchbar>
-        {searchDiaryList.length !== 0 && userInput.length !== 0 ? (
+        {userInput.length !== 0 ? (
           <SearchInfo>
             <div className='countNum'>{searchDiaryList.length}개</div>
             <div className='countText'>의 다이어리를 찾았습니다.</div>
           </SearchInfo>
-        ) : searchDiaryList.length === 0 && userInput.length !== 0 ? (
+        ) : null}
+        {/* {searchDiaryList.length !== 0 && userInput.length !== 0 ? (
+          <SearchIn
+            <div className='countNum'>{searchDiaryList.length}개</div>
+            <div className='countText'>의 다이어리를 찾았습니다.</div>
+          </SearchInfo>
+        ) : userInput.length !== 0 ? (
           <NoDiary>
             <img src={noDiary} alt='noDiaryImg' />
             <div className='noDiaryText'>찾으시는 다이어리가 없어요!</div>
           </NoDiary>
-        ) : null}
+        ) : null} */}
       </SearchbarContainer>
       {isLoading ? (
         <Skeleton />
       ) : (
         <DiaryMain.DiaryMainContainer>
-          {searchDiaryList.length !== 0 && userInput.length !== 0 ? (
+          {userInput.length !== 0 ? (
             <DiaryMain.DiaryMainWrapper>
               {searchDiaryList.slice(offset, offset + LIMIT_COUNT).map((value) => {
                 return <SearchDiaryList list={value} key={value.diaryId} />;
