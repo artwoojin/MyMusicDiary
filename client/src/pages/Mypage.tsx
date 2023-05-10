@@ -2,15 +2,14 @@ import * as Main from "./Main";
 import MypageMain from "../components/Mypage/MypageMain";
 import LoginHeader from "../components/Nav/LoginHeader";
 import LogoutHeader from "../components/Nav/LogoutHeader";
-import { useContext } from "react";
-import { MyContext } from "../util/MyContext";
+import { useAppSelector } from "../redux/hooks/hooks";
 
 function Mypage() {
-  const { isLogin }: any = useContext(MyContext);
+  const loginState = useAppSelector((state) => state.loginReducer.isLogin);
 
   return (
     <Main.Page>
-      {isLogin ? <LoginHeader /> : <LogoutHeader />}
+      {loginState ? <LoginHeader /> : <LogoutHeader />}
       <MypageMain />
     </Main.Page>
   );

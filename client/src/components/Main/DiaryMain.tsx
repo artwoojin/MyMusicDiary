@@ -6,11 +6,7 @@ import styled from "styled-components";
 import { useState, useEffect } from "react";
 import { DiaryData } from "../../util/Type";
 import { BASE_API } from "../../util/API";
-import {
-  mainDiaryFulfilled,
-  mainDiaryRejected,
-  searchDiaryFulfilled,
-} from "../../redux/slice/loading";
+import { mainDiaryFulfilled, mainDiaryRejected } from "../../redux/slice/loading";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks/hooks";
 
 const TagContainer = styled.section`
@@ -278,8 +274,6 @@ function DiaryMain() {
   const selectSortedHandler = (index: number) => {
     setSortedCurrentTab(index);
   };
-
-  console.log(loadingState);
 
   return (
     <>

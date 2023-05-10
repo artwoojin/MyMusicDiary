@@ -2,15 +2,14 @@ import * as Main from "./Main";
 import NewMain from "../components/NewDiary/NewMain";
 import LoginHeader from "../components/Nav/LoginHeader";
 import LogoutHeader from "../components/Nav/LogoutHeader";
-import { useContext } from "react";
-import { MyContext } from "../util/MyContext";
+import { useAppSelector } from "../redux/hooks/hooks";
 
 function NewDiary() {
-  const { isLogin }: any = useContext(MyContext);
+  const loginState = useAppSelector((state) => state.loginReducer.isLogin);
 
   return (
     <Main.Page>
-      {isLogin ? <LoginHeader /> : <LogoutHeader />}
+      {loginState ? <LoginHeader /> : <LogoutHeader />}
       <NewMain />
     </Main.Page>
   );

@@ -31,7 +31,6 @@ const DetailDiary = lazy(() => import("./pages/DetailDiary"));
 const EditDiary = lazy(() => import("./pages/EditDiary"));
 
 function App() {
-  const isLogin: string | null = localStorage.getItem("accessToken");
   const currentUser: object = JSON.parse(localStorage.getItem("CURRENT_USER")!);
 
   const LocalTheme: string | null = localStorage.getItem("theme");
@@ -66,7 +65,6 @@ function App() {
   return (
     <MyContext.Provider
       value={{
-        isLogin,
         currentUser,
         isChange,
         changeMode,
