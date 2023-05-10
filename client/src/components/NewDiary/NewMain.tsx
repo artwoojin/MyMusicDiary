@@ -14,6 +14,8 @@ import { IoIosClose } from "react-icons/io";
 import { AiFillYoutube } from "react-icons/ai";
 import mainIcon from "../../assets/images/mainIcon.png";
 import Modal from "../common/Modal";
+import { mainDiaryRejected } from "../../redux/slice/loading";
+import { useAppDispatch } from "../../redux/hooks/hooks";
 
 export const MainContainer = styled.div`
   display: flex;
@@ -353,13 +355,14 @@ function NewMain() {
   const [newUrl, setNewUrl] = useState<string>("");
   const [postCancelModalOpen, setPostCancelModalOpen] = useState<boolean>(false);
 
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const { currentUser, setIsLoading }: any = useContext(MyContext);
+  const { currentUser }: any = useContext(MyContext);
   const today: string = new Date().toISOString().substring(0, 10);
 
-  // 새 다이어리 작성 페이지 진입 시 Skeleton 상태 변경
+  // 새 다이어리 작성 페이지 진입 시 메인 다이어리 상태 true로 변경
   useEffect(() => {
-    setIsLoading(true);
+    dispatch(mainDiaryRejected());
   }, []);
 
   // 다이어리 post 요청

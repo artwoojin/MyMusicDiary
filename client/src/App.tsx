@@ -31,8 +31,6 @@ const DetailDiary = lazy(() => import("./pages/DetailDiary"));
 const EditDiary = lazy(() => import("./pages/EditDiary"));
 
 function App() {
-  const [isLoading, setIsLoading] = useState<boolean>(true);
-
   const isLogin: string | null = localStorage.getItem("accessToken");
   const currentUser: object = JSON.parse(localStorage.getItem("CURRENT_USER")!);
 
@@ -72,8 +70,6 @@ function App() {
         currentUser,
         isChange,
         changeMode,
-        isLoading,
-        setIsLoading,
       }}
     >
       <ThemeProvider theme={isChange === "dark" ? darkMode : lightMode}>

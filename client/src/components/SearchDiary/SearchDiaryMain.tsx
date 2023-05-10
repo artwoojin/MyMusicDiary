@@ -1,15 +1,21 @@
-import SearchDiaryList from "./SearchDiaryList";
 import SearchPagination from "./SearchPagination";
 import styled from "styled-components";
 import * as DiaryMain from "../Main/DiaryMain";
 import { DiaryData } from "../../util/Type";
 import { BASE_API } from "../../util/API";
 import { FiSearch } from "react-icons/fi";
-import { useState, useEffect, useRef, useContext } from "react";
-import noDiary from "../../assets/images/noDiary.png";
-import { MyContext } from "../../util/MyContext";
+import { useState, useEffect, useRef } from "react";
+// import noDiary from "../../assets/images/noDiary.png";
 import ScrollTopButton from "../common/scrollTopButton";
 import Skeleton from "../common/Skeleton";
+import {
+  mainDiaryRejected,
+  searchDiaryFulfilled,
+  searchDiaryRejected,
+} from "../../redux/slice/loading";
+import { useAppDispatch, useAppSelector } from "../../redux/hooks/hooks";
+
+import DiaryList from "../Main/DiaryList";
 
 const SearchbarContainer = styled.div`
   display: flex;
@@ -90,37 +96,37 @@ const SearchInfo = styled.div`
   }
 `;
 
-const NoDiary = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  width: 100%;
-  max-width: 675px;
-  margin-top: 30px;
-  font-size: 21px;
+// const NoDiary = styled.div`
+//   display: flex;
+//   justify-content: center;
+//   align-items: center;
+//   flex-direction: column;
+//   width: 100%;
+//   max-width: 675px;
+//   margin-top: 30px;
+//   font-size: 21px;
 
-  > img {
-    width: 600px;
-    height: 400px;
-    margin-bottom: 10px;
+//   > img {
+//     width: 600px;
+//     height: 400px;
+//     margin-bottom: 10px;
 
-    @media screen and (max-width: 721px) {
-      width: 375px;
-      height: 250px;
-    }
-  }
+//     @media screen and (max-width: 721px) {
+//       width: 375px;
+//       height: 250px;
+//     }
+//   }
 
-  > .noDiaryText {
-    font-size: 25px;
-    color: ${(props) => props.theme.color.mainText};
-    font-weight: ${(props) => props.theme.font.logoWeight};
+//   > .noDiaryText {
+//     font-size: 25px;
+//     color: ${(props) => props.theme.color.mainText};
+//     font-weight: ${(props) => props.theme.font.logoWeight};
 
-    @media screen and (max-width: 721px) {
-      font-size: 22px;
-    }
-  }
-`;
+//     @media screen and (max-width: 721px) {
+//       font-size: 22px;
+//     }
+//   }
+// `;
 
 function SearchDiaryMain() {
   const [diaryData, setDiaryData] = useState<DiaryData[]>([]);
@@ -135,29 +141,39 @@ function SearchDiaryMain() {
     () => JSON.parse(window.localStorage.getItem("searchCurrentPageBlock")!) || 0
   ); // 현재 페이지네이션 블록 index
 
+  const dispatch = useAppDispatch();
+  const loadingState = useAppSelector((state) => state.loadingReducer.isSearchLoading);
+
   const LIMIT_COUNT: number = 20;
   const offset: number = (searchCurrentPage - 1) * LIMIT_COUNT; // 각 페이지에서 첫 데이터의 위치(index) 계산
-  const { isLoading, setIsLoading }: any = useContext(MyContext);
   const inputText: any = useRef(null);
 
   // 전체 diary 데이터 get 요청
   const getDiaryData = async () => {
     try {
-      const res = await BASE_API.get(`/diary`);
-      setIsLoading(false);
-      setDiaryData(res.data);
+      if (userInput.length !== 0) {
+        const res = await BASE_API.get(`/diary`);
+        dispatch(searchDiaryFulfilled());
+        setDiaryData(res.data);
+      }
+      dispatch(searchDiaryFulfilled());
     } catch (err) {
-      setIsLoading(false);
+      dispatch(searchDiaryRejected());
       console.error(err);
     }
   };
   useEffect(() => {
     getDiaryData();
-  }, []);
+  }, [userInput]);
 
   // 검색 페이지 진입 시 검색바에 자동 포커스
   useEffect(() => {
     inputText.current.focus();
+  }, []);
+
+  // 검색 페이지 진입 시 메인 다이어리 로딩 상태 true로 변경
+  useEffect(() => {
+    dispatch(mainDiaryRejected());
   }, []);
 
   // 검색어 로컬스토리지에 저장
@@ -227,14 +243,14 @@ function SearchDiaryMain() {
           </NoDiary>
         ) : null} */}
       </SearchbarContainer>
-      {isLoading ? (
+      {loadingState ? (
         <Skeleton />
       ) : (
         <DiaryMain.DiaryMainContainer>
           {userInput.length !== 0 ? (
             <DiaryMain.DiaryMainWrapper>
               {searchDiaryList.slice(offset, offset + LIMIT_COUNT).map((value) => {
-                return <SearchDiaryList list={value} key={value.diaryId} />;
+                return <DiaryList list={value} key={value.diaryId} />;
               })}
             </DiaryMain.DiaryMainWrapper>
           ) : null}

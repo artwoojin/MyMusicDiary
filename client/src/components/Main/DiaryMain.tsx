@@ -3,10 +3,15 @@ import Pagination from "./Pagination";
 import Skeleton from "../common/Skeleton";
 import ScrollTopButton from "../common/scrollTopButton";
 import styled from "styled-components";
-import { useState, useEffect, useContext } from "react";
+import { useState, useEffect } from "react";
 import { DiaryData } from "../../util/Type";
 import { BASE_API } from "../../util/API";
-import { MyContext } from "../../util/MyContext";
+import {
+  mainDiaryFulfilled,
+  mainDiaryRejected,
+  searchDiaryFulfilled,
+} from "../../redux/slice/loading";
+import { useAppDispatch, useAppSelector } from "../../redux/hooks/hooks";
 
 const TagContainer = styled.section`
   display: flex;
@@ -186,9 +191,11 @@ function DiaryMain() {
     () => JSON.parse(window.localStorage.getItem("mainCurrentSortedTab")!) || 0
   ); // 현재 정렬 버튼 index
 
+  const dispatch = useAppDispatch();
+  const loadingState = useAppSelector((state) => state.loadingReducer.isLoading);
+
   const LIMIT_COUNT: number = 20;
   const offset: number = (mainCurrentPage - 1) * LIMIT_COUNT; // 각 페이지에서 첫 데이터의 위치(index) 계산
-  const { isLoading, setIsLoading }: any = useContext(MyContext);
   const tagArr = [
     { feel: "전체" },
     { feel: "#신나는" },
@@ -218,10 +225,10 @@ function DiaryMain() {
   const getDiaryData = async () => {
     try {
       const res = await BASE_API.get(`/diary`);
-      setIsLoading(false);
+      dispatch(mainDiaryFulfilled());
       setDiaryData(res.data);
     } catch (err) {
-      setIsLoading(false);
+      dispatch(mainDiaryRejected());
       console.error(err);
     }
   };
@@ -271,6 +278,8 @@ function DiaryMain() {
   const selectSortedHandler = (index: number) => {
     setSortedCurrentTab(index);
   };
+
+  console.log(loadingState);
 
   return (
     <>
@@ -352,7 +361,7 @@ function DiaryMain() {
           </SortedButtonArea>
         </SortedListTab>
       </SortedTagContainer>
-      {isLoading ? (
+      {loadingState ? (
         <Skeleton />
       ) : (
         <DiaryMainContainer>
