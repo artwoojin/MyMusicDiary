@@ -6,12 +6,9 @@ import MyLikeDiary from "./MyLikeDiary";
 import MyComment from "./MyComment";
 import MyInfo from "./MyInfo";
 import ScrollTopButton from "../common/scrollTopButton";
-import { useState, useEffect, useContext } from "react";
-import { DiaryData } from "../../util/Type";
-import { CommentData } from "../../util/Type";
-import { UserData } from "../../util/Type";
+import { useState, useEffect } from "react";
+import { DiaryData, CommentData, UserData } from "../../util/Type";
 import { BASE_API } from "../../util/API";
-import { MyContext } from "../../util/MyContext";
 import {
   mainDiaryRejected,
   myDiaryFulfilled,
@@ -109,7 +106,7 @@ function MypageMain() {
 
   const LIMIT_COUNT: number = 20;
   const offset: number = (myCurrentPage - 1) * LIMIT_COUNT;
-  const { currentUser }: any = useContext(MyContext);
+  const currentUserInfo = useAppSelector((state) => state.loginReducer.currentUserInfo);
 
   useEffect(() => {
     window.localStorage.setItem("myCurrentTab", JSON.stringify(myCurrentTab));
@@ -135,7 +132,7 @@ function MypageMain() {
   // Tab 1(MyInfo) : 나의 유저 정보만 불러오는 get 요청
   const getUserData = async () => {
     try {
-      const res = await BASE_API.get(`/users/${currentUser.userId}`);
+      const res = await BASE_API.get(`/users/${currentUserInfo.userId}`);
       setMyUserData(res.data);
     } catch (err) {
       console.error(err);
@@ -151,7 +148,7 @@ function MypageMain() {
       const res = await BASE_API.get(`/diary`);
       dispatch(myDiaryFulfilled());
       setMyDiaryData(
-        res.data.filter((value: DiaryData) => value.userNickname === currentUser.nickname)
+        res.data.filter((value: DiaryData) => value.userNickname === currentUserInfo.nickname)
       );
     } catch (err) {
       dispatch(myDiaryRejected());
@@ -165,7 +162,7 @@ function MypageMain() {
   // Tab 3(MyLikeDiary) : 내가 좋아요 한 다이어리 데이터 get 요청
   const getLikeData = async () => {
     try {
-      const res = await BASE_API.get(`/users/${currentUser.userId}`);
+      const res = await BASE_API.get(`/users/${currentUserInfo.userId}`);
       dispatch(likeDiaryFulfilled());
       setMyLikeDiaryData(res.data.likeDiaries);
     } catch (err) {
@@ -182,7 +179,7 @@ function MypageMain() {
     try {
       const res = await BASE_API.get(`/comment`);
       setMyCommentData(
-        res.data.filter((value: CommentData) => value.userNickname === currentUser.nickname)
+        res.data.filter((value: CommentData) => value.userNickname === currentUserInfo.nickname)
       );
     } catch (err) {
       console.error(err);

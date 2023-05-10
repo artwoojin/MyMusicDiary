@@ -2,7 +2,7 @@ import styled from "styled-components";
 import * as NewMain from "../NewDiary/NewMain";
 import CommentList from "./CommentList";
 import DetailPlayList from "./DetailPlayList";
-import { useState, useEffect, useContext, useRef } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useParams, useNavigate, Link } from "react-router-dom";
 import { DiaryData } from "../../util/Type";
 import { TOKEN_API } from "../../util/API";
@@ -12,10 +12,10 @@ import { RiErrorWarningLine } from "react-icons/ri";
 import { BsThreeDotsVertical } from "react-icons/bs";
 import { FiEdit } from "react-icons/fi";
 import DOMPurify from "dompurify";
-import { MyContext } from "../../util/MyContext";
 import { toast } from "react-toastify";
 import mainIcon from "../../assets/images/mainIcon.png";
 import Modal from "../common/Modal";
+import { useAppSelector } from "../../redux/hooks/hooks";
 
 const TitleArea = styled.div`
   height: 75px;
@@ -390,13 +390,16 @@ function DetailList({ list, getDetailData }: DiaryDataProps) {
 
   const commentData = list.comments; // 선택한 다이어리의 댓글 데이터
   const playlistData = list.playlists; // 선택한 플레이리스트 데이터
-  const tagData = list.tags;
+  const tagData = list.tags; // 선택한 태그 데이터
 
   const { diaryId } = useParams();
   const navigate = useNavigate();
   const dropMenuRef = useRef<HTMLDivElement | null>(null);
-  const { isLogin, currentUser }: any = useContext(MyContext);
-  const myDiary: boolean = list.userNickname === currentUser?.nickname;
+
+  const currentUserInfo = useAppSelector((state) => state.loginReducer.currentUserInfo);
+  const loginState = useAppSelector((state) => state.loginReducer.isLogin);
+
+  const myDiary: boolean = list.userNickname === currentUserInfo?.nickname;
   const isLikeCheck = likeCheck.filter((value) => value.diaryId === list.diaryId).length;
 
   // 드롬다운 오픈 이벤트 핸들러
@@ -417,8 +420,8 @@ function DetailList({ list, getDetailData }: DiaryDataProps) {
   // likeDiaries get 요청
   const getLikeData = async () => {
     try {
-      if (currentUser) {
-        const res = await TOKEN_API.get(`/users/${currentUser.userId}`);
+      if (currentUserInfo) {
+        const res = await TOKEN_API.get(`/users/${currentUserInfo.userId}`);
         setLikeCheck(res.data.likeDiaries);
       }
     } catch (err) {
@@ -432,9 +435,9 @@ function DetailList({ list, getDetailData }: DiaryDataProps) {
   // 좋아요 post/delete 요청
   const plusLikeCount = async () => {
     try {
-      if (isLogin) {
+      if (loginState) {
         const newLike = {
-          userId: currentUser.userId,
+          userId: currentUserInfo.userId,
           diaryId: diaryId,
         };
         const res = await TOKEN_API.post(`/likes/${diaryId}`, newLike);
@@ -479,7 +482,7 @@ function DetailList({ list, getDetailData }: DiaryDataProps) {
 
   // 댓글 post 요청
   const submitHandler = async () => {
-    if (isLogin) {
+    if (loginState) {
       const newComment = {
         diaryId: diaryId,
         body: commentBody,

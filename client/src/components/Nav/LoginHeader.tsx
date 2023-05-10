@@ -9,6 +9,7 @@ import { MyContext } from "../../util/MyContext";
 import defaultProfile from "../../assets/images/defaultProfile.png";
 import logo_black from "../../assets/images/logo_black.png";
 import logo_white from "../../assets/images/logo_white.png";
+import { useAppSelector } from "../../redux/hooks/hooks";
 
 export const HeaderContainer = styled.nav`
   display: flex;
@@ -208,14 +209,15 @@ function LoginHeader() {
   const [imageData, setImageData] = useState<string>("");
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
-  const { currentUser, isChange, changeMode }: any = useContext(MyContext);
+  const { isChange, changeMode }: any = useContext(MyContext);
+  const currentUserInfo = useAppSelector((state) => state.loginReducer.currentUserInfo);
   const navigate = useNavigate();
   const dropMenuRef = useRef<HTMLDivElement | null>(null);
 
   // 내 유저 정보 get 요청
   const getImageData = async () => {
     try {
-      const res = await BASE_API.get(`/users/${currentUser.userId}`);
+      const res = await BASE_API.get(`/users/${currentUserInfo.userId}`);
       setImageData(res.data.imageUrl);
     } catch (err) {
       console.error(err);

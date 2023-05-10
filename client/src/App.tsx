@@ -31,8 +31,6 @@ const DetailDiary = lazy(() => import("./pages/DetailDiary"));
 const EditDiary = lazy(() => import("./pages/EditDiary"));
 
 function App() {
-  const currentUser: object = JSON.parse(localStorage.getItem("CURRENT_USER")!);
-
   const LocalTheme: string | null = localStorage.getItem("theme");
   const [isChange, setIsChange] = useState<string | null>(LocalTheme);
 
@@ -65,7 +63,6 @@ function App() {
   return (
     <MyContext.Provider
       value={{
-        currentUser,
         isChange,
         changeMode,
       }}

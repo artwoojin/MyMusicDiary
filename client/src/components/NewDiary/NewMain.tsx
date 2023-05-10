@@ -1,12 +1,11 @@
 import styled from "styled-components";
-import { useState, useContext, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { TOKEN_API } from "../../util/API";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import axios from "axios";
 import NewPlayList from "./NewPlayList";
-import { MyContext } from "../../util/MyContext";
 import { PlaylistData } from "../../util/Type";
 import { toast } from "react-toastify";
 import { FiPlus } from "react-icons/fi";
@@ -15,7 +14,7 @@ import { AiFillYoutube } from "react-icons/ai";
 import mainIcon from "../../assets/images/mainIcon.png";
 import Modal from "../common/Modal";
 import { mainDiaryRejected } from "../../redux/slice/loading";
-import { useAppDispatch } from "../../redux/hooks/hooks";
+import { useAppDispatch, useAppSelector } from "../../redux/hooks/hooks";
 
 export const MainContainer = styled.div`
   display: flex;
@@ -357,7 +356,7 @@ function NewMain() {
 
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const { currentUser }: any = useContext(MyContext);
+  const currentUserInfo = useAppSelector((state) => state.loginReducer.currentUserInfo);
   const today: string = new Date().toISOString().substring(0, 10);
 
   // 새 다이어리 작성 페이지 진입 시 메인 다이어리 상태 true로 변경
@@ -458,7 +457,6 @@ function NewMain() {
     let check = false;
     const res = await getYoutubeData(urlId);
     if (res) {
-      console.log(res);
       check = true;
       if (res.thumbnails.maxres) {
         musicInfo.thumbnail = res.thumbnails.maxres.url;
@@ -567,7 +565,7 @@ function NewMain() {
             <UserInfo>
               <User>
                 <span className='text'>등록자</span>
-                {currentUser.nickname}
+                {currentUserInfo.nickname}
               </User>
             </UserInfo>
             <UserInfo>
