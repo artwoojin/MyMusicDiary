@@ -1,9 +1,8 @@
 import styled from "styled-components";
 import { TOKEN_API } from "../../util/API";
-import { UserData } from "../../util/Type";
+import { UserData, PasswordValue } from "../../util/Type";
 import { toast } from "react-toastify";
 import { SubmitHandler, useForm } from "react-hook-form";
-import { PasswordValue } from "../../util/Type";
 
 const EditPasswordModalBack = styled.div`
   position: fixed;

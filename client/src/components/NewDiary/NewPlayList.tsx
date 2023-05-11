@@ -40,7 +40,6 @@ export const ContentArea = styled.div`
     display: -webkit-box;
     -webkit-box-orient: vertical;
     line-height: 1.35;
-    /* border: 1px solid red; */
   }
 
   > .listChannelTitle {
@@ -52,7 +51,6 @@ export const ContentArea = styled.div`
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    /* border: 1px solid red; */
 
     @media screen and (max-width: 721px) {
       margin-left: 20px;
@@ -70,7 +68,6 @@ export const ContentArea = styled.div`
     margin: 5px;
     background-color: transparent;
     cursor: pointer;
-    /* border: 1px solid red; */
   }
 `;
 

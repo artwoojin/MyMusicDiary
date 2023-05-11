@@ -1,13 +1,12 @@
 import * as NewMain from "../NewDiary/NewMain";
 import { useState, useEffect } from "react";
 import { useParams, useNavigate, Link } from "react-router-dom";
-import { DiaryDataProps } from "../../util/Type";
+import { DiaryDataProps, PlaylistData } from "../../util/Type";
 import { TOKEN_API } from "../../util/API";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import axios from "axios";
 import EditPlayList from "./EditPlayList";
-import { PlaylistData } from "../../util/Type";
 import { toast } from "react-toastify";
 import { FiPlus } from "react-icons/fi";
 import { IoIosClose } from "react-icons/io";
