@@ -12,9 +12,11 @@
 - **`팀 이름` :** **중요한 건 꺾이지 않는 마음**
 - **`프로젝트 명` :** Mariple(나만의 작은 음악 다이어리)
 - **`프로젝트 기간` :** 2023.03.03. - 2023.04.30.
-- **`프로젝트 소개` :** Mariple은 사용자가 유튜브 또는 유튜브 뮤직의 url을 입력하는 방식으로 플레이리스트를 추가하고 다이어리를 작성하는 블로그+플레이리스트가 결합된 서비스입니다.
+- **`프로젝트 소개` :** Mariple은 사용자가 유튜브 또는 유튜브 뮤직의 URL을 입력하는 방식으로 플레이리스트를 추가하고 다이어리를 작성하는 블로그+플레이리스트가 결합된 서비스입니다.
 - **`팀원` :**  유우진(팀장), 김덕림, 김동구
 - **`링크` :** [Mariple 홈페이지](https://www.mariple.com/)
+</br>
+<h3 align="center"> <게스트 계정> email : mariple@gmail.com , PW : Mariple1234!</h3>
 </br>
 
 
@@ -25,7 +27,7 @@
 | [유우진<br>(BE, 팀장)](https://github.com/artwoojin) |                                                 [김덕림<br>(BE)](https://github.com/vxy2715)                                                 | [김동구<br>(FE)](https://github.com/kimdonggu42) |
 | :---: |:-----------------------------------------------------------------------------------------------------------------------------------------:| :---: |
   | <img alt="유우진" src="https://user-images.githubusercontent.com/115632555/234250563-0aa03899-97a9-42bc-8cac-9c01df190646.png" height="150"> | <img alt="김덕림" src="https://user-images.githubusercontent.com/115632555/234252617-540a3de6-99cf-4644-86c1-2189cd59f961.png" height="150"> | <img alt="김동구" src="https://user-images.githubusercontent.com/115632555/234249002-72fbe9e4-8808-4b01-bc9c-53bd6fd7793f.jpg" height="150" style=""> |
-| <p align="left">- 유저 CRUD <br/>- JWT 이용 로그인 <br/> - 좋아요, 태그 <br/>- AWS EC2 배포 <br/>- AWS RDS,MySQL 데이터베이스 <br/></p> |      <p align="left">- 다이어리 CRUD <br/>- 댓글 CRUD <br/>- 플레이리스트 CRUD <br/>- AWS EC2 배포, https 적용 <br/>- AWS RDS,MySQL 데이터베이스 <br/></p>       | <p align="left">- 플레이리스트 CRUD<br/>- 다이어리/댓글 CRUD<br/>- 페이지네이션<br/>- 다크모드<br/>- 다이어리 검색 & 필터링<br/>- UX 사용성 개선</p>|
+| <p align="left">- 유저 CRUD <br/>- JWT 이용 로그인 <br/> - 좋아요, 태그 <br/>- AWS EC2 배포 <br/>- AWS RDS,MySQL DB <br/></p> |      <p align="left">- 다이어리 CRUD <br/>- 댓글 CRUD <br/>- 플레이리스트 CRUD <br/>- AWS EC2 배포, https 적용 <br/>- AWS RDS,MySQL DB <br/></p>       | <p align="left">- 플레이리스트 CRUD<br/>- 다이어리/댓글 CRUD<br/>- 페이지네이션<br/>- 다크모드<br/>- 다이어리 검색 & 필터링<br/>- UX 사용성 개선</p>|
 <br/>
 
 ## :computer: 기술 스택
