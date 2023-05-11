@@ -1,13 +1,12 @@
 import styled from "styled-components";
-import { useContext } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { BASE_API } from "../../util/API";
 import { toast } from "react-toastify";
 import { FormValue } from "../../util/Type";
-import { MyContext } from "../../util/MyContext";
 import logo_black from "../../assets/images/logo_black.png";
 import logo_white from "../../assets/images/logo_white.png";
+import { useAppSelector } from "../../redux/hooks/hooks";
 
 export const SignContainer = styled.div`
   height: 100vh;
@@ -148,7 +147,7 @@ function Signup() {
     formState: { errors },
   } = useForm<FormValue>();
 
-  const { isChange }: any = useContext(MyContext);
+  const modeState = useAppSelector((state) => state.themeReducer.isChange);
   const navigate = useNavigate();
 
   const onSubmit: SubmitHandler<FormValue> = async (data) => {
@@ -171,7 +170,7 @@ function Signup() {
   return (
     <SignContainer>
       <Link to='/'>
-        {isChange === "dark" ? <Logo src={logo_white} /> : <Logo src={logo_black} />}
+        {modeState === "dark" ? <Logo src={logo_white} /> : <Logo src={logo_black} />}
       </Link>
       <FormContainer>
         <NicknameInput

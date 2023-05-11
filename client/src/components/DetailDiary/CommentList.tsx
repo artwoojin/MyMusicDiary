@@ -1,10 +1,10 @@
 import styled from "styled-components";
-import { useState, useContext } from "react";
+import { useState } from "react";
 import { CommentData } from "../../util/Type";
 import { TOKEN_API } from "../../util/API";
-import { MyContext } from "../../util/MyContext";
 import defaultProfile from "../../assets/images/defaultProfile.png";
 import Modal from "../common/Modal";
+import { useAppSelector } from "../../redux/hooks/hooks";
 
 export const CommentListContainer = styled.li`
   display: flex;
@@ -105,8 +105,8 @@ function CommentList({ list, getDetailData }: CommentDataProps) {
   const [click, setClick] = useState<boolean>(false);
   const [deleteCommentModal, setDeleteCommentModal] = useState<boolean>(false);
 
-  const { currentUser }: any = useContext(MyContext);
-  const myComment: boolean = list.userNickname === currentUser?.nickname;
+  const currentUserInfo = useAppSelector((state) => state.loginReducer.currentUserInfo);
+  const myComment: boolean = list.userNickname === currentUserInfo?.nickname;
 
   // 댓글 patch 요청
   const changeComment = async () => {

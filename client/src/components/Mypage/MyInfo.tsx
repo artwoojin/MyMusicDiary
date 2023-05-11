@@ -1,15 +1,15 @@
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
-import { useState, useRef, useContext } from "react";
+import { useState, useRef } from "react";
 import { UserData } from "../../util/Type";
 import { TOKEN_API } from "../../util/API";
-import { MyContext } from "../../util/MyContext";
 import defaultProfile from "../../assets/images/defaultProfile.png";
 import Modal from "../common/Modal";
 import EditPasswordModal from "./EditPasswordModal";
 import { VscSignOut } from "react-icons/vsc";
 import { FiUserCheck } from "react-icons/fi";
 import { HiOutlineLockClosed } from "react-icons/hi";
+import { useAppSelector } from "../../redux/hooks/hooks";
 
 const MyInfoContainer = styled.div`
   display: flex;
@@ -23,7 +23,6 @@ const MyProfileContainer = styled.div`
   display: flex;
   justify-content: center;
   padding: 0 5px 0 5px;
-  /* border: 1px solid red; */
 
   // 722px 이상에서 우측 margin 적용
   @media screen and (min-width: 722px) {
@@ -33,7 +32,6 @@ const MyProfileContainer = styled.div`
 
 const MyEditContainer = styled.div`
   width: 100%;
-  /* border: 1px solid blue; */
 `;
 
 const ProfileImgWrapper = styled.div`
@@ -114,7 +112,6 @@ const NicknameInputWrapper = styled.div`
   justify-content: space-between;
   align-items: center;
   width: 100%;
-  /* border: 1px solid green; */
 
   > .editNicknameArea {
     width: 220px;
@@ -138,7 +135,6 @@ const NicknameInputWrapper = styled.div`
     height: 30px;
     color: ${(props) => props.theme.color.mainText};
     font-weight: ${(props) => props.theme.font.titleWeight};
-    /* border: 1px solid pink; */
   }
 `;
 
@@ -280,7 +276,7 @@ function MyInfo({ list, getUserData }: UserDataProps) {
 
   const fileInput = useRef<HTMLInputElement>(null);
   const navigate = useNavigate();
-  const { currentUser }: any = useContext(MyContext);
+  const currentUserInfo = useAppSelector((state) => state.loginReducer.currentUserInfo);
 
   // 프로필 이미지 등록 버튼 클릭 시 ImgInput으로 연결되는 이벤트
   const imageInput = () => {
@@ -310,8 +306,9 @@ function MyInfo({ list, getUserData }: UserDataProps) {
     };
     const res = await TOKEN_API.patch(`/users/${list.userId}`, newNickname);
     getUserData(res.data);
-    currentUser.nickname = nickname;
-    localStorage.setItem("CURRENT_USER", JSON.stringify(currentUser));
+    const currentUserInfoCopy = { ...currentUserInfo };
+    currentUserInfoCopy.nickname = nickname;
+    localStorage.setItem("CURRENT_USER", JSON.stringify(currentUserInfoCopy));
     setEditNickname(false);
   };
 

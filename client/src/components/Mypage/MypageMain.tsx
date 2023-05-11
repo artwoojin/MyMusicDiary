@@ -6,12 +6,18 @@ import MyLikeDiary from "./MyLikeDiary";
 import MyComment from "./MyComment";
 import MyInfo from "./MyInfo";
 import ScrollTopButton from "../common/scrollTopButton";
-import { useState, useEffect, useContext } from "react";
-import { DiaryData } from "../../util/Type";
-import { CommentData } from "../../util/Type";
-import { UserData } from "../../util/Type";
+import { useState, useEffect } from "react";
+import { DiaryData, CommentData, UserData } from "../../util/Type";
 import { BASE_API } from "../../util/API";
-import { MyContext } from "../../util/MyContext";
+import {
+  mainDiaryRejected,
+  myDiaryFulfilled,
+  myDiaryRejected,
+  likeDiaryFulfilled,
+  likeDiaryRejected,
+} from "../../redux/slice/loading";
+import { useAppDispatch, useAppSelector } from "../../redux/hooks/hooks";
+import Skeleton from "../common/Skeleton";
 
 const ListTab = styled.ul`
   display: flex;
@@ -94,9 +100,13 @@ function MypageMain() {
     () => JSON.parse(window.localStorage.getItem("myCurrentPageBlock")!) || 0
   ); // 현재 페이지네이션 블록 index
 
+  const dispatch = useAppDispatch();
+  const myDiaryLoadingState = useAppSelector((state) => state.loadingReducer.isMyLoading);
+  const likeDiaryLoadingState = useAppSelector((state) => state.loadingReducer.isLikeLoading);
+
   const LIMIT_COUNT: number = 20;
   const offset: number = (myCurrentPage - 1) * LIMIT_COUNT;
-  const { currentUser, setIsLoading }: any = useContext(MyContext);
+  const currentUserInfo = useAppSelector((state) => state.loginReducer.currentUserInfo);
 
   useEffect(() => {
     window.localStorage.setItem("myCurrentTab", JSON.stringify(myCurrentTab));
@@ -114,14 +124,17 @@ function MypageMain() {
     window.localStorage.setItem("myCurrentPageBlock", JSON.stringify(blockNum));
   }, [blockNum]);
 
+  // 마이 페이지 진입 시 메인 다이어리 상태 true로 변경
+  useEffect(() => {
+    dispatch(mainDiaryRejected());
+  }, []);
+
   // Tab 1(MyInfo) : 나의 유저 정보만 불러오는 get 요청
   const getUserData = async () => {
     try {
-      const res = await BASE_API.get(`/users/${currentUser.userId}`);
-      setIsLoading(true);
+      const res = await BASE_API.get(`/users/${currentUserInfo.userId}`);
       setMyUserData(res.data);
     } catch (err) {
-      setIsLoading(true);
       console.error(err);
     }
   };
@@ -133,10 +146,12 @@ function MypageMain() {
   const getMyDiaryData = async () => {
     try {
       const res = await BASE_API.get(`/diary`);
+      dispatch(myDiaryFulfilled());
       setMyDiaryData(
-        res.data.filter((value: DiaryData) => value.userNickname === currentUser.nickname)
+        res.data.filter((value: DiaryData) => value.userNickname === currentUserInfo.nickname)
       );
     } catch (err) {
+      dispatch(myDiaryRejected());
       console.error(err);
     }
   };
@@ -147,9 +162,11 @@ function MypageMain() {
   // Tab 3(MyLikeDiary) : 내가 좋아요 한 다이어리 데이터 get 요청
   const getLikeData = async () => {
     try {
-      const res = await BASE_API.get(`/users/${currentUser.userId}`);
+      const res = await BASE_API.get(`/users/${currentUserInfo.userId}`);
+      dispatch(likeDiaryFulfilled());
       setMyLikeDiaryData(res.data.likeDiaries);
     } catch (err) {
+      dispatch(likeDiaryRejected());
       console.error(err);
     }
   };
@@ -162,7 +179,7 @@ function MypageMain() {
     try {
       const res = await BASE_API.get(`/comment`);
       setMyCommentData(
-        res.data.filter((value: CommentData) => value.userNickname === currentUser.nickname)
+        res.data.filter((value: CommentData) => value.userNickname === currentUserInfo.nickname)
       );
     } catch (err) {
       console.error(err);
@@ -206,17 +223,25 @@ function MypageMain() {
             {myUserData && <MyInfo list={myUserData} getUserData={getUserData} />}
           </MypageWrapper>
         ) : myCurrentTab === 1 ? (
-          <DiaryMain.DiaryMainWrapper>
-            {myDiaryData.slice(offset, offset + LIMIT_COUNT).map((value) => {
-              return <MyDiary list={value} key={value.diaryId} />;
-            })}
-          </DiaryMain.DiaryMainWrapper>
+          myDiaryLoadingState ? (
+            <Skeleton />
+          ) : (
+            <DiaryMain.DiaryMainWrapper>
+              {myDiaryData.slice(offset, offset + LIMIT_COUNT).map((value) => {
+                return <MyDiary list={value} key={value.diaryId} />;
+              })}
+            </DiaryMain.DiaryMainWrapper>
+          )
         ) : myCurrentTab === 2 ? (
-          <DiaryMain.DiaryMainWrapper>
-            {myLikeDiaryData.slice(offset, offset + LIMIT_COUNT).map((value) => {
-              return <MyLikeDiary list={value} key={value.diaryId} />;
-            })}
-          </DiaryMain.DiaryMainWrapper>
+          likeDiaryLoadingState ? (
+            <Skeleton />
+          ) : (
+            <DiaryMain.DiaryMainWrapper>
+              {myLikeDiaryData.slice(offset, offset + LIMIT_COUNT).map((value) => {
+                return <MyLikeDiary list={value} key={value.diaryId} />;
+              })}
+            </DiaryMain.DiaryMainWrapper>
+          )
         ) : (
           <MypageWrapper>
             <CommentCountWrapper>

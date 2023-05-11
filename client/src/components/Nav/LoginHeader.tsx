@@ -1,14 +1,15 @@
 import styled from "styled-components";
 import { Link, useNavigate } from "react-router-dom";
-import { useState, useEffect, useRef, useContext } from "react";
+import { useState, useEffect, useRef } from "react";
 import { BASE_API } from "../../util/API";
 import { GoTriangleDown } from "react-icons/go";
 import { BsFillSunFill, BsFillMoonStarsFill } from "react-icons/bs";
 import { FiLogOut, FiEdit3, FiUser, FiSearch } from "react-icons/fi";
-import { MyContext } from "../../util/MyContext";
 import defaultProfile from "../../assets/images/defaultProfile.png";
 import logo_black from "../../assets/images/logo_black.png";
 import logo_white from "../../assets/images/logo_white.png";
+import { useAppDispatch, useAppSelector } from "../../redux/hooks/hooks";
+import { changeLightMode, changeDarkMode } from "../../redux/slice/theme";
 
 export const HeaderContainer = styled.nav`
   display: flex;
@@ -208,14 +209,17 @@ function LoginHeader() {
   const [imageData, setImageData] = useState<string>("");
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
-  const { currentUser, isChange, changeMode }: any = useContext(MyContext);
+  const dispatch = useAppDispatch();
+  const modeState = useAppSelector((state) => state.themeReducer.isChange);
+  const currentUserInfo = useAppSelector((state) => state.loginReducer.currentUserInfo);
+
   const navigate = useNavigate();
   const dropMenuRef = useRef<HTMLDivElement | null>(null);
 
   // 내 유저 정보 get 요청
   const getImageData = async () => {
     try {
-      const res = await BASE_API.get(`/users/${currentUser.userId}`);
+      const res = await BASE_API.get(`/users/${currentUserInfo.userId}`);
       setImageData(res.data.imageUrl);
     } catch (err) {
       console.error(err);
@@ -258,18 +262,27 @@ function LoginHeader() {
     localStorage.removeItem("searchText");
   };
 
+  // 모드 체인지
+  const modeChange = () => {
+    if (modeState === "light") {
+      dispatch(changeDarkMode());
+    } else if (modeState === "dark") {
+      dispatch(changeLightMode());
+    }
+  };
+
   return (
     <HeaderContainer>
       <HeaderWrapper>
         <Link to='/'>
-          {isChange === "dark" ? <Logo src={logo_white} /> : <Logo src={logo_black} />}
+          {modeState === "dark" ? <Logo src={logo_white} /> : <Logo src={logo_black} />}
         </Link>
         <ButtonArea>
           <SearchButton onClick={moveSearch}>
             <FiSearch size={22} />
           </SearchButton>
-          <ModeButton onClick={changeMode}>
-            {isChange === "dark" ? (
+          <ModeButton onClick={modeChange}>
+            {modeState === "dark" ? (
               <BsFillMoonStarsFill className='darkIcon' size={20} />
             ) : (
               <BsFillSunFill className='lightIcon' size={25} />
