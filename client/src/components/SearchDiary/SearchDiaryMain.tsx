@@ -146,7 +146,7 @@ function SearchDiaryMain() {
 
   const LIMIT_COUNT: number = 20;
   const offset: number = (searchCurrentPage - 1) * LIMIT_COUNT; // 각 페이지에서 첫 데이터의 위치(index) 계산
-  const inputText: any = useRef(null);
+  const inputText = useRef<HTMLInputElement>(null);
 
   // 전체 diary 데이터 get 요청
   const getDiaryData = async () => {
@@ -168,7 +168,7 @@ function SearchDiaryMain() {
 
   // 검색 페이지 진입 시 검색바에 자동 포커스
   useEffect(() => {
-    inputText.current.focus();
+    inputText.current?.focus();
   }, []);
 
   // 검색 페이지 진입 시 메인 다이어리 로딩 상태 true로 변경

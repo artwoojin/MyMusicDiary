@@ -4,14 +4,14 @@ import Main from "./pages/Main";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import Spinner from "./components/common/Spinner";
-import { useState, lazy, Suspense, useEffect } from "react";
+import { lazy, Suspense, useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
 import { ThemeProvider } from "styled-components";
 import { lightMode, darkMode } from "./assets/style/theme";
-import { MyContext } from "./util/MyContext";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.min.css";
 import SearchDiary from "./pages/Search";
+import { useAppSelector } from "./redux/hooks/hooks";
 
 const ToastAlert = styled(ToastContainer)`
   .Toastify__toast {
@@ -31,14 +31,7 @@ const DetailDiary = lazy(() => import("./pages/DetailDiary"));
 const EditDiary = lazy(() => import("./pages/EditDiary"));
 
 function App() {
-  const LocalTheme: string | null = localStorage.getItem("theme");
-  const [isChange, setIsChange] = useState<string | null>(LocalTheme);
-
-  const changeMode = () => {
-    const changeTheme = isChange === "light" ? "dark" : "light";
-    setIsChange(changeTheme);
-    localStorage.setItem("theme", changeTheme);
-  };
+  const modeState = useAppSelector((state) => state.themeReducer.isChange);
 
   // 브라우저 종료/새로고침 시 메인/마이 페이지 탭, 페이지, 블록, 검색어 로컬스토리지 초기화
   const removeLocalStorage = () => {
@@ -61,31 +54,24 @@ function App() {
   }, []);
 
   return (
-    <MyContext.Provider
-      value={{
-        isChange,
-        changeMode,
-      }}
-    >
-      <ThemeProvider theme={isChange === "dark" ? darkMode : lightMode}>
-        <Suspense fallback={<Spinner />}>
-          <div className='App'>
-            <GlobalStyle />
-            <Routes>
-              <Route path='/' element={<Main />} />
-              <Route path='/NewDiary' element={<NewDiary />} />
-              <Route path='/Mypage' element={<Mypage />} />
-              <Route path='/Login' element={<Login />} />
-              <Route path='/Signup' element={<Signup />} />
-              <Route path='/DetailDiary/:diaryId' element={<DetailDiary />} />
-              <Route path='/EditDiary/:diaryId' element={<EditDiary />} />
-              <Route path='/Search' element={<SearchDiary />} />
-            </Routes>
-            <ToastAlert hideProgressBar={false} autoClose={2000} pauseOnFocusLoss={true} />
-          </div>
-        </Suspense>
-      </ThemeProvider>
-    </MyContext.Provider>
+    <ThemeProvider theme={modeState === "dark" ? darkMode : lightMode}>
+      <Suspense fallback={<Spinner />}>
+        <div className='App'>
+          <GlobalStyle />
+          <Routes>
+            <Route path='/' element={<Main />} />
+            <Route path='/NewDiary' element={<NewDiary />} />
+            <Route path='/Mypage' element={<Mypage />} />
+            <Route path='/Login' element={<Login />} />
+            <Route path='/Signup' element={<Signup />} />
+            <Route path='/DetailDiary/:diaryId' element={<DetailDiary />} />
+            <Route path='/EditDiary/:diaryId' element={<EditDiary />} />
+            <Route path='/Search' element={<SearchDiary />} />
+          </Routes>
+          <ToastAlert hideProgressBar={false} autoClose={2000} pauseOnFocusLoss={true} />
+        </div>
+      </Suspense>
+    </ThemeProvider>
   );
 }
 

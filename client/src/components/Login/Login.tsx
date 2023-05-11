@@ -1,14 +1,13 @@
 import styled from "styled-components";
 import * as Signup from "../Signup/Signup";
-import { useContext } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { BASE_API } from "../../util/API";
 import { toast } from "react-toastify";
 import { FormValue } from "../../util/Type";
-import { MyContext } from "../../util/MyContext";
 import logo_black from "../../assets/images/logo_black.png";
 import logo_white from "../../assets/images/logo_white.png";
+import { useAppSelector } from "../../redux/hooks/hooks";
 
 const FormContainer = styled.form`
   display: flex;
@@ -56,7 +55,7 @@ function Login() {
     formState: { errors },
   } = useForm<FormValue>();
 
-  const { isChange }: any = useContext(MyContext);
+  const modeState = useAppSelector((state) => state.themeReducer.isChange);
   const navigate = useNavigate();
 
   const onSubmit: SubmitHandler<FormValue> = async (data) => {
@@ -81,7 +80,7 @@ function Login() {
   return (
     <Signup.SignContainer>
       <Link to='/'>
-        {isChange === "dark" ? <Signup.Logo src={logo_white} /> : <Signup.Logo src={logo_black} />}
+        {modeState === "dark" ? <Signup.Logo src={logo_white} /> : <Signup.Logo src={logo_black} />}
       </Link>
       <FormContainer>
         <EmailInput

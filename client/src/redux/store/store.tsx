@@ -1,11 +1,13 @@
 import { configureStore } from "@reduxjs/toolkit";
 import loadingSlice from "../slice/loading";
 import loginSlice from "../slice/login";
+import themeSlice from "../slice/theme";
 
 const store = configureStore({
   reducer: {
     loadingReducer: loadingSlice.reducer,
     loginReducer: loginSlice.reducer,
+    themeReducer: themeSlice.reducer,
   },
 });
 
