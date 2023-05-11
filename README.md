@@ -44,19 +44,19 @@
 ## 시연 영상
 |**회원가입**|**로그인**|
 |:---:|:---:|
-|<img width="360px" src="https://user-images.githubusercontent.com/115632555/235355425-02b8922c-911e-4142-8f7b-705cccb2231b.gif"/>|<img width="360px" src="https://user-images.githubusercontent.com/115632555/235355579-6df996d3-04e9-4d93-834d-e22eab250100.gif"/>|
+|<img width="360px" src="https://user-images.githubusercontent.com/115632555/235355425-02b8922c-911e-4142-8f7b-705cccb2231b.gif"/>|<img width="360px" src="https://github.com/artwoojin/MyMusicDiary/assets/115632555/35e791ec-0c6f-4156-93c3-fdbb021514e6"/>|
 |**다이어리 등록**|**다이어리 수정 및 삭제**|
 |<img width="360px" src="https://user-images.githubusercontent.com/115632555/235355813-a92c18fe-4e6f-4546-a57f-c368c8cd483f.gif"/>|<img width="360px" src="https://user-images.githubusercontent.com/115632555/235355910-1bed73c0-1016-430e-bb71-20441dc96006.gif"/>|
-|**태그**|**좋아요**|
-|<img width="360px" src="https://user-images.githubusercontent.com/115632555/235356292-162636dc-e789-4136-b03e-0be47379063b.gif"/>|<img width="360px" src="https://user-images.githubusercontent.com/115632555/235356368-19215cdd-4f53-4a8c-83a3-d36a00a7e45d.gif"/>|
+|**태그 및 정렬**|**다이어리 검색**|
+|<img width="360px" src="https://github.com/artwoojin/MyMusicDiary/assets/115632555/a5a3d3e4-9c71-45c0-8dcf-824ab1ed5ab1"/>|<img width="360px" src="https://github.com/artwoojin/MyMusicDiary/assets/115632555/9141df60-1e62-4e16-9c3b-70f30b890f2f"/>|
 |**댓글 등록**|**댓글 수정 및 삭제**|
 |<img width="360px" src="https://user-images.githubusercontent.com/115632555/235356431-2e05042a-fec8-48d9-a15c-de9bde1f2231.gif"/>|<img width="360px" src="https://user-images.githubusercontent.com/115632555/235356493-0240458d-1af1-41ec-bd2a-69a25443d934.gif"/>|
 |**프로필 이미지 등록 및 제거**|**닉네임/비밀번호 수정**|
-|<img width="360px" src="https://user-images.githubusercontent.com/115632555/235356631-49149fb4-0721-4e49-84e5-7514267f82bd.gif"/>|<img width="360px" src="https://user-images.githubusercontent.com/115632555/235356687-4ae97885-37e7-4535-8514-19b5761deaca.gif"/>|
+|<img width="360px" src="https://github.com/artwoojin/MyMusicDiary/assets/115632555/e02737dd-78b7-4e5f-be19-e238e5d8c553"/>|<img width="360px" src="https://github.com/artwoojin/MyMusicDiary/assets/115632555/631a0aab-9066-4f3f-ace5-abe8848b0c27"/>|
 |**회원탈퇴**|**나의 다이어리/좋아한 다이어리/나의 댓글**|
 |<img width="360px" src="https://user-images.githubusercontent.com/115632555/235356793-45a03868-95f3-4a13-948c-a5d3c3c3453c.gif"/>|<img width="360px" src="https://user-images.githubusercontent.com/115632555/235356960-cef09415-4230-4d28-bb42-f0562dfd524f.gif"/>|
 |**로그아웃**|**다크모드**|
-|<img width="360px" src="https://user-images.githubusercontent.com/115632555/235357022-41c78b01-276f-43ed-b13d-06b79c33f23a.gif"/>|<img width="360px" src="https://user-images.githubusercontent.com/115632555/235357107-5e9f8293-8fe6-4d4e-8e06-65ff86bae865.gif"/>|
+|<img width="360px" src="https://github.com/artwoojin/MyMusicDiary/assets/115632555/8aa4a01a-532c-4b12-be83-075f9d85f74c"/>|<img width="360px" src="https://github.com/artwoojin/MyMusicDiary/assets/115632555/e180c99b-c971-42b5-8571-67025741c0bf"/>|
 
 ## :file_folder: 문서함
 + [사용자 요구사항 정의서](https://docs.google.com/spreadsheets/d/153_ai6GDBJg-27FtsVWuoYXmLJgbkPunSy3rcv6PI70/edit#gid=1432785522)
