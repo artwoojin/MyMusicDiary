@@ -4,7 +4,7 @@
 
 <br/>
 <div  align="center">
-  <img width="60%" src="https://user-images.githubusercontent.com/115632555/234539738-76b6c0f3-5653-4302-bfdc-b3a13af8c24f.png" alt="ipillu-logo">
+  <img width="60%" src="https://github.com/artwoojin/MyMusicDiary/assets/115632555/e7f9cabf-366e-414e-841e-2910fdd97ca8" alt="ipillu-logo">
 </div>
 <h3 align="center">평범한 플레이리스트가 아닌 추억이 담긴 나만의 음악 다이어리</h3>
 </br>
