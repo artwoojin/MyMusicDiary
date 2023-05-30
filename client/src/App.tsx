@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import GlobalStyle from "./assets/style/GlobalStyle";
+import GlobalStyle from "./assets/style/globalStyle";
 import Main from "./pages/Main";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
