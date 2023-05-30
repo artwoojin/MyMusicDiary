@@ -197,9 +197,9 @@ function Pagination({
     if (mainCurrentPage <= 1) {
       return;
     } else if (mainCurrentPage - 1 <= PAGE_COUNT * mainBlockNum) {
-      setMainBlockNum((n: number) => n - 1);
+      setMainBlockNum(mainBlockNum - 1);
     }
-    setMainCurrentPage((n: number) => n - 1);
+    setMainCurrentPage(mainCurrentPage - 1);
     window.scrollTo(0, parseInt(document.body.style.top || "0", 10) * -1);
   };
 
@@ -208,9 +208,9 @@ function Pagination({
     if (mainCurrentPage >= numAllPages) {
       return;
     } else if (PAGE_COUNT * (mainBlockNum + 1) < mainCurrentPage + 1) {
-      setMainBlockNum((n: number) => n + 1);
+      setMainBlockNum(mainBlockNum + 1);
     }
-    setMainCurrentPage((n: number) => n + 1);
+    setMainCurrentPage(mainCurrentPage + 1);
     window.scrollTo(0, parseInt(document.body.style.top || "0", 10) * -1);
   };
 
