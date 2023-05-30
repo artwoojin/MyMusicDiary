@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 interface Theme {
-  isChange: any;
+  isChange: string | null;
 }
 
 const initialLoadingState: Theme = {
