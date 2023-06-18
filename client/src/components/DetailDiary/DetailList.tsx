@@ -410,8 +410,8 @@ function DetailList({ list, getDetailData }: DiaryDataProps) {
 
   // 드롭다운 외부 클릭 시 닫기
   useEffect(() => {
-    const handleOutsideClose = (e: any) => {
-      if (isOpen && !dropMenuRef.current?.contains(e.target)) setIsOpen(false);
+    const handleOutsideClose = (e: MouseEvent) => {
+      if (isOpen && !dropMenuRef.current?.contains(e.target as HTMLElement)) setIsOpen(false);
     };
     document.addEventListener("click", handleOutsideClose);
     return () => document.removeEventListener("click", handleOutsideClose);
