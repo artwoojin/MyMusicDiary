@@ -230,15 +230,15 @@ function LoginHeader() {
   }, []);
 
   // 드롬다운 오픈 이벤트
-  const openDropdown = (e: any) => {
+  const openDropdown = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     e.stopPropagation();
     setIsOpen(!isOpen);
   };
 
   // 드롭다운 외부 클릭 시 닫기
   useEffect(() => {
-    const handleOutsideClose = (e: any) => {
-      if (isOpen && !dropMenuRef.current?.contains(e.target)) setIsOpen(false);
+    const handleOutsideClose = (e: MouseEvent) => {
+      if (isOpen && !dropMenuRef.current?.contains(e.target as HTMLElement)) setIsOpen(false);
     };
     document.addEventListener("click", handleOutsideClose);
     return () => document.removeEventListener("click", handleOutsideClose);
