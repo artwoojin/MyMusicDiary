@@ -1,8 +1,8 @@
 import EditList from "./EditList";
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { DiaryData } from "../../util/Type";
-import { BASE_API } from "../../util/API";
+import { DiaryData } from "../../util/interface";
+import { BASE_API } from "../../util/api";
 
 function EditMain() {
   const [detailData, setDetailData] = useState<DiaryData>();

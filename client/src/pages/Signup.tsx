@@ -1,9 +1,9 @@
 import * as Styled from "../assets/style/authStyle";
 import { useNavigate, Link } from "react-router-dom";
 import { SubmitHandler, useForm } from "react-hook-form";
-import { BASE_API } from "../util/API";
+import { BASE_API } from "../util/api";
 import { toast } from "react-toastify";
-import { FormValue } from "../util/Type";
+import { FormValue } from "../util/interface";
 import logo_black from "../assets/images/logo_black.png";
 import logo_white from "../assets/images/logo_white.png";
 import { useAppSelector } from "../redux/hooks/hooks";

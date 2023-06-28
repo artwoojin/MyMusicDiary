@@ -1,6 +1,6 @@
 import styled from "styled-components";
-import { TOKEN_API } from "../../util/API";
-import { UserData, PasswordValue } from "../../util/Type";
+import { TOKEN_API } from "../../util/api";
+import { UserData, PasswordValue } from "../../util/interface";
 import { toast } from "react-toastify";
 import { SubmitHandler, useForm } from "react-hook-form";
 

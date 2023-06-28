@@ -1,8 +1,8 @@
 import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 import { useState, useRef } from "react";
-import { UserData } from "../../util/Type";
-import { TOKEN_API } from "../../util/API";
+import { UserData } from "../../util/interface";
+import { TOKEN_API } from "../../util/api";
 import defaultProfile from "../../assets/images/defaultProfile.png";
 import Modal from "../common/Modal";
 import EditPasswordModal from "./EditPasswordModal";
