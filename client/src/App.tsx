@@ -1,4 +1,3 @@
-import styled from "styled-components";
 import GlobalStyle from "./assets/style/globalStyle";
 import Main from "./pages/Main";
 import Login from "./pages/Login";
@@ -8,22 +7,9 @@ import { lazy, Suspense, useEffect } from "react";
 import { Routes, Route } from "react-router-dom";
 import { ThemeProvider } from "styled-components";
 import { lightMode, darkMode } from "./assets/style/theme";
-import { ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.min.css";
 import SearchDiary from "./pages/Search";
 import { useAppSelector } from "./redux/hooks/hooks";
-
-const ToastAlert = styled(ToastContainer)`
-  .Toastify__toast {
-    font-size: ${(props) => props.theme.font.diaryContentSize}px;
-    color: ${(props) => props.theme.color.mainText};
-    background-color: ${(props) => props.theme.color.inputBackground};
-  }
-
-  .Toastify__close-button {
-    color: ${(props) => props.theme.color.mainText};
-  }
-`;
+import { ToastAlert } from "./assets/style/alertStyle";
 
 const NewDiary = lazy(() => import("./pages/NewDiary"));
 const Mypage = lazy(() => import("./pages/Mypage"));
