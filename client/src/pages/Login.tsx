@@ -1,52 +1,12 @@
-import styled from "styled-components";
-import * as Signup from "./Signup";
+import * as Styled from "../assets/style/authStyle";
 import { useNavigate, Link } from "react-router-dom";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { BASE_API } from "../util/API";
 import { toast } from "react-toastify";
 import { FormValue } from "../util/Type";
 import logo_black from "../assets/images/logo_black.png";
-import logo_white from "../assets/images/logo_black.png";
+import logo_white from "../assets/images/logo_white.png";
 import { useAppSelector } from "../redux/hooks/hooks";
-
-const FormContainer = styled.form`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  width: 90vw;
-  max-width: 400px;
-  min-height: 250px;
-  border-radius: 4px;
-  border: none;
-  border: 1px solid ${(props) => props.theme.color.loginBorderLine};
-  background-color: ${(props) => props.theme.color.inputBackground};
-`;
-
-const EmailInput = styled.input`
-  font-size: 14px;
-  width: 80vw;
-  max-width: 350px;
-  height: 50px;
-  border-radius: 4px;
-  padding: 10px 8px 10px 8px;
-  margin-top: 25px;
-  color: ${(props) => props.theme.color.mainText};
-  border: none;
-  border: 1px solid ${(props) => props.theme.color.loginBorderLine};
-  background-color: ${(props) => props.theme.color.background};
-
-  &:focus {
-    outline: none;
-  }
-`;
-
-// const PasswordFind = styled.div`
-//   margin-top: 23px;
-//   color: ${(props) => props.theme.color.mainText};
-//   font-size: 13px;
-//   cursor: pointer;
-// `;
 
 function Login() {
   const {
@@ -78,38 +38,36 @@ function Login() {
   };
 
   return (
-    <Signup.SignContainer>
+    <Styled.SignContainer>
       <Link to='/'>
-        {modeState === "dark" ? <Signup.Logo src={logo_white} /> : <Signup.Logo src={logo_black} />}
+        {modeState === "dark" ? <Styled.Logo src={logo_white} /> : <Styled.Logo src={logo_black} />}
       </Link>
-      <FormContainer>
-        <EmailInput
+      <Styled.FormContainer>
+        <Styled.FormValueInput
           type='email'
           placeholder='이메일'
           {...register("email", {
             required: "이메일을 입력해 주세요.",
           })}
         />
-        {errors.email && <Signup.EmailErrormsg>{errors.email.message}</Signup.EmailErrormsg>}
-        <Signup.PasswordInput
+        {errors.email && <Styled.ErrorMsg>{errors.email.message}</Styled.ErrorMsg>}
+        <Styled.FormValueInput
           type='password'
           placeholder='비밀번호'
           {...register("password", {
             required: "비밀번호를 입력해 주세요.",
           })}
         />
-        {errors.password && (
-          <Signup.PasswordErrormsg>{errors.password.message}</Signup.PasswordErrormsg>
-        )}
-        <Signup.SubmitButton onClick={handleSubmit(onSubmit)}>로그인</Signup.SubmitButton>
-      </FormContainer>
+        {errors.password && <Styled.ErrorMsg>{errors.password.message}</Styled.ErrorMsg>}
+        <Styled.SubmitButton onClick={handleSubmit(onSubmit)}>로그인</Styled.SubmitButton>
+      </Styled.FormContainer>
       {/* <PasswordFind>비밀번호를 잊으셨나요?</PasswordFind> */}
       <Link to='/Signup'>
-        <Signup.MovePageButton>
+        <Styled.MovePageButton>
           계정이 없으신가요? <span className='bold'>가입하기</span>
-        </Signup.MovePageButton>
+        </Styled.MovePageButton>
       </Link>
-    </Signup.SignContainer>
+    </Styled.SignContainer>
   );
 }
 

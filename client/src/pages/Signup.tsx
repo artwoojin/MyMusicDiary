@@ -1,144 +1,12 @@
-import styled from "styled-components";
+import * as Styled from "../assets/style/authStyle";
 import { useNavigate, Link } from "react-router-dom";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { BASE_API } from "../util/API";
 import { toast } from "react-toastify";
 import { FormValue } from "../util/Type";
 import logo_black from "../assets/images/logo_black.png";
-import logo_white from "../assets/images/logo_black.png";
+import logo_white from "../assets/images/logo_white.png";
 import { useAppSelector } from "../redux/hooks/hooks";
-
-export const SignContainer = styled.div`
-  height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-`;
-
-export const Logo = styled.img`
-  width: 200px;
-  height: 100px;
-`;
-
-const FormContainer = styled.form`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  width: 90vw;
-  max-width: 400px;
-  min-height: 305px;
-  border-radius: 4px;
-  border: none;
-  border: 1px solid ${(props) => props.theme.color.loginBorderLine};
-  background-color: ${(props) => props.theme.color.inputBackground};
-`;
-
-const NicknameInput = styled.input`
-  font-size: 14px;
-  width: 80vw;
-  max-width: 350px;
-  height: 50px;
-  border-radius: 4px;
-  padding: 10px 8px 10px 8px;
-  margin-top: 25px;
-  color: ${(props) => props.theme.color.mainText};
-  border: none;
-  border: 1px solid ${(props) => props.theme.color.loginBorderLine};
-  background-color: ${(props) => props.theme.color.background};
-
-  &:focus {
-    outline: none;
-  }
-`;
-
-const EmailInput = styled.input`
-  font-size: 14px;
-  width: 80vw;
-  max-width: 350px;
-  height: 50px;
-  border-radius: 4px;
-  padding: 10px 8px 10px 8px;
-  margin-top: 10px;
-  color: ${(props) => props.theme.color.mainText};
-  border: none;
-  border: 1px solid ${(props) => props.theme.color.loginBorderLine};
-  background-color: ${(props) => props.theme.color.background};
-
-  &:focus {
-    outline: none;
-  }
-`;
-
-export const PasswordInput = styled.input`
-  font-size: 14px;
-  width: 80vw;
-  max-width: 350px;
-  height: 50px;
-  border-radius: 4px;
-  padding: 10px 8px 10px 8px;
-  margin-top: 10px;
-  color: ${(props) => props.theme.color.mainText};
-  border: none;
-  border: 1px solid ${(props) => props.theme.color.loginBorderLine};
-  background-color: ${(props) => props.theme.color.background};
-
-  &:focus {
-    outline: none;
-  }
-`;
-
-export const SubmitButton = styled.button`
-  width: 80vw;
-  max-width: 350px;
-  height: 45px;
-  border: none;
-  border-radius: 4px;
-  margin-bottom: 25px;
-  color: ${(props) => props.theme.color.signatureText};
-  font-size: ${(props) => props.theme.font.diaryContentSize}px;
-  font-weight: ${(props) => props.theme.font.titleWeight};
-  margin-top: 30px;
-  background-color: ${(props) => props.theme.color.signature};
-  cursor: pointer;
-
-  &:hover {
-    background-color: ${(props) => props.theme.color.signatureHover};
-  }
-`;
-
-export const MovePageButton = styled.button`
-  font-size: ${(props) => props.theme.font.diaryContentSize}px;
-  margin-top: 25px;
-  margin-bottom: 50px;
-  width: 90vw;
-  max-width: 400px;
-  height: 60px;
-  border-radius: 4px;
-  border: none;
-  color: ${(props) => props.theme.color.mainText};
-  border: 1px solid ${(props) => props.theme.color.loginBorderLine};
-  background-color: ${(props) => props.theme.color.inputBackground};
-  cursor: pointer;
-
-  > .bold {
-    font-weight: ${(props) => props.theme.font.titleWeight};
-  }
-`;
-
-export const EmailErrormsg = styled.div`
-  margin-top: 6px;
-  color: #d0393e;
-  font-size: 12px;
-`;
-
-export const PasswordErrormsg = styled.div`
-  margin-top: 6px;
-  margin-bottom: -17px;
-  color: #d0393e;
-  font-size: 12px;
-`;
 
 function Signup() {
   const {
@@ -168,12 +36,12 @@ function Signup() {
   };
 
   return (
-    <SignContainer>
+    <Styled.SignContainer>
       <Link to='/'>
-        {modeState === "dark" ? <Logo src={logo_white} /> : <Logo src={logo_black} />}
+        {modeState === "dark" ? <Styled.Logo src={logo_white} /> : <Styled.Logo src={logo_black} />}
       </Link>
-      <FormContainer>
-        <NicknameInput
+      <Styled.FormContainer>
+        <Styled.FormValueInput
           type='text'
           placeholder='닉네임'
           {...register("nickname", {
@@ -181,8 +49,8 @@ function Signup() {
             maxLength: { value: 10, message: "10자리 이하로 입력해 주세요." },
           })}
         />
-        {errors.nickname && <EmailErrormsg>{errors.nickname.message}</EmailErrormsg>}
-        <EmailInput
+        {errors.nickname && <Styled.ErrorMsg>{errors.nickname.message}</Styled.ErrorMsg>}
+        <Styled.FormValueInput
           type='email'
           placeholder='이메일'
           {...register("email", {
@@ -193,8 +61,8 @@ function Signup() {
             },
           })}
         />
-        {errors.email && <EmailErrormsg>{errors.email.message}</EmailErrormsg>}
-        <PasswordInput
+        {errors.email && <Styled.ErrorMsg>{errors.email.message}</Styled.ErrorMsg>}
+        <Styled.FormValueInput
           type='password'
           placeholder='비밀번호'
           {...register("password", {
@@ -213,17 +81,17 @@ function Signup() {
             },
           })}
         />
-        {errors.password && <PasswordErrormsg>{errors.password.message}</PasswordErrormsg>}
-        <SubmitButton type='button' onClick={handleSubmit(onSubmit)}>
+        {errors.password && <Styled.ErrorMsg>{errors.password.message}</Styled.ErrorMsg>}
+        <Styled.SubmitButton type='button' onClick={handleSubmit(onSubmit)}>
           가입
-        </SubmitButton>
-      </FormContainer>
+        </Styled.SubmitButton>
+      </Styled.FormContainer>
       <Link to='/login'>
-        <MovePageButton>
+        <Styled.MovePageButton>
           계정이 있으신가요? <span className='bold'>로그인</span>
-        </MovePageButton>
+        </Styled.MovePageButton>
       </Link>
-    </SignContainer>
+    </Styled.SignContainer>
   );
 }
 
