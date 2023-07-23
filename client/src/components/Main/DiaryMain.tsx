@@ -4,8 +4,8 @@ import Skeleton from "../common/Skeleton";
 import ScrollTopButton from "../common/scrollTopButton";
 import styled from "styled-components";
 import { useState, useEffect } from "react";
-import { DiaryData } from "../../util/Type";
-import { BASE_API } from "../../util/API";
+import { DiaryData } from "../../util/interface";
+import { BASE_API } from "../../util/api";
 import { mainDiaryFulfilled, mainDiaryRejected } from "../../redux/slice/loading";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks/hooks";
 

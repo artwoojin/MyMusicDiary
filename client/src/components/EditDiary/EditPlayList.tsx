@@ -1,5 +1,5 @@
 import * as NewPlayList from "../NewDiary/NewPlayList";
-import { PlaylistData } from "../../util/Type";
+import { PlaylistData } from "../../util/interface";
 import mainIcon from "../../assets/images/mainIcon.png";
 
 interface PlaylistDataProps {

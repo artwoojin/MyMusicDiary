@@ -38,7 +38,7 @@ function LogoutHeader() {
 
   // 검색 페이지 이동
   const moveSearch = () => {
-    navigate("/Search");
+    navigate("/search");
     localStorage.removeItem("searchText");
   };
 
@@ -72,10 +72,10 @@ function LogoutHeader() {
               <BsFillSunFill className='lightIcon' size={25} />
             )}
           </LoginHeader.ModeButton>
-          <Link to='/Login'>
+          <Link to='/login'>
             <LoginHeader.NewPost>새 다이어리 작성</LoginHeader.NewPost>
           </Link>
-          <Link to='/Login'>
+          <Link to='/login'>
             <LoginButton>로그인</LoginButton>
           </Link>
         </ButtonArea>

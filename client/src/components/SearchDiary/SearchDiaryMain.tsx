@@ -1,8 +1,8 @@
 import SearchPagination from "./SearchPagination";
 import styled from "styled-components";
 import * as DiaryMain from "../Main/DiaryMain";
-import { DiaryData } from "../../util/Type";
-import { BASE_API } from "../../util/API";
+import { DiaryData } from "../../util/interface";
+import { BASE_API } from "../../util/api";
 import { FiSearch } from "react-icons/fi";
 import { useState, useEffect, useRef } from "react";
 // import noDiary from "../../assets/images/noDiary.png";

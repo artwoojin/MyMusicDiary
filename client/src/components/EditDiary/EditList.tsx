@@ -1,8 +1,8 @@
 import * as NewMain from "../NewDiary/NewMain";
 import { useState, useEffect } from "react";
 import { useParams, useNavigate, Link } from "react-router-dom";
-import { DiaryDataProps, PlaylistData } from "../../util/Type";
-import { TOKEN_API } from "../../util/API";
+import { DiaryDataProps, PlaylistData } from "../../util/interface";
+import { TOKEN_API } from "../../util/api";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import axios from "axios";

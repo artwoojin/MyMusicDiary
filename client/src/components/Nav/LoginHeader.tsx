@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { Link, useNavigate } from "react-router-dom";
 import { useState, useEffect, useRef } from "react";
-import { BASE_API } from "../../util/API";
+import { BASE_API } from "../../util/api";
 import { GoTriangleDown } from "react-icons/go";
 import { BsFillSunFill, BsFillMoonStarsFill } from "react-icons/bs";
 import { FiLogOut, FiEdit3, FiUser, FiSearch } from "react-icons/fi";
@@ -258,7 +258,7 @@ function LoginHeader() {
 
   // 검색 페이지 이동
   const moveSearch = () => {
-    navigate("/Search");
+    navigate("/search");
     localStorage.removeItem("searchText");
   };
 
@@ -288,7 +288,7 @@ function LoginHeader() {
               <BsFillSunFill className='lightIcon' size={25} />
             )}
           </ModeButton>
-          <Link to='/NewDiary'>
+          <Link to='/new'>
             <NewPost>새 다이어리 작성</NewPost>
           </Link>
           <ProfileButton onClick={openDropdown}>
@@ -302,7 +302,7 @@ function LoginHeader() {
           <div ref={dropMenuRef}>
             {isOpen ? (
               <Dropdown>
-                <Link to='/Mypage'>
+                <Link to='/mypage'>
                   <li>
                     <DropdownMyPageButton>
                       <FiUser className='myPageIcon' size={19} />
@@ -310,7 +310,7 @@ function LoginHeader() {
                     </DropdownMyPageButton>
                   </li>
                 </Link>
-                <Link to='/NewDiary'>
+                <Link to='/new'>
                   <li>
                     <DropdownNewWriteButton>
                       <FiEdit3 className='newWriteIcon' size={18} />

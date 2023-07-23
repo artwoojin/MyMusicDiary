@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import * as CommentList from "../DetailDiary/CommentList";
 import { useNavigate } from "react-router-dom";
-import { CommentDataProps } from "../../util/Type";
+import { CommentDataProps } from "../../util/interface";
 import defaultProfile from "../../assets/images/defaultProfile.png";
 
 const CommentListContainer = styled(CommentList.CommentListContainer)`
@@ -24,7 +24,7 @@ function MyComment({ list }: CommentDataProps) {
   const navigate = useNavigate();
 
   const moveDetailDiary = () => {
-    navigate(`/DetailDiary/${list.diaryId}`);
+    navigate(`/detail/${list.diaryId}`);
   };
 
   const replaceImg = (e: any) => {

@@ -4,8 +4,8 @@ import CommentList from "./CommentList";
 import DetailPlayList from "./DetailPlayList";
 import { useState, useEffect, useRef } from "react";
 import { useParams, useNavigate, Link } from "react-router-dom";
-import { DiaryData } from "../../util/Type";
-import { TOKEN_API } from "../../util/API";
+import { DiaryData } from "../../util/interface";
+import { TOKEN_API } from "../../util/api";
 import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
 import { BsTrash } from "react-icons/bs";
 import { RiErrorWarningLine } from "react-icons/ri";
@@ -536,7 +536,7 @@ function DetailList({ list, getDetailData }: DiaryDataProps) {
                 <div ref={dropMenuRef}>
                   {isOpen ? (
                     <Dropdown>
-                      <Link to={`/EditDiary/${list.diaryId}`}>
+                      <Link to={`/edit/${list.diaryId}`}>
                         <li>
                           <DropdownEditButton>
                             <FiEdit className='editIcon' size={17} />

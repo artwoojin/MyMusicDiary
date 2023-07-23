@@ -1,8 +1,8 @@
 import DetailList from "./DetailList";
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { DiaryData } from "../../util/Type";
-import { BASE_API } from "../../util/API";
+import { DiaryData } from "../../util/interface";
+import { BASE_API } from "../../util/api";
 import {
   mainDiaryRejected,
   searchDiaryRejected,

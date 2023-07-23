@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { PlaylistData } from "../../util/Type";
+import { PlaylistData } from "../../util/interface";
 import mainIcon from "../../assets/images/mainIcon.png";
 
 export const PlayListContainer = styled.li`

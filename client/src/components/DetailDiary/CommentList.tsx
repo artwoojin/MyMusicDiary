@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { useState } from "react";
-import { CommentData } from "../../util/Type";
-import { TOKEN_API } from "../../util/API";
+import { CommentData } from "../../util/interface";
+import { TOKEN_API } from "../../util/api";
 import defaultProfile from "../../assets/images/defaultProfile.png";
 import Modal from "../common/Modal";
 import { useAppSelector } from "../../redux/hooks/hooks";

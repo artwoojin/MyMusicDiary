@@ -1,6 +1,6 @@
 import * as DiaryList from "../Main/DiaryList";
 import { Link } from "react-router-dom";
-import { DiaryDataProps } from "../../util/Type";
+import { DiaryDataProps } from "../../util/interface";
 import { AiFillHeart } from "react-icons/ai";
 import { FaRegCommentDots } from "react-icons/fa";
 import mainIcon from "../../assets/images/mainIcon.png";
@@ -13,7 +13,7 @@ function MyLikeDiary({ list }: DiaryDataProps) {
 
   return (
     <DiaryList.DiaryListContainer>
-      <Link to={`/DetailDiary/${list.diaryId}`}>
+      <Link to={`/detail/${list.diaryId}`}>
         <DiaryList.Thumbnail
           src={list.playlists[0].thumbnail ? list.playlists[0].thumbnail : mainIcon}
           alt='첫번째 앨범 커버'
