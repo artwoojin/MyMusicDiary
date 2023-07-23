@@ -24,7 +24,7 @@ function MyComment({ list }: CommentDataProps) {
   const navigate = useNavigate();
 
   const moveDetailDiary = () => {
-    navigate(`/DetailDiary/${list.diaryId}`);
+    navigate(`/detail/${list.diaryId}`);
   };
 
   const replaceImg = (e: any) => {

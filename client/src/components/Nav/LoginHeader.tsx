@@ -258,7 +258,7 @@ function LoginHeader() {
 
   // 검색 페이지 이동
   const moveSearch = () => {
-    navigate("/Search");
+    navigate("/search");
     localStorage.removeItem("searchText");
   };
 
@@ -288,7 +288,7 @@ function LoginHeader() {
               <BsFillSunFill className='lightIcon' size={25} />
             )}
           </ModeButton>
-          <Link to='/NewDiary'>
+          <Link to='/new'>
             <NewPost>새 다이어리 작성</NewPost>
           </Link>
           <ProfileButton onClick={openDropdown}>
@@ -302,7 +302,7 @@ function LoginHeader() {
           <div ref={dropMenuRef}>
             {isOpen ? (
               <Dropdown>
-                <Link to='/Mypage'>
+                <Link to='/mypage'>
                   <li>
                     <DropdownMyPageButton>
                       <FiUser className='myPageIcon' size={19} />
@@ -310,7 +310,7 @@ function LoginHeader() {
                     </DropdownMyPageButton>
                   </li>
                 </Link>
-                <Link to='/NewDiary'>
+                <Link to='/new'>
                   <li>
                     <DropdownNewWriteButton>
                       <FiEdit3 className='newWriteIcon' size={18} />

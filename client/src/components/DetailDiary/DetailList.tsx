@@ -536,7 +536,7 @@ function DetailList({ list, getDetailData }: DiaryDataProps) {
                 <div ref={dropMenuRef}>
                   {isOpen ? (
                     <Dropdown>
-                      <Link to={`/EditDiary/${list.diaryId}`}>
+                      <Link to={`/edit/${list.diaryId}`}>
                         <li>
                           <DropdownEditButton>
                             <FiEdit className='editIcon' size={17} />

@@ -46,13 +46,13 @@ function App() {
           <GlobalStyle />
           <Routes>
             <Route path='/' element={<Main />} />
-            <Route path='/NewDiary' element={<NewDiary />} />
-            <Route path='/Mypage' element={<Mypage />} />
-            <Route path='/Login' element={<Login />} />
-            <Route path='/Signup' element={<Signup />} />
-            <Route path='/DetailDiary/:diaryId' element={<DetailDiary />} />
-            <Route path='/EditDiary/:diaryId' element={<EditDiary />} />
-            <Route path='/Search' element={<SearchDiary />} />
+            <Route path='/new' element={<NewDiary />} />
+            <Route path='/mypage' element={<Mypage />} />
+            <Route path='/login' element={<Login />} />
+            <Route path='/signup' element={<Signup />} />
+            <Route path='/detail/:diaryId' element={<DetailDiary />} />
+            <Route path='/edit/:diaryId' element={<EditDiary />} />
+            <Route path='/search' element={<SearchDiary />} />
           </Routes>
           <ToastAlert hideProgressBar={false} autoClose={2000} pauseOnFocusLoss={true} />
         </div>
