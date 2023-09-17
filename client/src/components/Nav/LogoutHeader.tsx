@@ -8,29 +8,7 @@ import logo_white from "../../assets/images/logo_white.png";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks/hooks";
 import { changeLightMode, changeDarkMode } from "../../redux/slice/theme";
 
-const ButtonArea = styled.div`
-  display: flex;
-  align-items: center;
-  column-gap: 10px;
-
-  @media screen and (max-width: 721px) {
-    column-gap: 7px;
-  }
-`;
-
-const LoginButton = styled.button`
-  width: 80px;
-  height: 35px;
-  font-weight: ${(props) => props.theme.font.logoWeight};
-  font-size: 15px;
-  background-color: transparent;
-  border-radius: 50px;
-  color: ${(props) => props.theme.color.mainText};
-  border: 1.5px solid ${(props) => props.theme.color.mainText};
-  cursor: pointer;
-`;
-
-function LogoutHeader() {
+export default function LogoutHeader() {
   const dispatch = useAppDispatch();
   const modeState = useAppSelector((state) => state.themeReducer.isChange);
 
@@ -84,4 +62,24 @@ function LogoutHeader() {
   );
 }
 
-export default LogoutHeader;
+const ButtonArea = styled.div`
+  display: flex;
+  align-items: center;
+  column-gap: 10px;
+
+  @media screen and (max-width: 721px) {
+    column-gap: 7px;
+  }
+`;
+
+const LoginButton = styled.button`
+  width: 80px;
+  height: 35px;
+  font-weight: ${(props) => props.theme.font.logoWeight};
+  font-size: 15px;
+  background-color: transparent;
+  border-radius: 50px;
+  color: ${(props) => props.theme.color.mainText};
+  border: 1.5px solid ${(props) => props.theme.color.mainText};
+  cursor: pointer;
+`;

@@ -1,61 +1,6 @@
 import styled from "styled-components";
 import { BiArrowToLeft, BiArrowToRight, BiLeftArrowAlt, BiRightArrowAlt } from "react-icons/bi";
 
-export const PageNum = styled.div`
-  margin: 50px 0 0 0;
-  padding-bottom: 50px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 5px;
-  user-select: none;
-
-  > .pageTab,
-  .leftHandle,
-  .rightHandle {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 30px;
-    height: 30px;
-    background-color: transparent;
-    border: none;
-    font-size: ${(props) => props.theme.font.diaryContentSize}px;
-    color: ${(props) => props.theme.color.mainText};
-    transition: 0.2s ease-in-out;
-    cursor: pointer;
-
-    &:hover {
-      width: 30px;
-      height: 30px;
-      border-radius: 50px;
-      background-color: ${(props) => props.theme.color.buttonHover};
-    }
-
-    &:disabled {
-      color: ${(props) => props.theme.color.pageDisabled};
-      background-color: transparent;
-    }
-  }
-
-  > .pageFocused {
-    width: 30px;
-    height: 30px;
-    background-color: ${(props) => props.theme.color.signature};
-    border: none;
-    border-radius: 50px;
-    color: ${(props) => props.theme.color.signatureText};
-    font-weight: ${(props) => props.theme.font.titleWeight};
-
-    &:hover {
-      width: 30px;
-      height: 30px;
-      border-radius: 50px;
-      background-color: ${(props) => props.theme.color.signature};
-    }
-  }
-`;
-
 interface PaginationProps {
   allPageLength: number;
   LIMIT_COUNT: number;
@@ -74,7 +19,7 @@ interface PaginationProps {
   setMainBlockNum: React.Dispatch<React.SetStateAction<number>>;
 }
 
-function Pagination({
+export default function Pagination({
   LIMIT_COUNT,
   mainCurrentPage,
   setMainCurrentPage,
@@ -620,4 +565,57 @@ function Pagination({
   );
 }
 
-export default Pagination;
+export const PageNum = styled.div`
+  margin: 50px 0 0 0;
+  padding-bottom: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  user-select: none;
+
+  > .pageTab,
+  .leftHandle,
+  .rightHandle {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 30px;
+    height: 30px;
+    background-color: transparent;
+    border: none;
+    font-size: ${(props) => props.theme.font.diaryContentSize}px;
+    color: ${(props) => props.theme.color.mainText};
+    transition: 0.2s ease-in-out;
+    cursor: pointer;
+
+    &:hover {
+      width: 30px;
+      height: 30px;
+      border-radius: 50px;
+      background-color: ${(props) => props.theme.color.buttonHover};
+    }
+
+    &:disabled {
+      color: ${(props) => props.theme.color.pageDisabled};
+      background-color: transparent;
+    }
+  }
+
+  > .pageFocused {
+    width: 30px;
+    height: 30px;
+    background-color: ${(props) => props.theme.color.signature};
+    border: none;
+    border-radius: 50px;
+    color: ${(props) => props.theme.color.signatureText};
+    font-weight: ${(props) => props.theme.font.titleWeight};
+
+    &:hover {
+      width: 30px;
+      height: 30px;
+      border-radius: 50px;
+      background-color: ${(props) => props.theme.color.signature};
+    }
+  }
+`;

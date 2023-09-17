@@ -11,6 +11,134 @@ import logo_white from "../../assets/images/logo_white.png";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks/hooks";
 import { changeLightMode, changeDarkMode } from "../../redux/slice/theme";
 
+export default function LoginHeader() {
+  const [imageData, setImageData] = useState<string>("");
+  const [isOpen, setIsOpen] = useState<boolean>(false);
+
+  const dispatch = useAppDispatch();
+  const modeState = useAppSelector((state) => state.themeReducer.isChange);
+  const currentUserInfo = useAppSelector((state) => state.loginReducer.currentUserInfo);
+
+  const navigate = useNavigate();
+  const dropMenuRef = useRef<HTMLDivElement | null>(null);
+
+  // 내 유저 정보 get 요청
+  const getImageData = async () => {
+    try {
+      const res = await BASE_API.get(`/users/${currentUserInfo.userId}`);
+      setImageData(res.data.imageUrl);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+  useEffect(() => {
+    getImageData();
+  }, []);
+
+  // 드롬다운 오픈 이벤트
+  const openDropdown = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+    e.stopPropagation();
+    setIsOpen(!isOpen);
+  };
+
+  // 드롭다운 외부 클릭 시 닫기
+  useEffect(() => {
+    const handleOutsideClose = (e: MouseEvent) => {
+      if (isOpen && !dropMenuRef.current?.contains(e.target as HTMLElement)) setIsOpen(false);
+    };
+    document.addEventListener("click", handleOutsideClose);
+    return () => document.removeEventListener("click", handleOutsideClose);
+  }, [isOpen]);
+
+  // 로그아웃
+  const logOut = () => {
+    localStorage.removeItem("accessToken");
+    localStorage.removeItem("CURRENT_USER");
+    navigate("/");
+    window.location.reload();
+  };
+
+  const replaceImg = (e: any) => {
+    e.target.src = defaultProfile;
+  };
+
+  // 검색 페이지 이동
+  const moveSearch = () => {
+    navigate("/search");
+    localStorage.removeItem("searchText");
+  };
+
+  // 모드 체인지
+  const modeChange = () => {
+    if (modeState === "light") {
+      dispatch(changeDarkMode());
+    } else if (modeState === "dark") {
+      dispatch(changeLightMode());
+    }
+  };
+
+  return (
+    <HeaderContainer>
+      <HeaderWrapper>
+        <Link to='/'>
+          {modeState === "dark" ? <Logo src={logo_white} /> : <Logo src={logo_black} />}
+        </Link>
+        <ButtonArea>
+          <SearchButton onClick={moveSearch}>
+            <FiSearch size={22} />
+          </SearchButton>
+          <ModeButton onClick={modeChange}>
+            {modeState === "dark" ? (
+              <BsFillMoonStarsFill className='darkIcon' size={20} />
+            ) : (
+              <BsFillSunFill className='lightIcon' size={25} />
+            )}
+          </ModeButton>
+          <Link to='/new'>
+            <NewPost>새 다이어리 작성</NewPost>
+          </Link>
+          <ProfileButton onClick={openDropdown}>
+            <Profile
+              src={imageData ? imageData : defaultProfile}
+              alt='헤더 프로필 이미지'
+              onError={replaceImg}
+            />
+            <GoTriangleDown className='triangleDown' size={14} />
+          </ProfileButton>
+          <div ref={dropMenuRef}>
+            {isOpen ? (
+              <Dropdown>
+                <Link to='/mypage'>
+                  <li>
+                    <DropdownMyPageButton>
+                      <FiUser className='myPageIcon' size={19} />
+                      <div className='myPageText'>마이페이지</div>
+                    </DropdownMyPageButton>
+                  </li>
+                </Link>
+                <Link to='/new'>
+                  <li>
+                    <DropdownNewWriteButton>
+                      <FiEdit3 className='newWriteIcon' size={18} />
+                      <div className='newWriteText'>새 다이어리 작성</div>
+                    </DropdownNewWriteButton>
+                  </li>
+                </Link>
+                <li onClick={logOut}>
+                  <DropdownLogoutButton>
+                    <FiLogOut className='logoutIcon' size={18} />
+                    <div className='logoutText'>로그아웃</div>
+                  </DropdownLogoutButton>
+                </li>
+              </Dropdown>
+            ) : null}
+          </div>
+        </ButtonArea>
+      </HeaderWrapper>
+    </HeaderContainer>
+  );
+}
+
 export const HeaderContainer = styled.nav`
   display: flex;
   justify-content: center;
@@ -204,133 +332,3 @@ const DropdownLogoutButton = styled.button`
     margin-right: 12px;
   }
 `;
-
-function LoginHeader() {
-  const [imageData, setImageData] = useState<string>("");
-  const [isOpen, setIsOpen] = useState<boolean>(false);
-
-  const dispatch = useAppDispatch();
-  const modeState = useAppSelector((state) => state.themeReducer.isChange);
-  const currentUserInfo = useAppSelector((state) => state.loginReducer.currentUserInfo);
-
-  const navigate = useNavigate();
-  const dropMenuRef = useRef<HTMLDivElement | null>(null);
-
-  // 내 유저 정보 get 요청
-  const getImageData = async () => {
-    try {
-      const res = await BASE_API.get(`/users/${currentUserInfo.userId}`);
-      setImageData(res.data.imageUrl);
-    } catch (err) {
-      console.error(err);
-    }
-  };
-  useEffect(() => {
-    getImageData();
-  }, []);
-
-  // 드롬다운 오픈 이벤트
-  const openDropdown = (e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
-    e.stopPropagation();
-    setIsOpen(!isOpen);
-  };
-
-  // 드롭다운 외부 클릭 시 닫기
-  useEffect(() => {
-    const handleOutsideClose = (e: MouseEvent) => {
-      if (isOpen && !dropMenuRef.current?.contains(e.target as HTMLElement)) setIsOpen(false);
-    };
-    document.addEventListener("click", handleOutsideClose);
-    return () => document.removeEventListener("click", handleOutsideClose);
-  }, [isOpen]);
-
-  // 로그아웃
-  const logOut = () => {
-    localStorage.removeItem("accessToken");
-    localStorage.removeItem("CURRENT_USER");
-    navigate("/");
-    window.location.reload();
-  };
-
-  const replaceImg = (e: any) => {
-    e.target.src = defaultProfile;
-  };
-
-  // 검색 페이지 이동
-  const moveSearch = () => {
-    navigate("/search");
-    localStorage.removeItem("searchText");
-  };
-
-  // 모드 체인지
-  const modeChange = () => {
-    if (modeState === "light") {
-      dispatch(changeDarkMode());
-    } else if (modeState === "dark") {
-      dispatch(changeLightMode());
-    }
-  };
-
-  return (
-    <HeaderContainer>
-      <HeaderWrapper>
-        <Link to='/'>
-          {modeState === "dark" ? <Logo src={logo_white} /> : <Logo src={logo_black} />}
-        </Link>
-        <ButtonArea>
-          <SearchButton onClick={moveSearch}>
-            <FiSearch size={22} />
-          </SearchButton>
-          <ModeButton onClick={modeChange}>
-            {modeState === "dark" ? (
-              <BsFillMoonStarsFill className='darkIcon' size={20} />
-            ) : (
-              <BsFillSunFill className='lightIcon' size={25} />
-            )}
-          </ModeButton>
-          <Link to='/new'>
-            <NewPost>새 다이어리 작성</NewPost>
-          </Link>
-          <ProfileButton onClick={openDropdown}>
-            <Profile
-              src={imageData ? imageData : defaultProfile}
-              alt='헤더 프로필 이미지'
-              onError={replaceImg}
-            />
-            <GoTriangleDown className='triangleDown' size={14} />
-          </ProfileButton>
-          <div ref={dropMenuRef}>
-            {isOpen ? (
-              <Dropdown>
-                <Link to='/mypage'>
-                  <li>
-                    <DropdownMyPageButton>
-                      <FiUser className='myPageIcon' size={19} />
-                      <div className='myPageText'>마이페이지</div>
-                    </DropdownMyPageButton>
-                  </li>
-                </Link>
-                <Link to='/new'>
-                  <li>
-                    <DropdownNewWriteButton>
-                      <FiEdit3 className='newWriteIcon' size={18} />
-                      <div className='newWriteText'>새 다이어리 작성</div>
-                    </DropdownNewWriteButton>
-                  </li>
-                </Link>
-                <li onClick={logOut}>
-                  <DropdownLogoutButton>
-                    <FiLogOut className='logoutIcon' size={18} />
-                    <div className='logoutText'>로그아웃</div>
-                  </DropdownLogoutButton>
-                </li>
-              </Dropdown>
-            ) : null}
-          </div>
-        </ButtonArea>
-      </HeaderWrapper>
-    </HeaderContainer>
-  );
-}
-
-export default LoginHeader;

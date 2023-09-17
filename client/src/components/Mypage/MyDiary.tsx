@@ -6,7 +6,7 @@ import { FaRegCommentDots } from "react-icons/fa";
 import mainIcon from "../../assets/images/mainIcon.png";
 import defaultProfile from "../../assets/images/defaultProfile.png";
 
-function MyDiary({ list }: DiaryDataProps) {
+export default function MyDiary({ list }: DiaryDataProps) {
   const replaceImg = (e: any) => {
     e.target.src = mainIcon;
   };
@@ -48,5 +48,3 @@ function MyDiary({ list }: DiaryDataProps) {
     </DiaryList.DiaryListContainer>
   );
 }
-
-export default MyDiary;

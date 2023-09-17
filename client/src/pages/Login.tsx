@@ -8,7 +8,7 @@ import logo_black from "../assets/images/logo_black.png";
 import logo_white from "../assets/images/logo_white.png";
 import { useAppSelector } from "../redux/hooks/hooks";
 
-function Login() {
+export default function Login() {
   const {
     register,
     handleSubmit,
@@ -70,5 +70,3 @@ function Login() {
     </Styled.SignContainer>
   );
 }
-
-export default Login;

@@ -1,5 +1,66 @@
 import styled from "styled-components";
 
+export default function Skeleton() {
+  return (
+    <DiaryMainContainer>
+      <DiaryMainWrapper>
+        <DiaryListContainer>
+          <Thumbnail />
+          <InfoArea>
+            <div className='infoTitle'></div>
+            <div className='infoDate'></div>
+          </InfoArea>
+          <UserArea>
+            <ByUsername>
+              <Profile />
+              <div className='userNickname'></div>
+            </ByUsername>
+          </UserArea>
+        </DiaryListContainer>
+        <DiaryListContainer>
+          <Thumbnail />
+          <InfoArea>
+            <div className='infoTitle'></div>
+            <div className='infoDate'></div>
+          </InfoArea>
+          <UserArea>
+            <ByUsername>
+              <Profile />
+              <div className='userNickname'></div>
+            </ByUsername>
+          </UserArea>
+        </DiaryListContainer>
+        <DiaryListContainer>
+          <Thumbnail />
+          <InfoArea>
+            <div className='infoTitle'></div>
+            <div className='infoDate'></div>
+          </InfoArea>
+          <UserArea>
+            <ByUsername>
+              <Profile />
+              <div className='userNickname'></div>
+            </ByUsername>
+          </UserArea>
+        </DiaryListContainer>
+        <DiaryListContainer>
+          <Thumbnail />
+          <InfoArea>
+            <div className='infoTitle'></div>
+            <div className='infoDate'></div>
+          </InfoArea>
+          <UserArea>
+            <ByUsername>
+              <Profile />
+              <div className='userNickname'></div>
+            </ByUsername>
+          </UserArea>
+        </DiaryListContainer>
+      </DiaryMainWrapper>
+    </DiaryMainContainer>
+  );
+}
+
 const DiaryMainContainer = styled.div`
   display: flex;
   justify-content: center;
@@ -90,66 +151,3 @@ const Profile = styled.div`
   border-radius: 50%;
   background: ${(props) => props.theme.color.borderLine};
 `;
-
-function Skeleton() {
-  return (
-    <DiaryMainContainer>
-      <DiaryMainWrapper>
-        <DiaryListContainer>
-          <Thumbnail />
-          <InfoArea>
-            <div className='infoTitle'></div>
-            <div className='infoDate'></div>
-          </InfoArea>
-          <UserArea>
-            <ByUsername>
-              <Profile />
-              <div className='userNickname'></div>
-            </ByUsername>
-          </UserArea>
-        </DiaryListContainer>
-        <DiaryListContainer>
-          <Thumbnail />
-          <InfoArea>
-            <div className='infoTitle'></div>
-            <div className='infoDate'></div>
-          </InfoArea>
-          <UserArea>
-            <ByUsername>
-              <Profile />
-              <div className='userNickname'></div>
-            </ByUsername>
-          </UserArea>
-        </DiaryListContainer>
-        <DiaryListContainer>
-          <Thumbnail />
-          <InfoArea>
-            <div className='infoTitle'></div>
-            <div className='infoDate'></div>
-          </InfoArea>
-          <UserArea>
-            <ByUsername>
-              <Profile />
-              <div className='userNickname'></div>
-            </ByUsername>
-          </UserArea>
-        </DiaryListContainer>
-        <DiaryListContainer>
-          <Thumbnail />
-          <InfoArea>
-            <div className='infoTitle'></div>
-            <div className='infoDate'></div>
-          </InfoArea>
-          <UserArea>
-            <ByUsername>
-              <Profile />
-              <div className='userNickname'></div>
-            </ByUsername>
-          </UserArea>
-        </DiaryListContainer>
-      </DiaryMainWrapper>
-    </DiaryMainContainer>
-  );
-}
-
-export default Skeleton;

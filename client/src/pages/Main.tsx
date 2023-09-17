@@ -5,13 +5,7 @@ import LoginHeader from "../components/Nav/LoginHeader";
 import LogoutHeader from "../components/Nav/LogoutHeader";
 import { useAppSelector } from "../redux/hooks/hooks";
 
-export const Page = styled.div`
-  background-color: ${(props) => props.theme.color.background};
-  transition: 0.2s ease-in-out;
-  height: 100vh;
-`;
-
-function Main() {
+export default function Main() {
   const loginState = useAppSelector((state) => state.loginReducer.isLogin);
 
   return (
@@ -23,4 +17,8 @@ function Main() {
   );
 }
 
-export default Main;
+export const Page = styled.div`
+  background-color: ${(props) => props.theme.color.background};
+  transition: 0.2s ease-in-out;
+  height: 100vh;
+`;

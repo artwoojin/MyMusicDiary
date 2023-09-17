@@ -19,73 +19,7 @@ import {
 import { useAppDispatch, useAppSelector } from "../../redux/hooks/hooks";
 import Skeleton from "../common/Skeleton";
 
-const ListTab = styled.ul`
-  display: flex;
-  justify-content: center;
-  font-size: 17px;
-  margin: 50px 0 45px 0;
-  padding: 0 15px 0 15px;
-  gap: 10px;
-  word-break: keep-all;
-
-  .tab {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 200px;
-    height: 40px;
-    text-align: center;
-    cursor: pointer;
-
-    > .el {
-      color: ${(props) => props.theme.color.subText};
-      font-weight: ${(props) => props.theme.font.titleWeight};
-    }
-
-    // 721px 이하에서 탭 글씨 크기 축소
-    @media screen and (max-width: 721px) {
-      font-size: 13px;
-    }
-  }
-
-  .focused {
-    border-bottom: 2px solid ${(props) => props.theme.color.mainText};
-
-    > .el {
-      color: ${(props) => props.theme.color.mainText};
-      font-weight: ${(props) => props.theme.font.logoWeight};
-    }
-  }
-`;
-
-const MypageWrapper = styled.div`
-  width: 100vw;
-  max-width: 850px;
-  padding: 0 10px 0 10px;
-`;
-
-const CommentCountWrapper = styled.div`
-  font-size: 17px;
-  height: 33px;
-  padding: 0 5px 0 5px;
-  border-bottom: 1px solid ${(props) => props.theme.color.borderLine};
-`;
-
-const CommentInfo = styled.div`
-  display: flex;
-
-  > .countNum {
-    font-weight: ${(props) => props.theme.font.titleWeight};
-    color: ${(props) => props.theme.color.mainText};
-  }
-
-  > .countText {
-    font-weight: ${(props) => props.theme.font.contentWeight};
-    color: ${(props) => props.theme.color.subText};
-  }
-`;
-
-function MypageMain() {
+export default function MypageMain() {
   const [myUserData, setMyUserData] = useState<UserData>();
   const [myDiaryData, setMyDiaryData] = useState<DiaryData[]>([]);
   const [myLikeDiaryData, setMyLikeDiaryData] = useState<DiaryData[]>([]);
@@ -272,4 +206,68 @@ function MypageMain() {
   );
 }
 
-export default MypageMain;
+const ListTab = styled.ul`
+  display: flex;
+  justify-content: center;
+  font-size: 17px;
+  margin: 50px 0 45px 0;
+  padding: 0 15px 0 15px;
+  gap: 10px;
+  word-break: keep-all;
+
+  .tab {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 200px;
+    height: 40px;
+    text-align: center;
+    cursor: pointer;
+
+    > .el {
+      color: ${(props) => props.theme.color.subText};
+      font-weight: ${(props) => props.theme.font.titleWeight};
+    }
+
+    // 721px 이하에서 탭 글씨 크기 축소
+    @media screen and (max-width: 721px) {
+      font-size: 13px;
+    }
+  }
+
+  .focused {
+    border-bottom: 2px solid ${(props) => props.theme.color.mainText};
+
+    > .el {
+      color: ${(props) => props.theme.color.mainText};
+      font-weight: ${(props) => props.theme.font.logoWeight};
+    }
+  }
+`;
+
+const MypageWrapper = styled.div`
+  width: 100vw;
+  max-width: 850px;
+  padding: 0 10px 0 10px;
+`;
+
+const CommentCountWrapper = styled.div`
+  font-size: 17px;
+  height: 33px;
+  padding: 0 5px 0 5px;
+  border-bottom: 1px solid ${(props) => props.theme.color.borderLine};
+`;
+
+const CommentInfo = styled.div`
+  display: flex;
+
+  > .countNum {
+    font-weight: ${(props) => props.theme.font.titleWeight};
+    color: ${(props) => props.theme.color.mainText};
+  }
+
+  > .countText {
+    font-weight: ${(props) => props.theme.font.contentWeight};
+    color: ${(props) => props.theme.color.subText};
+  }
+`;

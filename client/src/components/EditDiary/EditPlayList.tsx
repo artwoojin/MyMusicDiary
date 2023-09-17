@@ -8,7 +8,7 @@ interface PlaylistDataProps {
   setEditPlayList: Function;
 }
 
-function EditPlayList({ list, editPlayList, setEditPlayList }: PlaylistDataProps) {
+export default function EditPlayList({ list, editPlayList, setEditPlayList }: PlaylistDataProps) {
   const deleteList = (deleteId: string | undefined) => {
     setEditPlayList(editPlayList.filter((value: any) => value.url !== deleteId));
   };
@@ -37,5 +37,3 @@ function EditPlayList({ list, editPlayList, setEditPlayList }: PlaylistDataProps
     </NewPlayList.PlayListContainer>
   );
 }
-
-export default EditPlayList;

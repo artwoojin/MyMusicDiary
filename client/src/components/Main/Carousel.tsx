@@ -5,6 +5,48 @@ import "slick-carousel/slick/slick-theme.css";
 import firstCarousel from "../../assets/images/firstCarousel.png";
 import secondCarousel from "../../assets/images/secondCarousel.png";
 
+export default function Carousel() {
+  const settings = {
+    dots: true,
+    infinite: true,
+    speed: 500,
+    autoplay: true,
+    autoplaySpeed: 7000,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    arrows: false,
+  };
+
+  return (
+    <StyledSlider {...settings}>
+      <FirstSlide>
+        <ContentArea>
+          <PromotionTitle>
+            <div className='mainTitle'>
+              평범한 플레이리스트가 아닌 추억이 담긴 나만의 음악 다이어리
+            </div>
+            <div className='subTitle'>소중했던 순간을 남겨보세요 ✏️</div>
+          </PromotionTitle>
+          <PromotionImg>
+            <img src={firstCarousel} alt='listen music' />
+          </PromotionImg>
+        </ContentArea>
+      </FirstSlide>
+      <SecondSlide>
+        <ContentArea>
+          <PromotionTitle>
+            <div className='mainTitle'>다른 사람들은 어떤 음악을 좋아할까?</div>
+            <div className='subTitle'>이제 마리플에서 같이 들어요 🎵</div>
+          </PromotionTitle>
+          <PromotionImg>
+            <img src={secondCarousel} alt='love music' />
+          </PromotionImg>
+        </ContentArea>
+      </SecondSlide>
+    </StyledSlider>
+  );
+}
+
 const StyledSlider = styled(Slider)`
   height: 325px;
 
@@ -96,47 +138,3 @@ const PromotionImg = styled.div`
     }
   }
 `;
-
-function Carousel() {
-  const settings = {
-    dots: true,
-    infinite: true,
-    speed: 500,
-    autoplay: true,
-    autoplaySpeed: 7000,
-    slidesToShow: 1,
-    slidesToScroll: 1,
-    arrows: false,
-  };
-
-  return (
-    <StyledSlider {...settings}>
-      <FirstSlide>
-        <ContentArea>
-          <PromotionTitle>
-            <div className='mainTitle'>
-              평범한 플레이리스트가 아닌 추억이 담긴 나만의 음악 다이어리
-            </div>
-            <div className='subTitle'>소중했던 순간을 남겨보세요 ✏️</div>
-          </PromotionTitle>
-          <PromotionImg>
-            <img src={firstCarousel} alt='listen music' />
-          </PromotionImg>
-        </ContentArea>
-      </FirstSlide>
-      <SecondSlide>
-        <ContentArea>
-          <PromotionTitle>
-            <div className='mainTitle'>다른 사람들은 어떤 음악을 좋아할까?</div>
-            <div className='subTitle'>이제 마리플에서 같이 들어요 🎵</div>
-          </PromotionTitle>
-          <PromotionImg>
-            <img src={secondCarousel} alt='love music' />
-          </PromotionImg>
-        </ContentArea>
-      </SecondSlide>
-    </StyledSlider>
-  );
-}
-
-export default Carousel;

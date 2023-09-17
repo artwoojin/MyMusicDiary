@@ -6,101 +6,12 @@ import defaultProfile from "../../assets/images/defaultProfile.png";
 import Modal from "../common/Modal";
 import { useAppSelector } from "../../redux/hooks/hooks";
 
-export const CommentListContainer = styled.li`
-  display: flex;
-  justify-content: center;
-  border-bottom: 1px solid ${(props) => props.theme.color.borderLine};
-
-  :last-child {
-    border-bottom: none;
-  }
-`;
-
-export const CommentListWrapper = styled.div`
-  width: 100vw;
-  max-width: 900px;
-  border: none;
-  padding: 0 5px 0 5px;
-
-  .name {
-    font-size: 14px;
-    font-weight: ${(props) => props.theme.font.titleWeight};
-    margin: 15px 0 15px 0;
-    color: ${(props) => props.theme.color.mainText};
-  }
-
-  .content {
-    font-size: ${(props) => props.theme.font.diaryContentSize}px;
-    color: ${(props) => props.theme.color.mainText};
-  }
-
-  .date {
-    font-size: 13px;
-    margin: 10px 0 15px 0;
-    color: ${(props) => props.theme.color.thirdText};
-  }
-`;
-
-const NameArea = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 10px;
-`;
-
-const EditCommentArea = styled.input`
-  color: ${(props) => props.theme.color.mainText};
-  width: 100%;
-  padding: 10px 8px 10px 8px;
-  border: none;
-  border-radius: 4px;
-  border: 1px solid ${(props) => props.theme.color.borderLine};
-  background-color: ${(props) => props.theme.color.inputBackground};
-
-  &:focus {
-    outline: none;
-  }
-`;
-
-export const UserInfoArea = styled.div`
-  display: flex;
-  align-items: center;
-`;
-
-export const Profile = styled.img`
-  width: 30px;
-  height: 30px;
-  margin-right: 8px;
-  border-radius: 50%;
-  object-fit: cover;
-  background-color: ${(props) => props.theme.color.inputBackground};
-`;
-
-const ButtonArea = styled.div`
-  display: flex;
-
-  > button {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 13px;
-    padding: 5px;
-    background-color: transparent;
-    color: ${(props) => props.theme.color.subText};
-    font-weight: ${(props) => props.theme.font.titleWeight};
-    width: 40px;
-    border: none;
-    text-decoration: underline;
-    cursor: pointer;
-  }
-`;
-
 interface CommentDataProps {
   list: CommentData;
   getDetailData: React.Dispatch<React.SetStateAction<object>>;
 }
 
-function CommentList({ list, getDetailData }: CommentDataProps) {
+export default function CommentList({ list, getDetailData }: CommentDataProps) {
   const [commentContent, setCommentContent] = useState(list.body);
   const [click, setClick] = useState<boolean>(false);
   const [deleteCommentModal, setDeleteCommentModal] = useState<boolean>(false);
@@ -212,4 +123,91 @@ function CommentList({ list, getDetailData }: CommentDataProps) {
   );
 }
 
-export default CommentList;
+export const CommentListContainer = styled.li`
+  display: flex;
+  justify-content: center;
+  border-bottom: 1px solid ${(props) => props.theme.color.borderLine};
+
+  :last-child {
+    border-bottom: none;
+  }
+`;
+
+export const CommentListWrapper = styled.div`
+  width: 100vw;
+  max-width: 900px;
+  border: none;
+  padding: 0 5px 0 5px;
+
+  .name {
+    font-size: 14px;
+    font-weight: ${(props) => props.theme.font.titleWeight};
+    margin: 15px 0 15px 0;
+    color: ${(props) => props.theme.color.mainText};
+  }
+
+  .content {
+    font-size: ${(props) => props.theme.font.diaryContentSize}px;
+    color: ${(props) => props.theme.color.mainText};
+  }
+
+  .date {
+    font-size: 13px;
+    margin: 10px 0 15px 0;
+    color: ${(props) => props.theme.color.thirdText};
+  }
+`;
+
+const NameArea = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+`;
+
+const EditCommentArea = styled.input`
+  color: ${(props) => props.theme.color.mainText};
+  width: 100%;
+  padding: 10px 8px 10px 8px;
+  border: none;
+  border-radius: 4px;
+  border: 1px solid ${(props) => props.theme.color.borderLine};
+  background-color: ${(props) => props.theme.color.inputBackground};
+
+  &:focus {
+    outline: none;
+  }
+`;
+
+export const UserInfoArea = styled.div`
+  display: flex;
+  align-items: center;
+`;
+
+export const Profile = styled.img`
+  width: 30px;
+  height: 30px;
+  margin-right: 8px;
+  border-radius: 50%;
+  object-fit: cover;
+  background-color: ${(props) => props.theme.color.inputBackground};
+`;
+
+const ButtonArea = styled.div`
+  display: flex;
+
+  > button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 13px;
+    padding: 5px;
+    background-color: transparent;
+    color: ${(props) => props.theme.color.subText};
+    font-weight: ${(props) => props.theme.font.titleWeight};
+    width: 40px;
+    border: none;
+    text-decoration: underline;
+    cursor: pointer;
+  }
+`;

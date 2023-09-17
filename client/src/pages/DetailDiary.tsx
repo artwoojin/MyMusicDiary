@@ -4,7 +4,7 @@ import LoginHeader from "../components/Nav/LoginHeader";
 import LogoutHeader from "../components/Nav/LogoutHeader";
 import { useAppSelector } from "../redux/hooks/hooks";
 
-function DetailDiary() {
+export default function DetailDiary() {
   const loginState = useAppSelector((state) => state.loginReducer.isLogin);
 
   return (
@@ -14,5 +14,3 @@ function DetailDiary() {
     </Main.Page>
   );
 }
-
-export default DetailDiary;

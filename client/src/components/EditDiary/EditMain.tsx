@@ -4,7 +4,7 @@ import { useParams } from "react-router-dom";
 import { DiaryData } from "../../util/type";
 import { BASE_API } from "../../util/api";
 
-function EditMain() {
+export default function EditMain() {
   const [detailData, setDetailData] = useState<DiaryData>();
 
   const { diaryId } = useParams();
@@ -24,5 +24,3 @@ function EditMain() {
 
   return <>{detailData && <EditList list={detailData} />}</>;
 }
-
-export default EditMain;

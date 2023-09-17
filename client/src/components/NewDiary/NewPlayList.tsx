@@ -2,6 +2,42 @@ import styled from "styled-components";
 import { PlaylistData } from "../../util/type";
 import mainIcon from "../../assets/images/mainIcon.png";
 
+interface PlaylistDataProps {
+  list: PlaylistData;
+  newPlayList: PlaylistData[];
+  setNewPlayList: React.Dispatch<React.SetStateAction<PlaylistData[]>>;
+}
+
+export default function NewPlayList({ list, newPlayList, setNewPlayList }: PlaylistDataProps) {
+  const deleteList = (deleteUrl: string | undefined) => {
+    setNewPlayList(newPlayList.filter((value: PlaylistData) => value.url !== deleteUrl));
+  };
+
+  const replaceImg = (e: any) => {
+    e.target.src = mainIcon;
+  };
+
+  return (
+    <PlayListContainer>
+      <PlayListWrapper>
+        <ContentArea>
+          <img
+            className='thumbnail'
+            src={list.thumbnail ? list.thumbnail : mainIcon}
+            alt='썸네일'
+            onError={replaceImg}
+          />
+          <div className='listTitle'>{list.title}</div>
+          <div className='listChannelTitle'>{list.channelTitle}</div>
+          <button className='delete' onClick={() => deleteList(list.url)}>
+            삭제
+          </button>
+        </ContentArea>
+      </PlayListWrapper>
+    </PlayListContainer>
+  );
+}
+
 export const PlayListContainer = styled.li`
   display: flex;
   justify-content: center;
@@ -70,41 +106,3 @@ export const ContentArea = styled.div`
     cursor: pointer;
   }
 `;
-
-interface PlaylistDataProps {
-  list: PlaylistData;
-  newPlayList: PlaylistData[];
-  setNewPlayList: React.Dispatch<React.SetStateAction<PlaylistData[]>>;
-}
-
-function NewPlayList({ list, newPlayList, setNewPlayList }: PlaylistDataProps) {
-  const deleteList = (deleteUrl: string | undefined) => {
-    setNewPlayList(newPlayList.filter((value: PlaylistData) => value.url !== deleteUrl));
-  };
-
-  const replaceImg = (e: any) => {
-    e.target.src = mainIcon;
-  };
-
-  return (
-    <PlayListContainer>
-      <PlayListWrapper>
-        <ContentArea>
-          <img
-            className='thumbnail'
-            src={list.thumbnail ? list.thumbnail : mainIcon}
-            alt='썸네일'
-            onError={replaceImg}
-          />
-          <div className='listTitle'>{list.title}</div>
-          <div className='listChannelTitle'>{list.channelTitle}</div>
-          <button className='delete' onClick={() => deleteList(list.url)}>
-            삭제
-          </button>
-        </ContentArea>
-      </PlayListWrapper>
-    </PlayListContainer>
-  );
-}
-
-export default NewPlayList;

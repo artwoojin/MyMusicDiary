@@ -4,23 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { CommentDataProps } from "../../util/type";
 import defaultProfile from "../../assets/images/defaultProfile.png";
 
-const CommentListContainer = styled(CommentList.CommentListContainer)`
-  cursor: pointer;
-
-  > a {
-    text-decoration: none;
-  }
-
-  &:hover {
-    background-color: ${(props) => props.theme.color.buttonHover};
-  }
-`;
-
-const UserInfoArea = styled(CommentList.UserInfoArea)`
-  margin-bottom: 10px;
-`;
-
-function MyComment({ list }: CommentDataProps) {
+export default function MyComment({ list }: CommentDataProps) {
   const navigate = useNavigate();
 
   const moveDetailDiary = () => {
@@ -49,4 +33,18 @@ function MyComment({ list }: CommentDataProps) {
   );
 }
 
-export default MyComment;
+const CommentListContainer = styled(CommentList.CommentListContainer)`
+  cursor: pointer;
+
+  > a {
+    text-decoration: none;
+  }
+
+  &:hover {
+    background-color: ${(props) => props.theme.color.buttonHover};
+  }
+`;
+
+const UserInfoArea = styled(CommentList.UserInfoArea)`
+  margin-bottom: 10px;
+`;

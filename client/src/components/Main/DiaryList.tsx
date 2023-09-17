@@ -6,6 +6,50 @@ import { FaRegCommentDots } from "react-icons/fa";
 import mainIcon from "../../assets/images/mainIcon.png";
 import defaultProfile from "../../assets/images/defaultProfile.png";
 
+export default function DiaryList({ list }: DiaryDataProps) {
+  const replaceImg = (e: any) => {
+    e.target.src = mainIcon;
+  };
+
+  return (
+    <DiaryListContainer>
+      <Link to={`/detail/${list.diaryId}`}>
+        <Thumbnail
+          src={list.playlists[0]?.thumbnail ? list.playlists[0]?.thumbnail : mainIcon}
+          alt='첫번째 앨범 커버'
+          onError={replaceImg}
+        />
+        <InfoArea>
+          <div className='infoTitle'>{list.title}</div>
+          <div className='infoDate'>{list.createdAt.substring(0, 10)}</div>
+          <TagArea>
+            {list.tags.map((value: string, index: number) => {
+              return <li key={index}>{value}</li>;
+            })}
+          </TagArea>
+        </InfoArea>
+        <UserArea>
+          <ByUsername>
+            <Profile
+              src={list?.imageUrl ? list?.imageUrl : defaultProfile}
+              alt='프로필 이미지'
+              onError={replaceImg}
+            />
+            <div className='by'>by</div>
+            <div className='userNickname'>{list.userNickname}</div>
+          </ByUsername>
+          <LikeAndComment>
+            <AiFillHeart className='likeIcon' size={15} />
+            {list.likeCount}
+            <FaRegCommentDots className='commentIcon' size={14} />
+            {list.comments.length}
+          </LikeAndComment>
+        </UserArea>
+      </Link>
+    </DiaryListContainer>
+  );
+}
+
 export const DiaryListContainer = styled.li`
   box-shadow: rgba(0, 0, 0, 0.04) 0px 4px 16px 0px;
   width: 310px;
@@ -122,49 +166,3 @@ export const LikeAndComment = styled.div`
     margin: 0 5px 0 12px;
   }
 `;
-
-function DiaryList({ list }: DiaryDataProps) {
-  const replaceImg = (e: any) => {
-    e.target.src = mainIcon;
-  };
-
-  return (
-    <DiaryListContainer>
-      <Link to={`/detail/${list.diaryId}`}>
-        <Thumbnail
-          src={list.playlists[0]?.thumbnail ? list.playlists[0]?.thumbnail : mainIcon}
-          alt='첫번째 앨범 커버'
-          onError={replaceImg}
-        />
-        <InfoArea>
-          <div className='infoTitle'>{list.title}</div>
-          <div className='infoDate'>{list.createdAt.substring(0, 10)}</div>
-          <TagArea>
-            {list.tags.map((value: string, index: number) => {
-              return <li key={index}>{value}</li>;
-            })}
-          </TagArea>
-        </InfoArea>
-        <UserArea>
-          <ByUsername>
-            <Profile
-              src={list?.imageUrl ? list?.imageUrl : defaultProfile}
-              alt='프로필 이미지'
-              onError={replaceImg}
-            />
-            <div className='by'>by</div>
-            <div className='userNickname'>{list.userNickname}</div>
-          </ByUsername>
-          <LikeAndComment>
-            <AiFillHeart className='likeIcon' size={15} />
-            {list.likeCount}
-            <FaRegCommentDots className='commentIcon' size={14} />
-            {list.comments.length}
-          </LikeAndComment>
-        </UserArea>
-      </Link>
-    </DiaryListContainer>
-  );
-}
-
-export default DiaryList;

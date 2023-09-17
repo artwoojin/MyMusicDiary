@@ -5,7 +5,6 @@ import { DiaryData } from "../../util/type";
 import { BASE_API } from "../../util/api";
 import { FiSearch } from "react-icons/fi";
 import { useState, useEffect, useRef } from "react";
-// import noDiary from "../../assets/images/noDiary.png";
 import ScrollTopButton from "../common/scrollTopButton";
 import Skeleton from "../common/Skeleton";
 import {
@@ -14,121 +13,9 @@ import {
   searchDiaryRejected,
 } from "../../redux/slice/loading";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks/hooks";
-
 import DiaryList from "../Main/DiaryList";
 
-const SearchbarContainer = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  margin: 40px 0 45px 0;
-  padding: 0 15px 0 15px;
-`;
-
-const Searchbar = styled.div`
-  display: flex;
-  align-items: center;
-  position: relative;
-  width: 100%;
-  max-width: 675px;
-
-  > input {
-    width: 100%;
-    height: 50px;
-    margin-bottom: 15px;
-    font-size: ${(props) => props.theme.font.diaryMainTitleSize}px;
-    color: ${(props) => props.theme.color.mainText};
-    padding: 15px;
-    border-radius: 4px;
-    border: none;
-    border: 1px solid ${(props) => props.theme.color.thirdText};
-    background-color: ${(props) => props.theme.color.inputBackground};
-
-    &:focus {
-      border: 1px solid ${(props) => props.theme.color.mainText};
-      outline: none;
-    }
-
-    @media screen and (max-width: 721px) {
-      height: 40px;
-      font-size: 19px;
-      padding: 15px 10px 15px 10px;
-      font-size: 19px;
-    }
-  }
-
-  > button {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: absolute;
-    width: 45px;
-    height: 40px;
-    right: 0;
-    top: 5px;
-    margin-right: 10px;
-    border: none;
-    color: ${(props) => props.theme.color.mainText};
-    border-radius: 4px;
-    background-color: transparent;
-
-    @media screen and (max-width: 721px) {
-      top: 0;
-    }
-  }
-`;
-
-const SearchInfo = styled.div`
-  display: flex;
-  width: 100%;
-  max-width: 675px;
-  font-size: ${(props) => props.theme.font.diarySubTitleSize}px;
-
-  > .countNum {
-    color: ${(props) => props.theme.color.mainText};
-    font-weight: ${(props) => props.theme.font.titleWeight};
-  }
-
-  > .countText {
-    color: ${(props) => props.theme.color.subText};
-    font-weight: ${(props) => props.theme.font.contentWeight};
-  }
-`;
-
-// const NoDiary = styled.div`
-//   display: flex;
-//   justify-content: center;
-//   align-items: center;
-//   flex-direction: column;
-//   width: 100%;
-//   max-width: 675px;
-//   margin-top: 30px;
-//   font-size: 21px;
-
-//   > img {
-//     width: 600px;
-//     height: 400px;
-//     margin-bottom: 10px;
-
-//     @media screen and (max-width: 721px) {
-//       width: 375px;
-//       height: 250px;
-//     }
-//   }
-
-//   > .noDiaryText {
-//     font-size: 25px;
-//     color: ${(props) => props.theme.color.mainText};
-//     font-weight: ${(props) => props.theme.font.logoWeight};
-
-//     @media screen and (max-width: 721px) {
-//       font-size: 22px;
-//     }
-//   }
-// `;
-
-function SearchDiaryMain() {
+export default function SearchDiaryMain() {
   const [diaryData, setDiaryData] = useState<DiaryData[]>([]);
   const [userInput, setUserInput] = useState<string>(
     () => JSON.parse(window.localStorage.getItem("searchText")!) || ""
@@ -231,17 +118,6 @@ function SearchDiaryMain() {
             <div className='countText'>의 다이어리를 찾았습니다.</div>
           </SearchInfo>
         ) : null}
-        {/* {searchDiaryList.length !== 0 && userInput.length !== 0 ? (
-          <SearchIn
-            <div className='countNum'>{searchDiaryList.length}개</div>
-            <div className='countText'>의 다이어리를 찾았습니다.</div>
-          </SearchInfo>
-        ) : userInput.length !== 0 ? (
-          <NoDiary>
-            <img src={noDiary} alt='noDiaryImg' />
-            <div className='noDiaryText'>찾으시는 다이어리가 없어요!</div>
-          </NoDiary>
-        ) : null} */}
       </SearchbarContainer>
       {loadingState ? (
         <Skeleton />
@@ -270,4 +146,81 @@ function SearchDiaryMain() {
   );
 }
 
-export default SearchDiaryMain;
+const SearchbarContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin: 40px 0 45px 0;
+  padding: 0 15px 0 15px;
+`;
+
+const Searchbar = styled.div`
+  display: flex;
+  align-items: center;
+  position: relative;
+  width: 100%;
+  max-width: 675px;
+
+  > input {
+    width: 100%;
+    height: 50px;
+    margin-bottom: 15px;
+    font-size: ${(props) => props.theme.font.diaryMainTitleSize}px;
+    color: ${(props) => props.theme.color.mainText};
+    padding: 15px;
+    border-radius: 4px;
+    border: none;
+    border: 1px solid ${(props) => props.theme.color.thirdText};
+    background-color: ${(props) => props.theme.color.inputBackground};
+
+    &:focus {
+      border: 1px solid ${(props) => props.theme.color.mainText};
+      outline: none;
+    }
+
+    @media screen and (max-width: 721px) {
+      height: 40px;
+      font-size: 19px;
+      padding: 15px 10px 15px 10px;
+      font-size: 19px;
+    }
+  }
+
+  > button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    width: 45px;
+    height: 40px;
+    right: 0;
+    top: 5px;
+    margin-right: 10px;
+    border: none;
+    color: ${(props) => props.theme.color.mainText};
+    border-radius: 4px;
+    background-color: transparent;
+
+    @media screen and (max-width: 721px) {
+      top: 0;
+    }
+  }
+`;
+
+const SearchInfo = styled.div`
+  display: flex;
+  width: 100%;
+  max-width: 675px;
+  font-size: ${(props) => props.theme.font.diarySubTitleSize}px;
+
+  > .countNum {
+    color: ${(props) => props.theme.color.mainText};
+    font-weight: ${(props) => props.theme.font.titleWeight};
+  }
+
+  > .countText {
+    color: ${(props) => props.theme.color.subText};
+    font-weight: ${(props) => props.theme.font.contentWeight};
+  }
+`;

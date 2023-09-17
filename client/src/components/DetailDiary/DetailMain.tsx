@@ -11,7 +11,7 @@ import {
 } from "../../redux/slice/loading";
 import { useAppDispatch } from "../../redux/hooks/hooks";
 
-function DetailMain() {
+export default function DetailMain() {
   const [detailData, setDetailData] = useState<DiaryData>();
 
   const dispatch = useAppDispatch();
@@ -40,5 +40,3 @@ function DetailMain() {
 
   return <>{detailData && <DetailList list={detailData} getDetailData={getDetailData} />}</>;
 }
-
-export default DetailMain;

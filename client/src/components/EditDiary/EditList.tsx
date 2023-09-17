@@ -14,7 +14,7 @@ import { AiFillYoutube } from "react-icons/ai";
 import mainIcon from "../../assets/images/mainIcon.png";
 import Modal from "../common/Modal";
 
-function EditList({ list }: DiaryDataProps) {
+export default function EditList({ list }: DiaryDataProps) {
   const [editTitle, setEditTitle] = useState<string>(list.title);
   const [editTag, setEditTag] = useState<any>(list.tags);
   const [editBody, setEditBody] = useState<string>(list.body);
@@ -332,5 +332,3 @@ function EditList({ list }: DiaryDataProps) {
     </NewMain.MainContainer>
   );
 }
-
-export default EditList;

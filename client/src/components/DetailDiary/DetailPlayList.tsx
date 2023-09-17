@@ -3,6 +3,31 @@ import { Link } from "react-router-dom";
 import { PlaylistDataProps } from "../../util/type";
 import mainIcon from "../../assets/images/mainIcon.png";
 
+export default function DetailPlayList({ list }: PlaylistDataProps) {
+  const replaceImg = (e: any) => {
+    e.target.src = mainIcon;
+  };
+
+  return (
+    <PlayListContainer>
+      <PlayListWrapper>
+        <Link to={list.url!} target='_blank'>
+          <ContentArea>
+            <img
+              className='thumbnail'
+              src={list.thumbnail ? list.thumbnail : mainIcon}
+              alt='썸네일'
+              onError={replaceImg}
+            />
+            <div className='listTitle'>{list.title}</div>
+            <div className='listChannelTitle'>{list.channelTitle}</div>
+          </ContentArea>
+        </Link>
+      </PlayListWrapper>
+    </PlayListContainer>
+  );
+}
+
 const PlayListContainer = styled.li`
   display: flex;
   justify-content: center;
@@ -75,30 +100,3 @@ const ContentArea = styled.div`
     }
   }
 `;
-
-function DetailPlayList({ list }: PlaylistDataProps) {
-  const replaceImg = (e: any) => {
-    e.target.src = mainIcon;
-  };
-
-  return (
-    <PlayListContainer>
-      <PlayListWrapper>
-        <Link to={list.url!} target='_blank'>
-          <ContentArea>
-            <img
-              className='thumbnail'
-              src={list.thumbnail ? list.thumbnail : mainIcon}
-              alt='썸네일'
-              onError={replaceImg}
-            />
-            <div className='listTitle'>{list.title}</div>
-            <div className='listChannelTitle'>{list.channelTitle}</div>
-          </ContentArea>
-        </Link>
-      </PlayListWrapper>
-    </PlayListContainer>
-  );
-}
-
-export default DetailPlayList;

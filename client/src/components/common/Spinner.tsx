@@ -1,6 +1,14 @@
 import styled from "styled-components";
 import MainIcon from "../../assets/images/mainIcon.png";
 
+export default function Spinner() {
+  return (
+    <LoadingContainer>
+      <MainIconImg src={MainIcon} alt='loading' />
+    </LoadingContainer>
+  );
+}
+
 const LoadingContainer = styled.div`
   margin: -8px;
   height: 100vh;
@@ -33,13 +41,3 @@ const MainIconImg = styled.img`
     }
   }
 `;
-
-function Spinner() {
-  return (
-    <LoadingContainer>
-      <MainIconImg src={MainIcon} alt='loading' />
-    </LoadingContainer>
-  );
-}
-
-export default Spinner;

@@ -42,20 +42,18 @@ function App() {
   return (
     <ThemeProvider theme={modeState === "dark" ? darkMode : lightMode}>
       <Suspense fallback={<Spinner />}>
-        <div className='App'>
-          <GlobalStyle />
-          <Routes>
-            <Route path='/' element={<Main />} />
-            <Route path='/new' element={<NewDiary />} />
-            <Route path='/mypage' element={<Mypage />} />
-            <Route path='/login' element={<Login />} />
-            <Route path='/signup' element={<Signup />} />
-            <Route path='/detail/:diaryId' element={<DetailDiary />} />
-            <Route path='/edit/:diaryId' element={<EditDiary />} />
-            <Route path='/search' element={<SearchDiary />} />
-          </Routes>
-          <ToastAlert hideProgressBar={false} autoClose={2000} pauseOnFocusLoss={true} />
-        </div>
+        <GlobalStyle />
+        <Routes>
+          <Route path='/' element={<Main />} />
+          <Route path='/new' element={<NewDiary />} />
+          <Route path='/mypage' element={<Mypage />} />
+          <Route path='/login' element={<Login />} />
+          <Route path='/signup' element={<Signup />} />
+          <Route path='/detail/:diaryId' element={<DetailDiary />} />
+          <Route path='/edit/:diaryId' element={<EditDiary />} />
+          <Route path='/search' element={<SearchDiary />} />
+        </Routes>
+        <ToastAlert hideProgressBar={false} autoClose={2000} pauseOnFocusLoss={true} />
       </Suspense>
     </ThemeProvider>
   );

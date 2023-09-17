@@ -9,170 +9,7 @@ import { BASE_API } from "../../util/api";
 import { mainDiaryFulfilled, mainDiaryRejected } from "../../redux/slice/loading";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks/hooks";
 
-const TagContainer = styled.section`
-  display: flex;
-  justify-content: center;
-  height: 60px;
-  margin: 70px 0 5px 0;
-`;
-
-const ListTab = styled.ul`
-  display: flex;
-  margin: 0 10px 0 10px;
-  padding: 5px;
-  gap: 10px;
-  overflow-x: auto;
-
-  .tab {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-width: 100px;
-    height: 40px;
-    border-radius: 50px;
-    text-align: center;
-    padding: 7px 7px;
-    border: 1px solid ${(props) => props.theme.color.borderLine};
-    transition: 0.2s ease-in-out;
-    cursor: pointer;
-
-    > .el {
-      font-size: 13.5px;
-      color: ${(props) => props.theme.color.thirdText};
-      font-weight: ${(props) => props.theme.font.contentWeight};
-    }
-
-    &:hover {
-      transform: scale(1.04);
-    }
-  }
-
-  .focused {
-    border: 2px solid ${(props) => props.theme.color.signature};
-    background-color: ${(props) => props.theme.color.signature};
-
-    > .el {
-      font-size: 14px;
-      color: ${(props) => props.theme.color.signatureText};
-      font-weight: ${(props) => props.theme.font.titleWeight};
-    }
-  }
-
-  &::-webkit-scrollbar {
-    height: 5px;
-  }
-
-  &::-webkit-scrollbar-thumb {
-    background: ${(props) => props.theme.color.borderLine};
-    border-radius: 50px;
-  }
-`;
-
-const SortedTagContainer = styled.section`
-  display: flex;
-  justify-content: center;
-  height: 60px;
-`;
-
-const SortedListTab = styled.div`
-  width: 100vw;
-  max-width: 1440px;
-  height: 50px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0 20px 0 20px;
-  word-break: keep-all;
-
-  @media screen and (max-width: 1449px) {
-    max-width: 1070px;
-  }
-
-  @media screen and (max-width: 1084px) {
-    max-width: 705px;
-  }
-
-  @media screen and (max-width: 721px) {
-    max-width: 340px;
-  }
-`;
-
-const TagTitle = styled.div`
-  display: flex;
-  align-items: center;
-  color: ${(props) => props.theme.color.mainText};
-  font-size: 19px;
-  font-weight: ${(props) => props.theme.font.titleWeight};
-
-  > .numCount {
-    font-size: 16px;
-    margin: 0 0 3px 5px;
-    color: ${(props) => props.theme.color.subText};
-
-    @media screen and (max-width: 721px) {
-      font-size: 15px;
-    }
-  }
-
-  @media screen and (max-width: 721px) {
-    font-size: 18px;
-  }
-`;
-
-const SortedButtonArea = styled.ul`
-  display: flex;
-  align-items: center;
-  gap: 5px;
-
-  .tab {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 14px;
-    width: 50px;
-    height: 30px;
-    text-align: center;
-    cursor: pointer;
-
-    > .el {
-      color: gray;
-      font-weight: ${(props) => props.theme.font.titleWeight};
-    }
-  }
-
-  .focused > .el {
-    color: ${(props) => props.theme.color.mainText};
-    font-weight: ${(props) => props.theme.font.logoWeight};
-  }
-`;
-
-export const DiaryMainContainer = styled.main`
-  display: flex;
-  justify-content: center;
-`;
-
-export const DiaryMainWrapper = styled.ul`
-  width: 100vw;
-  max-width: 1440px;
-  display: flex;
-  flex-wrap: wrap;
-  padding: 0 15px 0 15px;
-  gap: 55px;
-
-  @media screen and (max-width: 1449px) {
-    max-width: 1070px;
-  }
-
-  @media screen and (max-width: 1084px) {
-    max-width: 705px;
-  }
-
-  @media screen and (max-width: 721px) {
-    max-width: 340px;
-  }
-`;
-
-function DiaryMain() {
+export default function DiaryMain() {
   const [diaryData, setDiaryData] = useState<DiaryData[]>([]); // 전체 diary 데이터
   const [mainCurrentTab, setMainCurrentTab] = useState<number>(
     () => JSON.parse(window.localStorage.getItem("mainCurrentTab")!) || 0
@@ -576,4 +413,165 @@ function DiaryMain() {
   );
 }
 
-export default DiaryMain;
+const TagContainer = styled.section`
+  display: flex;
+  justify-content: center;
+  height: 60px;
+  margin: 70px 0 5px 0;
+`;
+
+const ListTab = styled.ul`
+  display: flex;
+  margin: 0 10px 0 10px;
+  padding: 5px;
+  gap: 10px;
+  overflow-x: auto;
+
+  .tab {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-width: 100px;
+    height: 40px;
+    border-radius: 50px;
+    text-align: center;
+    padding: 7px 7px;
+    border: 1px solid ${(props) => props.theme.color.borderLine};
+    transition: 0.2s ease-in-out;
+    cursor: pointer;
+
+    > .el {
+      font-size: 13.5px;
+      color: ${(props) => props.theme.color.thirdText};
+      font-weight: ${(props) => props.theme.font.contentWeight};
+    }
+
+    &:hover {
+      transform: scale(1.04);
+    }
+  }
+
+  .focused {
+    border: 2px solid ${(props) => props.theme.color.signature};
+    background-color: ${(props) => props.theme.color.signature};
+
+    > .el {
+      font-size: 14px;
+      color: ${(props) => props.theme.color.signatureText};
+      font-weight: ${(props) => props.theme.font.titleWeight};
+    }
+  }
+
+  &::-webkit-scrollbar {
+    height: 5px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: ${(props) => props.theme.color.borderLine};
+    border-radius: 50px;
+  }
+`;
+
+const SortedTagContainer = styled.section`
+  display: flex;
+  justify-content: center;
+  height: 60px;
+`;
+
+const SortedListTab = styled.div`
+  width: 100vw;
+  max-width: 1440px;
+  height: 50px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20px 0 20px;
+  word-break: keep-all;
+
+  @media screen and (max-width: 1449px) {
+    max-width: 1070px;
+  }
+
+  @media screen and (max-width: 1084px) {
+    max-width: 705px;
+  }
+
+  @media screen and (max-width: 721px) {
+    max-width: 340px;
+  }
+`;
+
+const TagTitle = styled.div`
+  display: flex;
+  align-items: center;
+  color: ${(props) => props.theme.color.mainText};
+  font-size: 19px;
+  font-weight: ${(props) => props.theme.font.titleWeight};
+
+  > .numCount {
+    font-size: 16px;
+    margin: 0 0 3px 5px;
+    color: ${(props) => props.theme.color.subText};
+
+    @media screen and (max-width: 721px) {
+      font-size: 15px;
+    }
+  }
+
+  @media screen and (max-width: 721px) {
+    font-size: 18px;
+  }
+`;
+
+const SortedButtonArea = styled.ul`
+  display: flex;
+  align-items: center;
+  gap: 5px;
+
+  .tab {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 14px;
+    width: 50px;
+    height: 30px;
+    text-align: center;
+    cursor: pointer;
+
+    > .el {
+      color: gray;
+      font-weight: ${(props) => props.theme.font.titleWeight};
+    }
+  }
+
+  .focused > .el {
+    color: ${(props) => props.theme.color.mainText};
+    font-weight: ${(props) => props.theme.font.logoWeight};
+  }
+`;
+
+export const DiaryMainContainer = styled.main`
+  display: flex;
+  justify-content: center;
+`;
+
+export const DiaryMainWrapper = styled.ul`
+  width: 100vw;
+  max-width: 1440px;
+  display: flex;
+  flex-wrap: wrap;
+  padding: 0 15px 0 15px;
+  gap: 55px;
+
+  @media screen and (max-width: 1449px) {
+    max-width: 1070px;
+  }
+
+  @media screen and (max-width: 1084px) {
+    max-width: 705px;
+  }
+
+  @media screen and (max-width: 721px) {
+    max-width: 340px;
+  }
+`;
