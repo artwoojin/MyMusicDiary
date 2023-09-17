@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
-import { PlaylistDataProps } from "../../util/interface";
+import { PlaylistDataProps } from "../../util/type";
 import mainIcon from "../../assets/images/mainIcon.png";
 
 const PlayListContainer = styled.li`

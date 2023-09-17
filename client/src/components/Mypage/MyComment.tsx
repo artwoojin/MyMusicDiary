@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import * as CommentList from "../DetailDiary/CommentList";
 import { useNavigate } from "react-router-dom";
-import { CommentDataProps } from "../../util/interface";
+import { CommentDataProps } from "../../util/type";
 import defaultProfile from "../../assets/images/defaultProfile.png";
 
 const CommentListContainer = styled(CommentList.CommentListContainer)`

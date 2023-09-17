@@ -3,7 +3,7 @@ import { useNavigate, Link } from "react-router-dom";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { BASE_API } from "../util/api";
 import { toast } from "react-toastify";
-import { FormValue } from "../util/interface";
+import { FormValue } from "../util/type";
 import logo_black from "../assets/images/logo_black.png";
 import logo_white from "../assets/images/logo_white.png";
 import { useAppSelector } from "../redux/hooks/hooks";

@@ -7,7 +7,7 @@ import MyComment from "./MyComment";
 import MyInfo from "./MyInfo";
 import ScrollTopButton from "../common/scrollTopButton";
 import { useState, useEffect } from "react";
-import { DiaryData, CommentData, UserData } from "../../util/interface";
+import { DiaryData, CommentData, UserData } from "../../util/type";
 import { BASE_API } from "../../util/api";
 import {
   mainDiaryRejected,

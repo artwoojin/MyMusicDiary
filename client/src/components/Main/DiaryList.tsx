@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
-import { DiaryDataProps } from "../../util/interface";
+import { DiaryDataProps } from "../../util/type";
 import { AiFillHeart } from "react-icons/ai";
 import { FaRegCommentDots } from "react-icons/fa";
 import mainIcon from "../../assets/images/mainIcon.png";

@@ -4,7 +4,7 @@ import CommentList from "./CommentList";
 import DetailPlayList from "./DetailPlayList";
 import { useState, useEffect, useRef } from "react";
 import { useParams, useNavigate, Link } from "react-router-dom";
-import { DiaryData } from "../../util/interface";
+import { DiaryData } from "../../util/type";
 import { TOKEN_API } from "../../util/api";
 import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
 import { BsTrash } from "react-icons/bs";

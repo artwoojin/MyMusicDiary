@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { ModalValue } from "../../util/interface";
+import { ModalValue } from "../../util/type";
 
 const ModalBack = styled.div`
   position: fixed;
