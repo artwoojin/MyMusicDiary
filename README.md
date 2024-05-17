@@ -19,7 +19,7 @@
 
 - **`프로젝트 기간` :** 2023.03. - 2023.04
 
-- **`링크` :** [Mariple 홈페이지](https://www.mariple.com/)
+- **`링크` :** [Mariple 홈페이지](https://www.mariple.com/) (2024.5월 현재 서버 내려진 상태입니다.)
 
 <h3 align="center"> <게스트 계정> email : mariple@gmail.com , PW : Mariple1234!</h3>
 
